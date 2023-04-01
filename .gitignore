@@ -25,3 +25,8 @@ hs_err_pid*
 # ignore .DS_Store
 
 */.DS_Store
+
+#.intelliJ
+
+.idea/
+*.iml
