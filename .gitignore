@@ -29,3 +29,20 @@ hs_err_pid*
 
 .idea/
 *.iml
+
+
+# Eclipse
+.metadata
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+.loadpath
+.recommenders
+
+.class/
+.project/
