@@ -8,15 +8,9 @@ public class Athlete {
     protected String name;
 
     /**
-     * athletes' maximum Offensive statistics
+     * Description about types of athletes
      */
-    protected int maxOffenseStat;
-
-    /**
-     * athletes' maximum Defensive statistics
-     */
-    protected int maxDefenseStat;
-
+    protected String description;
     /**
      * athletes' maximum Stamina
      */
@@ -50,20 +44,18 @@ public class Athlete {
     /**
      * Athlete Constructor to create Athletes
      * @param name athlete's name
-     * //@param offenseStat athlete's offense statistic
-     * //@param defenseStat athlete's defense statistic
-     * //@param stamina athlete's stamina
-     * //@param health athlete's health
-     * //@param price athlete's price
+     * @param offenseStat athlete's offense statistic
+     * @param defenseStat athlete's defense statistic
+     * @param stamina athlete's stamina
+     * @param price athlete's price
      */
-    public Athlete(String name) {
+    public Athlete(String name, int offenseStat, int defenseStat, int stamina, float price) {
 
         this.name = name;
-        // this.offenseStat = offenseStat;
-        // this.defenseStat = defenseStat;
-        // this.stamina = stamina;
-        // this.health = health;
-        // this.price = price;
+        this.offenseStat = offenseStat;
+        this.defenseStat = defenseStat;
+        this.stamina = stamina;
+        this.price = price;
     }
 
     /**
@@ -96,36 +88,36 @@ public class Athlete {
     public float getPrice() {return this.price;}
 
     /**
-     * check if an athlete is injured
+     * check if an athlete is injured,
+     * athletes' injured variable becomes true if athletes' stamina is lower than or equal to zero
      * @return athletes' injured status
      */
-    public boolean isInjured() {return this.injured;}
+    public boolean isInjured() {
+
+        this.injured = this.stamina <= 0;
+        return this.injured;
+    }
 
     /**
      * set offense statistics
      * @param changedStat athlete's stat change amount
      */
-    public void setOffenseStat(int changedStat) {
-        this.offenseStat += changedStat;
+    public void setOffenseStat(int changedStat) { this.offenseStat += changedStat; }
 
-        //if stat exceed maximum stat then change it to maximum stat
-        if (this.offenseStat > this.maxOffenseStat) this.offenseStat = this.maxOffenseStat;
-    }
-    public void setDefenseStat(int changedStat) {
-        this.defenseStat += changedStat;
+    /**
+     * set defensive statistics
+     * @param changedStat athlete's stat change amount
+     */
+    public void setDefenseStat(int changedStat) { this.defenseStat += changedStat; }
 
-        //if stat exceed maximum stat then change it to maximum stat
-        if (this.defenseStat > this.maxDefenseStat) this.defenseStat = this.maxDefenseStat;
-    }
+    /**
+     * set changed Stamina, if stamina will adjust to maxStamina if the stamina exceed maximum Stamina
+     * @param changedStamina athlete's stat change amount
+     */
     public void setStamina(int changedStamina) {
         this.stamina += changedStamina;
 
         //if stat exceed maximum stamina then change it to maximum stamina
-        if(this.stamina > this.maxStamina) this.stamina = this.maxStamina;
+        if (this.stamina > this.maxStamina) this.stamina = this.maxStamina;
     }
-
-    /**
-     * set this.injured true if athletes' stamina is equal to or lower than 0
-     */
-    public void setInjured() { if(this.stamina <= 0) this.injured = true; }
 }
