@@ -1,4 +1,4 @@
-package athletes;
+package gameObject.athletes;
 
 public class Athlete {
 
