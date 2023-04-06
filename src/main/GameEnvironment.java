@@ -1,6 +1,6 @@
 package main;
 
-import gameObject.Team;
+import main.gameObject.Team;
 
 public class GameEnvironment {
     /**

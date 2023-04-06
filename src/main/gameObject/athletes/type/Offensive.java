@@ -1,6 +1,6 @@
-package gameObject.athletes.type;
+package main.gameObject.athletes.type;
 
-import gameObject.athletes.Athlete;
+import main.gameObject.athletes.Athlete;
 
 public class Offensive extends Athlete {
 
