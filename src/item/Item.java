@@ -3,16 +3,16 @@ package item;
 
 public class Item {
 	private String name;
-	private float buy_price;
-	private int inc_amount;
-	private String inc_stat;
+	private float buyPrice;
+	private int incAmount;
+	private String incStat;
 	
 	
 	public Item(String name, float buy_price, int inc_amount, String inc_stat) {
 		this.name = name;
-		this.buy_price = buy_price;
-		this.inc_amount = inc_amount;
-		this.inc_stat = inc_stat;
+		this.buyPrice = buy_price;
+		this.incAmount = inc_amount;
+		this.incStat = inc_stat;
 		
 	}
 	
@@ -24,7 +24,7 @@ public class Item {
 	
 	public float getBuyPrice() {
 	
-		return buy_price;
+		return buyPrice;
 	}
 	
 	public double getSellPrice() {
@@ -34,11 +34,11 @@ public class Item {
 	
 	public int getInc_Amount() {
 		
-		return inc_amount;
+		return incAmount;
 	}
 	public String getInc_Stat() {
 		
-		return inc_stat;
+		return incStat;
 	}
 	
 	
