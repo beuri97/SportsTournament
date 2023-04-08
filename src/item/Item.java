@@ -41,13 +41,4 @@ public class Item {
 		return incStat;
 	}
 	
-	
-	public static void main (String[] args) {
-		Item RandomChicken = new RandomChicken();
-		System.out.println(RandomChicken.getInc_Amount());
-		System.out.println(RandomChicken.getInc_Stat());
-		System.out.println(RandomChicken.getSellPrice());
-		
-	}
-	
 }
