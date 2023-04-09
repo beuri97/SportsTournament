@@ -1,4 +1,5 @@
 package main.gameObject.athletes;
+import main.gamesystem.Market.Rarity;
 
 public class Athlete {
 
@@ -11,6 +12,12 @@ public class Athlete {
      * Description about types of athletes
      */
     protected String description;
+    
+    /**
+     * Athletes' Rarity
+     */
+    protected Rarity rarity;
+    
     /**
      * athletes' maximum Stamina
      */
@@ -44,18 +51,14 @@ public class Athlete {
     /**
      * Athlete Constructor to create Athletes
      * @param name athlete's name
-     * @param offenseStat athlete's offense statistic
-     * @param defenseStat athlete's defense statistic
-     * @param stamina athlete's stamina
-     * @param price athlete's price
+     * @param rarity athlete's rarity
+     * @param description athlete's description
      */
-    public Athlete(String name, int offenseStat, int defenseStat, int stamina, float price) {
+    public Athlete(String name, Rarity rarity, String description) {
 
         this.name = name;
-        this.offenseStat = offenseStat;
-        this.defenseStat = defenseStat;
-        this.stamina = stamina;
-        this.price = price;
+        this.rarity = rarity;
+        this. description = description;
     }
 
     /**
@@ -112,12 +115,17 @@ public class Athlete {
 
     /**
      * set changed Stamina, if stamina will adjust to maxStamina if the stamina exceed maximum Stamina
-     * @param changedStamina athlete's stat change amount
+     * @param changedStamina athlete's stamina change amount
      */
     public void setStamina(int changedStamina) {
         this.stamina += changedStamina;
 
-        //if stat exceed maximum stamina then change it to maximum stamina
+        //if stamina exceed maximum stamina then change it to maximum stamina
         if (this.stamina > this.maxStamina) this.stamina = this.maxStamina;
+    }
+    
+    public String toString() {
+    	
+    	return String.format("Name: %s%nRarity: %s%nOffense: %d%nDefense: %d%nStamina: %d%nInjured: %b%nPrice: %.2f%nDescription: %s%n%n", this.name, this.rarity.rarity, this.offenseStat, this.defenseStat, this.stamina, this.injured, this.price, this.description);
     }
 }

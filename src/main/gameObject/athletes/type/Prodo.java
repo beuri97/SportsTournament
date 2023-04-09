@@ -1,13 +1,14 @@
 package main.gameObject.athletes.type;
 
 import main.gameObject.athletes.Athlete;
+import main.gamesystem.Market.Rarity;
 
-public class Counter extends Athlete {
+public class Prodo extends Athlete {
 
-    public Counter(String name, int offensive, int defensive, int stamina, float price) {
+    public Prodo(Rarity rarity) {
 
-        super("Dwayne Johnson", 120, 120, 90, 1200.00f);
-        super.description = "I am the Rock!";
+        super("Prodo Baggins", rarity, "The ring was mine!");
+      
     }
 
 
