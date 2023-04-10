@@ -1,4 +1,4 @@
-package item;
+package main.gameObject.item;
 
 public class YummyStake extends Item{
 	public YummyStake() {

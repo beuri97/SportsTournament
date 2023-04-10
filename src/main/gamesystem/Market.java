@@ -1,25 +1,26 @@
 package main.gamesystem;
 
+import main.gameObject.Product;
 import main.gameObject.athletes.Athlete;
 import main.gameObject.athletes.type.*;
 
 import java.util.Random;
 
-import item.Item;
+import main.gameObject.item.Item;
 
+/**
+ * class for players to interact with Market
+ * @author Yang
+ *
+ */
 public class Market {
 	
 	/**
-	 * For display of athletes
+	 * product array to display for player to buy products
+	 * First row is an array to display athletes, 
+	 * second row is another array to display game items.
 	 */
-	public Athlete[] athletes = new Athlete[5];
-	
-	/**
-	 * For display of items
-	 */
-	public Item[] items = new Item[8];
-	
-	Athletes kind;
+	Product[][] products = new Product[][] {new Product[5], new Product[8]};
 	
 	/**
 	 * Represent kinds of {@link Athlete}. 
@@ -32,12 +33,22 @@ public class Market {
 		ANGELINA, DWAYNE, THORIN, PRODO;
 		
 		
-		Athletes generateAthlete() {
+		static Athletes generateAthlete() {
 			
 			return Athletes.values()[new Random().nextInt(Athletes.values().length)];
 			
 		}
 
+	}
+	
+	enum Items {
+		
+		FATTY_PROK_BELLY, HGIH_DOPING_CANDY, RANDOM_CHICKEN, STAMINA_COOKIE, YUMMY_STAKE, TREAD_MILL;
+		
+		static Items generateItems() {
+			
+			return Items.values()[new Random().nextInt(Items.values().length)];
+		}
 	}
 	
 	public enum Rarity{
@@ -67,28 +78,29 @@ public class Market {
 		
 		
 		if (reset) {
-			for (int i = 0; i < athletes.length; i++) {
 			
-				switch(kind.generateAthlete()) {
+			for (int i = 0; i < products[0].length; i++) {
+			
+				switch(Athletes.generateAthlete()) {
 				
-				case ANGELINA -> athletes[i] = new Angelina(Rarity.setRarity());
-				case DWAYNE -> athletes[i] = new Dwayne(Rarity.setRarity());
-				case THORIN -> athletes[i] = new Thorin(Rarity.setRarity());
-				case PRODO -> athletes[i] = new Prodo(Rarity.setRarity());
+				case ANGELINA -> products[0][i] = new Angelina(Rarity.setRarity());
+				case DWAYNE -> products[0][i] = new Dwayne(Rarity.setRarity());
+				case THORIN -> products[0][i] = new Thorin(Rarity.setRarity());
+				case PRODO -> products[0][i] = new Prodo(Rarity.setRarity());
 				
 				}
 			}
 			
-			for (int i = 0; i < items.length; i++) {
+			for (int i = 0; i < products[1].length; i++) {
 				
 				//TODO - Create enum Items and do same thing as line 72-77;
 			}
 		}
 	}
 	
-	public void purchase(int index) {
+	public Product purchase(int index) {
 		
-		//TODO - Create Interface Purchasable for Class Athlete and Item and generate this method
+		return null;
 		
 	}
 	
@@ -101,8 +113,21 @@ public class Market {
 	
 	public String toString() {
 		
-		//TODO - Create toString method to Class Athlete and Items, and generate its statement
 		
-		return null;
+		String result = "\n\nAthlete\n\n\n";
+		for (Product product : products[0]) result += product;
+		result += "\n\nItem\n\n";
+		for(Product product : products[1]) result += "Not Yet Implemented!\n\n";
+		
+		return result;
 	}
+	
+	
+	public static void main(String[] args) {
+		
+		Market m = new Market(true);
+		System.out.println(m);
+	}
+	
+	
 }
