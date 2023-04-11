@@ -1,30 +1,30 @@
 package main.gamesystem;
 
-import main.gameObject.athletes.Athlete;
+import main.gameObject.Product;
 import main.gameObject.athletes.type.*;
 
 import java.util.Random;
 
-import item.Item;
+import main.gameObject.item.*;
 
+/**
+ * class for players to interact with Market
+ * @author H Yang
+ *
+ */
 public class Market {
 	
 	/**
-	 * For display of athletes
+	 * Products array to display for player to buy products.
+	 * First row is an array to display {@link main.gameObject.athletes.Athlete Athletes}, 
+	 * second row is another array to display game {@link main.gameObject.item.Item Items}.
 	 */
-	public Athlete[] athletes = new Athlete[5];
+	Product[][] products = new Product[][] {new Product[5], new Product[8]};
 	
 	/**
-	 * For display of items
-	 */
-	public Item[] items = new Item[8];
-	
-	Athletes kind;
-	
-	/**
-	 * Represent kinds of {@link Athlete}. 
-	 * This will be used to randomly generate athletes.
-	 * @author Yang
+	 * Represent kinds of {@link main.gameObject.athletes.Athlete Athletes}. 
+	 * This will be used to generate athletes randomly.
+	 * @author H Yang
 	 *
 	 */
 	enum Athletes {
@@ -32,7 +32,7 @@ public class Market {
 		ANGELINA, DWAYNE, THORIN, PRODO;
 		
 		
-		Athletes generateAthlete() {
+		static Athletes generateAthlete() {
 			
 			return Athletes.values()[new Random().nextInt(Athletes.values().length)];
 			
@@ -40,69 +40,93 @@ public class Market {
 
 	}
 	
-	public enum Rarity{
+	/**
+	 * Represent kinds of {@link main.gameObject.item.Item Items}.
+	 * This will be used to generate items randomly.
+	 * @author H Yang
+	 *
+	 */
+	enum Items {
 		
-		NORMAL("Normal"), RARE("Rare"), SUPER_RARE("Super Rare"), SUPER_SUPER_RARE("Super-Super Rare");
+		FATTY_PORK_BELLY, HIGH_DOPING_CANDY, RANDOM_CHICKEN, STAMINA_COOKIE, YUMMY_STAKE, TREAD_MILL;
 		
-		
-		public final String rarity;
-		
-		/**
-		 * Description about athletes' rarity
-		 * @param string Athlete's rarity
-		 */
-		Rarity(String string) {
-			this.rarity = string;
-		}
-		
-		
-		static Rarity setRarity() {
+		static Items generateItems() {
 			
-			return Rarity.values()[new Random().nextInt(Rarity.values().length)];
-		}
-	}
- 	
-	
-	public Market(boolean reset) {
-		
-		
-		if (reset) {
-			for (int i = 0; i < athletes.length; i++) {
-			
-				switch(kind.generateAthlete()) {
-				
-				case ANGELINA -> athletes[i] = new Angelina(Rarity.setRarity());
-				case DWAYNE -> athletes[i] = new Dwayne(Rarity.setRarity());
-				case THORIN -> athletes[i] = new Thorin(Rarity.setRarity());
-				case PRODO -> athletes[i] = new Prodo(Rarity.setRarity());
-				
-				}
-			}
-			
-			for (int i = 0; i < items.length; i++) {
-				
-				//TODO - Create enum Items and do same thing as line 72-77;
-			}
+			return Items.values()[new Random().nextInt(Items.values().length)];
 		}
 	}
 	
-	public void purchase(int index) {
+	/**
+	 * Initialize Market.
+	 * This constructor should be call if the Market needs to be reset.
+	 */
+	public Market() {
 		
-		//TODO - Create Interface Purchasable for Class Athlete and Item and generate this method
 		
+			
+		for (int i = 0; i < products[0].length; i++) {
+			
+			switch(Athletes.generateAthlete()) {
+				
+				case ANGELINA -> products[0][i] = new Angelina();
+				case DWAYNE -> products[0][i] = new Dwayne();
+				case THORIN -> products[0][i] = new Thorin();
+				case PRODO -> products[0][i] = new Prodo();
+			}
+		}
+			
+			
+		for (int i = 0; i < products[1].length; i++) {
+				
+			switch(Items.generateItems()) {
+			
+				case FATTY_PORK_BELLY -> products[1][i] = new FattyPorkBelly();
+				case HIGH_DOPING_CANDY -> products[1][i] = new HighDopingCandy();
+				case RANDOM_CHICKEN -> products[1][i] = new RandomChicken();
+				case STAMINA_COOKIE -> products[1][i] = new StaminaCookie();
+				case TREAD_MILL -> products[1][i] = new TreadMill();
+				case YUMMY_STAKE -> products[1][i] = new YummyStake();
+			}
+		}
+		
+	}
+	
+	/**
+	 * Method to process when user purchases athletes or items.
+	 * @param type row index of products. Integer 0 represents list of athletes, 
+	 * integer 1 represents list of items.
+	 * @param col index of items' or athletes' location that user wish to buy.
+	 * @return purchased item or athlete
+	 */
+	public Product purchase(int type, int col) {
+		
+		
+		Product sold = products[type][col];
+		products[type][col] = null;
+		
+		return sold;
 	}
 	
 	
 	public void sell(int index) {
 		
 		//TODO - Create Interface Purchasable and generate this method
+		// But this method might be removed
+		// Need to think about this method later.
 	}
 	
 	
+	/**
+	 * Returns current market state. Only use this method at CLI UI.
+	 */
 	public String toString() {
 		
-		//TODO - Create toString method to Class Athlete and Items, and generate its statement
 		
-		return null;
+		String result = "\n\nAthlete\n\n\n";
+		for (Product product : products[0]) result += product;
+		result += "\n\nItem\n\n\n";
+		for(Product product : products[1]) result += product;
+		
+		return result;
 	}
 }

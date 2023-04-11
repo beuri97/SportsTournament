@@ -1,7 +1,13 @@
 package main.gameObject.athletes;
-import main.gamesystem.Market.Rarity;
+import main.gameObject.Product;
+import main.gameObject.Rarity;
 
-public class Athlete {
+/**
+ * Class to implement athletes objects in game
+ * @author Yang
+ *
+ */
+public class Athlete implements Product{
 
     /**
      * athlete's name
@@ -16,7 +22,7 @@ public class Athlete {
     /**
      * Athletes' Rarity
      */
-    protected Rarity rarity;
+    protected String rarity;
     
     /**
      * athletes' maximum Stamina
@@ -54,10 +60,11 @@ public class Athlete {
      * @param rarity athlete's rarity
      * @param description athlete's description
      */
-    public Athlete(String name, Rarity rarity, String description) {
-
+    public Athlete(String name, String description) {
+    	
+    	
         this.name = name;
-        this.rarity = rarity;
+        this.rarity = Rarity.setRarity().rarity;
         this. description = description;
     }
 
@@ -124,8 +131,20 @@ public class Athlete {
         if (this.stamina > this.maxStamina) this.stamina = this.maxStamina;
     }
     
+    /**
+     * toString method to show information about athletes.
+     */
+    @Override
     public String toString() {
     	
-    	return String.format("Name: %s%nRarity: %s%nOffense: %d%nDefense: %d%nStamina: %d%nInjured: %b%nPrice: %.2f%nDescription: %s%n%n", this.name, this.rarity.rarity, this.offenseStat, this.defenseStat, this.stamina, this.injured, this.price, this.description);
+    	return String.format("Name: %s%nRarity: %s%nOffense: %d%nDefense: %d%nStamina: %d%nInjured: %b%nPrice: %.2f%nDescription: %s%n%n", 
+    			this.name, this.rarity, this.offenseStat, this.defenseStat, this.stamina, this.injured, this.price, this.description);
     }
+
+	public float getSellPrice() {
+		float sellPrice = this.price;
+		sellPrice *= SELL_PRICE_PENALTY;
+		
+		return sellPrice;
+	}
 }

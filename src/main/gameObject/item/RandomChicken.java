@@ -1,4 +1,4 @@
-package item;
+package main.gameObject.item;
 
 import java.util.*;
 public class RandomChicken extends Item{

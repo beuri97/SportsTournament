@@ -1,7 +1,8 @@
-package item;
+package main.gameObject.item;
 
+import main.gameObject.Product;
 
-public class Item {
+public class Item implements Product{
 	private String name;
 	private float buyPrice;
 	private int incAmount;
@@ -22,13 +23,13 @@ public class Item {
 		return name;
 	}
 	
-	public float getBuyPrice() {
+	public float getPrice() {
 	
 		return buyPrice;
 	}
 	
-	public double getSellPrice() {
-		double i = getBuyPrice() * 0.7;		
+	public float getSellPrice() {
+		float i = getPrice() * SELL_PRICE_PENALTY;		
 		return i;
 	}
 	
@@ -39,6 +40,13 @@ public class Item {
 	public String getInc_Stat() {
 		
 		return incStat;
+	}
+	
+	
+	public String toString() {
+		
+		return String.format("item: %s%nEffect: %s +%d%nprice: %.2f%n%n", 
+				this.name, this.incStat, this.incAmount, this.buyPrice);
 	}
 	
 }
