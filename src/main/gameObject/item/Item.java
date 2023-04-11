@@ -42,4 +42,11 @@ public class Item implements Product{
 		return incStat;
 	}
 	
+	
+	public String toString() {
+		
+		return String.format("item: %s%nEffect: %s +%d%nprice: %.2f%n%n", 
+				this.name, this.incStat, this.incAmount, this.buyPrice);
+	}
+	
 }

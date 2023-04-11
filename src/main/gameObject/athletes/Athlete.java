@@ -1,6 +1,6 @@
 package main.gameObject.athletes;
 import main.gameObject.Product;
-import main.gamesystem.Market.Rarity;
+import main.gameObject.Rarity;
 
 /**
  * Class to implement athletes objects in game
@@ -22,7 +22,7 @@ public class Athlete implements Product{
     /**
      * Athletes' Rarity
      */
-    protected Rarity rarity;
+    protected String rarity;
     
     /**
      * athletes' maximum Stamina
@@ -60,10 +60,11 @@ public class Athlete implements Product{
      * @param rarity athlete's rarity
      * @param description athlete's description
      */
-    public Athlete(String name, Rarity rarity, String description) {
-
+    public Athlete(String name, String description) {
+    	
+    	
         this.name = name;
-        this.rarity = rarity;
+        this.rarity = Rarity.setRarity().rarity;
         this. description = description;
     }
 
@@ -137,7 +138,7 @@ public class Athlete implements Product{
     public String toString() {
     	
     	return String.format("Name: %s%nRarity: %s%nOffense: %d%nDefense: %d%nStamina: %d%nInjured: %b%nPrice: %.2f%nDescription: %s%n%n", 
-    			this.name, this.rarity.rarity, this.offenseStat, this.defenseStat, this.stamina, this.injured, this.price, this.description);
+    			this.name, this.rarity, this.offenseStat, this.defenseStat, this.stamina, this.injured, this.price, this.description);
     }
 
 	public float getSellPrice() {
