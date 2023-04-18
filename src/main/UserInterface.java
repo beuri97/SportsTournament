@@ -1,6 +1,6 @@
 package main;
 
-public interface GameEnvironmentUi{
+public interface UserInterface {
 
 	
 	public String NAME_CHAR_REQUIREMENT = "Team name cannot include any special character.";

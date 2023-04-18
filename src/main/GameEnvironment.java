@@ -1,8 +1,5 @@
 package main;
 
-import java.util.Scanner;
-import java.util.regex.Pattern;
-
 import main.gameObject.Team;
 
 public class GameEnvironment {
@@ -15,7 +12,7 @@ public class GameEnvironment {
     
     Team team;
     
-    private GameEnvironmentUi userInterface;
+    private UserInterface userInterface;
     
 
 	
@@ -23,7 +20,7 @@ public class GameEnvironment {
 	/**
 	 * Start new game by setting up Team name, number of weeks for season and difficulty of game 
 	 */
-	public GameEnvironment(GameEnvironmentUi userInterface) {
+	public GameEnvironment(UserInterface userInterface) {
 			this.userInterface = userInterface;
 			
 	}

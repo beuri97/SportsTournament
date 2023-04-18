@@ -3,7 +3,7 @@ package main;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
-public class CmdLineUi implements GameEnvironmentUi{
+public class CmdLineUi implements UserInterface {
 
 	private final Scanner scan;
 	
