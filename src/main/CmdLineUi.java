@@ -1,72 +1,74 @@
 package main;
 
-import java.util.Scanner;
-import java.util.regex.Pattern;
+import main.gamesystem.IllegalInputException;
 
+import java.util.Scanner;
+
+/**
+ * class for Command line User Interface.
+ * @author H Yang, J Kim
+ */
 public class CmdLineUi implements UserInterface {
 
 	private final Scanner scan;
-	
+
 	private GameEnvironment gameEnvironment;
-	/**
-	 * Player's Team name
-	 */
-	private String teamName;
+
 	/**
 	 * Number of weeks for one Season of the game
-	 */	
+	 */
 	private String weeksForSeason;
-	
+
 	private boolean exit = false;
-	
+
 	private String difficulty;
+
 	/**
 	 * An enum shows the different difficulty options of the game
 	 */
 	private enum DifficultyOption{
 		EASY, DIFFICULT;
 	}
-	
-	
+
+
 	public CmdLineUi() {
         this.scan = new Scanner(System.in);
 	}
-	
+
+	/**
+	 * intitial game environment setup
+	 * @param gameEnvironment game environment which is core of this program
+	 */
 	public void setup(GameEnvironment gameEnvironment){
 		this.gameEnvironment = gameEnvironment;
-		teamName = setTeamName();
+		setTeamName();
 		weeksForSeason = setWeeksForSeason();
-		setDifficulty();		
+		setDifficulty();
 	}
+
 	/**
-	 * set up player's team name. only accept the letter lengths between 3 to 15(inclusive) 
+	 * set up player's team name. only accept the letter lengths between 3 to 15(inclusive)
 	 * doesn't allow to have special characters and.
-	 */	
-	public String setTeamName() throws CmdException{
-		System.out.println("Please choose your team name!");
-		String input = scan.nextLine();
-		Pattern name = Pattern.compile(NAME_REGEX);
-		String result = input;
-		boolean isInputIncorrect = true;
-		
-		while (isInputIncorrect) {
-			try { if (name.matcher(input).find()) { throw new CmdException();} }
-			catch (CmdException e) {
-				System.out.println(NAME_CHAR_REQUIREMENT);
-				result = setTeamName();
+	 */
+	public void setTeamName() {
+
+		System.out.println("Please choose your team name");
+		while(true) {
+			String input = scan.nextLine();
+			try {
+				gameEnvironment.check(input, NAME_REGEX);
+				System.out.println("Awesome! Your team name is " + input);
+				gameEnvironment.team.setName(input);
 				break;
+
+			} catch (IllegalInputException e) {
+				System.err.println(e.getMessage());
+				if(input.length() > 15 || input.length() < 3) System.out.println(NAME_LENGTH_REQUIREMENT);
+				System.out.println("Please do it again.");
 			}
-			try { if (input.length()<3 || input.length() >15) { throw new CmdException();} }
-			catch (CmdException e) {
-				System.out.println(NAME_LENGTH_REQUIREMENT);
-				result = setTeamName();
-				break;
-			}
-			isInputIncorrect = false;
-			System.out.println("Awesome! Your team name is "+ result );
 		}
-		return result;
 	}
+
 	/**
 	 * set up number of weeks for season of the game between 5 to 15 (inclusive).
 	 */
@@ -76,18 +78,16 @@ public class CmdLineUi implements UserInterface {
 		String input = scan.nextLine();
 		String result = input;
 		boolean isInputIncorrect = true;
-		
+
 		while (isInputIncorrect) {
 			try {for (int i = 0; i < input.length(); i++) {
-					if (!Character.isDigit(input.charAt(i))) {throw new CmdException();}}}	
-			catch(CmdException e){
+				if (!Character.isDigit(input.charAt(i))) {throw new CmdException();}}} catch(CmdException e){
 				System.out.println(VALID_NUMBER);
 				result = setWeeksForSeason();
 				break;}
-	
+
 			int intResult = Integer.parseInt(input);
-			try { if ( intResult <5 || intResult >15) { throw new CmdException();} }
-			catch (CmdException e){
+			try { if ( intResult <5 || intResult >15) { throw new CmdException();} } catch (CmdException e){
 				System.out.println(TEAMNUMBER_REQUIREMENT);
 				result = setWeeksForSeason();
 				break;
@@ -96,8 +96,9 @@ public class CmdLineUi implements UserInterface {
 			System.out.println("Great! You got " + result + " weeks for the season." );
 		}
 		return result;
-		
+
 	}
+
 	/**
 	 * set up the difficulty of the game between easy and difficult
 	 */
@@ -107,11 +108,10 @@ public class CmdLineUi implements UserInterface {
 		for (DifficultyOption s : DifficultyOption.values()) {
 			System.out.println(s);}
 		String input = scan.nextLine();
-		try {	
+		try {
 			DifficultyOption option = DifficultyOption.valueOf(input.toUpperCase());
 			handleDifficultyOption(option);
-		}
-		catch(IllegalArgumentException e) {
+		} catch(IllegalArgumentException e) {
 			System.out.println("We don't have "+ input + " in the option. Please type in correctly.");
 			setDifficulty();
 		}
@@ -129,42 +129,38 @@ public class CmdLineUi implements UserInterface {
 				break;
 		}
 	}
+
 	/**
 	 *  start the game with current information that player chose
 	 */
 	public void startMySeason() {
-		
+
 	}
+
 	@Override
 	public void exitGame() {
 		exit = true;
 	}
-	
+
 	public void confirmExit() {
-		
+
 	}
-	
+
 	public void showError(String error) {
         System.out.println("!!!!!!!! " + error + " !!!!!!!!");
     }
-	
-	
-	/**
-	 * return current player's team name
-	 */
-	public String getTeamname() {return teamName;}
+
 	/**
 	 * return the number of weeks for season of the current game
 	 */
 	public String getWeeksForSeason() {return weeksForSeason;}
+
 	/**
-	 * get the difficulty of the current game 
+	 * get the difficulty of the current game
 	 */
 	public String getDifficulty() {return difficulty;}
-	
-	
-	
-	
+
+
 	/**
 	 * temporary test
 	 * @param args

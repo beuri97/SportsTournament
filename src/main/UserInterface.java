@@ -7,7 +7,7 @@ public interface UserInterface {
 	
 	public String NAME_LENGTH_REQUIREMENT = "The length of team name has to be between 3 to 15.";
 
-	public String NAME_REGEX = "[^A-Za-z0-9]";
+	public String NAME_REGEX = "[^A-Za-z0-9]{3,15}$";
 	
 	public String VALID_NUMBER = "Please enter a valid number.";
 	

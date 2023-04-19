@@ -31,6 +31,16 @@ public class Team {
      */
     Item[] inventory = new Item[5];
 
+
+    public void setName(String name) {
+
+        this.name = name;
+    }
+
+    public String getName(){
+
+        return this.name;
+    }
     /**
      * Add athletes into roster after purchase them
      * @param athlete an athlete that user purchased
