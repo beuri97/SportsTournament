@@ -20,6 +20,7 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
 # ignore .DS_Store
 .DS_Store
@@ -49,6 +50,9 @@ local.properties
 
 
 out/
+=======
+/bin/
+>>>>>>> Stashed changes
 =======
 /bin/
 >>>>>>> Stashed changes
