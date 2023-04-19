@@ -5,6 +5,6 @@ public class IllegalInputException extends IllegalStateException{
     IllegalInputException() {}
     IllegalInputException(String message) {
 
-        super(message);
+        super("ERROR: Invalid Input!\n" + message);
     }
 }

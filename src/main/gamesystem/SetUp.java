@@ -4,10 +4,10 @@ import main.GameEnvironment;
 
 public class SetUp {
 
-    public static void checkRegex(String input, final String REGEX) throws IllegalInputException{
+    public void checkRegex(String input, final String REGEX, String message) throws IllegalInputException{
 
         if(!input.matches(REGEX)) {
-            throw new IllegalInputException("ERROR: Invalid Input!");
+            throw new IllegalInputException(message);
         }
     }
 }

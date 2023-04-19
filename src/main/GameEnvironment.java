@@ -17,24 +17,47 @@ public class GameEnvironment {
     
     int season;
     
-    public Team team = new Team();
+    Team team = null;
     
     private UserInterface userInterface;
 
+
 	/**
-	 * Start new game by setting up Team name, number of weeks for season and difficulty of game 
+	 * Start new game by setting up Team name, number of weeks for season and difficulty of game
 	 */
 	public GameEnvironment(UserInterface userInterface) {
-			this.userInterface = userInterface;
-			
+		this.userInterface = userInterface;
+
+	}
+
+
+	public Team getTeam() {
+		if (this.team == null) this.team = new Team();
+
+		return this.team;
+	}
+
+	public int getSeason() {
+		return this.season;
+	}
+
+	public void setSeason(int weeks) {
+
+		this.season = weeks;
 	}
 	
 	public void start() {
 		userInterface.setup(this);
 	}
 
-	public void check(String input, final String REGEX) throws IllegalInputException {
+	public void check(String input, final String REGEX, String message) throws IllegalInputException {
 
-		SetUp.checkRegex(input, REGEX);
+		SetUp setup = new SetUp();
+		setup.checkRegex(input, REGEX, message);
+	}
+
+	public void check(int input) throws IllegalInputException {
+
+
 	}
 }

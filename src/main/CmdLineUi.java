@@ -14,11 +14,6 @@ public class CmdLineUi implements UserInterface {
 
 	private GameEnvironment gameEnvironment;
 
-	/**
-	 * Number of weeks for one Season of the game
-	 */
-	private String weeksForSeason;
-
 	private boolean exit = false;
 
 	private String difficulty;
@@ -27,7 +22,13 @@ public class CmdLineUi implements UserInterface {
 	 * An enum shows the different difficulty options of the game
 	 */
 	private enum DifficultyOption{
-		EASY, DIFFICULT;
+		EASY("Easy"), DIFFICULT("Difficult");
+
+		public final String difficulty;
+
+		DifficultyOption(String string) {
+			this.difficulty = string;
+		}
 	}
 
 
@@ -42,7 +43,7 @@ public class CmdLineUi implements UserInterface {
 	public void setup(GameEnvironment gameEnvironment){
 		this.gameEnvironment = gameEnvironment;
 		setTeamName();
-		weeksForSeason = setWeeksForSeason();
+		setWeeksForSeason();
 		setDifficulty();
 	}
 
@@ -56,14 +57,14 @@ public class CmdLineUi implements UserInterface {
 		while(true) {
 			String input = scan.nextLine();
 			try {
-				gameEnvironment.check(input, NAME_REGEX);
+				gameEnvironment.check(input, NAME_REGEX, NAME_CHAR_REQUIREMENT);
 				System.out.println("Awesome! Your team name is " + input);
-				gameEnvironment.team.setName(input);
+				gameEnvironment.getTeam().setName(input);
 				break;
 
 			} catch (IllegalInputException e) {
 				System.err.println(e.getMessage());
-				if(input.length() > 15 || input.length() < 3) System.out.println(NAME_LENGTH_REQUIREMENT);
+				if(input.length() > 15 || input.length() < 3) System.err.println(NAME_LENGTH_REQUIREMENT);
 				System.out.println("Please do it again.");
 			}
 		}
@@ -72,31 +73,25 @@ public class CmdLineUi implements UserInterface {
 	/**
 	 * set up number of weeks for season of the game between 5 to 15 (inclusive).
 	 */
-	public String setWeeksForSeason() throws CmdException{
+	public void setWeeksForSeason() {
+
 		System.out.println("Please choose the number of weeks for the season of the game");
 		System.out.println("Minimum is 5 weeks and Maximum is 15 weeks");
-		String input = scan.nextLine();
-		String result = input;
-		boolean isInputIncorrect = true;
-
-		while (isInputIncorrect) {
-			try {for (int i = 0; i < input.length(); i++) {
-				if (!Character.isDigit(input.charAt(i))) {throw new CmdException();}}} catch(CmdException e){
-				System.out.println(VALID_NUMBER);
-				result = setWeeksForSeason();
-				break;}
-
-			int intResult = Integer.parseInt(input);
-			try { if ( intResult <5 || intResult >15) { throw new CmdException();} } catch (CmdException e){
-				System.out.println(TEAMNUMBER_REQUIREMENT);
-				result = setWeeksForSeason();
+		while(true) {
+			String input = scan.nextLine();
+			try{
+				gameEnvironment.check(input, SEASON_REGEX, VALID_NUMBER);
+				System.out.printf("The game season set %s weeks long%n", input);
+				int weeks = Integer.parseInt(input);
+				gameEnvironment.setSeason(weeks);
 				break;
-			}
-			isInputIncorrect = false;
-			System.out.println("Great! You got " + result + " weeks for the season." );
-		}
-		return result;
 
+			} catch(IllegalInputException iie) {
+				System.err.println(iie.getMessage());
+				System.out.println("Please do it again\n\n");
+			}
+
+		}
 	}
 
 	/**
@@ -149,11 +144,6 @@ public class CmdLineUi implements UserInterface {
 	public void showError(String error) {
         System.out.println("!!!!!!!! " + error + " !!!!!!!!");
     }
-
-	/**
-	 * return the number of weeks for season of the current game
-	 */
-	public String getWeeksForSeason() {return weeksForSeason;}
 
 	/**
 	 * get the difficulty of the current game
