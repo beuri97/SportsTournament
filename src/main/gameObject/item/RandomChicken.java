@@ -3,7 +3,7 @@ package main.gameObject.item;
 import java.util.*;
 public class RandomChicken extends Item{
 
-	private static ArrayList<String> stat_list = new ArrayList<String>();
+	private static ArrayList<String> statList = new ArrayList<String>();
 	
 	public RandomChicken() {
 		super("RandomChicken", 100, getRandomAmount(), getRandomStat());
@@ -24,12 +24,12 @@ public class RandomChicken extends Item{
 	 * Random stat will be selected between "Offence", "Defence" and "Stamina".
 	 */
 	private static String getRandomStat() {
-		stat_list.add("Offence");
-		stat_list.add("Defence");
-		stat_list.add("Stamina");
+		statList.add("Offence");
+		statList.add("Defence");
+		statList.add("Stamina");
 		Random result = new Random();
 		int i = result.nextInt(3);
-		return stat_list.get(i);
+		return statList.get(i);
 		
 		
 	}

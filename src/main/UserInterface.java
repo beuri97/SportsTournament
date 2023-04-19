@@ -1,5 +1,8 @@
 package main;
-
+/**
+ * Interface that is used in CmdLineUi, GameEnvironment.
+ * @author H Yang, J Kim
+ */
 public interface UserInterface {
 
 	
