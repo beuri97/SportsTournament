@@ -21,7 +21,7 @@ public class CmdLineUi implements UserInterface {
 	/**
 	 * An enum shows the different difficulty options of the game
 	 */
-	private enum DifficultyOption{
+	private enum DifficultyOption {
 		EASY("Easy"), DIFFICULT("Difficult");
 
 		public final String difficulty;
@@ -33,14 +33,15 @@ public class CmdLineUi implements UserInterface {
 
 
 	public CmdLineUi() {
-        this.scan = new Scanner(System.in);
+		this.scan = new Scanner(System.in);
 	}
 
 	/**
 	 * intitial game environment setup
+	 *
 	 * @param gameEnvironment game environment which is core of this program
 	 */
-	public void setup(GameEnvironment gameEnvironment){
+	public void setup(GameEnvironment gameEnvironment) {
 		this.gameEnvironment = gameEnvironment;
 		setTeamName();
 		setWeeksForSeason();
@@ -54,7 +55,7 @@ public class CmdLineUi implements UserInterface {
 	public void setTeamName() {
 
 		System.out.println("Please choose your team name");
-		while(true) {
+		while (true) {
 			String input = scan.nextLine();
 			try {
 				gameEnvironment.check(input, NAME_REGEX, NAME_CHAR_REQUIREMENT);
@@ -64,8 +65,7 @@ public class CmdLineUi implements UserInterface {
 
 			} catch (IllegalInputException e) {
 				System.err.println(e.getMessage());
-				if(input.length() > 15 || input.length() < 3) System.err.println(NAME_LENGTH_REQUIREMENT);
-				System.out.println("Please do it again.");
+				if (input.length() > 15 || input.length() < 3) System.err.println(NAME_LENGTH_REQUIREMENT);
 			}
 		}
 	}
@@ -77,16 +77,16 @@ public class CmdLineUi implements UserInterface {
 
 		System.out.println("Please choose the number of weeks for the season of the game");
 		System.out.println("Minimum is 5 weeks and Maximum is 15 weeks");
-		while(true) {
+		while (true) {
 			String input = scan.nextLine();
-			try{
+			try {
 				gameEnvironment.check(input, SEASON_REGEX, VALID_NUMBER);
 				System.out.printf("The game season set %s weeks long%n", input);
 				int weeks = Integer.parseInt(input);
 				gameEnvironment.setSeason(weeks);
 				break;
 
-			} catch(IllegalInputException iie) {
+			} catch (IllegalInputException iie) {
 				System.err.println(iie.getMessage());
 				System.out.println("Please do it again\n\n");
 			}
@@ -97,36 +97,31 @@ public class CmdLineUi implements UserInterface {
 	/**
 	 * set up the difficulty of the game between easy and difficult
 	 */
-	public void setDifficulty() throws CmdException{
-		System.out.println("Please choose the difficulty of the game level.");
+	public void setDifficulty() throws CmdException {
 		DifficultyOption[] options = DifficultyOption.values();
-		for (DifficultyOption s : DifficultyOption.values()) {
-			System.out.println(s);}
-		String input = scan.nextLine();
-		try {
-			DifficultyOption option = DifficultyOption.valueOf(input.toUpperCase());
-			handleDifficultyOption(option);
-		} catch(IllegalArgumentException e) {
-			System.out.println("We don't have "+ input + " in the option. Please type in correctly.");
-			setDifficulty();
-		}
-	}
-
-	private void handleDifficultyOption(DifficultyOption option){
-		switch (option) {
-			case EASY:
-				difficulty = "Easy";
-				System.out.println("You chose easy level. But it won't be too easy! Good Luck!");
+		while (true) {
+			System.out.println("Choose the number of difficulty of the game level.");
+			for (int i = 1; i <= 2; i++) {
+				System.out.printf("%d. %s%n", i, options[i - 1].difficulty);
+			}
+			System.out.println("Your Option: ");
+			String input = scan.nextLine();
+			try {
+				gameEnvironment.check(input, "(1|2)", VALID_DIFFICULTY);
+				switch (input) {
+					case "1" -> gameEnvironment.setDifficulty(options[0].difficulty);
+					case "2" -> gameEnvironment.setDifficulty(options[1].difficulty);
+				}
+				System.out.printf("Difficulty set: %s%n", gameEnvironment.getDifficulty());
 				break;
-			case DIFFICULT:
-				difficulty = "Difficult";
-				System.out.println("You chose difficult level. You must love hard life!! All the best!");
-				break;
+			} catch (IllegalInputException e) {
+				System.err.println(e.getMessage());
+			}
 		}
 	}
 
 	/**
-	 *  start the game with current information that player chose
+	 * start the game with current information that player chose
 	 */
 	public void startMySeason() {
 
@@ -139,24 +134,5 @@ public class CmdLineUi implements UserInterface {
 
 	public void confirmExit() {
 
-	}
-
-	public void showError(String error) {
-        System.out.println("!!!!!!!! " + error + " !!!!!!!!");
-    }
-
-	/**
-	 * get the difficulty of the current game
-	 */
-	public String getDifficulty() {return difficulty;}
-
-
-	/**
-	 * temporary test
-	 * @param args
-	 */
-	public static void main (String[] args) {
-		CmdLineUi kim = new CmdLineUi();
-		kim.setup(null);
 	}
 }

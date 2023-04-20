@@ -13,21 +13,20 @@ public class GameEnvironment {
     /**
      * TODO- Discuss about constants' nad variables' type, generate javadoc comment
      */
-    public final Object DIFFICULTY = null;
+    String difficulty;
     
     int season;
     
     Team team = null;
     
-    private UserInterface userInterface;
+    private UserInterface ui;
 
 
 	/**
 	 * Start new game by setting up Team name, number of weeks for season and difficulty of game
 	 */
 	public GameEnvironment(UserInterface userInterface) {
-		this.userInterface = userInterface;
-
+		this.ui = userInterface;
 	}
 
 
@@ -45,9 +44,19 @@ public class GameEnvironment {
 
 		this.season = weeks;
 	}
+
+	public String getDifficulty() {
+
+		return this.difficulty;
+	}
+
+	public void setDifficulty(String difficulty) {
+
+		this.difficulty = difficulty;
+	}
 	
 	public void start() {
-		userInterface.setup(this);
+		ui.setup(this);
 	}
 
 	public void check(String input, final String REGEX, String message) throws IllegalInputException {

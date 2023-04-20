@@ -1,5 +1,13 @@
+import main.CmdLineUi;
+import main.GameEnvironment;
+import main.UserInterface;
+
 public class Main {
+
+
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        UserInterface ui = new CmdLineUi();
+        GameEnvironment gameEnvironment = new GameEnvironment(ui);
+        gameEnvironment.start();
     }
 }
