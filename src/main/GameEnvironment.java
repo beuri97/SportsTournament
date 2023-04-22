@@ -29,6 +29,10 @@ public class GameEnvironment {
 	 */
 	private UserInterface ui;
 
+	/**
+	 *
+	 */
+	private SetUp setup = new SetUp();
 
 	/**
 	 * Start new game by setting up Team name, number of weeks for season and difficulty of game
@@ -98,7 +102,6 @@ public class GameEnvironment {
 	 */
 	public void check(String input, final String REGEX, String message) throws IllegalInputException {
 
-		SetUp setup = new SetUp();
 		setup.checkRegex(input, REGEX, message);
 	}
 }

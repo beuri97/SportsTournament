@@ -8,7 +8,7 @@ public class Thorin extends Athlete {
     	
     	super("Thorin II \"Oakenshield\" ~", "This is not my kingdom!!!");
         
-    	switch(super.rarity) {
+    	switch(super.rarity.string) {
         
         case "N":
         	super.offenseStat = 40;

@@ -4,11 +4,11 @@ import main.gameObject.athletes.Athlete;
 
 public class Angelina extends Athlete {
 
-    public Angelina () {
+    public Angelina() {
 
         super("Angelina Jolie", "I am pretty much warlike person!");
         
-        switch(super.rarity) {
+        switch(super.rarity.string) {
         
         case "N":
         	super.offenseStat = 35;
