@@ -1,10 +1,10 @@
-package main.gamesystem;
+package main.gamesystem.Exception;
 
 public class IllegalInputException extends IllegalStateException{
 
-    IllegalInputException() {}
-    IllegalInputException(String message) {
+    public IllegalInputException() {}
+    public IllegalInputException(String message) {
 
-        super("ERROR: Invalid Input!\n" + message + "\nPlease do it again.\n\n");
+        super("ERROR: Invalid Input!\n" + message + "\nPlease do it again.\n");
     }
 }

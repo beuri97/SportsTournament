@@ -1,7 +1,7 @@
 package main;
 
 import main.gameObject.Team;
-import main.gamesystem.IllegalInputException;
+import main.gamesystem.Exception.IllegalInputException;
 import main.gamesystem.Market;
 import main.gamesystem.SetUp;
 
@@ -23,7 +23,7 @@ public class GameEnvironment {
 	/**
 	 * Player's {@link main.gameObject.Team team}
 	 */
-	Team team = null;
+	Team team;
 
 	/**
 	 * Market
@@ -47,6 +47,11 @@ public class GameEnvironment {
 		this.ui = userInterface;
 	}
 
+	public void set(String name, int week, String difficulty){
+		this.getTeam().setName(name);
+		this.season = week;
+		this.difficulty = difficulty;
+	}
 	/**
 	 * get Player's {@link main.gameObject.Team team}. Create new Team if this.team == null
 	 * @return player's {@link main.gameObject.Team team}
@@ -55,41 +60,6 @@ public class GameEnvironment {
 		if (this.team == null) this.team = new Team();    // maybe need to be removed
 
 		return this.team;
-	}
-
-	/**
-	 * Call total weeks of season to run
-	 * @return total weeks of season
-	 */
-	public int getSeason() {
-		return this.season;
-	}
-
-	/**
-	 * set duration of the season
-	 * @param weeks total weeks to run
-	 */
-	public void setSeason(int weeks) {
-
-		this.season = weeks;
-	}
-
-	/**
-	 * get method to return game's difficulty
-	 * @return game's difficulty
-	 */
-	public String getDifficulty() {
-
-		return this.difficulty;
-	}
-
-	/**
-	 * set method to set game's difficulty
-	 * @param difficulty game difficulty that player chose
-	 */
-	public void setDifficulty(String difficulty) {
-
-		this.difficulty = difficulty;
 	}
 
 	public Market getMarket(){
@@ -121,7 +91,6 @@ public class GameEnvironment {
 	 * reset market status and match list when user take a bye
 	 */
 	public void reset() {
-
 		this.market = new Market();
 	}
 }

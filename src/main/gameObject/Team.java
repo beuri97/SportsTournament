@@ -82,7 +82,7 @@ public class Team {
         } else {
             // TODO - Implement Exception here - Perhaps use try catch?
         }
-
+    }
 
  /**
  * Remove an athlete from the roster.
@@ -90,7 +90,6 @@ public class Team {
  * or an athlete is injured.
  * @param athlete target athlete that will be removed
  */
-        }
     public void leaveAthletes(Athlete athlete) {
 
        this.roster.remove(athlete);
