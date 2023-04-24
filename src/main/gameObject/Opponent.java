@@ -8,7 +8,7 @@ import main.gameObject.athletes.Athlete;
  */
 public class Opponent extends Team{
 
-    public Opponent(int totalSeason, int currentWeek, Product[] athletes) {
+    public Opponent(Product[] athletes) {
 
         for(Product athlete : athletes) recruitAthletes((Athlete) athlete);
     }

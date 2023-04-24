@@ -2,6 +2,7 @@ package main;
 
 import main.gameObject.Team;
 import main.gamesystem.IllegalInputException;
+import main.gamesystem.Market;
 import main.gamesystem.SetUp;
 
 /**
@@ -25,12 +26,17 @@ public class GameEnvironment {
 	Team team = null;
 
 	/**
+	 * Market
+	 */
+	private Market market;
+
+	/**
 	 * ui that clients are currently running
 	 */
 	private UserInterface ui;
 
 	/**
-	 *
+	 * setup to check regex or any other requirement
 	 */
 	private SetUp setup = new SetUp();
 
@@ -86,6 +92,12 @@ public class GameEnvironment {
 		this.difficulty = difficulty;
 	}
 
+	public Market getMarket(){
+		if(this.market == null) this.market = new Market();
+
+		return this.market;
+	}
+
 	/**
 	 * call setup method in this.ui
 	 */
@@ -103,5 +115,13 @@ public class GameEnvironment {
 	public void check(String input, final String REGEX, String message) throws IllegalInputException {
 
 		setup.checkRegex(input, REGEX, message);
+	}
+
+	/**
+	 * reset market status and match list when user take a bye
+	 */
+	public void reset() {
+
+		this.market = new Market();
 	}
 }

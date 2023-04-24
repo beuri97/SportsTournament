@@ -148,8 +148,8 @@ public class Athlete implements Product{
     @Override
     public String toString() {
     	
-    	return String.format("Name: %s%nRarity: %s%nOffense: %d%nDefense: %d%nStamina: %d%nInjured: %b%nPrice: %.2f%nDescription: %s%n%n", 
-    			getName(), getRarity(), getOffenseStat(), getDefenseStat(), getStamina(), isInjured(), getPrice(), getDescription());
+    	return String.format("Name: %s%nRarity: %s%nOffense: %d%nDefense: %d%nStamina: %d%nPrice: %.2f%nDescription: %s%n",
+    			getName(), getRarity(), getOffenseStat(), getDefenseStat(), getStamina(), getPrice(), getDescription());
     }
 
 	public float getSellPrice() {

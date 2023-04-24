@@ -19,7 +19,7 @@ public class Market {
 	 * First row is an array to display {@link main.gameObject.athletes.Athlete Athletes},
 	 * second row is another array to display game {@link main.gameObject.item.Item Items}.
 	 */
-	Product[][] products = new Product[][] {new Product[5], new Product[8]};
+	Product[][] products = new Product[][] {new Product[6], new Product[8]};
 
 	/**
 	 * Represent kinds of {@link main.gameObject.athletes.Athlete Athletes}.
@@ -112,11 +112,11 @@ public class Market {
 	 * @param col index of items' or athletes' location that user wish to buy.
 	 * @return purchased item or athlete
 	 */
-	public Product purchase(int type, int col) {
+	public Product purchase(Product[] product, int col) {
 
 
-		Product sold = products[type][col];
-		products[type][col] = null;
+		Product sold = product[col];
+		product[col] = null;
 
 		return sold;
 	}
@@ -127,19 +127,5 @@ public class Market {
 		//TODO - Create Interface Purchasable and generate this method
 		// But this method might be removed
 		// Need to think about this method later.
-	}
-
-
-	/**
-	 * Returns current market state. Only use this method at CLI UI.
-	 */
-	public String toString() {
-
-		String result = "\nAthlete\n\n";
-		for (Product product : products[0]) result += product;
-		result += "\nItem\n\n";
-		for(Product product : products[1]) result += product;
-
-		return result;
 	}
 }
