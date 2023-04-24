@@ -15,16 +15,13 @@ public interface UserInterface {
 	String SEASON_REGEX = "([5-9]|1[0-5])";
 	String VALID_NUMBER = "Please enter a valid number.\nThe number of weeks for the season has to be between 5 to 15.";
 	String INVALID_NUMBER = "Invalid number please enter it again.";
-	
-//	public String 
+
+
+	void main();
 	
 	void setup(GameEnvironment gameEnvironment);
 
 	void listing(Object[] array);
-		
-	void exitGame();
-	
-	void confirmExit();
 	
 	
 
