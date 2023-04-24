@@ -3,8 +3,7 @@ package main.gameObject;
 import main.gameObject.athletes.Athlete;
 import main.gameObject.item.Item;
 
-import java.util.List;
-import java.util.Arrays;
+import java.util.ArrayList;
 
 /**
  * Class Team for user and opponents.
@@ -22,75 +21,100 @@ public class Team {
      */
     float money;
     /**
-     * Athletes' roster. Regular Athletes are in first row reserves are in second row.
+     * Athletes' roster. Regular Athletes are in index 0 - 3(inclusive) reserves are in index 4 - 6(inclusive).
      */
-    Athlete[][] roster = new Athlete[][] {new Athlete[4], new Athlete[3]};
+    ArrayList<Athlete> roster = new ArrayList<>();
     
     /**
      * Item Inventory
      */
-    Item[] inventory = new Item[5];
+    ArrayList<Item> inventory = new ArrayList<>();
 
 
+    /**
+     * set Team Name
+     * @param name Team name (3 - 15) characters without any special characters
+     */
     public void setName(String name) {
 
         this.name = name;
     }
 
+    /**
+     * get method to return Team name
+     * @return Team name
+     */
     public String getName(){
 
         return this.name;
     }
+
+    /**
+     * get Team's Athletes roster in 2D Array. First row(index 0) is regular athletes Second row(index 1) is reserves.
+     * @return Athlete 2D array player has
+     */
+    public Athlete[] getRoster() {
+
+        return this.roster.toArray(new Athlete[7]);
+    }
+
+    /**
+     * get Team(players) inventory
+     * @return Item array player has
+     */
+    public Item[] getInventory() {
+
+        return this.inventory.toArray(new Item[8]);
+    }
+
     /**
      * Add athletes into roster after purchase them
      * @param athlete an athlete that user purchased
      */
-    public void recruitAthletes(Athlete athlete) {
+    public void recruitAthletes(Product athlete) {
 
-        if (this.roster[0].length < 4) {
-            List<Athlete> temp = Arrays.asList(this.roster[0]);
-            temp.add(athlete);
-            roster[0] = temp.toArray(this.roster[0]);
-        } else if (this.roster[1].length < 3) {
-            List<Athlete> temp = Arrays.asList(this.roster[1]);
-            temp.add(athlete);
-            this.roster[1] = temp.toArray(this.roster[1]);
+        // place to regular array priority if the array has empty place
+        // then place to reserve array
+        //if all arrays are empty should return Exception -> TODO - this need to be implemented
+        if (this.roster.size() < 7) {
+            //add athletes - casting Product to Athletes
+            this.roster.add((Athlete) athlete);
+        } else {
+            // TODO - Implement Exception here - Perhaps use try catch?
         }
-    }
 
-    /**
-     * Remove an athlete from the roster.
-     * This method is for cases where a user sells an athlete 
-     * or an athlete is injured.
-     * @param row index to represent where athletes are currently in Regular(0) or reserve(1).
-     * @param col index to represent an athlete's location
-     */
-    public void leaveAthletes(int row, int col) {
 
-        roster[row][col] = null;
+ /**
+ * Remove an athlete from the roster.
+ * This method is for cases where a user sells an athlete
+ * or an athlete is injured.
+ * @param athlete target athlete that will be removed
+ */
+        }
+    public void leaveAthletes(Athlete athlete) {
 
+       this.roster.remove(athlete);
     }
 
     /**
      * Add item into inventory after user purchase item.
      * @param item item that user purchased
      */
-    public void addItem(Item item) {
+    public void addItem(Product item) {
 
-        if (this.inventory.length < 5) {
-            List<Item> temp = Arrays.asList(this.inventory);
-            temp.add(item);
-            this.inventory = temp.toArray(this.inventory);
-        }
+        if (this.inventory.size() < 8) {
+            //append item after casting to Item
+            this.inventory.add((Item) item);
+        } //TODO - implement exception here
     }
     
     /**
      * Remove an item from inventory if user use or sell the item.
-     * @param index Represent items location
+     * @param item target item that will be removed
      */
-    public void removeItem(int index) {
+    public void removeItem(Item item) {
     	
-    	inventory[index] = null;
+    	this.inventory.remove(item);
     	
     }
 }

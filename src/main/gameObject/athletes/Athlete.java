@@ -22,7 +22,7 @@ public class Athlete implements Product{
     /**
      * Athletes' Rarity
      */
-    protected String rarity;
+    protected Rarity rarity;
     
     /**
      * athletes' maximum Stamina
@@ -57,14 +57,13 @@ public class Athlete implements Product{
     /**
      * Athlete Constructor to create Athletes
      * @param name athlete's name
-     * @param rarity athlete's rarity
      * @param description athlete's description
      */
     public Athlete(String name, String description) {
     	
     	
         this.name = name;
-        this.rarity = Rarity.setRarity().rarity;
+        this.rarity = Rarity.setRarity();
         this. description = description;
     }
 
@@ -73,6 +72,18 @@ public class Athlete implements Product{
      * @return name of athlete
      */
     public String getName() {return this.name;}
+
+    /**
+     * get athlete's description
+     * @return athlete's description
+     */
+    public String getDescription() { return this.description; }
+
+    /**
+     * get athlete's rarity in string
+     * return athlete's rarity
+     */
+    public String getRarity() { return this.rarity.string; }
 
     /**
      * get athletes' offensive statistic
@@ -137,8 +148,8 @@ public class Athlete implements Product{
     @Override
     public String toString() {
     	
-    	return String.format("Name: %s%nRarity: %s%nOffense: %d%nDefense: %d%nStamina: %d%nInjured: %b%nPrice: %.2f%nDescription: %s%n%n", 
-    			this.name, this.rarity, this.offenseStat, this.defenseStat, this.stamina, this.injured, this.price, this.description);
+    	return String.format("Name: %s%nRarity: %s%nOffense: %d%nDefense: %d%nStamina: %d%nPrice: %.2f%nDescription: %s%n",
+    			getName(), getRarity(), getOffenseStat(), getDefenseStat(), getStamina(), getPrice(), getDescription());
     }
 
 	public float getSellPrice() {

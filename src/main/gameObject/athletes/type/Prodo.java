@@ -8,7 +8,7 @@ public class Prodo extends Athlete {
 
         super("Prodo Baggins", "The ring was mine!");
         
-        switch(super.rarity) {
+        switch(super.rarity.string) {
         
         case "N":
         	super.offenseStat = 25;

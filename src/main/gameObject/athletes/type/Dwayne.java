@@ -8,7 +8,7 @@ public class Dwayne extends Athlete {
 
         super("Dwayne Johnson",  "I am the Rock!");
         
-        switch(super.rarity) {
+        switch(super.rarity.string) {
         
         case "N":
         	super.offenseStat = 15;
