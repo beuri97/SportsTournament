@@ -1,6 +1,7 @@
 package main;
 
 import main.gameObject.Team;
+import main.gamesystem.Exception.DifficultyOption;
 import main.gamesystem.Exception.IllegalInputException;
 import main.gamesystem.Market;
 import main.gamesystem.SetUp;
@@ -13,7 +14,7 @@ public class GameEnvironment {
     /**
      * game difficulty
      */
-    String difficulty;
+    DifficultyOption difficulty;
 
 	/**
 	 * Game season (Weekly)
@@ -47,7 +48,7 @@ public class GameEnvironment {
 		this.ui = userInterface;
 	}
 
-	public void set(String name, int week, String difficulty){
+	public void set(String name, int week, DifficultyOption difficulty){
 		this.getTeam().setName(name);
 		this.season = week;
 		this.difficulty = difficulty;
@@ -66,6 +67,11 @@ public class GameEnvironment {
 		if(this.market == null) this.market = new Market();
 
 		return this.market;
+	}
+
+	public String getDifficulty() {
+
+		return this.difficulty.DIFFICULTY;
 	}
 
 	/**
