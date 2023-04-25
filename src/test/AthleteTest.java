@@ -10,8 +10,6 @@ import org.junit.jupiter.api.RepeatedTest;
 import main.gameObject.athletes.Athlete;
 import main.gamesystem.Market;
 
-
-
 import org.junit.jupiter.api.AfterEach;
 
 

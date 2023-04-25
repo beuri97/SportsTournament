@@ -21,8 +21,6 @@ import main.gameObject.athletes.Athlete;
 
 class TeamTest {
 	Team testTeam;
-	Athlete[] testRoster;
-	Item[] testInventoryItems;
 	Random pickNum = new Random();
 	Market testMarket;
 	
@@ -99,11 +97,10 @@ class TeamTest {
 		 */
 		if (count != 0) {
 			Athlete leavingAthlete = testTeam.getRoster()[pickNum.nextInt(0, count)];
-			System.out.println(leavingAthlete);
 			testTeam.leaveAthletes(leavingAthlete);
 			for (Athlete name: testTeam.getRoster()) {
-				if (name == leavingAthlete) {
-					assertTrue(false);
+				if (name != null) {
+				assertNotEquals(leavingAthlete, name);
 				}
 			}
 		}
@@ -149,8 +146,8 @@ class TeamTest {
 			System.out.println(removeditem);
 			testTeam.removeItem(removeditem);
 			for (Item name: testTeam.getInventory()) {
-				if (name == removeditem) {
-					assertTrue(false);
+				if (name != null) {
+					assertNotEquals(removeditem, name);
 				}
 			}
 		}
