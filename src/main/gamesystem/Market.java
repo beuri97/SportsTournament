@@ -87,6 +87,14 @@ public class Market {
 
 		return this.products[0];
 	}
+	/**
+	 * get Item stocks
+	 * @return Items
+	 */
+	public Product[] getItemProduct() {
+
+		return this.products[1];
+	}
 
 	/**
 	 * set Athlete stocks
