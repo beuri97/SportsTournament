@@ -42,13 +42,4 @@ public class Prodo extends Athlete {
       
     }
 
-
-    /**
-     * Stamina adjustment for Counter type athletes
-     * @param changedStamina athlete's stat change amount
-     */
-    @Override
-    public void setStamina(int changedStamina) {
-        super.stamina = (changedStamina < 0) ? (int)(super.stamina - changedStamina * 1.23) : (super.stamina + changedStamina);
-    }
 }
