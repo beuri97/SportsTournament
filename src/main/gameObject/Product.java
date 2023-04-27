@@ -19,13 +19,14 @@ public interface Product {
 	 * @return Products'({@link main.gameObject.athletes.Athlete Athlete}s 
 	 * and {@link main.gameObject.item.Item Item}s) default price
 	 */
-	public float getPrice();
+	float getPrice();
 	
 	/**
-	 * get amount of price of Products({@link main.gameObject.athletes.Athlete Athlete}s 
-	 * and {@link main.gameObject.item.Item Item}s) to sell
-	 * @return Products' ({@link main.gameObject.athletes.Athlete Athlete}}s 
-	 * and {@link main.gameObject.item.Item Item}s) selling price
+	 * get amount of price of Products({@link main.gameObject.athletes.Athlete Athletes}
+	 * and {@link main.gameObject.item.Item Items}) to sell
+	 * @return Products' ({@link main.gameObject.athletes.Athlete Athletes}}
+	 * and {@link main.gameObject.item.Item Items}) selling price
 	 */
-	public float getSellPrice();
+	float getSellPrice();
+
 }

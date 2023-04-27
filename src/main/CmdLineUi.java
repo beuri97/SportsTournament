@@ -1,8 +1,11 @@
 package main;
 
+import main.gameObject.Product;
 import main.gameObject.Team;
-import main.gamesystem.Exception.DifficultyOption;
+import main.gamesystem.DifficultyOption;
+import main.gamesystem.Exception.EmptySlotException;
 import main.gamesystem.Exception.IllegalInputException;
+import main.gamesystem.Exception.LackOfMoneyException;
 import main.gamesystem.Market;
 
 import java.util.Arrays;
@@ -16,7 +19,7 @@ public class CmdLineUi implements UserInterface {
 
 	private final Scanner scan;
 
-	private GameEnvironment gameEnvironment;
+	private GameEnvironment game;
 
 	enum Option {
 
@@ -40,7 +43,8 @@ public class CmdLineUi implements UserInterface {
 	enum MarketOption {
 		USAGE("""
 				usage
-				\tbuy|sell -a [1-6]|-i [1-8]"""),
+				\tbuy -a [1-6]|-i [1-8]
+				\tsell -a [1-7]|-i [1-8]"""),
 		BUY("""
 				buy - show Market stock to athletes or items
 				\toption
@@ -77,7 +81,7 @@ public class CmdLineUi implements UserInterface {
 	 * @param gameEnvironment game environment which is core of this program
 	 */
 	public void setup(GameEnvironment gameEnvironment) {
-		this.gameEnvironment = gameEnvironment;
+		this.game = gameEnvironment;
 
 		//Welcoming~~~
 		System.out.println("|||||||||||||||||||||||||||||||||||||");
@@ -106,14 +110,14 @@ public class CmdLineUi implements UserInterface {
 		while (true) {
 			String input = scan.nextLine();
 			try {
-				//check input is valid catch exception if input is invalid
-				gameEnvironment.check(input, NAME_REGEX, NAME_CHAR_REQUIREMENT);
-				//print feedback to player
+				// check input is valid catch exception if input is invalid
+				game.check(input, NAME_REGEX, NAME_CHAR_REQUIREMENT);
+				// print feedback to player
 				System.out.println("Awesome! Your team name is " + input);
 				return input;
 
 			} catch (IllegalInputException e) {
-				//print err message
+				// print err message
 				System.out.println(e.getMessage());
 				if (input.length() > 15 || input.length() < 3) System.out.println(NAME_LENGTH_REQUIREMENT);
 			}
@@ -130,17 +134,17 @@ public class CmdLineUi implements UserInterface {
 		while (true) {
 			String input = scan.nextLine();
 			try {
-				//Check input requirement
-				gameEnvironment.check(input, SEASON_REGEX, VALID_NUMBER);
-				//give feedback to user
+				// Check input requirement
+				game.check(input, SEASON_REGEX, VALID_NUMBER);
+				// give feedback to user
 				System.out.printf("The game season set %s weeks long%n", input);
 
-				//parse input to integer and send input to gameEnvironment
+				// parse input to integer and send input to gameEnvironment
 				return Integer.parseInt(input);
 
 			} catch (IllegalInputException iie) {
 
-				//catch any wrong input requirement
+				// catch any wrong input requirement
 				System.out.println(iie.getMessage());
 			}
 
@@ -161,7 +165,7 @@ public class CmdLineUi implements UserInterface {
 			String input = scan.nextLine();
 			try {
 				//check input requirement if not this throws exception
-				gameEnvironment.check(input, "(1|2)", INVALID_NUMBER);
+				game.check(input, "(1|2)", INVALID_NUMBER);
 
 				//set difficulty option if input requirement is met
 				switch (input) {
@@ -170,7 +174,7 @@ public class CmdLineUi implements UserInterface {
 				}
 
 				// give feedback to user
-				System.out.printf("Difficulty set: %s%n", options[Integer.parseInt(input) - 1].DIFFICULTY);
+				System.out.printf("Difficulty set: %s%n", options[Integer.parseInt(input) - 1].toString());
 
 			} catch (IllegalInputException e) {
 				System.out.println(e.getMessage());
@@ -213,9 +217,9 @@ public class CmdLineUi implements UserInterface {
 
 
 	void getInfo() {
-		System.out.printf("Your Team Name: %s%n", gameEnvironment.getTeam().getName());
+		System.out.printf("Your Team Name: %s%n", game.getTeam().getName());
 		System.out.println("Current week: ");
-		System.out.printf("Difficulty: %s%n", gameEnvironment.getDifficulty());
+		System.out.printf("Difficulty: %s%n", game.getDifficulty());
 	}
 
 	/**
@@ -223,8 +227,8 @@ public class CmdLineUi implements UserInterface {
 	 */
 	private void marketSystem() {
 		MarketOption[] option = MarketOption.values();
-		Market market = gameEnvironment.getMarket();
-		Team player = gameEnvironment.getTeam();
+		Market market = game.getMarket();
+		Team player = game.getTeam();
 
 		//Welcoming~
 		System.out.println("Welcome to Trading Market!");
@@ -237,36 +241,58 @@ public class CmdLineUi implements UserInterface {
 				// Market has 6 athletes stocks 8 items stocks, Team can have 7 athletes and 8 items as maximum
 				// if this preference is changed regex need to be fixed
 				// if input requirement is not met exception will be thrown
-				gameEnvironment.check(input, "exit|help|buy ((-a|-i)|(-a [1-6]|-i [1-8]))|sell ((-a|-i)|(-a [1-7]|-i [1-8]))",
+				game.check(input, "exit|help|buy ((-a|-i)|(-a [1-6]|-i [1-8]))|sell ((-a|-i)|(-a [1-7]|-i ([1-9]|1[0-4])))",
 						null);
+
+				//split command input value
+				String[] str = input.split(" ");
+
 				//terminate while loop to get out the market
 				if(input.equals("exit")) break;
 
-					//else check command input
+				// else check command input player get help to input command
 				else if (input.equals("help")) {
 					System.out.println(option[0]);
 					listing(Arrays.copyOfRange(option, 1, option.length));
-				} else if (input.equals("buy -a")) listing(market.getAthleteProduct());
-					//else if (input.equals("buy -i")) listing(market.getItemProduct());
-				else if(input.equals("sell -a")) listing(player.getRoster());
-				else if(input.equals("sell -i")) listing(player.getInventory());
-				else if (input.matches("buy -a [1-6]")) {
-					String[] str = input.split(" ");
-					market.purchase(market.getAthleteProduct(), Integer.parseInt(str[2])-1);
 				}
-//				else if (input.matches("buy -i [1-8]")){
-//					String[] str = input.split(" ");
-//					market.purchase(market.getItemProduct(), Integer.parseInt(str[2]) -1);
-//				}
-//				else if (input.matches("sell -a [1-7]")) {
-//
-//				}
-//				else if(input.matches("sell -i [1-8]]")){
-//
-//				}
-			} catch (IllegalInputException e) {
+				// provide market athlete stocks to player
+				else if (input.equals("buy -a")) listing(market.getAthleteProduct());
+				// provide market Item stocks to player
+				else if (input.equals("buy -i")) listing(market.getItemProduct());
+				// provide Team Athlete roster to player
+				else if(input.equals("sell -a")) listing(player.getRoster());
+				// provide Team Inventory to player
+				else if(input.equals("sell -i")) listing(player.getInventory());
+				// provide purchase sequence to player
+				else if (input.matches("buy (-a [1-6]|-i [1-8])")) {
+
+					//if command input contains "-a" call market athlete stocks otherwise call item stocks
+					//do not have to care any invalid input since input command already checked at above
+					Product[] stocks = (str[1].equals("-a")) ? market.getAthleteProduct() : market.getItemProduct();
+					//parse str[2] to integer to use it as index
+					int index = Integer.parseInt(str[2]) - 1;
+					//throw exception if target is null
+					if (stocks[index] == null) throw new EmptySlotException();
+					
+					game.tradingProcess(str[0], stocks, index);
+				}
+				// provide sell sequence to player
+				else if(input.matches("sell (-a [1-7]|-i ([1-9]|1[0-4]))")) {
+
+					//if command input contains "-a" call team athlete roster otherwise call item inventory
+					//do not have to care any invalid input since input command already checked at above
+					Product[] properties = (str[1].equals("-a")) ? player.getRoster() : player.getInventory();
+					//parse str[2] to integer to use it as index
+					int index = Integer.parseInt(str[2]) - 1;
+					//throw exception if target is null
+					if (properties[index] == null) throw new EmptySlotException();
+					game.tradingProcess(str[0], properties, Integer.parseInt(str[2]) -1);
+
+				}
+			} catch (LackOfMoneyException | EmptySlotException | IllegalInputException e) {
 				System.out.println(e.getMessage());
 			}
+
 		}
 	}
 
@@ -277,7 +303,8 @@ public class CmdLineUi implements UserInterface {
 	public void listing(Object[] array) {
 
 		for (int i = 1; i <= array.length; i++) {
-			System.out.printf("%d. %s%n", i, (array[i - 1] == null) ? "EMPTY\n" : array[i - 1]);
+			System.out.printf("%d. %s%n",
+					i, (array[i - 1] == null) ? (array instanceof Product[]) ? "SOLD\n" : "EMPTY\n" : array[i - 1]);
 		}
 	}
 

@@ -2,8 +2,10 @@ package main.gameObject;
 
 import main.gameObject.athletes.Athlete;
 import main.gameObject.item.Item;
+import main.gamesystem.Exception.LackOfMoneyException;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Class Team for user and opponents.
@@ -19,7 +21,7 @@ public class Team {
     /**
      * Money that team(player) has
      */
-    float money;
+    double money;
     /**
      * Athletes' roster. Regular Athletes are in index 0 - 3(inclusive) reserves are in index 4 - 6(inclusive).
      */
@@ -51,7 +53,7 @@ public class Team {
 
     /**
      * get Team's Athletes roster in 2D Array. First row(index 0) is regular athletes Second row(index 1) is reserves.
-     * @return Athlete 2D array player has
+     * @return Athlete array player has
      */
     public Athlete[] getRoster() {
 
@@ -64,24 +66,41 @@ public class Team {
      */
     public Item[] getInventory() {
 
-        return this.inventory.toArray(new Item[8]);
+        return this.inventory.toArray(new Item[14]);
+    }
+
+    /**
+     * get total amount of money player has
+     * @return player's money in type double
+     */
+    public double getMoney() {
+
+        return this.money;
+    }
+
+
+    public void setMoney(double price) {
+
+        if(this.money + price < 0) throw new LackOfMoneyException();
+        this.money += price;
     }
 
     /**
      * Add athletes into roster after purchase them
-     * @param athlete an athlete that user purchased
+     * @param newAthlete an athlete that user purchased
      */
-    public void recruitAthletes(Product athlete) {
+    public void recruitAthletes(Product newAthlete) {
 
         // place to regular array priority if the array has empty place
         // then place to reserve array
         //if all arrays are empty should return Exception -> TODO - this need to be implemented
-        if (this.roster.size() < 7) {
-            //add athletes - casting Product to Athletes
-            this.roster.add((Athlete) athlete);
-        } else {
-            // TODO - Implement Exception here - Perhaps use try catch?
-        }
+//        for(int i=0; i<this.roster.size(); i++){
+//            if (this.roster.get(i) == null) {
+//                this.roster.set(i,(Athlete) newAthlete);
+//                break;
+//            }
+//        }
+        this.roster.add((Athlete) newAthlete);
     }
 
  /**
@@ -90,9 +109,9 @@ public class Team {
  * or an athlete is injured.
  * @param athlete target athlete that will be removed
  */
-    public void leaveAthletes(Athlete athlete) {
+    public void leaveAthletes(Product athlete) {
 
-       this.roster.remove(athlete);
+        this.roster.set(this.roster.indexOf((Athlete) athlete), null);
     }
 
     /**
@@ -101,19 +120,21 @@ public class Team {
      */
     public void addItem(Product item) {
 
-        if (this.inventory.size() < 8) {
-            //append item after casting to Item
-            this.inventory.add((Item) item);
-        } //TODO - implement exception here
+        for(int i=0; i<this.inventory.size(); i++){
+            if (this.inventory.get(i) == null) {
+                this.inventory.set(i,(Item) item);
+                break;
+            }
+        }
     }
     
     /**
      * Remove an item from inventory if user use or sell the item.
      * @param item target item that will be removed
      */
-    public void removeItem(Item item) {
-    	
-    	this.inventory.remove(item);
+    public void removeItem(Product item) {
+        this.inventory.set(this.inventory.indexOf((Item) item), null);
+
     	
     }
 }

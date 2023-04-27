@@ -1,8 +1,11 @@
 package main;
 
+import main.gameObject.Product;
 import main.gameObject.Team;
-import main.gamesystem.Exception.DifficultyOption;
+import main.gameObject.athletes.Athlete;
+import main.gamesystem.DifficultyOption;
 import main.gamesystem.Exception.IllegalInputException;
+import main.gamesystem.Exception.LackOfMoneyException;
 import main.gamesystem.Market;
 import main.gamesystem.SetUp;
 
@@ -49,9 +52,12 @@ public class GameEnvironment {
 	}
 
 	public void set(String name, int week, DifficultyOption difficulty){
-		this.getTeam().setName(name);
 		this.season = week;
 		this.difficulty = difficulty;
+		Team newTeam = getTeam();
+		newTeam.setName(name);
+		newTeam.setMoney(difficulty.getMoney());
+
 	}
 	/**
 	 * get Player's {@link main.gameObject.Team team}. Create new Team if this.team == null
@@ -71,7 +77,7 @@ public class GameEnvironment {
 
 	public String getDifficulty() {
 
-		return this.difficulty.DIFFICULTY;
+		return this.difficulty.toString();
 	}
 
 	/**
@@ -79,6 +85,28 @@ public class GameEnvironment {
 	 */
 	public void start() {
 		this.ui.setup(this);
+	}
+
+
+	public void tradingProcess(String type, Product[] products, int col) throws LackOfMoneyException {
+
+		switch(type) {
+			case "buy":
+				team.setMoney(- products[col].getPrice());
+				Product product = this.market.purchase(products, col);
+				if ((product instanceof Athlete)) {
+					this.team.recruitAthletes(product);
+				} else {
+					this.team.addItem(product);
+				}
+				break;
+			case "sell":
+				Product sale = products[col];
+				team.setMoney(sale.getPrice());
+				if(products[col] instanceof Athlete) team.leaveAthletes(sale);
+				else team.removeItem(sale);
+				break;
+		}
 	}
 
 	/**
