@@ -199,9 +199,9 @@ public class CmdLineUi implements UserInterface {
 				switch (input) {
 					case "help" -> listing(option);
 					case "exit" -> confirmExit();
-					//TODO - create methods and call them here
 					case "market" -> marketSystem();
 					case "info" -> getInfo();
+					//TODO - create methods and call them here
 					//case "team"
 					//case "stadium"
 					default -> throw new IllegalInputException();
@@ -253,6 +253,7 @@ public class CmdLineUi implements UserInterface {
 				// else check command input player get help to input command
 				else if (input.equals("help")) {
 					System.out.println(option[0]);
+					//since we already print first index we need to discard index 0
 					listing(Arrays.copyOfRange(option, 1, option.length));
 				}
 				// provide market athlete stocks to player
@@ -264,35 +265,15 @@ public class CmdLineUi implements UserInterface {
 				// provide Team Inventory to player
 				else if(input.equals("sell -i")) listing(player.getInventory());
 				// provide purchase sequence to player
-				else if (input.matches("buy (-a [1-6]|-i [1-8])")) {
-
-					//if command input contains "-a" call market athlete stocks otherwise call item stocks
-					//do not have to care any invalid input since input command already checked at above
-					Product[] stocks = (str[1].equals("-a")) ? market.getAthleteProduct() : market.getItemProduct();
-					//parse str[2] to integer to use it as index
-					int index = Integer.parseInt(str[2]) - 1;
-					//throw exception if target is null
-					if (stocks[index] == null) throw new EmptySlotException();
-					
-					game.tradingProcess(str[0], stocks, index);
-				}
+				else if (input.matches("buy (-a [1-6]|-i [1-8])"))
+					game.tradingProcess(str[0], str[1], Integer.parseInt(str[2]) - 1);
 				// provide sell sequence to player
-				else if(input.matches("sell (-a [1-7]|-i ([1-9]|1[0-4]))")) {
+				else if(input.matches("sell (-a [1-7]|-i ([1-9]|1[0-4]))"))
+					game.tradingProcess(str[0], str[1], Integer.parseInt(str[2]) - 1);
 
-					//if command input contains "-a" call team athlete roster otherwise call item inventory
-					//do not have to care any invalid input since input command already checked at above
-					Product[] properties = (str[1].equals("-a")) ? player.getRoster() : player.getInventory();
-					//parse str[2] to integer to use it as index
-					int index = Integer.parseInt(str[2]) - 1;
-					//throw exception if target is null
-					if (properties[index] == null) throw new EmptySlotException();
-					game.tradingProcess(str[0], properties, Integer.parseInt(str[2]) -1);
-
-				}
-			} catch (LackOfMoneyException | EmptySlotException | IllegalInputException e) {
+			} catch (RuntimeException e) {
 				System.out.println(e.getMessage());
 			}
-
 		}
 	}
 

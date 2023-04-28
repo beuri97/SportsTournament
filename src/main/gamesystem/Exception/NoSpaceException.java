@@ -1,5 +1,7 @@
 package main.gamesystem.Exception;
 
+import org.w3c.dom.ranges.RangeException;
+
 public class NoSpaceException extends IndexOutOfBoundsException{
 
     public NoSpaceException(){

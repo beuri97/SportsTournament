@@ -3,6 +3,7 @@ package main.gameObject;
 import main.gameObject.athletes.Athlete;
 import main.gameObject.item.Item;
 import main.gamesystem.Exception.LackOfMoneyException;
+import main.gamesystem.Exception.NoSpaceException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,6 +14,8 @@ import java.util.Arrays;
  */
 public class Team {
 
+    private final int TOTAL_ATHLETE = 7;
+    private final int TOTAL_ITEM = 14;
     /**
      * Team name
      */
@@ -57,7 +60,7 @@ public class Team {
      */
     public Athlete[] getRoster() {
 
-        return this.roster.toArray(new Athlete[7]);
+        return this.roster.toArray(new Athlete[TOTAL_ATHLETE]);
     }
 
     /**
@@ -66,7 +69,7 @@ public class Team {
      */
     public Item[] getInventory() {
 
-        return this.inventory.toArray(new Item[14]);
+        return this.inventory.toArray(new Item[TOTAL_ITEM]);
     }
 
     /**
@@ -79,7 +82,7 @@ public class Team {
     }
 
 
-    public void setMoney(double price) {
+    public void setMoney(double price) throws RuntimeException {
 
         if(this.money + price < 0) throw new LackOfMoneyException();
         this.money += price;
@@ -94,24 +97,24 @@ public class Team {
         // place to regular array priority if the array has empty place
         // then place to reserve array
         //if all arrays are empty should return Exception -> TODO - this need to be implemented
-//        for(int i=0; i<this.roster.size(); i++){
-//            if (this.roster.get(i) == null) {
-//                this.roster.set(i,(Athlete) newAthlete);
-//                break;
-//            }
-//        }
-        this.roster.add((Athlete) newAthlete);
+        for(int i=0; i<this.roster.size(); i++){
+            if (this.roster.get(i) == null) {
+                this.roster.set(i,(Athlete) newAthlete);
+                break;
+            }
+        }
+        if(this.roster.size() <= TOTAL_ATHLETE) this.roster.add((Athlete) newAthlete);
     }
 
  /**
  * Remove an athlete from the roster.
  * This method is for cases where a user sells an athlete
  * or an athlete is injured.
- * @param athlete target athlete that will be removed
+ * @param col target athlete's index that will be removed
  */
-    public void leaveAthletes(Product athlete) {
+    public void leaveAthletes(int col) {
 
-        this.roster.set(this.roster.indexOf((Athlete) athlete), null);
+        this.roster.set(col, null);
     }
 
     /**
@@ -126,15 +129,27 @@ public class Team {
                 break;
             }
         }
+        if(this.inventory.size() < TOTAL_ITEM) this.inventory.add((Item) item);
     }
     
     /**
      * Remove an item from inventory if user use or sell the item.
-     * @param item target item that will be removed
+     * @param col target item's index that will be removed
      */
-    public void removeItem(Product item) {
-        this.inventory.set(this.inventory.indexOf((Item) item), null);
+    public void removeItem(int col) {
+        this.inventory.set(col, null);
 
     	
+    }
+
+    public boolean isFull(Product[] products) {
+
+        //array has fixed length so if at least one null in this array this mean becomes array is not full
+        for (Product product : products) {
+            if (product == null) {
+                return false;
+            }
+        }
+        return true;
     }
 }

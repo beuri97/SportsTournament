@@ -1,5 +1,6 @@
 package main.gamesystem;
 
+import main.gameObject.Product;
 import main.gamesystem.Exception.IllegalInputException;
 
 public class SetUp {
@@ -9,5 +10,16 @@ public class SetUp {
         if(!input.matches(REGEX)) {
             throw new IllegalInputException(message);
         }
+    }
+
+    public boolean isFull(Product[] products) {
+
+        //array has fixed length so if at least one null in this array this mean becomes array is not full
+        for (Product product : products) {
+            if (product == null) {
+                return false;
+            }
+        }
+        return true;
     }
 }

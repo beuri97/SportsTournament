@@ -120,8 +120,9 @@ public class Market {
 	 * @param col index of items' or athletes' location that user wish to buy.
 	 * @return purchased item or athlete
 	 */
-	public Product purchase(Product[] product, int col) {
+	public Product purchase(Product[] product, int col) throws RuntimeException{
 
+		if(product[col] == null) throw new EmptySlotException();
 		Product sold = product[col];
 		product[col] = null;
 

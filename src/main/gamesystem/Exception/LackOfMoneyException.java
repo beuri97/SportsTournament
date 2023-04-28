@@ -1,6 +1,5 @@
 package main.gamesystem.Exception;
 
-import main.gameObject.Product;
 
 public class LackOfMoneyException extends IllegalArgumentException {
 
