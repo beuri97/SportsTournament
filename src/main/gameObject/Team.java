@@ -2,8 +2,11 @@ package main.gameObject;
 
 import main.gameObject.athletes.Athlete;
 import main.gameObject.item.Item;
+import main.gamesystem.Exception.LackOfMoneyException;
+import main.gamesystem.Exception.NoSpaceException;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Class Team for user and opponents.
@@ -11,6 +14,8 @@ import java.util.ArrayList;
  */
 public class Team {
 
+    private final int TOTAL_ATHLETE = 7;
+    private final int TOTAL_ITEM = 14;
     /**
      * Team name
      */
@@ -19,7 +24,7 @@ public class Team {
     /**
      * Money that team(player) has
      */
-    float money;
+    double money;
     /**
      * Athletes' roster. Regular Athletes are in index 0 - 3(inclusive) reserves are in index 4 - 6(inclusive).
      */
@@ -51,11 +56,11 @@ public class Team {
 
     /**
      * get Team's Athletes roster in 2D Array. First row(index 0) is regular athletes Second row(index 1) is reserves.
-     * @return Athlete 2D array player has
+     * @return Athlete array player has
      */
     public Athlete[] getRoster() {
 
-        return this.roster.toArray(new Athlete[7]);
+        return this.roster.toArray(new Athlete[TOTAL_ATHLETE]);
     }
 
     /**
@@ -64,35 +69,52 @@ public class Team {
      */
     public Item[] getInventory() {
 
-        return this.inventory.toArray(new Item[8]);
+        return this.inventory.toArray(new Item[TOTAL_ITEM]);
+    }
+
+    /**
+     * get total amount of money player has
+     * @return player's money in type double
+     */
+    public double getMoney() {
+
+        return this.money;
+    }
+
+
+    public void setMoney(double price) throws RuntimeException {
+
+        if(this.money + price < 0) throw new LackOfMoneyException();
+        this.money += price;
     }
 
     /**
      * Add athletes into roster after purchase them
-     * @param athlete an athlete that user purchased
+     * @param newAthlete an athlete that user purchased
      */
-    public void recruitAthletes(Product athlete) {
+    public void recruitAthletes(Product newAthlete) {
 
         // place to regular array priority if the array has empty place
         // then place to reserve array
         //if all arrays are empty should return Exception -> TODO - this need to be implemented
-        if (this.roster.size() < 7) {
-            //add athletes - casting Product to Athletes
-            this.roster.add((Athlete) athlete);
-        } else {
-            // TODO - Implement Exception here - Perhaps use try catch?
+        for(int i=0; i<this.roster.size(); i++){
+            if (this.roster.get(i) == null) {
+                this.roster.set(i,(Athlete) newAthlete);
+                break;
+            }
         }
+        if(this.roster.size() <= TOTAL_ATHLETE) this.roster.add((Athlete) newAthlete);
     }
 
  /**
  * Remove an athlete from the roster.
  * This method is for cases where a user sells an athlete
  * or an athlete is injured.
- * @param athlete target athlete that will be removed
+ * @param col target athlete's index that will be removed
  */
-    public void leaveAthletes(Athlete athlete) {
+    public void leaveAthletes(int col) {
 
-       this.roster.remove(athlete);
+        this.roster.set(col, null);
     }
 
     /**
@@ -101,19 +123,33 @@ public class Team {
      */
     public void addItem(Product item) {
 
-        if (this.inventory.size() < 8) {
-            //append item after casting to Item
-            this.inventory.add((Item) item);
-        } //TODO - implement exception here
+        for(int i=0; i<this.inventory.size(); i++){
+            if (this.inventory.get(i) == null) {
+                this.inventory.set(i,(Item) item);
+                break;
+            }
+        }
+        if(this.inventory.size() < TOTAL_ITEM) this.inventory.add((Item) item);
     }
     
     /**
      * Remove an item from inventory if user use or sell the item.
-     * @param item target item that will be removed
+     * @param col target item's index that will be removed
      */
-    public void removeItem(Item item) {
+    public void removeItem(int col) {
+        this.inventory.set(col, null);
+
     	
-    	this.inventory.remove(item);
-    	
+    }
+
+    public boolean isFull(Product[] products) {
+
+        //array has fixed length so if at least one null in this array this mean becomes array is not full
+        for (Product product : products) {
+            if (product == null) {
+                return false;
+            }
+        }
+        return true;
     }
 }

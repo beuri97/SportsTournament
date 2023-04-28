@@ -96,11 +96,11 @@ class TeamTest {
 		 * after removing one of athlete in the roster, check whether the removed Athlete is existing or not.
 		 */
 		if (count != 0) {
-			Athlete leavingAthlete = testTeam.getRoster()[pickNum.nextInt(0, count)];
+			int leavingAthlete = pickNum.nextInt(0, count);
 			testTeam.leaveAthletes(leavingAthlete);
 			for (Athlete name: testTeam.getRoster()) {
 				if (name != null) {
-				assertNotEquals(leavingAthlete, name);
+				assertNotEquals(testTeam.getRoster()[leavingAthlete], name);
 				}
 			}
 		}
@@ -142,12 +142,12 @@ class TeamTest {
 		 * After removing one of item in the inventory, check whether the removed item is existing or not.
 		 */
 		if (count != 0) {
-			Item removeditem = testTeam.getInventory()[pickNum.nextInt(0, count)];
-			System.out.println(removeditem);
+			int removeditem = pickNum.nextInt(0, count);
+			System.out.println(testTeam.getInventory()[removeditem]);
 			testTeam.removeItem(removeditem);
 			for (Item name: testTeam.getInventory()) {
 				if (name != null) {
-					assertNotEquals(removeditem, name);
+					assertNotEquals(testTeam.getInventory()[removeditem], name);
 				}
 			}
 		}

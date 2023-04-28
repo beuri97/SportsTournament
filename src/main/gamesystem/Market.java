@@ -6,6 +6,7 @@ import main.gameObject.athletes.type.*;
 import java.util.Random;
 
 import main.gameObject.item.*;
+import main.gamesystem.Exception.EmptySlotException;
 
 /**
  * class for players to interact with Market
@@ -115,25 +116,16 @@ public class Market {
 
 	/**
 	 * Method to process when user purchases athletes or items.
-	 * @param type row index of products. Integer 0 represents list of athletes,
-	 * integer 1 represents list of items.
+	 * @param product Product stock array
 	 * @param col index of items' or athletes' location that user wish to buy.
 	 * @return purchased item or athlete
 	 */
-	public Product purchase(Product[] product, int col) {
+	public Product purchase(Product[] product, int col) throws RuntimeException{
 
-
+		if(product[col] == null) throw new EmptySlotException();
 		Product sold = product[col];
 		product[col] = null;
 
 		return sold;
-	}
-
-
-	public void sell(int index) {
-
-		//TODO - Create Interface Purchasable and generate this method
-		// But this method might be removed
-		// Need to think about this method later.
 	}
 }

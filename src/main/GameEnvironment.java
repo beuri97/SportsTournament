@@ -1,8 +1,12 @@
 package main;
 
+import main.gameObject.Product;
 import main.gameObject.Team;
-import main.gamesystem.Exception.DifficultyOption;
+import main.gameObject.athletes.Athlete;
+import main.gamesystem.DifficultyOption;
+import main.gamesystem.Exception.EmptySlotException;
 import main.gamesystem.Exception.IllegalInputException;
+import main.gamesystem.Exception.NoSpaceException;
 import main.gamesystem.Market;
 import main.gamesystem.SetUp;
 
@@ -49,16 +53,19 @@ public class GameEnvironment {
 	}
 
 	public void set(String name, int week, DifficultyOption difficulty){
-		this.getTeam().setName(name);
 		this.season = week;
 		this.difficulty = difficulty;
+		this.team = new Team();
+		this.team.setName(name);
+		this.team.setMoney(difficulty.getMoney());
+
 	}
+
 	/**
 	 * get Player's {@link main.gameObject.Team team}. Create new Team if this.team == null
 	 * @return player's {@link main.gameObject.Team team}
 	 */
 	public Team getTeam() {
-		if (this.team == null) this.team = new Team();    // maybe need to be removed
 
 		return this.team;
 	}
@@ -71,7 +78,7 @@ public class GameEnvironment {
 
 	public String getDifficulty() {
 
-		return this.difficulty.DIFFICULTY;
+		return this.difficulty.toString();
 	}
 
 	/**
@@ -79,6 +86,34 @@ public class GameEnvironment {
 	 */
 	public void start() {
 		this.ui.setup(this);
+	}
+
+
+	public void tradingProcess(String type, String stockType, int col) throws RuntimeException {
+
+		Product[] properties = (stockType.equals("-a")) ? team.getRoster() : team.getInventory();
+		switch(type) {
+			case "buy":
+				Product[] stocks = (stockType.equals("-a")) ? market.getAthleteProduct() : market.getItemProduct();
+				if(stocks[col] == null) throw new EmptySlotException();
+				if(team.isFull(properties)) throw new NoSpaceException();
+				team.setMoney(- stocks[col].getPrice());
+				Product product = market.purchase(stocks, col);
+				if ((product instanceof Athlete)) {
+					this.team.recruitAthletes(product);
+				} else {
+					this.team.addItem(product);
+				}
+
+				break;
+			case "sell":
+				if(properties[col] == null) throw new EmptySlotException();
+				Product sale = properties[col];
+				team.setMoney(sale.getPrice());
+				if(properties[col] instanceof Athlete) team.leaveAthletes(col);
+				else team.removeItem(col);
+				break;
+		}
 	}
 
 	/**
@@ -90,7 +125,7 @@ public class GameEnvironment {
 	 */
 	public void check(String input, final String REGEX, String message) throws IllegalInputException {
 
-		setup.checkRegex(input, REGEX, message);
+		this.setup.checkRegex(input, REGEX, message);
 	}
 
 	/**
