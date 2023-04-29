@@ -3,6 +3,7 @@ package main;
 import main.gameObject.Product;
 import main.gameObject.Team;
 import main.gameObject.athletes.Athlete;
+import main.gameObject.item.Item;
 import main.gamesystem.DifficultyOption;
 import main.gamesystem.Exception.EmptySlotException;
 import main.gamesystem.Exception.IllegalInputException;
@@ -114,6 +115,14 @@ public class GameEnvironment {
 				else team.removeItem(col);
 				break;
 		}
+	}
+
+
+	public void useItem(int athleteIndex, int itemIndex) {
+
+		Athlete athlete = this.team.getRoster()[athleteIndex];
+		Item item = this.team.getInventory()[itemIndex];
+		athlete.useItem(item);
 	}
 
 	/**

@@ -1,11 +1,8 @@
 package main;
 
-import main.gameObject.Product;
 import main.gameObject.Team;
 import main.gamesystem.DifficultyOption;
-import main.gamesystem.Exception.EmptySlotException;
 import main.gamesystem.Exception.IllegalInputException;
-import main.gamesystem.Exception.LackOfMoneyException;
 import main.gamesystem.Market;
 
 import java.util.Arrays;
@@ -44,7 +41,8 @@ public class CmdLineUi implements UserInterface {
 		USAGE("""
 				usage
 				\tbuy -a [1-6]|-i [1-8]
-				\tsell -a [1-7]|-i [1-8]"""),
+				\tsell -a [1-7]|-i [1-8]
+				\texit"""),
 		BUY("""
 				buy - show Market stock to athletes or items
 				\toption
@@ -54,13 +52,53 @@ public class CmdLineUi implements UserInterface {
 				sell - show Team Roster and inventory to sell athletes or items
 				\toption
 				\t\t-a\tshow sellable. athlete selling process will be proceed if input number is exist and valid
-				\t\t-i\tshow sellable. items selling process will be proceed if input number is exist and valid""");
+				\t\t-i\tshow sellable. items selling process will be proceed if input number is exist and valid"""),
+		EXIT("exit - exit market");
 
 		final String DESCRIPTION;
 
 		MarketOption(String string) {
 
 			this.DESCRIPTION = string;
+		}
+
+		public String toString() {
+
+			return this.DESCRIPTION;
+		}
+	}
+
+
+	enum TeamManageOption {
+		USAGE("""
+				usage
+				\tshow|exit
+				\tuse ([1-9]|1[0-4])
+				\tswap [1-7] to [1-7]
+				\texit
+				"""),
+		SHOW("""
+				show - show athlete roster and item inventory
+				"""),
+		USE("""
+				use - command to use item to athlete
+				\toption
+				\t\tnumber - 1 to 14 which is inventory index number(cardinal)
+				\t\t\t if number is valid athlete roster will be printed and play choose number to select athlete
+				"""),
+		SWAP("""
+				swap - swap athletes' order
+				\toption
+				\t\t[1-7] to [1-7] - index number represent athletes' order
+				"""),
+		EXIT("""
+				exit - exit team manager
+				""");
+
+		final String DESCRIPTION;
+
+		TeamManageOption(String description) {
+			this.DESCRIPTION = description;
 		}
 
 		public String toString() {
@@ -84,9 +122,9 @@ public class CmdLineUi implements UserInterface {
 		this.game = gameEnvironment;
 
 		//Welcoming~~~
-		System.out.println("|||||||||||||||||||||||||||||||||||||");
-		System.out.println("||        SPORTS TOURNAMENT        ||");
-		System.out.println("|||||||||||||||||||||||||||||||||||||");
+		System.out.println("|||||||||||||||||||||||||||||||||||||||||||||||");
+		System.out.println("|||||||        SPORTS TOURNAMENT        |||||||");
+		System.out.println("|||||||||||||||||||||||||||||||||||||||||||||||");
 		System.out.println();
 
 		//setup sequence
@@ -201,9 +239,10 @@ public class CmdLineUi implements UserInterface {
 					case "exit" -> confirmExit();
 					case "market" -> marketSystem();
 					case "info" -> getInfo();
+					case "team" -> teamInfoSystem();
 					//TODO - create methods and call them here
-					//case "team"
 					//case "stadium"
+					//case "bye"
 					default -> throw new IllegalInputException();
 				}
 			}catch (IllegalInputException e) {
@@ -217,8 +256,11 @@ public class CmdLineUi implements UserInterface {
 
 
 	void getInfo() {
-		System.out.printf("Your Team Name: %s%n", game.getTeam().getName());
+		//get Team's(player's) Info
+		Team player = game.getTeam();
+		System.out.printf("\nYour Team Name: %s%n", player.getName());
 		System.out.println("Current week: ");
+		System.out.printf("Money: $ %.2f%n", player.getMoney());
 		System.out.printf("Difficulty: %s%n", game.getDifficulty());
 	}
 
@@ -231,10 +273,11 @@ public class CmdLineUi implements UserInterface {
 		Team player = game.getTeam();
 
 		//Welcoming~
-		System.out.println("Welcome to Trading Market!");
+		System.out.println("\nWelcome to Trading Market!");
 		while(true) {
-			System.out.println("input command here\ninput \"help\" for more information\ninput \"exit\" to exit market");
-			System.out.println("WARNING: There is no double-checking so decide carefully");
+			System.out.printf("Your Money: $ %.2f%n", player.getMoney());
+			System.out.println("input command here\ninput \"help\" for more information.");
+			System.out.println("WARNING: There is no double-checking so decide carefully.");
 			String input = scan.nextLine();
 			try {
 
@@ -250,7 +293,7 @@ public class CmdLineUi implements UserInterface {
 				//terminate while loop to get out the market
 				if(input.equals("exit")) break;
 
-				// else check command input player get help to input command
+					// else check command input player get help to input command
 				else if (input.equals("help")) {
 					System.out.println(option[0]);
 					//since we already print first index we need to discard index 0
@@ -258,16 +301,16 @@ public class CmdLineUi implements UserInterface {
 				}
 				// provide market athlete stocks to player
 				else if (input.equals("buy -a")) listing(market.getAthleteProduct());
-				// provide market Item stocks to player
+					// provide market Item stocks to player
 				else if (input.equals("buy -i")) listing(market.getItemProduct());
-				// provide Team Athlete roster to player
+					// provide Team Athlete roster to player
 				else if(input.equals("sell -a")) listing(player.getRoster());
-				// provide Team Inventory to player
+					// provide Team Inventory to player
 				else if(input.equals("sell -i")) listing(player.getInventory());
-				// provide purchase sequence to player
+					// provide purchase sequence to player
 				else if (input.matches("buy (-a [1-6]|-i [1-8])"))
 					game.tradingProcess(str[0], str[1], Integer.parseInt(str[2]) - 1);
-				// provide sell sequence to player
+					// provide sell sequence to player
 				else if(input.matches("sell (-a [1-7]|-i ([1-9]|1[0-4]))"))
 					game.tradingProcess(str[0], str[1], Integer.parseInt(str[2]) - 1);
 
@@ -277,6 +320,72 @@ public class CmdLineUi implements UserInterface {
 		}
 	}
 
+	private void teamInfoSystem() {
+
+		while(true) {
+			this.getInfo();
+			TeamManageOption[] option = TeamManageOption.values();
+			Team player = game.getTeam();
+			System.out.println("\nInput command to manage your Team below");
+			String input = scan.nextLine();
+			try {
+				// break loop and exit team manager System
+				if(input.equals("exit")) break;
+				else if(input.equals("help")) {
+					System.out.println(option[0]);
+					this.listing(Arrays.copyOfRange(option, 1, option.length));
+				} else if(input.equals("show")) {
+					// define how many athlete
+					final int REGULAR_NUMBER = 4;
+					// print regular athletes
+					System.out.println("Roster\n\nRegular");
+					this.listing(Arrays.copyOfRange(player.getRoster(),0, REGULAR_NUMBER));
+					// print reserve athletes
+					System.out.println("\nReserve");
+					this.listing(Arrays.copyOfRange(player.getRoster(), REGULAR_NUMBER, player.getRoster().length));
+					// print item inventory
+					System.out.println("\nInventory");
+					this.listing(player.getInventory());
+				}
+				// command for use item to athlete
+				else if (input.matches("^use ([1-9]|1[0-4])")) {
+
+					int itemIndex = Integer.parseInt(input.split(" ")[1]) -1;
+					System.out.println("\n Select athlete to apply. Input \"cancel\" to cancel process.");
+					String temp = scan.nextLine();
+					//check input requirement
+					if(!temp.matches("^[1-7]")) throw new IllegalInputException();
+					else if (temp.equals("cancel"))
+						//ignore use command
+						continue;
+
+					int athleteIndex = Integer.parseInt(temp) -1;
+					game.useItem(athleteIndex, itemIndex);
+				}
+				else if (input.matches("^swap [1-7] to [1-7]")) {
+					String[] str = input.split(" ");
+					int athlete1 = Integer.parseInt(str[1]) -1;
+					int athlete2 = Integer.parseInt(str[3]) -1;
+					player.swapAthletes(athlete1, athlete2);
+				}
+				else throw new IllegalInputException();
+
+			} catch (IllegalInputException e){
+				System.out.println(e.getMessage());
+			}
+		}
+	}
+
+
+	private void stadium() {}
+
+
+	private void takeBye() {}
+
+
+	private void declareGameOver() {}
+
+
 	/**
 	 * print options with cardinal number
 	 * @param array array to print option
@@ -284,8 +393,7 @@ public class CmdLineUi implements UserInterface {
 	public void listing(Object[] array) {
 
 		for (int i = 1; i <= array.length; i++) {
-			System.out.printf("%d. %s%n",
-					i, (array[i - 1] == null) ? (array instanceof Product[]) ? "SOLD\n" : "EMPTY\n" : array[i - 1]);
+			System.out.printf("%d. %s%n", i, (array[i - 1] == null) ? "EMPTY\n" : array[i - 1]);
 		}
 	}
 
@@ -306,8 +414,6 @@ public class CmdLineUi implements UserInterface {
 			}
 			case "n" -> System.out.println();
 			default -> throw new IllegalInputException();
-
 		}
-
 	}
 }

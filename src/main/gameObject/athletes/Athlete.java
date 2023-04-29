@@ -1,6 +1,7 @@
 package main.gameObject.athletes;
 import main.gameObject.Product;
 import main.gameObject.Rarity;
+import main.gameObject.item.Item;
 
 /**
  * Class to implement athletes objects in game
@@ -60,8 +61,8 @@ public class Athlete implements Product{
      * @param description athlete's description
      */
     public Athlete(String name, String description) {
-    	
-    	
+
+
         this.name = name;
         this.rarity = Rarity.setRarity();
         this. description = description;
@@ -141,21 +142,35 @@ public class Athlete implements Product{
         //if stamina exceed maximum stamina then change it to maximum stamina
         if (this.stamina > this.maxStamina) this.stamina = this.maxStamina;
     }
+
+    public void setMaxStamina(int changedStamina) {
+
+        this.maxStamina += changedStamina;
+    }
+
+    public void useItem(Item item) {
+
+        switch(item.getIncStat()) {
+            case "Defense" -> setDefenseStat(item.getIncAmount());
+            case "Offense" -> setOffenseStat(item.getIncAmount());
+            case "Stamina" -> setStamina(item.getIncAmount());
+        }
+    }
     
     /**
      * toString method to show information about athletes.
      */
     @Override
     public String toString() {
-    	
-    	return String.format("Name: %s%nRarity: %s%nOffense: %d%nDefense: %d%nStamina: %d%nPrice: %.2f%nDescription: %s%n",
-    			getName(), getRarity(), getOffenseStat(), getDefenseStat(), getStamina(), getPrice(), getDescription());
+
+        return String.format("Name: %s%nRarity: %s%nOffense: %d%nDefense: %d%nStamina: %d%nPrice: %.2f%nDescription: %s%n",
+                getName(), getRarity(), getOffenseStat(), getDefenseStat(), getStamina(), getPrice(), getDescription());
     }
 
-	public float getSellPrice() {
-		float sellPrice = this.price;
-		sellPrice *= SELL_PRICE_PENALTY;
-		
-		return sellPrice;
-	}
+    public float getSellPrice() {
+        float sellPrice = this.price;
+        sellPrice *= SELL_PRICE_PENALTY;
+
+        return sellPrice;
+    }
 }

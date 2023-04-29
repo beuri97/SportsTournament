@@ -7,6 +7,8 @@ import main.gamesystem.Exception.NoSpaceException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 
 /**
  * Class Team for user and opponents.
@@ -19,7 +21,7 @@ public class Team {
     /**
      * Team name
      */
-	String name;
+    String name;
     
     /**
      * Money that team(player) has
@@ -138,8 +140,6 @@ public class Team {
      */
     public void removeItem(int col) {
         this.inventory.set(col, null);
-
-    	
     }
 
     public boolean isFull(Product[] products) {
@@ -151,5 +151,10 @@ public class Team {
             }
         }
         return true;
+    }
+
+    public void swapAthletes(int athlete1, int athlete2) {
+
+        Collections.swap(this.roster, athlete1, athlete2);
     }
 }
