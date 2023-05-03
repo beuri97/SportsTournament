@@ -1,5 +1,6 @@
 package main;
 
+import main.gameObject.Product;
 import main.gameObject.Team;
 import main.gamesystem.DifficultyOption;
 import main.gamesystem.Exception.IllegalInputException;
@@ -241,7 +242,7 @@ public class CmdLineUi implements UserInterface {
 					case "info" -> getInfo();
 					case "team" -> teamInfoSystem();
 					//TODO - create methods and call them here
-					//case "stadium"
+					case "stadium" -> stadium();
 					//case "bye"
 					default -> throw new IllegalInputException();
 				}
@@ -308,11 +309,17 @@ public class CmdLineUi implements UserInterface {
 					// provide Team Inventory to player
 				else if(input.equals("sell -i")) listing(player.getInventory());
 					// provide purchase sequence to player
-				else if (input.matches("buy (-a [1-6]|-i [1-8])"))
-					game.tradingProcess(str[0], str[1], Integer.parseInt(str[2]) - 1);
-					// provide sell sequence to player
-				else if(input.matches("sell (-a [1-7]|-i ([1-9]|1[0-4]))"))
-					game.tradingProcess(str[0], str[1], Integer.parseInt(str[2]) - 1);
+				else if (input.matches("buy (-a [1-6]|-i [1-8])")){
+					int col = Integer.parseInt(str[2]) - 1;
+					Product[] stocks = (str[1].equals("-a")) ? market.getAthleteProduct() : market.getItemProduct();
+					game.tradingProcess(str[0], stocks, col);
+				}
+				// provide sell sequence to player
+				else if(input.matches("sell (-a [1-7]|-i ([1-9]|1[0-4]))")) {
+					int col = Integer.parseInt(str[2]) - 1;
+					Product[] stocks = (str[1].equals("-a")) ? player.getRoster() : player.getInventory();
+					game.tradingProcess(str[0], stocks, col);
+				}
 
 			} catch (RuntimeException e) {
 				System.out.println(e.getMessage());
@@ -361,14 +368,12 @@ public class CmdLineUi implements UserInterface {
 
 					int athleteIndex = Integer.parseInt(temp) -1;
 					game.useItem(athleteIndex, itemIndex);
-				}
-				else if (input.matches("^swap [1-7] to [1-7]")) {
+				} else if (input.matches("^swap [1-7] to [1-7]")) {
 					String[] str = input.split(" ");
 					int athlete1 = Integer.parseInt(str[1]) -1;
 					int athlete2 = Integer.parseInt(str[3]) -1;
 					player.swapAthletes(athlete1, athlete2);
-				}
-				else throw new IllegalInputException();
+				} else throw new IllegalInputException();
 
 			} catch (IllegalInputException e){
 				System.out.println(e.getMessage());
@@ -377,7 +382,30 @@ public class CmdLineUi implements UserInterface {
 	}
 
 
-	private void stadium() {}
+	private void stadium() {
+		// TODO - Check player team's athletes requirement - implement this kind of method at SetUp Class first
+		System.out.println("Select opponent:");
+		final String REGEX = String.format("[1-%d]", game.opponents.length);
+		while(true) {
+			try {
+				listing(game.opponents);
+				String input = scan.nextLine();
+				game.check(input, REGEX, "");
+				this.actualGame(Integer.parseInt(input) - 1);
+				break;
+			} catch(IllegalInputException e) {
+				System.out.println(e.getMessage());
+			}
+		}
+	}
+
+
+	private void actualGame(int index) {
+		Team opponent = game.opponents[index];
+		Team you = game.getTeam();
+		// TODO - Generate actual game situation - might need threading and multiprocessing
+
+	}
 
 
 	private void takeBye() {}
