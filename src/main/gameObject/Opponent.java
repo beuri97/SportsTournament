@@ -8,8 +8,8 @@ import main.gameObject.athletes.Athlete;
  */
 public class Opponent extends Team{
 
-    public Opponent(Product[] athletes) {
+    public Opponent(Athlete[] athletes) {
 
-        for(Product athlete : athletes) recruitAthletes((Athlete) athlete);
+        for(Athlete athlete : athletes) recruitAthletes(athlete);
     }
 }
