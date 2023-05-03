@@ -28,19 +28,16 @@ public class Market {
 	 * @author H Yang
 	 *
 	 */
-	enum Athletes {
+	public enum Athletes {
 
 		ANGELINA, DWAYNE, THORIN, PRODO;
 
-
-		static Athletes generateAthlete() {
+		public static Athletes generateAthlete() {
 
 			return Athletes.values()[new Random().nextInt(Athletes.values().length)];
 
 		}
-
 	}
-
 	/**
 	 * Represent kinds of {@link main.gameObject.item.Item Items}.
 	 * This will be used to generate items randomly.
@@ -63,7 +60,7 @@ public class Market {
 	 */
 	public Market() {
 
-		this.setAthleteProduct();
+		this.setAthleteProduct(products[0]);
 
 		for (int i = 0; i < products[1].length; i++) {
 
@@ -100,16 +97,16 @@ public class Market {
 	/**
 	 * set Athlete stocks
 	 */
-	public void setAthleteProduct() {
+	public void setAthleteProduct(Product[] slots) {
 
-		for (int i = 0; i < products[0].length; i++) {
+		for (int i = 0; i < slots.length; i++) {
 
 			switch(Athletes.generateAthlete()) {
 
-				case ANGELINA -> products[0][i] = new Angelina();
-				case DWAYNE -> products[0][i] = new Dwayne();
-				case THORIN -> products[0][i] = new Thorin();
-				case PRODO -> products[0][i] = new Prodo();
+				case ANGELINA -> slots[i] = new Angelina();
+				case DWAYNE -> slots[i] = new Dwayne();
+				case THORIN -> slots[i] = new Thorin();
+				case PRODO -> slots[i] = new Prodo();
 			}
 		}
 	}

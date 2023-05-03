@@ -16,8 +16,8 @@ import java.util.Collections;
  */
 public class Team {
 
-    private final int TOTAL_ATHLETE = 7;
-    private final int TOTAL_ITEM = 14;
+    protected final int TOTAL_ATHLETE = 7;
+    protected final int TOTAL_ITEM = 14;
     /**
      * Team name
      */
@@ -92,20 +92,24 @@ public class Team {
 
     /**
      * Add athletes into roster after purchase them
-     * @param newAthlete an athlete that user purchased
+     * @param athlete an athlete that user purchased
      */
-    public void recruitAthletes(Product newAthlete) {
+    public void recruitAthletes(Product athlete) {
 
-        // place to regular array priority if the array has empty place
-        // then place to reserve array
-        //if all arrays are empty should return Exception -> TODO - this need to be implemented
+
+        // if there is any null in array swap null to new athlete
+        // else add new athlete at the end if total number of current athletes are less than 7
         for(int i=0; i<this.roster.size(); i++){
             if (this.roster.get(i) == null) {
-                this.roster.set(i,(Athlete) newAthlete);
+                this.roster.set(i,(Athlete) athlete);
                 break;
             }
         }
-        if(this.roster.size() <= TOTAL_ATHLETE) this.roster.add((Athlete) newAthlete);
+        if(this.roster.size()<=TOTAL_ATHLETE && !this.roster.contains((Athlete)athlete))
+            this.roster.add((Athlete)athlete);
+
+        // This will not run but keep it for this program to run safe
+        else throw new NoSpaceException();
     }
 
  /**
@@ -131,7 +135,11 @@ public class Team {
                 break;
             }
         }
-        if(this.inventory.size() < TOTAL_ITEM) this.inventory.add((Item) item);
+        if(this.inventory.size() < TOTAL_ITEM && !this.inventory.contains((Item)item))
+            this.inventory.add((Item) item);
+
+        // This will not run but keep it for this program to run safe
+        else throw new NoSpaceException();
     }
     
     /**
