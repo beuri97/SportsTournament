@@ -1,13 +1,12 @@
 package main;
 
+import main.gameObject.Opponent;
 import main.gameObject.Product;
 import main.gameObject.Team;
 import main.gameObject.athletes.Athlete;
 import main.gameObject.item.Item;
 import main.gamesystem.DifficultyOption;
-import main.gamesystem.Exception.EmptySlotException;
 import main.gamesystem.Exception.IllegalInputException;
-import main.gamesystem.Exception.NoSpaceException;
 import main.gamesystem.Market;
 import main.gamesystem.SetUp;
 
@@ -44,12 +43,18 @@ public class GameEnvironment {
 	/**
 	 * setup to check regex or any other requirement
 	 */
-	private SetUp setup = new SetUp();
+	private SetUp setup;
+
+	/**
+	 * opponents team for player to play with
+	 */
+	Team[] opponents;
 
 	/**
 	 * Start new game by setting up Team name, number of weeks for season and difficulty of game
 	 */
 	public GameEnvironment(UserInterface userInterface) {
+		this.setup = new SetUp();
 		this.ui = userInterface;
 	}
 
@@ -59,6 +64,9 @@ public class GameEnvironment {
 		this.team = new Team();
 		this.team.setName(name);
 		this.team.setMoney(difficulty.getMoney());
+		this.market = new Market();
+		this.opponents = new Team[5];
+		this.getOpponent();
 
 	}
 
@@ -71,8 +79,7 @@ public class GameEnvironment {
 		return this.team;
 	}
 
-	public Market getMarket(){
-		if(this.market == null) this.market = new Market();
+	public Market getMarket() {
 
 		return this.market;
 	}
@@ -89,37 +96,26 @@ public class GameEnvironment {
 		this.ui.setup(this);
 	}
 
+	/**
+	 *
+	 * @param type String value indicating whether it is a buy or sell status
+	 * @param stockType A value indicating whether the product players want to buy is an athlete or an item.
+	 * @param col the stock's index in Market Team Roster or Team inventory.
+	 * @throws RuntimeException
+	 */
+	public void tradingProcess(String type, Product[] stockType, int col) throws RuntimeException {
 
-	public void tradingProcess(String type, String stockType, int col) throws RuntimeException {
-
-		Product[] properties = (stockType.equals("-a")) ? team.getRoster() : team.getInventory();
-		switch(type) {
-			case "buy":
-				Product[] stocks = (stockType.equals("-a")) ? market.getAthleteProduct() : market.getItemProduct();
-				if(stocks[col] == null) throw new EmptySlotException();
-				if(team.isFull(properties)) throw new NoSpaceException();
-				team.setMoney(- stocks[col].getPrice());
-				Product product = market.purchase(stocks, col);
-				if ((product instanceof Athlete)) {
-					this.team.recruitAthletes(product);
-				} else {
-					this.team.addItem(product);
-				}
-
-				break;
-			case "sell":
-				if(properties[col] == null) throw new EmptySlotException();
-				Product sale = properties[col];
-				team.setMoney(sale.getPrice());
-				if(properties[col] instanceof Athlete) team.leaveAthletes(col);
-				else team.removeItem(col);
-				break;
-		}
+		setup.tradingManager(team, market, type, stockType, col);
 	}
 
-
+	/**
+	 * method to lead system to use item to athletes
+	 * @param athleteIndex Player {@link main.gameObject.Team team}'s athletes index in roster
+	 * @param itemIndex Player {@link main.gameObject.Team team}'s item index in inventory
+	 */
 	public void useItem(int athleteIndex, int itemIndex) {
 
+		//get a specific athlete and item from team and make athlete use the item
 		Athlete athlete = this.team.getRoster()[athleteIndex];
 		Item item = this.team.getInventory()[itemIndex];
 		athlete.useItem(item);
@@ -135,6 +131,16 @@ public class GameEnvironment {
 	public void check(String input, final String REGEX, String message) throws IllegalInputException {
 
 		this.setup.checkRegex(input, REGEX, message);
+	}
+
+
+	public void getOpponent() {
+
+		Athlete[] temp = new Athlete[7];
+		for(int i=0; i<this.opponents.length;i++) {
+			this.market.setAthleteProduct(temp);
+			this.opponents[i] = new Opponent(temp);
+		}
 	}
 
 	/**
