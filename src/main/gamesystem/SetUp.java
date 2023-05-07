@@ -18,8 +18,6 @@ public class SetUp {
 
     public void tradingManager(Team team, Market market, String type, Product[] stock, int col) {
 
-
-
         switch(type) {
             case "buy":
                 Product[] properties = (stock instanceof Athlete[]) ? team.getRoster() : team.getInventory();
@@ -47,16 +45,5 @@ public class SetUp {
     public void createOpponent(Team[] opponent) {
 
 
-    }
-
-    public boolean isFull(Product[] products) {
-
-        //array has fixed length so if at least one null in this array this mean becomes array is not full
-        for (Product product : products) {
-            if (product == null) {
-                return false;
-            }
-        }
-        return true;
     }
 }

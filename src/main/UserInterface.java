@@ -20,10 +20,5 @@ public interface UserInterface {
 	void main();
 	
 	void setup(GameEnvironment gameEnvironment);
-
-	void listing(Object[] array);
-	
-	
-
 }
 

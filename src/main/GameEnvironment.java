@@ -7,6 +7,7 @@ import main.gameObject.athletes.Athlete;
 import main.gameObject.item.Item;
 import main.gamesystem.DifficultyOption;
 import main.gamesystem.Exception.IllegalInputException;
+import main.gamesystem.GameManager;
 import main.gamesystem.Market;
 import main.gamesystem.SetUp;
 
@@ -48,7 +49,17 @@ public class GameEnvironment {
 	/**
 	 * opponents team for player to play with
 	 */
-	Team[] opponents;
+	private Team[] opponents;
+
+	/**
+	 * main game system
+	 */
+	private GameManager gameManager;
+
+	/**
+	 * Boolean set true if player play game at least once
+	 */
+	private boolean isPlayed;
 
 	/**
 	 * Start new game by setting up Team name, number of weeks for season and difficulty of game
@@ -66,7 +77,7 @@ public class GameEnvironment {
 		this.team.setMoney(difficulty.getMoney());
 		this.market = new Market();
 		this.opponents = new Team[5];
-		this.getOpponent();
+		this.setOpponent();
 
 	}
 
@@ -101,7 +112,7 @@ public class GameEnvironment {
 	 * @param type String value indicating whether it is a buy or sell status
 	 * @param stockType A value indicating whether the product players want to buy is an athlete or an item.
 	 * @param col the stock's index in Market Team Roster or Team inventory.
-	 * @throws RuntimeException
+	 * @throws RuntimeException Throws No Space Exception Empty slot Exception
 	 */
 	public void tradingProcess(String type, Product[] stockType, int col) throws RuntimeException {
 
@@ -125,7 +136,7 @@ public class GameEnvironment {
 	 * call checkRegex method form class {@link main.gamesystem.SetUp SetUp}
 	 * @param input user's input
 	 * @param REGEX regular expression to check input's requirement
-	 * @param message Error message
+	 * @param message String for error message
 	 * @throws IllegalInputException throw this exception if input did not follow its requirement
 	 */
 	public void check(String input, final String REGEX, String message) throws IllegalInputException {
@@ -134,7 +145,7 @@ public class GameEnvironment {
 	}
 
 
-	public void getOpponent() {
+	public void setOpponent() {
 
 		Athlete[] temp = new Athlete[7];
 		for(int i=0; i<this.opponents.length;i++) {
@@ -143,10 +154,52 @@ public class GameEnvironment {
 		}
 	}
 
+
+	public Team[] getAllOpponent() {
+
+		return this.opponents;
+	}
+
+	/**
+	 * main Game start from here
+	 *
+	 * @param index
+	 */
+	public void gameStart(int index) {
+
+		Team opponent = this.opponents[index];
+		this.opponents[index] = null;
+		this.isPlayed = true;
+		this.gameManager = new GameManager(this, opponent);
+	}
+
+	public boolean isGame() {
+
+		return gameManager.isGame();
+	}
+
+	public boolean isSet() {
+
+		return gameManager.isSet();
+	}
+
+	public Team getOpponent() {
+
+		return gameManager.getOpponent();
+	}
+
+
+	public void battleSequences() {
+
+	}
+
 	/**
 	 * reset market status and match list when user take a bye
 	 */
 	public void reset() {
+		this.isPlayed = false;
 		this.market = new Market();
+		setOpponent();
+		// TODO - Athlete Random events
 	}
 }

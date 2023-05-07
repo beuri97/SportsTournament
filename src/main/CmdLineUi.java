@@ -3,6 +3,7 @@ package main;
 import main.gameObject.Product;
 import main.gameObject.Team;
 import main.gamesystem.DifficultyOption;
+import main.gamesystem.Exception.EmptySlotException;
 import main.gamesystem.Exception.IllegalInputException;
 import main.gamesystem.Market;
 
@@ -17,7 +18,7 @@ public class CmdLineUi implements UserInterface {
 
 	private final Scanner scan;
 
-	private GameEnvironment game;
+	private GameEnvironment gameEnvironment;
 
 	enum Option {
 
@@ -42,7 +43,7 @@ public class CmdLineUi implements UserInterface {
 		USAGE("""
 				usage
 				\tbuy -a [1-6]|-i [1-8]
-				\tsell -a [1-7]|-i [1-8]
+				\tsell -a [1-7]|-i ([1-9]|1[0-4])
 				\texit"""),
 		BUY("""
 				buy - show Market stock to athletes or items
@@ -120,7 +121,7 @@ public class CmdLineUi implements UserInterface {
 	 * @param gameEnvironment game environment which is core of this program
 	 */
 	public void setup(GameEnvironment gameEnvironment) {
-		this.game = gameEnvironment;
+		this.gameEnvironment = gameEnvironment;
 
 		//Welcoming~~~
 		System.out.println("|||||||||||||||||||||||||||||||||||||||||||||||");
@@ -133,7 +134,7 @@ public class CmdLineUi implements UserInterface {
 		int week = this.setWeeksForSeason();
 		DifficultyOption difficulty = this.setDifficulty();
 		//send setup info to gameEnvironment
-		gameEnvironment.set(name, week, difficulty);
+		this.gameEnvironment.set(name, week, difficulty);
 		//start main program
 		this.main();
 	}
@@ -150,7 +151,7 @@ public class CmdLineUi implements UserInterface {
 			String input = scan.nextLine();
 			try {
 				// check input is valid catch exception if input is invalid
-				game.check(input, NAME_REGEX, NAME_CHAR_REQUIREMENT);
+				gameEnvironment.check(input, NAME_REGEX, NAME_CHAR_REQUIREMENT);
 				// print feedback to player
 				System.out.println("Awesome! Your team name is " + input);
 				return input;
@@ -166,7 +167,7 @@ public class CmdLineUi implements UserInterface {
 	/**
 	 * set up number of weeks for season of the game between 5 and 15 (inclusive).
 	 */
-	public int setWeeksForSeason() {
+	private int setWeeksForSeason() {
 
 		System.out.println("Please choose the number of weeks for the season of the game");
 		System.out.println("Minimum is 5 weeks and Maximum is 15 weeks");
@@ -174,7 +175,7 @@ public class CmdLineUi implements UserInterface {
 			String input = scan.nextLine();
 			try {
 				// Check input requirement
-				game.check(input, SEASON_REGEX, VALID_NUMBER);
+				gameEnvironment.check(input, SEASON_REGEX, VALID_NUMBER);
 				// give feedback to user
 				System.out.printf("The game season set %s weeks long%n", input);
 
@@ -193,7 +194,7 @@ public class CmdLineUi implements UserInterface {
 	/**
 	 * set up the difficulty of the game between easy and difficult
 	 */
-	public DifficultyOption setDifficulty() {
+	private DifficultyOption setDifficulty() {
 		//get array of difficulty options before system start
 		DifficultyOption[] options = DifficultyOption.values();
 		//main system starts here
@@ -204,7 +205,7 @@ public class CmdLineUi implements UserInterface {
 			String input = scan.nextLine();
 			try {
 				//check input requirement if not this throws exception
-				game.check(input, "(1|2)", INVALID_NUMBER);
+				gameEnvironment.check(input, "(1|2)", INVALID_NUMBER);
 
 				//set difficulty option if input requirement is met
 				switch (input) {
@@ -255,14 +256,13 @@ public class CmdLineUi implements UserInterface {
 
 	}
 
-
-	void getInfo() {
+	private void getInfo() {
 		//get Team's(player's) Info
-		Team player = game.getTeam();
+		Team player = gameEnvironment.getTeam();
 		System.out.printf("\nYour Team Name: %s%n", player.getName());
 		System.out.println("Current week: ");
 		System.out.printf("Money: $ %.2f%n", player.getMoney());
-		System.out.printf("Difficulty: %s%n", game.getDifficulty());
+		System.out.printf("Difficulty: %s%n", gameEnvironment.getDifficulty());
 	}
 
 	/**
@@ -270,8 +270,8 @@ public class CmdLineUi implements UserInterface {
 	 */
 	private void marketSystem() {
 		MarketOption[] option = MarketOption.values();
-		Market market = game.getMarket();
-		Team player = game.getTeam();
+		Market market = gameEnvironment.getMarket();
+		Team player = gameEnvironment.getTeam();
 
 		//Welcoming~
 		System.out.println("\nWelcome to Trading Market!");
@@ -285,7 +285,7 @@ public class CmdLineUi implements UserInterface {
 				// Market has 6 athletes stocks 8 items stocks, Team can have 7 athletes and 8 items as maximum
 				// if this preference is changed regex need to be fixed
 				// if input requirement is not met exception will be thrown
-				game.check(input, "exit|help|buy ((-a|-i)|(-a [1-6]|-i [1-8]))|sell ((-a|-i)|(-a [1-7]|-i ([1-9]|1[0-4])))",
+				gameEnvironment.check(input, "exit|help|buy ((-a|-i)|(-a [1-6]|-i [1-8]))|sell ((-a|-i)|(-a [1-7]|-i ([1-9]|1[0-4])))",
 						null);
 
 				//split command input value
@@ -312,13 +312,13 @@ public class CmdLineUi implements UserInterface {
 				else if (input.matches("buy (-a [1-6]|-i [1-8])")){
 					int col = Integer.parseInt(str[2]) - 1;
 					Product[] stocks = (str[1].equals("-a")) ? market.getAthleteProduct() : market.getItemProduct();
-					game.tradingProcess(str[0], stocks, col);
+					gameEnvironment.tradingProcess(str[0], stocks, col);
 				}
 				// provide sell sequence to player
 				else if(input.matches("sell (-a [1-7]|-i ([1-9]|1[0-4]))")) {
 					int col = Integer.parseInt(str[2]) - 1;
 					Product[] stocks = (str[1].equals("-a")) ? player.getRoster() : player.getInventory();
-					game.tradingProcess(str[0], stocks, col);
+					gameEnvironment.tradingProcess(str[0], stocks, col);
 				}
 
 			} catch (RuntimeException e) {
@@ -332,7 +332,7 @@ public class CmdLineUi implements UserInterface {
 		while(true) {
 			this.getInfo();
 			TeamManageOption[] option = TeamManageOption.values();
-			Team player = game.getTeam();
+			Team player = gameEnvironment.getTeam();
 			System.out.println("\nInput command to manage your Team below");
 			String input = scan.nextLine();
 			try {
@@ -367,7 +367,7 @@ public class CmdLineUi implements UserInterface {
 						continue;
 
 					int athleteIndex = Integer.parseInt(temp) -1;
-					game.useItem(athleteIndex, itemIndex);
+					gameEnvironment.useItem(athleteIndex, itemIndex);
 				} else if (input.matches("^swap [1-7] to [1-7]")) {
 					String[] str = input.split(" ");
 					int athlete1 = Integer.parseInt(str[1]) -1;
@@ -375,7 +375,7 @@ public class CmdLineUi implements UserInterface {
 					player.swapAthletes(athlete1, athlete2);
 				} else throw new IllegalInputException();
 
-			} catch (IllegalInputException e){
+			} catch (IllegalInputException e) {
 				System.out.println(e.getMessage());
 			}
 		}
@@ -383,17 +383,18 @@ public class CmdLineUi implements UserInterface {
 
 
 	private void stadium() {
-		// TODO - Check player team's athletes requirement - implement this kind of method at SetUp Class first
+
 		System.out.println("Select opponent:");
-		final String REGEX = String.format("[1-%d]", game.opponents.length);
+		final String REGEX = String.format("[1-%d]", gameEnvironment.getAllOpponent().length);
 		while(true) {
 			try {
-				listing(game.opponents);
+				// TODO - Check player team's athletes requirement - implement this kind of method at SetUp Class first
+				listing(gameEnvironment.getAllOpponent());
 				String input = scan.nextLine();
-				game.check(input, REGEX, "");
+				gameEnvironment.check(input, REGEX, "");
 				this.actualGame(Integer.parseInt(input) - 1);
 				break;
-			} catch(IllegalInputException e) {
+			} catch(IllegalInputException | EmptySlotException e) {
 				System.out.println(e.getMessage());
 			}
 		}
@@ -401,10 +402,37 @@ public class CmdLineUi implements UserInterface {
 
 
 	private void actualGame(int index) {
-		Team opponent = game.opponents[index];
-		Team you = game.getTeam();
-		// TODO - Generate actual game situation - might need threading and multiprocessing
 
+		gameEnvironment.gameStart(index);
+		int i = 0;
+		System.out.println("Match start!!");
+		System.out.println("\nYour Regular Athlete Roster");
+		listing(Arrays.copyOfRange(gameEnvironment.getTeam().getRoster(), 0, 4));
+		System.out.println("\nOpponent Regular Roster: ");
+		listing(Arrays.copyOfRange(gameEnvironment.getOpponent().getRoster(), 0, 4));
+		System.out.println("Game Start!!");
+
+		while (gameEnvironment.isGame()) {
+
+			System.out.println("\nYour athlete on the stadium\n");
+			System.out.println(gameEnvironment.getTeam().getRoster()[i]);
+			System.out.println("\nOpponent athlete on the stadium\n");
+			System.out.println(gameEnvironment.getOpponent().getRoster()[i]);
+
+			// TODO - change while loop to do while
+			do {
+				System.out.println("Order to your Athlete:");
+				System.out.println("You have follow option");
+				try {
+					scan.nextLine();
+
+
+				} catch (IllegalInputException e) {
+
+					System.out.println(e.getMessage());
+				}
+			} while(gameEnvironment.isSet());
+		}
 	}
 
 
@@ -423,6 +451,11 @@ public class CmdLineUi implements UserInterface {
 		for (int i = 1; i <= array.length; i++) {
 			System.out.printf("%d. %s%n", i, (array[i - 1] == null) ? "EMPTY\n" : array[i - 1]);
 		}
+	}
+
+	public void gameComment() {
+
+		// TODO - Bring all data from Game Manager - did athlete get score successfully? did athlete attacked or defend?
 	}
 
 	/**

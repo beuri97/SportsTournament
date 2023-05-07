@@ -57,7 +57,8 @@ public class Team {
     }
 
     /**
-     * get Team's Athletes roster in 2D Array. First row(index 0) is regular athletes Second row(index 1) is reserves.
+     * get Team's Athletes roster in Array converted from ArrayList.
+     * Index 0 - 3 represent regular 4 - 6 represent reserves
      * @return Athlete array player has
      */
     public Athlete[] getRoster() {
@@ -66,7 +67,7 @@ public class Team {
     }
 
     /**
-     * get Team(players) inventory
+     * get Team(players) inventory in an array converted from the ArrayList
      * @return Item array player has
      */
     public Item[] getInventory() {
