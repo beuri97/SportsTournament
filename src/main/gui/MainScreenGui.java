@@ -100,7 +100,7 @@ public class MainScreenGui {
 		lblNewLabel_4_1.setBounds(125, 700, 141, 59);
 		frmMainWindow.getContentPane().add(lblNewLabel_4_1);
 		
-		JLabel lblTeammaneIsHere = new JLabel("TEAMMANE IS HERE");
+		JLabel lblTeammaneIsHere = new JLabel("TEAMNAME IS HERE");
 		lblTeammaneIsHere.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
 		lblTeammaneIsHere.setBounds(234, 36, 256, 30);
 		frmMainWindow.getContentPane().add(lblTeammaneIsHere);
