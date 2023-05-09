@@ -51,6 +51,7 @@ public class MainScreenGui {
 		setFrame();
 		setLabels();
 		setAthletePanel();
+		setReservePanel();
 		setItemPanel();
 		setButton();
 		setAthleteInfoPanel();
@@ -164,10 +165,9 @@ public class MainScreenGui {
 		panel.add(lblNewLabel_5_3);
 	}
 	/**
-	 * Panel for item inventory on main screen
+	 * Make panel for reserved athletes
 	 */
-	private void setItemPanel() {
-		
+	private void setReservePanel() {
 		JPanel panel_1 = new JPanel();
 		panel_1.setLayout(null);
 		panel_1.setBorder(new CompoundBorder(new LineBorder(new Color(0, 0, 0)), null));
@@ -197,7 +197,16 @@ public class MainScreenGui {
 		JLabel lblNewLabel_5_6 = new JLabel("Athlete 7 Name");
 		lblNewLabel_5_6.setBounds(370, 182, 131, 16);
 		panel_1.add(lblNewLabel_5_6);
-		
+
+	}
+	
+	
+	
+	/**
+	 * Panel for item inventory on main screen
+	 */
+	private void setItemPanel() {
+				
 		JPanel panel_2 = new JPanel();
 		panel_2.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panel_2.setBounds(300, 624, 700, 220);

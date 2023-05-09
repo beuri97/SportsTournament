@@ -5,6 +5,8 @@ import java.awt.EventQueue;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
@@ -30,7 +32,6 @@ public class SetupScreenGui implements UserInterface{
 	private JSlider slider;
 	private JLabel infoLabel;
 	private JLabel infoLabel2;
-	
 	private DifficultyOption level;
 
 
@@ -52,18 +53,18 @@ public class SetupScreenGui implements UserInterface{
 	/**
 	 * 
 	 */
-	private SetupScreenGui(GameEnvironment gamePlayer) {
-		setup(gamePlayer);
+	private SetupScreenGui(GameEnvironment gameEnvironment) {
+		setup(gameEnvironment);
 	}
 	/**
 	 * create the setup window
 	 */
-	public void setup(GameEnvironment gamePlayer) {	
+	public void setup(GameEnvironment gameEnvironment) {	
 		setFrame();
 		setJlabel();
 		setTextField();
 		setJSlider();
-		setJbutton(gamePlayer);			
+		setJbutton(gameEnvironment);			
 	}
 	public void main() {
 		
@@ -83,15 +84,15 @@ public class SetupScreenGui implements UserInterface{
 	private void setJlabel() {
 		frmFencingGame.getContentPane().setLayout(null);
 		JLabel welcoming = new JLabel("Welcome to FencingTournament");
-		welcoming.setBounds(710, 378, 308, 25);
-		welcoming.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		welcoming.setBounds(669, 378, 403, 25);
+		welcoming.setFont(new Font("Dialog", Font.PLAIN, 24));
 		frmFencingGame.getContentPane().add(welcoming);
 		JLabel teamname = new JLabel("Team Name : ");
-		teamname.setBounds(558, 505, 86, 16);
+		teamname.setBounds(558, 505, 115, 21);
 		frmFencingGame.getContentPane().add(teamname);
 		
 		NumWeekLabel = new JLabel("Number of weeks for one season :");
-		NumWeekLabel.setBounds(494, 589, 215, 16);
+		NumWeekLabel.setBounds(496, 589, 263, 16);
 		NumWeekLabel.setToolTipText("");
 		frmFencingGame.getContentPane().add(NumWeekLabel);
 		
@@ -110,7 +111,7 @@ public class SetupScreenGui implements UserInterface{
 		frmFencingGame.getContentPane().add(infoLabel2);
 		
 		JLabel diffcultyLabel = new JLabel("Difficulty :");
-		diffcultyLabel.setBounds(568, 664, 67, 16);
+		diffcultyLabel.setBounds(568, 664, 96, 16);
 		frmFencingGame.getContentPane().add(diffcultyLabel);
 	
 	}
@@ -121,7 +122,7 @@ public class SetupScreenGui implements UserInterface{
 		slider = new JSlider(5,15);
 		slider.setBounds(828, 571, 190, 52);
 		JLabel status = new JLabel("Slide the slider!!");
-		status.setBounds(1023, 589, 101, 16);
+		status.setBounds(1023, 589, 156, 16);
 		frmFencingGame.getContentPane().add(status);
 		frmFencingGame.getContentPane().add(slider);
 		slider.setPaintTrack(true);
@@ -149,7 +150,7 @@ public class SetupScreenGui implements UserInterface{
 	/**
 	 * show difficulty option with label and buttons to choose.
 	 */
-	private void setJbutton(GameEnvironment gamePlayer) {
+	private void setJbutton(GameEnvironment gameEnvironment) {
 		
 		JToggleButton easyButton = new JToggleButton("Easy");
 		JToggleButton diffButton = new JToggleButton("Difficult");
@@ -178,14 +179,37 @@ public class SetupScreenGui implements UserInterface{
 					infoLabel2.setText(NAME_CHAR_REQUIREMENT);
 				}
 				else {
-					gamePlayer.set(teamNameField.getText(), slider.getValue(), level);
+					gameEnvironment.set(teamNameField.getText(), slider.getValue(), level);
 				}
 			}
 		});
 		
-		startBttn.setBounds(1129, 722, 111, 29);
+		startBttn.setBounds(1153, 718, 146, 29);
 		frmFencingGame.getContentPane().add(startBttn);
 		
+		JButton exitButton = new JButton("Exit");
+		exitButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				exitBox();
+			}
+		});
+		exitButton.setBounds(1344, 718, 146, 29);
+		frmFencingGame.getContentPane().add(exitButton);
+	}
+	
+	
+	
+	public static void exitBox() {
+		Object[] options1 = { "Quit", "Cancel" };
+	    JPanel panel = new JPanel();
+	    panel.add(new JLabel("Do you really want to exit???"));
+	  
+	    int result = JOptionPane.showOptionDialog(null, panel, "EXIT",
+	        JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null,
+	        options1, null);
+	    if (result == JOptionPane.YES_OPTION) {
+	    	System.exit(0);
+	    }
 
 	}
 }
