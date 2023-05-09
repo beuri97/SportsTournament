@@ -61,7 +61,7 @@ public class SetupScreenGui implements UserInterface{
 	 */
 	public void setup(GameEnvironment gameEnvironment) {	
 		setFrame();
-		setJlabel();
+		setLabel();
 		setTextField();
 		setJSlider();
 		setJbutton(gameEnvironment);			
@@ -81,7 +81,7 @@ public class SetupScreenGui implements UserInterface{
 	/**
 	 * show the labels on window
 	 */
-	private void setJlabel() {
+	private void setLabel() {
 		frmFencingGame.getContentPane().setLayout(null);
 		JLabel welcoming = new JLabel("Welcome to FencingTournament");
 		welcoming.setBounds(669, 378, 403, 25);
@@ -173,13 +173,16 @@ public class SetupScreenGui implements UserInterface{
 		frmFencingGame.getContentPane().add(diffButton);
 		JButton startBttn = new JButton("Start game");
 		startBttn.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (!teamNameField.getText().matches(NAME_REGEX)) {
 					infoLabel.setText(NAME_LENGTH_REQUIREMENT);	
 					infoLabel2.setText(NAME_CHAR_REQUIREMENT);
 				}
 				else {
-					gameEnvironment.set(teamNameField.getText(), slider.getValue(), level);
+					frmFencingGame.dispose();
+					MainScreenGui gameStart = new MainScreenGui();
+					gameEnvironment.set(teamNameField.getText(), slider.getValue(), level);		
 				}
 			}
 		});
@@ -187,6 +190,7 @@ public class SetupScreenGui implements UserInterface{
 		startBttn.setBounds(1153, 718, 146, 29);
 		frmFencingGame.getContentPane().add(startBttn);
 		
+		// button to exit from the game. Small window will pop up and ask if the player really wants to eixt.
 		JButton exitButton = new JButton("Exit");
 		exitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -198,13 +202,15 @@ public class SetupScreenGui implements UserInterface{
 	}
 	
 	
-	
-	public static void exitBox() {
+	/*
+	 * creat optionpanel to ask whether the player really wants to quit the game or not
+	 */
+	private void exitBox() {
 		Object[] options1 = { "Quit", "Cancel" };
 	    JPanel panel = new JPanel();
-	    panel.add(new JLabel("Do you really want to exit???"));
+	    panel.add(new JLabel("Are you sure you want to quit???"));
 	  
-	    int result = JOptionPane.showOptionDialog(null, panel, "EXIT",
+	    int result = JOptionPane.showOptionDialog(null, panel, "Quit",
 	        JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null,
 	        options1, null);
 	    if (result == JOptionPane.YES_OPTION) {

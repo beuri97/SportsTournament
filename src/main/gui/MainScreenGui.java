@@ -1,10 +1,12 @@
 package main.gui;
 
-import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import java.awt.*;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.border.CompoundBorder;
@@ -20,26 +22,11 @@ public class MainScreenGui {
 
 	private JFrame frmMainWindow;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MainScreenGui window = new MainScreenGui();
-					window.frmMainWindow.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the application.
 	 */
-	public MainScreenGui() {
+	public  MainScreenGui() {
 		initialize();
 	}
 
@@ -66,6 +53,7 @@ public class MainScreenGui {
 		frmMainWindow.setSize(1650,1080);
 		frmMainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmMainWindow.getContentPane().setLayout(null);
+		frmMainWindow.setVisible(true);
 	}
 	/*
 	 * set the labels on main window
@@ -209,24 +197,32 @@ public class MainScreenGui {
 				
 		JPanel panel_2 = new JPanel();
 		panel_2.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel_2.setBounds(300, 624, 700, 220);
+		panel_2.setBounds(300, 624, 594, 220);
 		frmMainWindow.getContentPane().add(panel_2);
 		panel_2.setLayout(new GridLayout(2, 7, 0, 0));
 		
-		panel_2.add(new JToggleButton("Item1"));
-		panel_2.add(new JToggleButton("Item2"));
-		panel_2.add(new JToggleButton("Item3"));
-		panel_2.add(new JToggleButton("Item4"));
-		panel_2.add(new JToggleButton("Item5"));
-		panel_2.add(new JToggleButton("Item6"));
-		panel_2.add(new JToggleButton("Item7"));
-		panel_2.add(new JToggleButton("Item8"));
-		panel_2.add(new JToggleButton("Item9"));
-		panel_2.add(new JToggleButton("Item10"));
-		panel_2.add(new JToggleButton("Item11"));
-		panel_2.add(new JToggleButton("Item12"));
-		panel_2.add(new JToggleButton("Item13"));
-		panel_2.add(new JToggleButton("Item14"));
+		
+		JToggleButton itemButton1 = new JToggleButton("Item1");
+		panel_2.add(itemButton1);
+		JToggleButton itemButton2 = new JToggleButton("Item2");
+		panel_2.add(itemButton2);
+		JToggleButton itemButton3 = new JToggleButton("Item3");
+		panel_2.add(itemButton3);
+		JToggleButton itemButton4 = new JToggleButton("Item4");
+		panel_2.add(itemButton4);
+		JToggleButton itemButton5 = new JToggleButton("Item5");
+		panel_2.add(itemButton5);
+		JToggleButton itemButton6 = new JToggleButton("Item6");
+		panel_2.add(itemButton6);
+		JToggleButton itemButton7 = new JToggleButton("Item7");
+		panel_2.add(itemButton7);
+		JToggleButton itemButton8 = new JToggleButton("Item8");
+		panel_2.add(itemButton8);
+		JToggleButton itemButton9 = new JToggleButton("Item9");
+		panel_2.add(itemButton9);
+		JToggleButton itemButton10 = new JToggleButton("Item10");
+		panel_2.add(itemButton10);
+
 	}
 	/*
 	 * set buttons on main screen
@@ -253,10 +249,17 @@ public class MainScreenGui {
 		btnNewButton_1_2_1.setBounds(421, 895, 237, 78);
 		frmMainWindow.getContentPane().add(btnNewButton_1_2_1);
 		
-		JButton btnNewButton_1_1_1 = new JButton("Exit");
-		btnNewButton_1_1_1.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-		btnNewButton_1_1_1.setBounds(1512, 971, 117, 30);
-		frmMainWindow.getContentPane().add(btnNewButton_1_1_1);
+		// button to exit from the game. Small window will pop up and ask if the player really wants to eixt.
+		JButton exitButton = new JButton("Exit");
+		exitButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				exitBox();
+			}
+		});
+		exitButton.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		exitButton.setBounds(1512, 971, 117, 30);
+		frmMainWindow.getContentPane().add(exitButton);
+	
 	}
 	
 	/*
@@ -359,6 +362,20 @@ public class MainScreenGui {
 		lblNewLabel_7_3_2_1_1.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
 		lblNewLabel_7_3_2_1_1.setBounds(116, 101, 74, 20);
 		panel_3_1.add(lblNewLabel_7_3_2_1_1);
+	}
+	
+		
+	private void exitBox() {
+		Object[] options1 = { "Quit", "Cancel" };
+	    JPanel panel = new JPanel();
+	    panel.add(new JLabel("Are you sure you want to quit???"));
+	  
+	    int result = JOptionPane.showOptionDialog(null, panel, "Quit",
+	        JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null,
+	        options1, null);
+	    if (result == JOptionPane.YES_OPTION) {
+	    	System.exit(0);
+	    }
 	}
 	
 }

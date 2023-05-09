@@ -11,6 +11,10 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.SwingConstants;
 import java.awt.Font;
+import java.awt.GridLayout;
+
+import javax.swing.JComboBox;
+import javax.swing.JButton;
 
 public class MarketGui {
 
@@ -46,7 +50,12 @@ public class MarketGui {
 		setFrame();
 		setAthletePanel();
 		setItemsPanel();
-		setAthleteInfoPanel();
+		setAthleteBuyInfoPanel();
+		setItemBuyInfoPanel();
+		setButton();
+		setLabel();
+		setSellItemPanel();
+		setSellAthletePanel();
 	}
 	private void setFrame() {
 		frmMarket = new JFrame();
@@ -56,16 +65,106 @@ public class MarketGui {
 		frmMarket.getContentPane().setLayout(null);
 	}
 	
-	private void setAthleteInfoPanel() {
+	private void setLabel() {
+		JLabel myTeamLabel = new JLabel("My Team");
+		myTeamLabel.setFont(new Font("Lucida Grande", Font.BOLD | Font.ITALIC, 26));
+		myTeamLabel.setBounds(394, 27, 128, 36);
+		frmMarket.getContentPane().add(myTeamLabel);
+		
+		JLabel myInventoryLabel = new JLabel("My Inventory");
+		myInventoryLabel.setFont(new Font("Lucida Grande", Font.BOLD | Font.ITALIC, 26));
+		myInventoryLabel.setBounds(594, 27, 227, 36);
+		frmMarket.getContentPane().add(myInventoryLabel);
+		
+		JLabel moneyLabel = new JLabel("$Money");
+		moneyLabel.setFont(new Font("Dialog", Font.BOLD, 23));
+		moneyLabel.setBounds(1480, 45, 145, 49);
+		frmMarket.getContentPane().add(moneyLabel);
+		
+	}
+	
+	private void setButton() {
+		JButton recruitButton = new JButton("RECRUIT");
+		recruitButton.setFont(new Font("Lucida Grande", Font.BOLD, 23));
+		recruitButton.setBounds(705, 607, 287, 63);
+		frmMarket.getContentPane().add(recruitButton);
+		
+		JButton purchaseButton = new JButton("PURCHASE");
+		purchaseButton.setFont(new Font("Lucida Grande", Font.BOLD, 23));
+		purchaseButton.setBounds(705, 693, 287, 63);
+		frmMarket.getContentPane().add(purchaseButton);
+		
+		JButton sellButton = new JButton("SELL");
+		sellButton.setFont(new Font("Lucida Grande", Font.BOLD, 23));
+		sellButton.setBounds(450, 674, 174, 63);
+		frmMarket.getContentPane().add(sellButton);
+		
+		JButton backButton = new JButton("Back");
+		backButton.setFont(new Font("Lucida Grande", Font.BOLD, 23));
+		backButton.setBounds(450, 609, 145, 63);
+		frmMarket.getContentPane().add(backButton);
+	}
+	
+	private void setItemBuyInfoPanel() {
 		JPanel panel_3 = new JPanel();
 		panel_3.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel_3.setBounds(1212, 100, 300, 460);
+		panel_3.setBounds(754, 96, 180, 460);
+		frmMarket.getContentPane().add(panel_3);
+		panel_3.setLayout(null);
+		
+		JLabel itemInfoLabel = new JLabel("<<Item Information>>");
+		itemInfoLabel.setFont(new Font("Lucida Grande", Font.BOLD, 16));
+		itemInfoLabel.setBounds(15, 20, 206, 20);
+		panel_3.add(itemInfoLabel);
+		
+		JLabel lblNewLabel_7 = new JLabel("- Name -");
+		lblNewLabel_7.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
+		lblNewLabel_7.setBounds(22, 65, 81, 20);
+		panel_3.add(lblNewLabel_7);
+		
+		JLabel lblNewLabel_7_1 = new JLabel("- Description -");
+		lblNewLabel_7_1.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
+		lblNewLabel_7_1.setBounds(22, 120, 142, 20);
+		panel_3.add(lblNewLabel_7_1);
+		
+		JLabel lblNewLabel_7_3 = new JLabel("- Effect -");
+		lblNewLabel_7_3.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
+		lblNewLabel_7_3.setBounds(15, 250, 105, 20);
+		panel_3.add(lblNewLabel_7_3);
+		
+		JLabel lblNewLabel_7_3_2 = new JLabel("incStat here");
+		lblNewLabel_7_3_2.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
+		lblNewLabel_7_3_2.setBounds(15, 282, 105, 20);
+		panel_3.add(lblNewLabel_7_3_2);
+		
+		JLabel lblNewLabel_7_4 = new JLabel("ATHLETE NAME HERE");
+		lblNewLabel_7_4.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
+		lblNewLabel_7_4.setBounds(22, 93, 233, 20);
+		panel_3.add(lblNewLabel_7_4);
+		
+		JLabel lblNewLabel_7_4_1 = new JLabel("ATHLETE DISCRP HERE");
+		lblNewLabel_7_4_1.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
+		lblNewLabel_7_4_1.setBounds(22, 146, 233, 20);
+		panel_3.add(lblNewLabel_7_4_1);
+		
+		JLabel lblNewLabel_7_4_1_4 = new JLabel("+ incAmount here");
+		lblNewLabel_7_4_1_4.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
+		lblNewLabel_7_4_1_4.setBounds(15, 314, 233, 20);
+		panel_3.add(lblNewLabel_7_4_1_4);
+	
+	}
+	
+	
+	private void setAthleteBuyInfoPanel() {
+		JPanel panel_3 = new JPanel();
+		panel_3.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panel_3.setBounds(455, 137, 227, 460);
 		frmMarket.getContentPane().add(panel_3);
 		panel_3.setLayout(null);
 		
 		JLabel lblNewLabel_6 = new JLabel("<<Athelte Information>>");
 		lblNewLabel_6.setFont(new Font("Lucida Grande", Font.BOLD, 20));
-		lblNewLabel_6.setBounds(15, 20, 271, 20);
+		lblNewLabel_6.setBounds(15, 20, 206, 20);
 		panel_3.add(lblNewLabel_6);
 		
 		JLabel lblNewLabel_7 = new JLabel("- Name -");
@@ -127,6 +226,7 @@ public class MarketGui {
 		lblNewLabel_7_4_1_4.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
 		lblNewLabel_7_4_1_4.setBounds(25, 378, 233, 20);
 		panel_3.add(lblNewLabel_7_4_1_4);
+	
 	}
 	
 	
@@ -270,11 +370,64 @@ public class MarketGui {
 		AthlNameLable3_3.setBounds(173, 589, 131, 16);
 		panel.add(AthlNameLable3_3);
 		
-		JLabel lblNewLabel_1 = new JLabel("$Money");
-		lblNewLabel_1.setFont(new Font("Dialog", Font.BOLD, 23));
-		lblNewLabel_1.setBounds(1480, 45, 145, 49);
-		frmMarket.getContentPane().add(lblNewLabel_1);
+	}
+	private void setSellItemPanel() {
+		
+		JPanel setSellItemPanel = new JPanel();
+		setSellItemPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
+		setSellItemPanel.setBounds(152, 6, 425, 152);
+		frmMarket.getContentPane().add(setSellItemPanel);
+		setSellItemPanel.setLayout(new GridLayout(2, 5, 0, 0));
+		
+		
+		JToggleButton itemButton1 = new JToggleButton("Item1");
+		setSellItemPanel.add(itemButton1);
+		JToggleButton itemButton2 = new JToggleButton("Item2");
+		setSellItemPanel.add(itemButton2);
+		JToggleButton itemButton3 = new JToggleButton("Item3");
+		setSellItemPanel.add(itemButton3);
+		JToggleButton itemButton4 = new JToggleButton("Item4");
+		setSellItemPanel.add(itemButton4);
+		JToggleButton itemButton5 = new JToggleButton("Item5");
+		setSellItemPanel.add(itemButton5);
+		JToggleButton itemButton6 = new JToggleButton("Item6");
+		setSellItemPanel.add(itemButton6);
+		JToggleButton itemButton7 = new JToggleButton("Item7");
+		setSellItemPanel.add(itemButton7);
+		JToggleButton itemButton8 = new JToggleButton("Item8");
+		setSellItemPanel.add(itemButton8);
+		JToggleButton itemButton9 = new JToggleButton("Item9");
+		setSellItemPanel.add(itemButton9);
+		JToggleButton itemButton10 = new JToggleButton("Item10");
+		setSellItemPanel.add(itemButton10);
+
 	}
 	
+	private void setSellAthletePanel() {
+		
+		JPanel setSellAthletePanel = new JPanel();
+		setSellAthletePanel.setBorder(new LineBorder(new Color(0, 0, 0)));
+		setSellAthletePanel.setBounds(705, 27, 350, 152);
+		frmMarket.getContentPane().add(setSellAthletePanel);
+		setSellAthletePanel.setLayout(new GridLayout(2, 4, 0, 0));
+		
+		
+		JToggleButton AthleteButton1 = new JToggleButton("Athlete1");
+		setSellAthletePanel.add(AthleteButton1);
+		JToggleButton AthleteButton2 = new JToggleButton("Athlete2");
+		setSellAthletePanel.add(AthleteButton2);
+		JToggleButton AthleteButton3 = new JToggleButton("Athlete3");
+		setSellAthletePanel.add(AthleteButton3);
+		JToggleButton AthleteButton4 = new JToggleButton("Athlete4");
+		setSellAthletePanel.add(AthleteButton4);
+		JToggleButton AthleteButton5 = new JToggleButton("Athlete5");
+		setSellAthletePanel.add(AthleteButton5);
+		JToggleButton AthleteButton6 = new JToggleButton("Athlete6");
+		setSellAthletePanel.add(AthleteButton6);
+		JToggleButton AthleteButton7 = new JToggleButton("Athlete7");
+		setSellAthletePanel.add(AthleteButton7);
+
+
+	}
 	
 }
