@@ -9,37 +9,28 @@ import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.LineBorder;
+
+import main.GameEnvironment;
+
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import java.awt.GridLayout;
 
-import javax.swing.JComboBox;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class MarketGui {
 
 	private JFrame frmMarket;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MarketGui window = new MarketGui();
-					window.frmMarket.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
+	
+	GameEnvironment gameEnvironment;
+	
 	/**
 	 * Create the application.
 	 */
-	public MarketGui() {
+	public MarketGui(GameEnvironment gameEnvironment) {
+		this.gameEnvironment = gameEnvironment;
 		initialize();
 	}
 
@@ -48,10 +39,10 @@ public class MarketGui {
 	 */
 	private void initialize() {
 		setFrame();
-		setAthletePanel();
-		setItemsPanel();
-		setAthleteBuyInfoPanel();
-		setItemBuyInfoPanel();
+		setBuyAthletePanel();
+		setBuyItemsPanel();
+		setBuyAthleteInfoPanel();
+		setBuyItemInfoPanel();
 		setButton();
 		setLabel();
 		setSellItemPanel();
@@ -63,17 +54,18 @@ public class MarketGui {
 		frmMarket.setSize(1650,1080);
 		frmMarket.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmMarket.getContentPane().setLayout(null);
+		frmMarket.setVisible(true);
 	}
 	
 	private void setLabel() {
 		JLabel myTeamLabel = new JLabel("My Team");
 		myTeamLabel.setFont(new Font("Lucida Grande", Font.BOLD | Font.ITALIC, 26));
-		myTeamLabel.setBounds(394, 27, 128, 36);
+		myTeamLabel.setBounds(124, 763, 180, 36);
 		frmMarket.getContentPane().add(myTeamLabel);
 		
 		JLabel myInventoryLabel = new JLabel("My Inventory");
 		myInventoryLabel.setFont(new Font("Lucida Grande", Font.BOLD | Font.ITALIC, 26));
-		myInventoryLabel.setBounds(594, 27, 227, 36);
+		myInventoryLabel.setBounds(527, 763, 227, 36);
 		frmMarket.getContentPane().add(myInventoryLabel);
 		
 		JLabel moneyLabel = new JLabel("$Money");
@@ -91,7 +83,7 @@ public class MarketGui {
 		
 		JButton purchaseButton = new JButton("PURCHASE");
 		purchaseButton.setFont(new Font("Lucida Grande", Font.BOLD, 23));
-		purchaseButton.setBounds(705, 693, 287, 63);
+		purchaseButton.setBounds(1373, 611, 180, 55);
 		frmMarket.getContentPane().add(purchaseButton);
 		
 		JButton sellButton = new JButton("SELL");
@@ -100,15 +92,21 @@ public class MarketGui {
 		frmMarket.getContentPane().add(sellButton);
 		
 		JButton backButton = new JButton("Back");
+		backButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frmMarket.dispose();
+				MainScreenGui backToMain = new MainScreenGui(gameEnvironment);
+			}
+		});
 		backButton.setFont(new Font("Lucida Grande", Font.BOLD, 23));
-		backButton.setBounds(450, 609, 145, 63);
+		backButton.setBounds(30, 982, 97, 31);
 		frmMarket.getContentPane().add(backButton);
 	}
 	
-	private void setItemBuyInfoPanel() {
+	private void setBuyItemInfoPanel() {
 		JPanel panel_3 = new JPanel();
 		panel_3.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel_3.setBounds(754, 96, 180, 460);
+		panel_3.setBounds(1373, 137, 180, 460);
 		frmMarket.getContentPane().add(panel_3);
 		panel_3.setLayout(null);
 		
@@ -155,7 +153,7 @@ public class MarketGui {
 	}
 	
 	
-	private void setAthleteBuyInfoPanel() {
+	private void setBuyAthleteInfoPanel() {
 		JPanel panel_3 = new JPanel();
 		panel_3.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panel_3.setBounds(455, 137, 227, 460);
@@ -230,7 +228,7 @@ public class MarketGui {
 	}
 	
 	
-	private void setAthletePanel() {
+	private void setBuyAthletePanel() {
 
 		JPanel panel = new JPanel();
 		panel.setBorder(new CompoundBorder(new LineBorder(new Color(0, 0, 0)), null));
@@ -292,7 +290,7 @@ public class MarketGui {
 		athlNameLable6.setBounds(208, 634, 131, 16);
 		panel.add(athlNameLable6);
 	}
-	private void setItemsPanel() {
+	private void setBuyItemsPanel() {
 
 		JPanel panel = new JPanel();
 		panel.setBorder(new CompoundBorder(new LineBorder(new Color(0, 0, 0)), null));
@@ -375,7 +373,7 @@ public class MarketGui {
 		
 		JPanel setSellItemPanel = new JPanel();
 		setSellItemPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
-		setSellItemPanel.setBounds(152, 6, 425, 152);
+		setSellItemPanel.setBounds(527, 811, 425, 152);
 		frmMarket.getContentPane().add(setSellItemPanel);
 		setSellItemPanel.setLayout(new GridLayout(2, 5, 0, 0));
 		
@@ -407,7 +405,7 @@ public class MarketGui {
 		
 		JPanel setSellAthletePanel = new JPanel();
 		setSellAthletePanel.setBorder(new LineBorder(new Color(0, 0, 0)));
-		setSellAthletePanel.setBounds(705, 27, 350, 152);
+		setSellAthletePanel.setBounds(124, 811, 350, 152);
 		frmMarket.getContentPane().add(setSellAthletePanel);
 		setSellAthletePanel.setLayout(new GridLayout(2, 4, 0, 0));
 		
@@ -429,5 +427,4 @@ public class MarketGui {
 
 
 	}
-	
 }

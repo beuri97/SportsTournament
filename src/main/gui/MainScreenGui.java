@@ -11,8 +11,11 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.LineBorder;
-import javax.swing.JToggleButton;
 
+import main.GameEnvironment;
+
+import javax.swing.JToggleButton;
+import main.gameObject.*;
 
 /**
  * class for Setup window when start the game
@@ -21,12 +24,15 @@ import javax.swing.JToggleButton;
 public class MainScreenGui {
 
 	private JFrame frmMainWindow;
-
+	GameEnvironment gameEnvironment;
+	Team team;
 
 	/**
 	 * Create the application.
 	 */
-	public  MainScreenGui() {
+	public  MainScreenGui(GameEnvironment gameEnvironment) {
+		this.gameEnvironment = gameEnvironment;
+	//	this.team = gameEnvironment.getTeam();
 		initialize();
 	}
 
@@ -59,19 +65,19 @@ public class MainScreenGui {
 	 * set the labels on main window
 	 */
 	private void setLabels() {
-		JLabel lblNewLabel = new JLabel("My team name : ");
+		JLabel lblNewLabel = new JLabel("My team name :");
 		lblNewLabel.setFont(new Font("Lucida Grande", Font.BOLD, 20));
-		lblNewLabel.setBounds(48, 36, 174, 30);
+		lblNewLabel.setBounds(48, 36, 218, 30);
 		frmMainWindow.getContentPane().add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("week / ");
 		lblNewLabel_1.setFont(new Font("Lucida Grande", Font.BOLD, 15));
-		lblNewLabel_1.setBounds(531, 37, 99, 30);
+		lblNewLabel_1.setBounds(609, 38, 99, 30);
 		frmMainWindow.getContentPane().add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("Difficulty Level : ");
 		lblNewLabel_2.setFont(new Font("Lucida Grande", Font.BOLD, 20));
-		lblNewLabel_2.setBounds(873, 36, 185, 30);
+		lblNewLabel_2.setBounds(873, 36, 202, 30);
 		frmMainWindow.getContentPane().add(lblNewLabel_2);
 		
 		JLabel lblNewLabel_3 = new JLabel("Active Athlete");
@@ -89,25 +95,25 @@ public class MainScreenGui {
 		lblNewLabel_4_1.setBounds(125, 700, 141, 59);
 		frmMainWindow.getContentPane().add(lblNewLabel_4_1);
 		
-		JLabel lblTeammaneIsHere = new JLabel("TEAMNAME IS HERE");
-		lblTeammaneIsHere.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
-		lblTeammaneIsHere.setBounds(234, 36, 256, 30);
-		frmMainWindow.getContentPane().add(lblTeammaneIsHere);
+//		JLabel lblTeammaneIsHere = new JLabel(gameEnvironment.getTeam().getName());
+//		lblTeammaneIsHere.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
+//		lblTeammaneIsHere.setBounds(248, 37, 256, 30);
+//		frmMainWindow.getContentPane().add(lblTeammaneIsHere);
 		
 		JLabel lblNewLabel_1_1 = new JLabel("NUM HERE");
 		lblNewLabel_1_1.setFont(new Font("Lucida Grande", Font.BOLD, 20));
-		lblNewLabel_1_1.setBounds(477, 36, 57, 30);
+		lblNewLabel_1_1.setBounds(477, 36, 163, 30);
 		frmMainWindow.getContentPane().add(lblNewLabel_1_1);
 		
 		JLabel lblNewLabel_1_2 = new JLabel("TOTAL WEEKS HERE");
 		lblNewLabel_1_2.setFont(new Font("Lucida Grande", Font.BOLD, 15));
-		lblNewLabel_1_2.setBounds(593, 38, 99, 30);
+		lblNewLabel_1_2.setBounds(671, 38, 190, 30);
 		frmMainWindow.getContentPane().add(lblNewLabel_1_2);
 		
-		JLabel lblNewLabel_2_1 = new JLabel("DIFF LEVEL HERE");
-		lblNewLabel_2_1.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-		lblNewLabel_2_1.setBounds(1070, 36, 174, 30);
-		frmMainWindow.getContentPane().add(lblNewLabel_2_1);
+//		JLabel lblNewLabel_2_1 = new JLabel(gameEnvironment.getDifficulty().toString());
+//		lblNewLabel_2_1.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+//		lblNewLabel_2_1.setBounds(1087, 36, 174, 30);
+//		frmMainWindow.getContentPane().add(lblNewLabel_2_1);
 	}
 	/**
 	 * Panel for Athlete lists on main screen
@@ -239,10 +245,16 @@ public class MainScreenGui {
 		btnNewButton_1_1.setBounds(1026, 766, 117, 78);
 		frmMainWindow.getContentPane().add(btnNewButton_1_1);
 		
-		JButton btnNewButton_1_2 = new JButton("Market");
-		btnNewButton_1_2.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-		btnNewButton_1_2.setBounds(125, 895, 237, 78);
-		frmMainWindow.getContentPane().add(btnNewButton_1_2);
+		JButton MarketButton = new JButton("Market");
+		MarketButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frmMainWindow.dispose();
+				MarketGui openMarket = new MarketGui(gameEnvironment);
+			}
+		});
+		MarketButton.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		MarketButton.setBounds(125, 895, 237, 78);
+		frmMainWindow.getContentPane().add(MarketButton);
 		
 		JButton btnNewButton_1_2_1 = new JButton("Stadium");
 		btnNewButton_1_2_1.setFont(new Font("Lucida Grande", Font.PLAIN, 20));

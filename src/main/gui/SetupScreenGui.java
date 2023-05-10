@@ -33,7 +33,7 @@ public class SetupScreenGui implements UserInterface{
 	private JLabel infoLabel;
 	private JLabel infoLabel2;
 	private DifficultyOption level;
-
+	GameEnvironment gameEnvironment;
 
 	/**
 	 * Launch the application.
@@ -54,17 +54,19 @@ public class SetupScreenGui implements UserInterface{
 	 * 
 	 */
 	private SetupScreenGui(GameEnvironment gameEnvironment) {
+		
 		setup(gameEnvironment);
 	}
 	/**
 	 * create the setup window
 	 */
-	public void setup(GameEnvironment gameEnvironment) {	
+	public void setup(GameEnvironment gameEnvironment) {
+		this.gameEnvironment = gameEnvironment;
 		setFrame();
 		setLabel();
 		setTextField();
 		setJSlider();
-		setJbutton(gameEnvironment);			
+		setJbutton();			
 	}
 	public void main() {
 		
@@ -150,7 +152,7 @@ public class SetupScreenGui implements UserInterface{
 	/**
 	 * show difficulty option with label and buttons to choose.
 	 */
-	private void setJbutton(GameEnvironment gameEnvironment) {
+	private void setJbutton() {
 		
 		JToggleButton easyButton = new JToggleButton("Easy");
 		JToggleButton diffButton = new JToggleButton("Difficult");
@@ -181,7 +183,7 @@ public class SetupScreenGui implements UserInterface{
 				}
 				else {
 					frmFencingGame.dispose();
-					MainScreenGui gameStart = new MainScreenGui();
+					MainScreenGui gameStart = new MainScreenGui(gameEnvironment);
 					gameEnvironment.set(teamNameField.getText(), slider.getValue(), level);		
 				}
 			}
@@ -199,6 +201,11 @@ public class SetupScreenGui implements UserInterface{
 		});
 		exitButton.setBounds(1344, 718, 146, 29);
 		frmFencingGame.getContentPane().add(exitButton);
+		
+//		JLabel lblNewLabel = new JLabel(gameEnvironment.getDifficulty().toString());
+//		lblNewLabel.setFont(new Font("Dialog", Font.BOLD, 17));
+//		lblNewLabel.setBounds(248, 145, 370, 106);
+//		frmFencingGame.getContentPane().add(lblNewLabel);
 	}
 	
 	
