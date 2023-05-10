@@ -3,7 +3,7 @@ package main.gameObject;
 /**
  * Interface for purchasable objects such as {@link main.gameObject.athletes.Athlete Athlete} 
  * and {@link main.gameObject.item.Item Item}.
- * @author Yang
+ * @author H Yang
  *
  */
 public interface Product {
@@ -31,4 +31,5 @@ public interface Product {
 
 	String getName();
 
+	String toString();
 }
