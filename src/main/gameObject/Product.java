@@ -29,4 +29,6 @@ public interface Product {
 	 */
 	float getSellPrice();
 
+	String getName();
+
 }

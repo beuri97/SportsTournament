@@ -12,7 +12,7 @@ import java.util.Collections;
 
 /**
  * Class Team for user and opponents.
- * @Author Yang
+ * @author Yang
  */
 public class Team {
 

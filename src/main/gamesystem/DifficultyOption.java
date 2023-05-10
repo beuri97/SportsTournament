@@ -2,7 +2,7 @@ package main.gamesystem;
 
 /**
  * An enum shows the different difficulty options of the game
- * @author J Kim
+ * @author J Kim, H Yang
  */
 public enum DifficultyOption {
     EASY("Easy", 30000.00, 15000.00, 0),
@@ -21,9 +21,18 @@ public enum DifficultyOption {
 
     }
 
+    public double getMoneyGain() {
+
+        return this.MONEY_GAINED;
+    }
+    /**
+     * get initial money in double for player
+     * @return Initial player's money in double
+     */
     public double getMoney() {
         return this.MONEY;
     }
+
     /**
      * return enum literal to string to show ui
      * @return difficulty string value

@@ -189,7 +189,19 @@ public class GameEnvironment {
 	}
 
 
+	public void buffOffensive() {
+		this.gameManager.setOffensiveAdjust(0);
+		this.gameManager.setDefensiveAdjust(1);
+	}
+	public void buffDefensive() {
+
+		this.gameManager.setDefensiveAdjust(0);
+		this.gameManager.setOffensiveAdjust(1);
+	}
+
 	public void battleSequences() {
+
+		this.gameManager.battle();
 
 	}
 

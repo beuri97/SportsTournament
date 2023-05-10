@@ -412,26 +412,35 @@ public class CmdLineUi implements UserInterface {
 		listing(Arrays.copyOfRange(gameEnvironment.getOpponent().getRoster(), 0, 4));
 		System.out.println("Game Start!!");
 
-		while (gameEnvironment.isGame()) {
+		while (!gameEnvironment.isGame()) {
 
 			System.out.println("\nYour athlete on the stadium\n");
-			System.out.println(gameEnvironment.getTeam().getRoster()[i]);
+			System.out.println(gameEnvironment.getTeam().getRoster()[i]); // TODO - this line need to fix (Will not use i here)
 			System.out.println("\nOpponent athlete on the stadium\n");
-			System.out.println(gameEnvironment.getOpponent().getRoster()[i]);
+			System.out.println(gameEnvironment.getOpponent().getRoster()[i]); // TODO - this line need to fix (Will not use i here)
 
-			// TODO - change while loop to do while
 			do {
 				System.out.println("Order to your Athlete:");
 				System.out.println("You have follow option");
-				try {
-					scan.nextLine();
+				System.out.println("1. Choose either aggressively, carefully, or skip this command pressing enter");
+				System.out.println("Then athlete will battle");
+				try{
+					String input = scan.nextLine();
+					if(input.equals("aggressively")) {
+						gameEnvironment.buffOffensive();
+					} else if (input.equals("carefully")) {
+						gameEnvironment.buffDefensive();
+					} else if (input.equals(""));
 
+					else throw new IllegalInputException();
+
+					System.out.println("Battle Start!");
+					gameEnvironment.battleSequences();
 
 				} catch (IllegalInputException e) {
-
 					System.out.println(e.getMessage());
 				}
-			} while(gameEnvironment.isSet());
+			} while(!gameEnvironment.isSet());
 		}
 	}
 
@@ -446,16 +455,17 @@ public class CmdLineUi implements UserInterface {
 	 * print options with cardinal number
 	 * @param array array to print option
 	 */
-	public void listing(Object[] array) {
+	private void listing(Object[] array) {
 
 		for (int i = 1; i <= array.length; i++) {
 			System.out.printf("%d. %s%n", i, (array[i - 1] == null) ? "EMPTY\n" : array[i - 1]);
 		}
 	}
 
-	public void gameComment() {
 
-		// TODO - Bring all data from Game Manager - did athlete get score successfully? did athlete attacked or defend?
+	private void gameComment(String message) {
+
+		System.out.println(message);
 	}
 
 	/**
