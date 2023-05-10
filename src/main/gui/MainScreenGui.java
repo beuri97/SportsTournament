@@ -26,13 +26,14 @@ public class MainScreenGui {
 	private JFrame frmMainWindow;
 	GameEnvironment gameEnvironment;
 	Team team;
+	String teamName;
 
 	/**
 	 * Create the application.
 	 */
 	public  MainScreenGui(GameEnvironment gameEnvironment) {
 		this.gameEnvironment = gameEnvironment;
-	//	this.team = gameEnvironment.getTeam();
+		this.teamName = gameEnvironment.getTeam().getName();
 		initialize();
 	}
 
@@ -94,11 +95,11 @@ public class MainScreenGui {
 		lblNewLabel_4_1.setFont(new Font("Lucida Grande", Font.PLAIN, 23));
 		lblNewLabel_4_1.setBounds(125, 700, 141, 59);
 		frmMainWindow.getContentPane().add(lblNewLabel_4_1);
-		
-//		JLabel lblTeammaneIsHere = new JLabel(gameEnvironment.getTeam().getName());
-//		lblTeammaneIsHere.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
-//		lblTeammaneIsHere.setBounds(248, 37, 256, 30);
-//		frmMainWindow.getContentPane().add(lblTeammaneIsHere);
+	
+		JLabel lblTeammaneIsHere = new JLabel(teamName);
+		lblTeammaneIsHere.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
+		lblTeammaneIsHere.setBounds(248, 37, 256, 30);
+		frmMainWindow.getContentPane().add(lblTeammaneIsHere);
 		
 		JLabel lblNewLabel_1_1 = new JLabel("NUM HERE");
 		lblNewLabel_1_1.setFont(new Font("Lucida Grande", Font.BOLD, 20));
