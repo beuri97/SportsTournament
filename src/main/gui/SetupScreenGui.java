@@ -100,7 +100,7 @@ public class SetupScreenGui implements UserInterface{
 		NumWeekLabel.setToolTipText("");
 		frmFencingGame.getContentPane().add(NumWeekLabel);
 		
-		infoLabel = new JLabel("Enter your team name here");
+		infoLabel = new JLabel("");
 		infoLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		infoLabel.setBounds(759, 531, 370, 14);
 		infoLabel.setForeground(new Color(255, 0, 0));
@@ -156,6 +156,7 @@ public class SetupScreenGui implements UserInterface{
 	 */
 	private void setJbutton() {
 		
+		// give two buttons for difficulty options. Can't click both, so it will be cancelled when click the other one.
 		JToggleButton easyButton = new JToggleButton("Easy");
 		JToggleButton diffButton = new JToggleButton("Difficult");
 		easyButton.addActionListener(new ActionListener() {
@@ -173,9 +174,11 @@ public class SetupScreenGui implements UserInterface{
 				easyButton.setSelected(false);			
 			}
 		});
-		
 		diffButton.setBounds(928, 659, 96, 29);
 		frmFencingGame.getContentPane().add(diffButton);
+		
+		// when click 'Start game' button, it will check the regex of what the player entered, if it fails, show the requirement for team name, otherwise
+		// save team name, number of weeks per season and difficulty. And then, close the current window and show main Screen to play.
 		JButton startBttn = new JButton("Start game");
 		startBttn.addActionListener(new ActionListener() {
 			@Override
@@ -185,14 +188,12 @@ public class SetupScreenGui implements UserInterface{
 					infoLabel2.setText(NAME_CHAR_REQUIREMENT);
 				}
 				else {
+					gameEnvironment.set(teamNameField.getText(), slider.getValue(), level);	
 					frmFencingGame.dispose();
 					MainScreenGui gameStart = new MainScreenGui(gameEnvironment);
-					gameEnvironment.set(teamNameField.getText(), slider.getValue(), level);	
-					tempText = gameEnvironment.getTeam().getName();
 				}
 			}
-		});
-		
+		});	
 		startBttn.setBounds(1153, 718, 146, 29);
 		frmFencingGame.getContentPane().add(startBttn);
 		
@@ -205,13 +206,9 @@ public class SetupScreenGui implements UserInterface{
 		});
 		exitButton.setBounds(1344, 718, 146, 29);
 		frmFencingGame.getContentPane().add(exitButton);
-		
-
 	}
-	
-	
 	/*
-	 * creat optionpanel to ask whether the player really wants to quit the game or not
+	 * create option panel to ask whether the player really wants to quit the game or not
 	 */
 	private void exitBox() {
 		Object[] options1 = { "Quit", "Cancel" };

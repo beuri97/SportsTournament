@@ -11,6 +11,8 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.LineBorder;
 
 import main.GameEnvironment;
+import main.gameObject.Product;
+import main.gamesystem.Market;
 
 import javax.swing.SwingConstants;
 import java.awt.Font;
@@ -25,12 +27,16 @@ public class MarketGui {
 	private JFrame frmMarket;
 	
 	GameEnvironment gameEnvironment;
+	Product[] athleteList;
+	Product[] itemList;
 	
 	/**
 	 * Create the application.
 	 */
 	public MarketGui(GameEnvironment gameEnvironment) {
 		this.gameEnvironment = gameEnvironment;
+		this.athleteList = gameEnvironment.getMarket().getAthleteProduct();
+		this.itemList = gameEnvironment.getMarket().getItemProduct();
 		initialize();
 	}
 
@@ -80,17 +86,17 @@ public class MarketGui {
 		recruitButton.setFont(new Font("Lucida Grande", Font.BOLD, 23));
 		recruitButton.setBounds(705, 607, 287, 63);
 		frmMarket.getContentPane().add(recruitButton);
-		
+		// button to purchase the product that the player clicked
 		JButton purchaseButton = new JButton("PURCHASE");
 		purchaseButton.setFont(new Font("Lucida Grande", Font.BOLD, 23));
 		purchaseButton.setBounds(1373, 611, 180, 55);
 		frmMarket.getContentPane().add(purchaseButton);
-		
+		// button to sell the product that the player clicked
 		JButton sellButton = new JButton("SELL");
 		sellButton.setFont(new Font("Lucida Grande", Font.BOLD, 23));
 		sellButton.setBounds(450, 674, 174, 63);
 		frmMarket.getContentPane().add(sellButton);
-		
+		// set the button to go back to main screen
 		JButton backButton = new JButton("Back");
 		backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -154,219 +160,249 @@ public class MarketGui {
 	
 	
 	private void setBuyAthleteInfoPanel() {
-		JPanel panel_3 = new JPanel();
-		panel_3.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel_3.setBounds(455, 137, 227, 460);
-		frmMarket.getContentPane().add(panel_3);
-		panel_3.setLayout(null);
+		JPanel setBuyAthleteInfoPanel = new JPanel();
+		setBuyAthleteInfoPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
+		setBuyAthleteInfoPanel.setBounds(455, 137, 227, 460);
+		frmMarket.getContentPane().add(setBuyAthleteInfoPanel);
+		setBuyAthleteInfoPanel.setLayout(null);
 		
 		JLabel lblNewLabel_6 = new JLabel("<<Athelte Information>>");
 		lblNewLabel_6.setFont(new Font("Lucida Grande", Font.BOLD, 20));
 		lblNewLabel_6.setBounds(15, 20, 206, 20);
-		panel_3.add(lblNewLabel_6);
+		setBuyAthleteInfoPanel.add(lblNewLabel_6);
 		
 		JLabel lblNewLabel_7 = new JLabel("- Name -");
 		lblNewLabel_7.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
 		lblNewLabel_7.setBounds(22, 65, 81, 20);
-		panel_3.add(lblNewLabel_7);
+		setBuyAthleteInfoPanel.add(lblNewLabel_7);
 		
 		JLabel lblNewLabel_7_1 = new JLabel("- Description -");
 		lblNewLabel_7_1.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
 		lblNewLabel_7_1.setBounds(22, 120, 142, 20);
-		panel_3.add(lblNewLabel_7_1);
+		setBuyAthleteInfoPanel.add(lblNewLabel_7_1);
+	//	lblNewLabel_7_1.setText(athleteList[0]);
 		
 		JLabel lblNewLabel_7_2 = new JLabel("- Rarity -");
 		lblNewLabel_7_2.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
 		lblNewLabel_7_2.setBounds(15, 200, 105, 20);
-		panel_3.add(lblNewLabel_7_2);
+		setBuyAthleteInfoPanel.add(lblNewLabel_7_2);
 		
 		JLabel lblNewLabel_7_3 = new JLabel("- Offense -");
 		lblNewLabel_7_3.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
 		lblNewLabel_7_3.setBounds(15, 250, 105, 20);
-		panel_3.add(lblNewLabel_7_3);
+		setBuyAthleteInfoPanel.add(lblNewLabel_7_3);
 		
 		JLabel lblNewLabel_7_3_1 = new JLabel("- Deffense -");
 		lblNewLabel_7_3_1.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
 		lblNewLabel_7_3_1.setBounds(15, 300, 105, 20);
-		panel_3.add(lblNewLabel_7_3_1);
+		setBuyAthleteInfoPanel.add(lblNewLabel_7_3_1);
 		
 		JLabel lblNewLabel_7_3_2 = new JLabel("- Stamina -");
 		lblNewLabel_7_3_2.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
 		lblNewLabel_7_3_2.setBounds(15, 350, 105, 20);
-		panel_3.add(lblNewLabel_7_3_2);
+		setBuyAthleteInfoPanel.add(lblNewLabel_7_3_2);
 		
 		JLabel lblNewLabel_7_4 = new JLabel("ATHLETE NAME HERE");
 		lblNewLabel_7_4.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
 		lblNewLabel_7_4.setBounds(22, 93, 233, 20);
-		panel_3.add(lblNewLabel_7_4);
+		setBuyAthleteInfoPanel.add(lblNewLabel_7_4);
 		
 		JLabel lblNewLabel_7_4_1 = new JLabel("ATHLETE DISCRP HERE");
 		lblNewLabel_7_4_1.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
 		lblNewLabel_7_4_1.setBounds(22, 146, 233, 20);
-		panel_3.add(lblNewLabel_7_4_1);
+		setBuyAthleteInfoPanel.add(lblNewLabel_7_4_1);
 		
 		JLabel lblNewLabel_7_4_1_1 = new JLabel("ATHLETE RARITY HERE");
 		lblNewLabel_7_4_1_1.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
 		lblNewLabel_7_4_1_1.setBounds(22, 224, 233, 20);
-		panel_3.add(lblNewLabel_7_4_1_1);
+		setBuyAthleteInfoPanel.add(lblNewLabel_7_4_1_1);
 		
 		JLabel lblNewLabel_7_4_1_2 = new JLabel("ATHLETE OFFNS HERE");
 		lblNewLabel_7_4_1_2.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
 		lblNewLabel_7_4_1_2.setBounds(25, 275, 233, 20);
-		panel_3.add(lblNewLabel_7_4_1_2);
+		setBuyAthleteInfoPanel.add(lblNewLabel_7_4_1_2);
 		
 		JLabel lblNewLabel_7_4_1_3 = new JLabel("ATHLETE DIFNS HERE");
 		lblNewLabel_7_4_1_3.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
 		lblNewLabel_7_4_1_3.setBounds(25, 325, 233, 20);
-		panel_3.add(lblNewLabel_7_4_1_3);
+		setBuyAthleteInfoPanel.add(lblNewLabel_7_4_1_3);
 		
 		JLabel lblNewLabel_7_4_1_4 = new JLabel("ATHLETE STAMINA HERE");
 		lblNewLabel_7_4_1_4.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
 		lblNewLabel_7_4_1_4.setBounds(25, 378, 233, 20);
-		panel_3.add(lblNewLabel_7_4_1_4);
+		setBuyAthleteInfoPanel.add(lblNewLabel_7_4_1_4);
 	
 	}
 	
 	
 	private void setBuyAthletePanel() {
 
-		JPanel panel = new JPanel();
-		panel.setBorder(new CompoundBorder(new LineBorder(new Color(0, 0, 0)), null));
-		panel.setBounds(63, 75, 375, 662);
-		frmMarket.getContentPane().add(panel);
-		panel.setLayout(null);
+		JPanel setBuyAthletePanel = new JPanel();
+		setBuyAthletePanel.setBorder(new CompoundBorder(new LineBorder(new Color(0, 0, 0)), null));
+		setBuyAthletePanel.setBounds(63, 75, 375, 662);
+		frmMarket.getContentPane().add(setBuyAthletePanel);
+		setBuyAthletePanel.setLayout(null);
 		
 		JLabel aThletePanelTitle = new JLabel("<<Available Athletes>>");
 		aThletePanelTitle.setFont(new Font("Dialog", Font.BOLD, 21));
 		aThletePanelTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		aThletePanelTitle.setBounds(38, 22, 311, 45);
-		panel.add(aThletePanelTitle);
+		setBuyAthletePanel.add(aThletePanelTitle);
 		
 		JToggleButton athleteBttn1 = new JToggleButton("Athlete1");
+		athleteBttn1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		athleteBttn1.setBounds(28, 79, 150, 150);
-		panel.add(athleteBttn1);
+		setBuyAthletePanel.add(athleteBttn1);
 		
 		JToggleButton athleteBttn2 = new JToggleButton("Athlete2");
+		athleteBttn2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		athleteBttn2.setBounds(198, 79, 150, 150);
-		panel.add(athleteBttn2);
+		setBuyAthletePanel.add(athleteBttn2);
 		
 		JToggleButton athleteBttn3 = new JToggleButton("Athlete3");
+		athleteBttn3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		athleteBttn3.setBounds(28, 282, 150, 150);
-		panel.add(athleteBttn3);
+		setBuyAthletePanel.add(athleteBttn3);
 		
 		JToggleButton athleteBttn4 = new JToggleButton("Athlete4");
+		athleteBttn4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		athleteBttn4.setBounds(198, 282, 150, 150);
-		panel.add(athleteBttn4);
+		setBuyAthletePanel.add(athleteBttn4);
 		
 		JToggleButton athleteBttn5 = new JToggleButton("Athlete5");
+		athleteBttn5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		athleteBttn5.setBounds(28, 472, 150, 150);
-		panel.add(athleteBttn5);
+		setBuyAthletePanel.add(athleteBttn5);
 		
 		JToggleButton athleteBttn6 = new JToggleButton("Athlete6");
+		athleteBttn6.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		athleteBttn6.setBounds(198, 472, 150, 150);
-		panel.add(athleteBttn6);
+		setBuyAthletePanel.add(athleteBttn6);
 		
 		JLabel athlNameLable1 = new JLabel("Athlete 1 Name");
 		athlNameLable1.setBounds(38, 241, 131, 16);
-		panel.add(athlNameLable1);
+		setBuyAthletePanel.add(athlNameLable1);
+		athlNameLable1.setText(athleteList[0].toString());
 		
-		JLabel athlNameLable2 = new JLabel("Athlete 3 Name");
-		athlNameLable2.setBounds(38, 444, 131, 16);
-		panel.add(athlNameLable2);
+		JLabel athlNameLable2 = new JLabel("Athlete 2 Name");
+		athlNameLable2.setBounds(208, 241, 131, 16);
+		setBuyAthletePanel.add(athlNameLable2);
 		
-		JLabel athlNameLable3 = new JLabel("Athlete 2 Name");
-		athlNameLable3.setBounds(208, 241, 131, 16);
-		panel.add(athlNameLable3);
-		
+		JLabel athlNameLable3 = new JLabel("Athlete 3 Name");
+		athlNameLable3.setBounds(38, 444, 131, 16);
+		setBuyAthletePanel.add(athlNameLable3);
+			
 		JLabel athlNameLable4 = new JLabel("Athlete 4 Name");
 		athlNameLable4.setBounds(208, 444, 131, 16);
-		panel.add(athlNameLable4);
+		setBuyAthletePanel.add(athlNameLable4);
 		
 		JLabel athlNameLable5 = new JLabel("Athlete 5 Name");
 		athlNameLable5.setBounds(38, 634, 131, 16);
-		panel.add(athlNameLable5);
+		setBuyAthletePanel.add(athlNameLable5);
 		
 		JLabel athlNameLable6 = new JLabel("Athlete 6 Name");
 		athlNameLable6.setBounds(208, 634, 131, 16);
-		panel.add(athlNameLable6);
+		setBuyAthletePanel.add(athlNameLable6);
 	}
 	private void setBuyItemsPanel() {
 
-		JPanel panel = new JPanel();
-		panel.setBorder(new CompoundBorder(new LineBorder(new Color(0, 0, 0)), null));
-		panel.setBounds(1022, 75, 308, 662);
-		frmMarket.getContentPane().add(panel);
-		panel.setLayout(null);
-		
-		JToggleButton itemBttn1 = new JToggleButton("itemBttn1");
-		itemBttn1.setBounds(46, 111, 87, 86);
-		panel.add(itemBttn1);
-		
-		JToggleButton itemBttn2 = new JToggleButton("itemBttn2");
-		itemBttn2.setBounds(183, 111, 87, 86);
-		panel.add(itemBttn2);
-		
-		JLabel AthlNameLable1 = new JLabel("Athlete 1 Name");
-		AthlNameLable1.setBounds(30, 209, 131, 16);
-		panel.add(AthlNameLable1);
-		
-		JLabel AthlNameLable3 = new JLabel("Athlete 2 Name");
-		AthlNameLable3.setBounds(173, 209, 131, 16);
-		panel.add(AthlNameLable3);
+		JPanel setBuyItemsPanel = new JPanel();
+		setBuyItemsPanel.setBorder(new CompoundBorder(new LineBorder(new Color(0, 0, 0)), null));
+		setBuyItemsPanel.setBounds(1022, 75, 308, 662);
+		frmMarket.getContentPane().add(setBuyItemsPanel);
+		setBuyItemsPanel.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("<<Available Items>>");
 		lblNewLabel.setFont(new Font("Dialog", Font.BOLD, 21));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setBounds(12, 22, 281, 45);
-		panel.add(lblNewLabel);
+		setBuyItemsPanel.add(lblNewLabel);
 		
-		JToggleButton itemBttn1_1 = new JToggleButton("itemBttn1");
+		JToggleButton itemBttn1 = new JToggleButton("itemBttn1");
+		itemBttn1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		itemBttn1.setBounds(46, 111, 87, 86);
+		setBuyItemsPanel.add(itemBttn1);
+		
+		JToggleButton itemBttn2 = new JToggleButton("itemBttn2");
+		itemBttn2.setBounds(183, 111, 87, 86);
+		setBuyItemsPanel.add(itemBttn2);
+		
+		JToggleButton itemBttn1_1 = new JToggleButton("itemBttn3");
 		itemBttn1_1.setBounds(46, 237, 87, 86);
-		panel.add(itemBttn1_1);
+		setBuyItemsPanel.add(itemBttn1_1);
 		
-		JToggleButton itemBttn2_1 = new JToggleButton("itemBttn2");
+		JToggleButton itemBttn2_1 = new JToggleButton("itemBttn4");
 		itemBttn2_1.setBounds(183, 237, 87, 86);
-		panel.add(itemBttn2_1);
+		setBuyItemsPanel.add(itemBttn2_1);
 		
-		JLabel AthlNameLable1_1 = new JLabel("Athlete 1 Name");
-		AthlNameLable1_1.setBounds(30, 335, 131, 16);
-		panel.add(AthlNameLable1_1);
-		
-		JLabel AthlNameLable3_1 = new JLabel("Athlete 2 Name");
-		AthlNameLable3_1.setBounds(173, 335, 131, 16);
-		panel.add(AthlNameLable3_1);
-		
-		JToggleButton itemBttn1_2 = new JToggleButton("itemBttn1");
+		JToggleButton itemBttn1_2 = new JToggleButton("itemBttn5");
 		itemBttn1_2.setBounds(46, 365, 87, 86);
-		panel.add(itemBttn1_2);
+		setBuyItemsPanel.add(itemBttn1_2);
 		
-		JToggleButton itemBttn2_2 = new JToggleButton("itemBttn2");
+		JToggleButton itemBttn2_2 = new JToggleButton("itemBttn6");
 		itemBttn2_2.setBounds(183, 365, 87, 86);
-		panel.add(itemBttn2_2);
+		setBuyItemsPanel.add(itemBttn2_2);
 		
-		JLabel AthlNameLable1_2 = new JLabel("Athlete 1 Name");
-		AthlNameLable1_2.setBounds(30, 463, 131, 16);
-		panel.add(AthlNameLable1_2);
-		
-		JLabel AthlNameLable3_2 = new JLabel("Athlete 2 Name");
-		AthlNameLable3_2.setBounds(173, 463, 131, 16);
-		panel.add(AthlNameLable3_2);
-		
-		JToggleButton itemBttn1_3 = new JToggleButton("itemBttn1");
+		JToggleButton itemBttn1_3 = new JToggleButton("itemBttn7");
 		itemBttn1_3.setBounds(46, 491, 87, 86);
-		panel.add(itemBttn1_3);
+		setBuyItemsPanel.add(itemBttn1_3);
 		
-		JToggleButton itemBttn2_3 = new JToggleButton("itemBttn2");
+		JToggleButton itemBttn2_3 = new JToggleButton("itemBttn8");
 		itemBttn2_3.setBounds(183, 491, 87, 86);
-		panel.add(itemBttn2_3);
+		setBuyItemsPanel.add(itemBttn2_3);
 		
-		JLabel AthlNameLable1_3 = new JLabel("Athlete 1 Name");
+		JLabel AthlNameLable1 = new JLabel("itemLabel1");
+		AthlNameLable1.setBounds(30, 209, 131, 16);
+		setBuyItemsPanel.add(AthlNameLable1);
+		
+		JLabel AthlNameLable3 = new JLabel("itemLabel2");
+		AthlNameLable3.setBounds(173, 209, 131, 16);
+		setBuyItemsPanel.add(AthlNameLable3);
+		
+		JLabel AthlNameLable1_1 = new JLabel("itemLabel3");
+		AthlNameLable1_1.setBounds(30, 335, 131, 16);
+		setBuyItemsPanel.add(AthlNameLable1_1);
+		
+		JLabel AthlNameLable3_1 = new JLabel("itemLabel4");
+		AthlNameLable3_1.setBounds(173, 335, 131, 16);
+		setBuyItemsPanel.add(AthlNameLable3_1);
+		
+		JLabel AthlNameLable1_2 = new JLabel("itemLabel5");
+		AthlNameLable1_2.setBounds(30, 463, 131, 16);
+		setBuyItemsPanel.add(AthlNameLable1_2);
+		
+		JLabel AthlNameLable3_2 = new JLabel("itemLabel6");
+		AthlNameLable3_2.setBounds(173, 463, 131, 16);
+		setBuyItemsPanel.add(AthlNameLable3_2);
+		
+		JLabel AthlNameLable1_3 = new JLabel("itemLabel7");
 		AthlNameLable1_3.setBounds(30, 589, 131, 16);
-		panel.add(AthlNameLable1_3);
+		setBuyItemsPanel.add(AthlNameLable1_3);
 		
-		JLabel AthlNameLable3_3 = new JLabel("Athlete 2 Name");
+		JLabel AthlNameLable3_3 = new JLabel("itemLabel8");
 		AthlNameLable3_3.setBounds(173, 589, 131, 16);
-		panel.add(AthlNameLable3_3);
+		setBuyItemsPanel.add(AthlNameLable3_3);
 		
 	}
 	private void setSellItemPanel() {
