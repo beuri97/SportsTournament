@@ -5,6 +5,7 @@ import main.gameObject.Team;
 import main.gamesystem.DifficultyOption;
 import main.gamesystem.Exception.EmptySlotException;
 import main.gamesystem.Exception.IllegalInputException;
+import main.gamesystem.Exception.InsufficientAthleteException;
 import main.gamesystem.Market;
 
 import java.util.Arrays;
@@ -388,13 +389,13 @@ public class CmdLineUi implements UserInterface {
 		final String REGEX = String.format("[1-%d]", gameEnvironment.getAllOpponent().length);
 		while(true) {
 			try {
-				// TODO - Check player team's athletes requirement - implement this kind of method at SetUp Class first
+				this.gameEnvironment.isPlayable();
 				listing(gameEnvironment.getAllOpponent());
 				String input = scan.nextLine();
 				gameEnvironment.check(input, REGEX, "");
 				this.actualGame(Integer.parseInt(input) - 1);
 				break;
-			} catch(IllegalInputException | EmptySlotException e) {
+			} catch(IllegalInputException | EmptySlotException | InsufficientAthleteException e) {
 				System.out.println(e.getMessage());
 			}
 		}

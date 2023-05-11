@@ -6,7 +6,10 @@ import main.gameObject.Team;
 import main.gameObject.athletes.Athlete;
 import main.gameObject.item.Item;
 import main.gamesystem.DifficultyOption;
+import main.gamesystem.Exception.EmptySlotException;
 import main.gamesystem.Exception.IllegalInputException;
+import main.gamesystem.Exception.InsufficientAthleteException;
+import main.gamesystem.Exception.NoSpaceException;
 import main.gamesystem.GameManager;
 import main.gamesystem.Market;
 import main.gamesystem.SetUp;
@@ -116,7 +119,31 @@ public class GameEnvironment {
 	 */
 	public void tradingProcess(String type, Product[] stockType, int col) throws RuntimeException {
 
-		setup.tradingManager(team, market, type, stockType, col);
+		// setup.tradingManager(team, market, type, stockType, col);
+
+		//Can we generate this kind of business logic in facade class?????????????????????????????????????????????????
+		switch(type) {
+			case "buy":
+				Product[] properties = (stockType instanceof Athlete[]) ? this.team.getRoster() : this.team.getInventory();
+				if(stockType[col] == null) throw new EmptySlotException();
+				if(this.team.isFull(properties)) throw new NoSpaceException();
+				this.team.setMoney(- stockType[col].getPrice());
+				Product product = this.market.purchase(stockType, col);
+				if (product instanceof Athlete) {
+					this.team.recruitAthletes(product);
+				} else {
+					this.team.addItem(product);
+				}
+				break;
+
+			case "sell":
+				if(stockType[col] == null) throw new EmptySlotException();
+				Product sale = stockType[col];
+				this.team.setMoney(sale.getPrice());
+				if(stockType[col] instanceof Athlete) this.team.leaveAthletes(col);
+				else this.team.removeItem(col);
+				break;
+		}
 	}
 
 	/**
@@ -181,6 +208,11 @@ public class GameEnvironment {
 	public boolean isSet() {
 
 		return gameManager.isSet();
+	}
+
+	public void isPlayable() throws InsufficientAthleteException {
+
+		this.getTeam().isQualify();
 	}
 
 	public Team getOpponent() {

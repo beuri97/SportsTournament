@@ -2,13 +2,11 @@ package main.gameObject;
 
 import main.gameObject.athletes.Athlete;
 import main.gameObject.item.Item;
+import main.gamesystem.Exception.InsufficientAthleteException;
 import main.gamesystem.Exception.LackOfMoneyException;
 import main.gamesystem.Exception.NoSpaceException;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
+import java.util.*;
 
 /**
  * Class Team for user and opponents.
@@ -89,6 +87,17 @@ public class Team {
 
         if(this.money + price < 0) throw new LackOfMoneyException();
         this.money += price;
+    }
+
+    public void isQualify(){
+        int count = 0;
+
+        for (Athlete a : this.roster) {
+            if (a != null) count++;
+            if ((a == null && count < 4)) throw new InsufficientAthleteException();
+
+        }
+
     }
 
     /**
