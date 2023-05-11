@@ -28,10 +28,34 @@ public class MainScreenGui {
 	Team team;
 	String teamName;
 
-	
+	// next three ints indicate the Athlete buttons in Active, Reserve and item button are clicked, 
+	//	when int is -1, button is not clicked
+	//	when int is greater than 0(inclusive), it is clicked
+	//	this number will be used as index to call athletes and item from from the arraylist. 
 	int athleteSwitchingNum1 = -1;
 	int athleteSwitchingNum2 = -1;
 	int usingItemNum = -1;
+	
+	private JToggleButton athleteButton1;
+	private JToggleButton athleteButton2;
+	private JToggleButton athleteButton3;
+	private JToggleButton athleteButton4;
+	private JToggleButton athleteButton5;
+	private JToggleButton athleteButton6;
+	private JToggleButton athleteButton7;
+	
+	private JToggleButton itemButton1;
+	private JToggleButton itemButton2;
+	private JToggleButton itemButton3;
+	private JToggleButton itemButton4;
+	private JToggleButton itemButton5;
+	private JToggleButton itemButton6;
+	private JToggleButton itemButton7;
+	private JToggleButton itemButton8;
+	private JToggleButton itemButton9;
+	private JToggleButton itemButton10;
+
+	JLabel noticeUsingSwitching;
 	
 	/**
 	 * Create the application.
@@ -48,7 +72,8 @@ public class MainScreenGui {
 		
 		setFrame();
 		setLabels();
-		setAthleteItemPanel();
+		setAthletePanel();
+		setItemPanel();
 		setAthleteInfoPanel();
 		setItemInfoPanel();
 		setButton();
@@ -126,11 +151,16 @@ public class MainScreenGui {
 		lblMoney.setFont(new Font("Lucida Grande", Font.BOLD, 27));
 		lblMoney.setBounds(1224, 36, 202, 30);
 		frmMainWindow.getContentPane().add(lblMoney);
+		
+		noticeUsingSwitching = new JLabel("");
+		noticeUsingSwitching.setForeground(new Color(255, 11, 3));
+		noticeUsingSwitching.setBounds(906, 738, 282, 16);
+		frmMainWindow.getContentPane().add(noticeUsingSwitching);
 	}
 	/**
 	 * Panel for Athlete lists on main screen
 	 */
-	private void setAthleteItemPanel() {
+	private void setAthletePanel() {
 		
 		//Create the panel for Active Athletes
 		JPanel setAthletePanel = new JPanel();
@@ -146,22 +176,16 @@ public class MainScreenGui {
 		setReservePanel.setBounds(300, 338, 530, 220);
 		frmMainWindow.getContentPane().add(setReservePanel);
 		
-		//Create the panel for item in player's inventory
-		JPanel setItemPanel = new JPanel();
-		setItemPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
-		setItemPanel.setBounds(300, 624, 594, 220);
-		frmMainWindow.getContentPane().add(setItemPanel);
-		setItemPanel.setLayout(new GridLayout(2, 7, 0, 0));
-		
 		//Create toggle buttons for All the athletes that the player owns.
 		// 1~4 are Active, 5~7 are Reserves
-		JToggleButton athleteButton1 = new JToggleButton("Athlete1");
-		JToggleButton athleteButton2 = new JToggleButton("Athlete2");
-		JToggleButton athleteButton3 = new JToggleButton("Athlete3");
-		JToggleButton athleteButton4 = new JToggleButton("Athlete4");
-		JToggleButton athleteButton5 = new JToggleButton("Athlete5");
-		JToggleButton athleteButton6 = new JToggleButton("Athlete6");
-		JToggleButton athleteButton7 = new JToggleButton("Athlete7");
+		athleteButton1 = new JToggleButton("Athlete1");
+		athleteButton2 = new JToggleButton("Athlete2");
+		athleteButton3 = new JToggleButton("Athlete3");
+		athleteButton4 = new JToggleButton("Athlete4");
+		athleteButton5 = new JToggleButton("Athlete5");
+		athleteButton6 = new JToggleButton("Athlete6");
+		athleteButton7 = new JToggleButton("Athlete7");
+		
 		athleteButton1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				athleteSwitchingNum1 = 0;
@@ -270,255 +294,141 @@ public class MainScreenGui {
 		athleteLabel7.setBounds(370, 182, 131, 16);
 		setReservePanel.add(athleteLabel7);
 		athleteLabel7.setText("Athlete 7 Name");
-		
-		//switch two selected athletes around and reset all toggle buttons of Athletes
-		JButton switchButton = new JButton("Switch");
-		switchButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (athleteSwitchingNum1 >= 0 && athleteSwitchingNum2 >= 0) {
-					//Swap
-				}
-				athleteButton1.setSelected(false);
-				athleteButton2.setSelected(false);
-				athleteButton3.setSelected(false);
-				athleteButton4.setSelected(false);
-				athleteButton5.setSelected(false);
-				athleteButton6.setSelected(false);
-				athleteButton7.setSelected(false);
-				athleteSwitchingNum1 = -1;
-				athleteSwitchingNum2 = -1;
-			}
-		});
-		switchButton.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-		switchButton.setBounds(861, 480, 117, 78);
-		frmMainWindow.getContentPane().add(switchButton);
-		
-		JToggleButton itemButton1 = new JToggleButton("Item1");
-		JToggleButton itemButton2 = new JToggleButton("Item2");
-		JToggleButton itemButton3 = new JToggleButton("Item3");
-		JToggleButton itemButton4 = new JToggleButton("Item4");
-		JToggleButton itemButton5 = new JToggleButton("Item5");
-		JToggleButton itemButton6 = new JToggleButton("Item6");
-		JToggleButton itemButton7 = new JToggleButton("Item7");
-		JToggleButton itemButton8 = new JToggleButton("Item8");
-		JToggleButton itemButton9 = new JToggleButton("Item9");
-		JToggleButton itemButton10 = new JToggleButton("Item10");
-		itemButton1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				usingItemNum = 0;
-				itemButton2.setSelected(false);
-				itemButton3.setSelected(false);
-				itemButton4.setSelected(false);
-				itemButton5.setSelected(false);
-				itemButton6.setSelected(false);
-				itemButton7.setSelected(false);
-				itemButton8.setSelected(false);
-				itemButton9.setSelected(false);
-				itemButton10.setSelected(false);				
-			}
-		});
-		setItemPanel.add(itemButton1);
-		
-		itemButton2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				usingItemNum = 1;
-				itemButton1.setSelected(false);
-				itemButton3.setSelected(false);
-				itemButton4.setSelected(false);
-				itemButton5.setSelected(false);
-				itemButton6.setSelected(false);
-				itemButton7.setSelected(false);
-				itemButton8.setSelected(false);
-				itemButton9.setSelected(false);
-				itemButton10.setSelected(false);
-			}
-		});
-		setItemPanel.add(itemButton2);
-		
-		itemButton3.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				usingItemNum = 2;
-				itemButton1.setSelected(false);
-				itemButton2.setSelected(false);
-				itemButton4.setSelected(false);
-				itemButton5.setSelected(false);
-				itemButton6.setSelected(false);
-				itemButton7.setSelected(false);
-				itemButton8.setSelected(false);
-				itemButton9.setSelected(false);
-				itemButton10.setSelected(false);
-			}
-		});
-		setItemPanel.add(itemButton3);
-		
-		itemButton4.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				usingItemNum = 3;
-				itemButton1.setSelected(false);
-				itemButton2.setSelected(false);
-				itemButton3.setSelected(false);
-				itemButton5.setSelected(false);
-				itemButton6.setSelected(false);
-				itemButton7.setSelected(false);
-				itemButton8.setSelected(false);
-				itemButton9.setSelected(false);
-				itemButton10.setSelected(false);
-			}
-		});
-		setItemPanel.add(itemButton4);
-		
-		itemButton5.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				usingItemNum = 4;
-				itemButton1.setSelected(false);
-				itemButton2.setSelected(false);
-				itemButton3.setSelected(false);
-				itemButton4.setSelected(false);
-				itemButton6.setSelected(false);
-				itemButton7.setSelected(false);
-				itemButton8.setSelected(false);
-				itemButton9.setSelected(false);
-				itemButton10.setSelected(false);
-			}
-		});
-		setItemPanel.add(itemButton5);
-		
-		itemButton6.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				usingItemNum = 5;
-				itemButton1.setSelected(false);
-				itemButton2.setSelected(false);
-				itemButton3.setSelected(false);
-				itemButton4.setSelected(false);
-				itemButton5.setSelected(false);
-				itemButton7.setSelected(false);
-				itemButton8.setSelected(false);
-				itemButton9.setSelected(false);
-				itemButton10.setSelected(false);
-			}
-		});
-		setItemPanel.add(itemButton6);
-		
-		itemButton7.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				usingItemNum = 6;
-				itemButton1.setSelected(false);
-				itemButton2.setSelected(false);
-				itemButton3.setSelected(false);
-				itemButton4.setSelected(false);
-				itemButton5.setSelected(false);
-				itemButton6.setSelected(false);
-				itemButton8.setSelected(false);
-				itemButton9.setSelected(false);
-				itemButton10.setSelected(false);
-			}
-		});
-		setItemPanel.add(itemButton7);
-		
-		itemButton8.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				usingItemNum = 7;
-				itemButton1.setSelected(false);
-				itemButton2.setSelected(false);
-				itemButton3.setSelected(false);
-				itemButton4.setSelected(false);
-				itemButton5.setSelected(false);
-				itemButton6.setSelected(false);
-				itemButton7.setSelected(false);
-				itemButton9.setSelected(false);
-				itemButton10.setSelected(false);
-			}
-		});
-		setItemPanel.add(itemButton8);
-		
-		itemButton9.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				usingItemNum = 8;
-				itemButton1.setSelected(false);
-				itemButton2.setSelected(false);
-				itemButton3.setSelected(false);
-				itemButton4.setSelected(false);
-				itemButton5.setSelected(false);
-				itemButton6.setSelected(false);
-				itemButton7.setSelected(false);
-				itemButton8.setSelected(false);
-				itemButton10.setSelected(false);
-			}
-		});
-		setItemPanel.add(itemButton9);
-		
-		itemButton10.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				usingItemNum = 9;
-				itemButton1.setSelected(false);
-				itemButton2.setSelected(false);
-				itemButton3.setSelected(false);
-				itemButton4.setSelected(false);
-				itemButton5.setSelected(false);
-				itemButton6.setSelected(false);
-				itemButton7.setSelected(false);
-				itemButton8.setSelected(false);
-				itemButton9.setSelected(false);
-			}
-		});
-		setItemPanel.add(itemButton10);
-		
-		JLabel noticeUsingSwitching = new JLabel("");
-		noticeUsingSwitching.setForeground(new Color(255, 11, 3));
-		noticeUsingSwitching.setBounds(906, 738, 282, 16);
-		frmMainWindow.getContentPane().add(noticeUsingSwitching);
-
-		JButton itemUseButton = new JButton("Use");
-		itemUseButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//print select only one athlete
-				if (athleteSwitchingNum1 >= 0 && athleteSwitchingNum2 >= 0) {
-					noticeUsingSwitching.setText("Select Only One Athlete!");
-				}
-				//print select one item & one athlete
-				else if (usingItemNum < 0 || (athleteSwitchingNum1 < 0 && athleteSwitchingNum2 < 0)){
-					noticeUsingSwitching.setText("Select One Item and Athlete each!");
-
-				}
-				else if (usingItemNum >= 0 && (athleteSwitchingNum1 >= 0 || athleteSwitchingNum2 >= 0)) {
-					if (athleteSwitchingNum1 >= 0) {
-						//use item for num1
-						noticeUsingSwitching.setText("Used item! Check the difference!!");
-					}
-					else if(athleteSwitchingNum2 >= 0) {
-						//use item for num2
-						noticeUsingSwitching.setText("Used item! Check the difference!!");
-					}
-				}
-				athleteButton1.setSelected(false);
-				athleteButton2.setSelected(false);
-				athleteButton3.setSelected(false);
-				athleteButton4.setSelected(false);
-				athleteButton5.setSelected(false);
-				athleteButton6.setSelected(false);
-				athleteButton7.setSelected(false);
-				athleteSwitchingNum1 = -1;
-				athleteSwitchingNum2 = -1;
-				
-				itemButton1.setSelected(false);
-				itemButton2.setSelected(false);
-				itemButton3.setSelected(false);
-				itemButton4.setSelected(false);
-				itemButton5.setSelected(false);
-				itemButton6.setSelected(false);
-				itemButton7.setSelected(false);
-				itemButton8.setSelected(false);
-				itemButton9.setSelected(false);
-				itemButton10.setSelected(false);
-				usingItemNum = -1;
-			}
-		});
-		itemUseButton.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-		itemUseButton.setBounds(984, 766, 117, 78);
-		frmMainWindow.getContentPane().add(itemUseButton);
+	}
+	
+	private void setItemPanel(){
+	//Create the panel for item in player's inventory
+	JPanel setItemPanel = new JPanel();
+	setItemPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
+	setItemPanel.setBounds(300, 624, 594, 220);
+	frmMainWindow.getContentPane().add(setItemPanel);
+	setItemPanel.setLayout(new GridLayout(2, 7, 0, 0));
+	
+	itemButton1 = new JToggleButton("Item1");
+	itemButton2 = new JToggleButton("Item2");
+	itemButton3 = new JToggleButton("Item3");
+	itemButton4 = new JToggleButton("Item4");
+	itemButton5 = new JToggleButton("Item5");
+	itemButton6 = new JToggleButton("Item6");
+	itemButton7 = new JToggleButton("Item7");
+	itemButton8 = new JToggleButton("Item8");
+	itemButton9 = new JToggleButton("Item9");
+	itemButton10 = new JToggleButton("Item10");
+	
+	itemButton1.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			usingItemNum = 0;
+			cancelItemToggle();				
+			itemButton1.setSelected(true);
+		}
+	});
+	setItemPanel.add(itemButton1);
+	
+	itemButton2.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			usingItemNum = 1;
+			cancelItemToggle();				
+			itemButton2.setSelected(true);
+		}
+	});
+	setItemPanel.add(itemButton2);
+	
+	itemButton3.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			usingItemNum = 2;
+			cancelItemToggle();				
+			itemButton3.setSelected(true);
+		}
+	});
+	setItemPanel.add(itemButton3);
+	
+	itemButton4.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			usingItemNum = 3;
+			cancelItemToggle();				
+			itemButton4.setSelected(true);
+		}
+	});
+	setItemPanel.add(itemButton4);
+	
+	itemButton5.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			usingItemNum = 4;
+			cancelItemToggle();			
+			itemButton5.setSelected(true);
+		}
+	});
+	setItemPanel.add(itemButton5);
+	
+	itemButton6.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			usingItemNum = 5;
+			cancelItemToggle();				
+			itemButton6.setSelected(true);
+		}
+	});
+	setItemPanel.add(itemButton6);
+	
+	itemButton7.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			usingItemNum = 6;
+			cancelItemToggle();		
+			itemButton7.setSelected(true);
+		}
+	});
+	setItemPanel.add(itemButton7);
+	
+	itemButton8.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			usingItemNum = 7;
+			cancelItemToggle();		
+			itemButton8.setSelected(true);
+		}
+	});
+	setItemPanel.add(itemButton8);
+	
+	itemButton9.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			usingItemNum = 8;
+			cancelItemToggle();		
+			itemButton9.setSelected(true);
+		}
+	});
+	setItemPanel.add(itemButton9);
+	
+	itemButton10.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			usingItemNum = 9;
+			cancelItemToggle();
+			itemButton10.setSelected(true);
+		}
+	});
+	setItemPanel.add(itemButton10);	
 	
 	}
 
+	private void cancelAhtleteToggle() {
+		athleteButton1.setSelected(false);
+		athleteButton2.setSelected(false);
+		athleteButton3.setSelected(false);
+		athleteButton4.setSelected(false);
+		athleteButton5.setSelected(false);
+		athleteButton6.setSelected(false);
+		athleteButton7.setSelected(false);
+	}
+	
+	private void cancelItemToggle() {
+		itemButton1.setSelected(false);
+		itemButton2.setSelected(false);
+		itemButton3.setSelected(false);
+		itemButton4.setSelected(false);
+		itemButton5.setSelected(false);
+		itemButton6.setSelected(false);
+		itemButton7.setSelected(false);
+		itemButton8.setSelected(false);
+		itemButton9.setSelected(false);
+		itemButton10.setSelected(false);
+	}
 
 	/*
 	 * set buttons on main screen
@@ -551,7 +461,55 @@ public class MainScreenGui {
 		exitButton.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		exitButton.setBounds(1512, 971, 117, 30);
 		frmMainWindow.getContentPane().add(exitButton);
-	
+		
+		//switch two selected athletes around and reset all toggle buttons of Athletes
+		JButton switchButton = new JButton("Switch");
+		switchButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (athleteSwitchingNum1 >= 0 && athleteSwitchingNum2 >= 0) {
+					//Swap
+				}
+				cancelAhtleteToggle();
+				athleteSwitchingNum1 = -1;
+				athleteSwitchingNum2 = -1;
+			}
+		});
+		switchButton.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		switchButton.setBounds(861, 480, 117, 78);
+		frmMainWindow.getContentPane().add(switchButton);
+		
+		//make use button to use item to one athlete
+		JButton itemUseButton = new JButton("Use");
+		itemUseButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//print select only one athlete
+				if (athleteSwitchingNum1 >= 0 && athleteSwitchingNum2 >= 0) {
+					noticeUsingSwitching.setText("Select One Athlete for using a item!");
+				}
+				//print select one item & one athlete
+				else if (usingItemNum < 0 || (athleteSwitchingNum1 < 0 && athleteSwitchingNum2 < 0)){
+					noticeUsingSwitching.setText("Select One Item and Athlete for each!");
+				}
+				else if (usingItemNum >= 0 && (athleteSwitchingNum1 >= 0 || athleteSwitchingNum2 >= 0)) {
+					if (athleteSwitchingNum1 >= 0) {
+						//use item for num1
+						noticeUsingSwitching.setText("Used item! Check the difference!!");
+					}
+					else if(athleteSwitchingNum2 >= 0) {
+						//use item for num2
+						noticeUsingSwitching.setText("Used item! Check the difference!!");
+					}
+				}
+				cancelAhtleteToggle();
+				cancelItemToggle();	
+				athleteSwitchingNum1 = -1;
+				athleteSwitchingNum2 = -1;		
+				usingItemNum = -1;
+			}
+		});
+		itemUseButton.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		itemUseButton.setBounds(984, 766, 117, 78);
+		frmMainWindow.getContentPane().add(itemUseButton);
 	}
 	
 	/*

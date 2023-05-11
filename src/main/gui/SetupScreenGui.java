@@ -70,9 +70,6 @@ public class SetupScreenGui implements UserInterface{
 		setJSlider();
 		setJbutton();			
 	}
-	public void main() {
-		
-	}
 	/*
 	 * set the frame of setup window
 	 */

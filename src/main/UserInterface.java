@@ -17,7 +17,7 @@ public interface UserInterface {
 	String INVALID_NUMBER = "Invalid number please enter it again.";
 
 
-	void main();
+//	void main();
 	
 	void setup(GameEnvironment gameEnvironment);
 	
