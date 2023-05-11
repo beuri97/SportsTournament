@@ -23,7 +23,7 @@ public interface UserInterface {
 	
 	default String printing(String message) {
 
-		return String.format("<html>%s</html>", message.replace("\n", "<br/>"));
+		return String.format("<html>%s</html>", message.replace("\n", "<br/><br/>"));
 	}
 }
 

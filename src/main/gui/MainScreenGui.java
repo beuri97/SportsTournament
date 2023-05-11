@@ -13,6 +13,7 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.LineBorder;
 
 import main.GameEnvironment;
+import main.UserInterface;
 
 import javax.swing.JToggleButton;
 import main.gameObject.*;
@@ -21,7 +22,7 @@ import main.gameObject.*;
  * class for Setup window when start the game
  * @author J Kim
  */
-public class MainScreenGui {
+public class MainScreenGui implements UserInterface{
 
 	private JFrame frmMainWindow;
 	GameEnvironment gameEnvironment;
@@ -62,13 +63,13 @@ public class MainScreenGui {
 	 */
 	public  MainScreenGui(GameEnvironment gameEnvironment) {
 		this.gameEnvironment = gameEnvironment;
-		initialize();
+		setup(gameEnvironment);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	public void setup(GameEnvironment gameEnvironment) {
 		
 		setFrame();
 		setLabels();
