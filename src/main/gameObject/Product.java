@@ -31,8 +31,5 @@ public interface Product {
 
 	String getName();
 
-	default String printing(String message) {
 
-		return String.format("<html>%s</html>", message.replace("%n", "</br>"));
-	}
 }

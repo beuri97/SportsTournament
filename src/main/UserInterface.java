@@ -20,5 +20,10 @@ public interface UserInterface {
 	void main();
 	
 	void setup(GameEnvironment gameEnvironment);
+	
+	default String printing(String message) {
+
+		return String.format("<html>%s</html>", message.replace("\n", "<br/>"));
+	}
 }
 
