@@ -17,6 +17,10 @@ import main.UserInterface;
 
 import javax.swing.JToggleButton;
 import main.gameObject.*;
+import main.gameObject.athletes.Athlete;
+import main.gameObject.item.Item;
+
+import javax.swing.SwingConstants;
 
 /**
  * class for Setup window when start the game
@@ -28,6 +32,8 @@ public class MainScreenGui implements UserInterface{
 	GameEnvironment gameEnvironment;
 	Team team;
 	String teamName;
+	Athlete[] athleteList;
+	Item[] itemList;
 
 	// next three ints indicate the Athlete buttons in Active, Reserve and item button are clicked, 
 	//	when int is -1, button is not clicked
@@ -45,6 +51,14 @@ public class MainScreenGui implements UserInterface{
 	private JToggleButton athleteButton6;
 	private JToggleButton athleteButton7;
 	
+	private JLabel athleteLabel1;
+	private JLabel athleteLabel2;
+	private JLabel athleteLabel3;
+	private JLabel athleteLabel4;
+	private JLabel athleteLabel5;
+	private JLabel athleteLabel6;
+	private JLabel athleteLabel7;
+	
 	private JToggleButton itemButton1;
 	private JToggleButton itemButton2;
 	private JToggleButton itemButton3;
@@ -55,14 +69,20 @@ public class MainScreenGui implements UserInterface{
 	private JToggleButton itemButton8;
 	private JToggleButton itemButton9;
 	private JToggleButton itemButton10;
+	
+	
 
 	JLabel noticeUsingSwitching;
+	JLabel athleteDescriptionLabel;
+	JLabel itemDescriptionLabel;
 	
 	/**
 	 * Create the application.
 	 */
 	public  MainScreenGui(GameEnvironment gameEnvironment) {
 		this.gameEnvironment = gameEnvironment;
+		this.athleteList = gameEnvironment.getTeam().getRoster();
+		this.itemList = gameEnvironment.getTeam().getInventory();
 		setup(gameEnvironment);
 	}
 
@@ -71,30 +91,26 @@ public class MainScreenGui implements UserInterface{
 	 */
 	public void setup(GameEnvironment gameEnvironment) {
 		
-		setFrame();
-		setLabels();
+		setFrameLabels();
 		setAthletePanel();
 		setItemPanel();
-		setAthleteInfoPanel();
-		setItemInfoPanel();
+		setAthleteItemInfoPanel();
 		setButton();
 		
 	}
+
 	/*
-	 * set the frame of main window
+	 * set the main frame and all the labels on main window
 	 */
-	private void setFrame() {
+	private void setFrameLabels() {
+		
 		frmMainWindow = new JFrame();
 		frmMainWindow.setTitle("MAIN WINDOW");
 		frmMainWindow.setSize(1650,1080);
 		frmMainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmMainWindow.getContentPane().setLayout(null);
 		frmMainWindow.setVisible(true);
-	}
-	/*
-	 * set all the labels on main window
-	 */
-	private void setLabels() {
+		
 		JLabel myTeamLabel = new JLabel("My team name :");
 		myTeamLabel.setFont(new Font("Lucida Grande", Font.BOLD, 20));
 		myTeamLabel.setBounds(48, 36, 218, 30);
@@ -148,10 +164,11 @@ public class MainScreenGui implements UserInterface{
 		frmMainWindow.getContentPane().add(selectedDifficultyLabel);
 		selectedDifficultyLabel.setText(gameEnvironment.getDifficulty());
 		
-		JLabel lblMoney = new JLabel("$ Money");
-		lblMoney.setFont(new Font("Lucida Grande", Font.BOLD, 27));
-		lblMoney.setBounds(1224, 36, 202, 30);
-		frmMainWindow.getContentPane().add(lblMoney);
+		JLabel moneyLabel = new JLabel("$ Money");
+		moneyLabel.setFont(new Font("Lucida Grande", Font.BOLD, 27));
+		moneyLabel.setBounds(1224, 36, 202, 30);
+		frmMainWindow.getContentPane().add(moneyLabel);
+		moneyLabel.setText("$ " + gameEnvironment.getTeam().getMoney());
 		
 		noticeUsingSwitching = new JLabel("");
 		noticeUsingSwitching.setForeground(new Color(255, 11, 3));
@@ -193,6 +210,7 @@ public class MainScreenGui implements UserInterface{
 				athleteButton2.setSelected(false);
 				athleteButton3.setSelected(false);
 				athleteButton4.setSelected(false);
+				athleteDescriptionLabel.setText(printing(athleteList[0].toString()));
 			}
 		});
 		athleteButton1.setBounds(20, 20, 150, 150);
@@ -204,6 +222,8 @@ public class MainScreenGui implements UserInterface{
 				athleteButton1.setSelected(false);
 				athleteButton3.setSelected(false);
 				athleteButton4.setSelected(false);
+				athleteDescriptionLabel.setText(printing(athleteList[1].toString()));
+
 			}
 		});
 		athleteButton2.setBounds(190, 20, 150, 150);
@@ -215,6 +235,8 @@ public class MainScreenGui implements UserInterface{
 				athleteButton1.setSelected(false);
 				athleteButton2.setSelected(false);
 				athleteButton4.setSelected(false);
+				athleteDescriptionLabel.setText(printing(athleteList[2].toString()));
+
 			}
 		});
 		athleteButton3.setBounds(360, 20, 150, 150);
@@ -226,6 +248,8 @@ public class MainScreenGui implements UserInterface{
 				athleteButton1.setSelected(false);
 				athleteButton2.setSelected(false);
 				athleteButton3.setSelected(false);
+				athleteDescriptionLabel.setText(printing(athleteList[3].toString()));
+
 			}
 		});
 		athleteButton4.setBounds(530, 20, 150, 150);
@@ -236,6 +260,8 @@ public class MainScreenGui implements UserInterface{
 				athleteSwitchingNum2 = 4;
 				athleteButton6.setSelected(false);
 				athleteButton7.setSelected(false);
+				athleteDescriptionLabel.setText(printing(athleteList[4].toString()));
+
 			}
 		});
 		athleteButton5.setBounds(20, 20, 150, 150);
@@ -246,6 +272,8 @@ public class MainScreenGui implements UserInterface{
 				athleteSwitchingNum2 = 5;
 				athleteButton5.setSelected(false);
 				athleteButton7.setSelected(false);
+				athleteDescriptionLabel.setText(printing(athleteList[5].toString()));
+
 			}
 		});
 		athleteButton6.setBounds(190, 20, 150, 150);
@@ -256,45 +284,47 @@ public class MainScreenGui implements UserInterface{
 				athleteSwitchingNum2 = 6;
 				athleteButton5.setSelected(false);
 				athleteButton6.setSelected(false);
+				athleteDescriptionLabel.setText(printing(athleteList[6].toString()));
+
 			}
 		});
 		athleteButton7.setBounds(360, 20, 150, 150);
 		setReservePanel.add(athleteButton7);
 		
-		JLabel athleteLabel1 = new JLabel("Athlete 1 Name");
+		athleteLabel1 = new JLabel("Athlete 1 Name");
 		athleteLabel1.setBounds(30, 182, 131, 16);
 		setAthletePanel.add(athleteLabel1);
-		athleteLabel1.setText("Athlete 1 Name");
+//		athleteLabel1.setText(athleteList[0].toString());
 		
-		JLabel athleteLabel2 = new JLabel("Athlete 2 Name");
+		athleteLabel2 = new JLabel("Athlete 2 Name");
 		athleteLabel2.setBounds(200, 182, 131, 16);
 		setAthletePanel.add(athleteLabel2);
-		athleteLabel2.setText("Athlete 2 Name");
+//		athleteLabel2.setText(athleteList[1].getName());
 		
-		JLabel athleteLabel3 = new JLabel("Athlete 3 Name");
+		athleteLabel3 = new JLabel("Athlete 3 Name");
 		athleteLabel3.setBounds(370, 182, 131, 16);
 		setAthletePanel.add(athleteLabel3);
-		athleteLabel3.setText("Athlete 3 Name");
+//		athleteLabel3.setText(athleteList[2].getName());
 	
-		JLabel athleteLabel4 = new JLabel("Athlete 4 Name");
+		athleteLabel4 = new JLabel("Athlete 4 Name");
 		athleteLabel4.setBounds(540, 182, 131, 16);
 		setAthletePanel.add(athleteLabel4);
-		athleteLabel4.setText("Athlete 4 Name");
+//		athleteLabel4.setText(athleteList[3].getName());
 		
-		JLabel athleteLabel5 = new JLabel("Athlete 5 Name");
+		athleteLabel5 = new JLabel("Athlete 5 Name");
 		athleteLabel5.setBounds(30, 182, 131, 16);
 		setReservePanel.add(athleteLabel5);
-		athleteLabel5.setText("Athlete 5 Name");
+//		athleteLabel5.setText(athleteList[4].getName());
 		
-		JLabel athleteLabel6 = new JLabel("Athlete 6 Name");
+		athleteLabel6 = new JLabel("Athlete 6 Name");
 		athleteLabel6.setBounds(200, 182, 131, 16);
 		setReservePanel.add(athleteLabel6);
-		athleteLabel6.setText("Athlete 6 Name");
+//		athleteLabel6.setText(athleteList[5].getName());
 		
-		JLabel athleteLabel7 = new JLabel("Athlete 7 Name");
+		athleteLabel7 = new JLabel("Athlete 7 Name");
 		athleteLabel7.setBounds(370, 182, 131, 16);
 		setReservePanel.add(athleteLabel7);
-		athleteLabel7.setText("Athlete 7 Name");
+//		athleteLabel7.setText(athleteList[6].getName());
 	}
 	
 	private void setItemPanel(){
@@ -435,7 +465,7 @@ public class MainScreenGui implements UserInterface{
 	 * set buttons on main screen
 	 */
 	private void setButton() {
-		
+		// close the main window and show market
 		JButton marketButton = new JButton("Market");
 		marketButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -447,6 +477,7 @@ public class MainScreenGui implements UserInterface{
 		marketButton.setBounds(125, 895, 237, 78);
 		frmMainWindow.getContentPane().add(marketButton);
 		
+		//close the main window and show stadium
 		JButton stadiumButton = new JButton("Stadium");
 		stadiumButton.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		stadiumButton.setBounds(421, 895, 237, 78);
@@ -514,108 +545,46 @@ public class MainScreenGui implements UserInterface{
 	}
 	
 	/*
-	 * set the information panel for athlete on main screen
+	 * set the information panel for athlete and item on main screen
 	 */
-	private void setAthleteInfoPanel() {
-		JPanel panel_3 = new JPanel();
-		panel_3.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel_3.setBounds(1212, 100, 300, 460);
-		frmMainWindow.getContentPane().add(panel_3);
-		panel_3.setLayout(null);
+	private void setAthleteItemInfoPanel() {
+		JPanel setAthleteInfoPanel = new JPanel();
+		setAthleteInfoPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
+		setAthleteInfoPanel.setBounds(1212, 100, 300, 460);
+		frmMainWindow.getContentPane().add(setAthleteInfoPanel);
+		setAthleteInfoPanel.setLayout(null);
 		
-		JLabel lblNewLabel_6 = new JLabel("<<Athelte Information>>");
-		lblNewLabel_6.setFont(new Font("Lucida Grande", Font.BOLD, 20));
-		lblNewLabel_6.setBounds(15, 20, 271, 20);
-		panel_3.add(lblNewLabel_6);
+		JPanel setItemInfoPanel = new JPanel();
+		setItemInfoPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
+		setItemInfoPanel.setBounds(1212, 624, 297, 220);
+		frmMainWindow.getContentPane().add(setItemInfoPanel);
+		setItemInfoPanel.setLayout(null);
 		
-		JLabel lblNewLabel_7 = new JLabel("- Name -");
-		lblNewLabel_7.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
-		lblNewLabel_7.setBounds(22, 65, 81, 20);
-		panel_3.add(lblNewLabel_7);
+		JLabel athleteInfoTitleLabel = new JLabel("<<Athelte Information>>");
+		athleteInfoTitleLabel.setFont(new Font("Lucida Grande", Font.BOLD, 20));
+		athleteInfoTitleLabel.setBounds(15, 20, 271, 20);
+		setAthleteInfoPanel.add(athleteInfoTitleLabel);
 		
-		JLabel lblNewLabel_7_1 = new JLabel("- Description -");
-		lblNewLabel_7_1.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
-		lblNewLabel_7_1.setBounds(22, 120, 142, 20);
-		panel_3.add(lblNewLabel_7_1);
+		athleteDescriptionLabel = new JLabel("- Description -");
+		athleteDescriptionLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
+		athleteDescriptionLabel.setBounds(22, 67, 142, 363);
+		setAthleteInfoPanel.add(athleteDescriptionLabel);
+	
 		
-		JLabel lblNewLabel_7_2 = new JLabel("- Rarity -");
-		lblNewLabel_7_2.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
-		lblNewLabel_7_2.setBounds(15, 200, 105, 20);
-		panel_3.add(lblNewLabel_7_2);
+		JLabel itemInfoTitleLabel = new JLabel("-Item Information-");
+		itemInfoTitleLabel.setFont(new Font("Lucida Grande", Font.BOLD, 20));
+		itemInfoTitleLabel.setBounds(44, 17, 247, 20);
+		setItemInfoPanel.add(itemInfoTitleLabel);
 		
-		JLabel lblNewLabel_7_3 = new JLabel("- Offense -");
-		lblNewLabel_7_3.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
-		lblNewLabel_7_3.setBounds(15, 250, 105, 20);
-		panel_3.add(lblNewLabel_7_3);
-		
-		JLabel lblNewLabel_7_3_1 = new JLabel("- Deffense -");
-		lblNewLabel_7_3_1.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
-		lblNewLabel_7_3_1.setBounds(15, 300, 105, 20);
-		panel_3.add(lblNewLabel_7_3_1);
-		
-		JLabel lblNewLabel_7_3_2 = new JLabel("- Stamina -");
-		lblNewLabel_7_3_2.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
-		lblNewLabel_7_3_2.setBounds(15, 350, 105, 20);
-		panel_3.add(lblNewLabel_7_3_2);
-		
-		JLabel lblNewLabel_7_4 = new JLabel("ATHLETE NAME HERE");
-		lblNewLabel_7_4.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
-		lblNewLabel_7_4.setBounds(22, 93, 233, 20);
-		panel_3.add(lblNewLabel_7_4);
-		
-		JLabel lblNewLabel_7_4_1 = new JLabel("ATHLETE DISCRP HERE");
-		lblNewLabel_7_4_1.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
-		lblNewLabel_7_4_1.setBounds(22, 146, 233, 20);
-		panel_3.add(lblNewLabel_7_4_1);
-		
-		JLabel lblNewLabel_7_4_1_1 = new JLabel("ATHLETE RARITY HERE");
-		lblNewLabel_7_4_1_1.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
-		lblNewLabel_7_4_1_1.setBounds(22, 224, 233, 20);
-		panel_3.add(lblNewLabel_7_4_1_1);
-		
-		JLabel lblNewLabel_7_4_1_2 = new JLabel("ATHLETE OFFNS HERE");
-		lblNewLabel_7_4_1_2.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
-		lblNewLabel_7_4_1_2.setBounds(25, 275, 233, 20);
-		panel_3.add(lblNewLabel_7_4_1_2);
-		
-		JLabel lblNewLabel_7_4_1_3 = new JLabel("ATHLETE DIFNS HERE");
-		lblNewLabel_7_4_1_3.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
-		lblNewLabel_7_4_1_3.setBounds(25, 325, 233, 20);
-		panel_3.add(lblNewLabel_7_4_1_3);
-		
-		JLabel lblNewLabel_7_4_1_4 = new JLabel("ATHLETE STAMINA HERE");
-		lblNewLabel_7_4_1_4.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
-		lblNewLabel_7_4_1_4.setBounds(25, 378, 233, 20);
-		panel_3.add(lblNewLabel_7_4_1_4);
+		itemDescriptionLabel = new JLabel("IncStat");
+		itemDescriptionLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
+		itemDescriptionLabel.setBounds(25, 101, 74, 20);
+		setItemInfoPanel.add(itemDescriptionLabel);
 	}
 	
 	/*
-	 * set the information panel for athlete on main screen
+	 * create option panel to ask whether the player really wants to quit the game or not
 	 */
-	private void setItemInfoPanel() {
-		JPanel panel_3_1 = new JPanel();
-		panel_3_1.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel_3_1.setBounds(1212, 624, 297, 220);
-		frmMainWindow.getContentPane().add(panel_3_1);
-		panel_3_1.setLayout(null);
-		
-		JLabel lblNewLabel_6_1 = new JLabel("-Item Information-");
-		lblNewLabel_6_1.setFont(new Font("Lucida Grande", Font.BOLD, 20));
-		lblNewLabel_6_1.setBounds(44, 17, 247, 20);
-		panel_3_1.add(lblNewLabel_6_1);
-		
-		JLabel lblNewLabel_7_3_2_1 = new JLabel("IncStat");
-		lblNewLabel_7_3_2_1.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
-		lblNewLabel_7_3_2_1.setBounds(25, 101, 74, 20);
-		panel_3_1.add(lblNewLabel_7_3_2_1);
-		
-		JLabel lblNewLabel_7_3_2_1_1 = new JLabel("IncAmount");
-		lblNewLabel_7_3_2_1_1.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
-		lblNewLabel_7_3_2_1_1.setBounds(116, 101, 74, 20);
-		panel_3_1.add(lblNewLabel_7_3_2_1_1);
-	}
-	
-		
 	private void exitBox() {
 		Object[] options1 = { "Quit", "Cancel" };
 	    JPanel panel = new JPanel();

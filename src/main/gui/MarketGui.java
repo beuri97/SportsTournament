@@ -36,6 +36,13 @@ public class MarketGui implements UserInterface{
 	private JToggleButton athleteBttn5;
 	private JToggleButton athleteBttn6;
 	
+	private JLabel athlNameLable1;
+	private JLabel athlNameLable2;
+	private JLabel athlNameLable3;
+	private JLabel athlNameLable4;
+	private JLabel athlNameLable5;
+	private JLabel athlNameLable6;
+	
 	private JToggleButton itemButton1;
 	private JToggleButton itemButton2;
 	private JToggleButton itemButton3;
@@ -44,9 +51,39 @@ public class MarketGui implements UserInterface{
 	private JToggleButton itemButton6;
 	private JToggleButton itemButton7;
 	private JToggleButton itemButton8;
+	
+	private JLabel itemLabel1;
+	private JLabel itemLabel2;
+	private JLabel itemLabel3;
+	private JLabel itemLabel4;
+	private JLabel itemLabel5;
+	private JLabel itemLabel6;
+	private JLabel itemLabel7;
+	private JLabel itemLabel8;
+	
+	private JToggleButton sellAthleteButton1;
+	private JToggleButton sellAthleteButton2;
+	private JToggleButton sellAthleteButton3;
+	private JToggleButton sellAthleteButton4;
+	private JToggleButton sellAthleteButton5;
+	private JToggleButton sellAthleteButton6;
+	private JToggleButton sellAthleteButton7;
+	
+	private JToggleButton sellitemButton1;
+	private JToggleButton sellitemButton2;
+	private JToggleButton sellitemButton3;
+	private JToggleButton sellitemButton4;
+	private JToggleButton sellitemButton5;
+	private JToggleButton sellitemButton6;
+	private JToggleButton sellitemButton7;
+	private JToggleButton sellitemButton8;
+	private JToggleButton sellitemButton9;
+	private JToggleButton sellitemButton10;
 
-	JLabel athleteDiscriptionLabel;
-	JLabel itemInfoLabel;
+	private JLabel athleteDiscriptionLabel;
+	private JLabel itemDiscriptionLabel;
+	private JLabel moneyLabel;
+	private JLabel sellDescriptionLabel;
 	
 	/**
 	 * Create the application.
@@ -85,10 +122,11 @@ public class MarketGui implements UserInterface{
 		myInventoryLabel.setBounds(527, 763, 227, 36);
 		frmMarket.getContentPane().add(myInventoryLabel);
 		
-		JLabel moneyLabel = new JLabel("$Money");
+		moneyLabel = new JLabel("$Money");
 		moneyLabel.setFont(new Font("Dialog", Font.BOLD, 23));
 		moneyLabel.setBounds(1480, 45, 145, 49);
 		frmMarket.getContentPane().add(moneyLabel);
+		moneyLabel.setText("$ " + gameEnvironment.getTeam().getMoney());
 	}
 	
 	private void setBuyAthletePanel() {
@@ -114,7 +152,7 @@ public class MarketGui implements UserInterface{
 		
 		athleteBttn1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cancelAhtleteToggle();
+				cancelBuyAhtleteToggle();
 				athleteBttn1.setSelected(true);
 				athleteDiscriptionLabel.setText(printing(athleteList[0].toString()));
 
@@ -125,7 +163,7 @@ public class MarketGui implements UserInterface{
 		
 		athleteBttn2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cancelAhtleteToggle();
+				cancelBuyAhtleteToggle();
 				athleteBttn2.setSelected(true);
 				athleteDiscriptionLabel.setText(printing(athleteList[1].toString()));
 
@@ -136,10 +174,9 @@ public class MarketGui implements UserInterface{
 		
 		athleteBttn3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cancelAhtleteToggle();
+				cancelBuyAhtleteToggle();
 				athleteBttn3.setSelected(true);
 				athleteDiscriptionLabel.setText(printing(athleteList[2].toString()));
-
 			}
 		});
 		athleteBttn3.setBounds(28, 282, 150, 150);
@@ -147,7 +184,7 @@ public class MarketGui implements UserInterface{
 		
 		athleteBttn4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cancelAhtleteToggle();
+				cancelBuyAhtleteToggle();
 				athleteBttn4.setSelected(true);
 				athleteDiscriptionLabel.setText(printing(athleteList[3].toString()));
 
@@ -158,7 +195,7 @@ public class MarketGui implements UserInterface{
 			
 		athleteBttn5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cancelAhtleteToggle();
+				cancelBuyAhtleteToggle();
 				athleteBttn5.setSelected(true);
 				athleteDiscriptionLabel.setText(printing(athleteList[4].toString()));
 
@@ -169,7 +206,7 @@ public class MarketGui implements UserInterface{
 		
 		athleteBttn6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cancelAhtleteToggle();
+				cancelBuyAhtleteToggle();
 				athleteBttn6.setSelected(true);
 				athleteDiscriptionLabel.setText(printing(athleteList[5].toString()));
 
@@ -178,38 +215,38 @@ public class MarketGui implements UserInterface{
 		athleteBttn6.setBounds(198, 472, 150, 150);
 		setBuyAthletePanel.add(athleteBttn6);
 		
-		JLabel athlNameLable1 = new JLabel("Athlete 1 Name");
+		athlNameLable1 = new JLabel("Athlete 1 Name");
 		athlNameLable1.setBounds(38, 241, 131, 16);
 		setBuyAthletePanel.add(athlNameLable1);
 		athlNameLable1.setText(athleteList[0].getName());
 		
-		JLabel athlNameLable2 = new JLabel("Athlete 2 Name");
+		athlNameLable2 = new JLabel("Athlete 2 Name");
 		athlNameLable2.setBounds(208, 241, 131, 16);
 		setBuyAthletePanel.add(athlNameLable2);
 		athlNameLable2.setText(athleteList[1].getName());
 		
-		JLabel athlNameLable3 = new JLabel("Athlete 3 Name");
+		athlNameLable3 = new JLabel("Athlete 3 Name");
 		athlNameLable3.setBounds(38, 444, 131, 16);
 		setBuyAthletePanel.add(athlNameLable3);
 		athlNameLable3.setText(athleteList[2].getName());
 			
-		JLabel athlNameLable4 = new JLabel("Athlete 4 Name");
+		athlNameLable4 = new JLabel("Athlete 4 Name");
 		athlNameLable4.setBounds(208, 444, 131, 16);
 		setBuyAthletePanel.add(athlNameLable4);
 		athlNameLable4.setText(athleteList[3].getName());
 		
-		JLabel athlNameLable5 = new JLabel("Athlete 5 Name");
+		athlNameLable5 = new JLabel("Athlete 5 Name");
 		athlNameLable5.setBounds(38, 634, 131, 16);
 		setBuyAthletePanel.add(athlNameLable5);
 		athlNameLable5.setText(athleteList[4].getName());
 		
-		JLabel athlNameLable6 = new JLabel("Athlete 6 Name");
+		athlNameLable6 = new JLabel("Athlete 6 Name");
 		athlNameLable6.setBounds(208, 634, 131, 16);
 		setBuyAthletePanel.add(athlNameLable6);
 		athlNameLable6.setText(athleteList[5].getName());
 	}
 	
-	private void cancelAhtleteToggle() {
+	private void cancelBuyAhtleteToggle() {
 		athleteBttn1.setSelected(false);
 		athleteBttn2.setSelected(false);
 		athleteBttn3.setSelected(false);
@@ -218,7 +255,7 @@ public class MarketGui implements UserInterface{
 		athleteBttn6.setSelected(false);
 	}
 	
-	private void cancelItemToggle() {
+	private void cancelBuyItemToggle() {
 		itemButton1.setSelected(false);
 		itemButton2.setSelected(false);
 		itemButton3.setSelected(false);
@@ -238,11 +275,11 @@ public class MarketGui implements UserInterface{
 		frmMarket.getContentPane().add(setBuyItemsPanel);
 		setBuyItemsPanel.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("<<Available Items>>");
-		lblNewLabel.setFont(new Font("Dialog", Font.BOLD, 21));
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(12, 22, 281, 45);
-		setBuyItemsPanel.add(lblNewLabel);
+		JLabel availableItemLabel = new JLabel("<<Available Items>>");
+		availableItemLabel.setFont(new Font("Dialog", Font.BOLD, 21));
+		availableItemLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		availableItemLabel.setBounds(12, 22, 281, 45);
+		setBuyItemsPanel.add(availableItemLabel);
 		
 		itemButton1 = new JToggleButton("itemBttn1");
 		itemButton2 = new JToggleButton("itemBttn2");
@@ -255,8 +292,9 @@ public class MarketGui implements UserInterface{
 		
 		itemButton1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cancelItemToggle();
+				cancelBuyItemToggle();
 				itemButton1.setSelected(true);
+				itemDiscriptionLabel.setText(printing(itemList[0].toString()));
 			}
 		});
 		itemButton1.setBounds(46, 111, 87, 86);
@@ -264,8 +302,9 @@ public class MarketGui implements UserInterface{
 		
 		itemButton2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cancelItemToggle();
+				cancelBuyItemToggle();
 				itemButton2.setSelected(true);
+				itemDiscriptionLabel.setText(printing(itemList[1].toString()));
 			}
 		});
 		itemButton2.setBounds(183, 111, 87, 86);
@@ -273,8 +312,9 @@ public class MarketGui implements UserInterface{
 		
 		itemButton3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cancelItemToggle();
+				cancelBuyItemToggle();
 				itemButton3.setSelected(true);
+				itemDiscriptionLabel.setText(printing(itemList[2].toString()));
 			}
 		});
 		itemButton3.setBounds(46, 237, 87, 86);
@@ -282,8 +322,9 @@ public class MarketGui implements UserInterface{
 		
 		itemButton4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cancelItemToggle();
+				cancelBuyItemToggle();
 				itemButton4.setSelected(true);
+				itemDiscriptionLabel.setText(printing(itemList[3].toString()));
 			}
 		});
 		itemButton4.setBounds(183, 237, 87, 86);
@@ -291,8 +332,9 @@ public class MarketGui implements UserInterface{
 		
 		itemButton5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cancelItemToggle();
+				cancelBuyItemToggle();
 				itemButton5.setSelected(true);
+				itemDiscriptionLabel.setText(printing(itemList[4].toString()));
 			}
 		});
 		itemButton5.setBounds(46, 365, 87, 86);
@@ -300,8 +342,9 @@ public class MarketGui implements UserInterface{
 		
 		itemButton6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cancelItemToggle();
+				cancelBuyItemToggle();
 				itemButton6.setSelected(true);
+				itemDiscriptionLabel.setText(printing(itemList[5].toString()));
 			}
 		});
 		itemButton6.setBounds(183, 365, 87, 86);
@@ -310,8 +353,9 @@ public class MarketGui implements UserInterface{
 		
 		itemButton7.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cancelItemToggle();
+				cancelBuyItemToggle();
 				itemButton7.setSelected(true);
+				itemDiscriptionLabel.setText(printing(itemList[6].toString()));
 			}
 		});
 		itemButton7.setBounds(46, 491, 87, 86);
@@ -319,46 +363,79 @@ public class MarketGui implements UserInterface{
 		
 		itemButton8.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cancelItemToggle();
+				cancelBuyItemToggle();
 				itemButton8.setSelected(true);
+				itemDiscriptionLabel.setText(printing(itemList[7].toString()));
 			}
 		});
 		itemButton8.setBounds(183, 491, 87, 86);
 		setBuyItemsPanel.add(itemButton8);
 		
-		JLabel AthlNameLable1 = new JLabel("itemLabel1");
-		AthlNameLable1.setBounds(30, 209, 131, 16);
-		setBuyItemsPanel.add(AthlNameLable1);
+		itemLabel1 = new JLabel("itemLabel1");
+		itemLabel1.setBounds(30, 209, 131, 16);
+		setBuyItemsPanel.add(itemLabel1);
+		itemLabel1.setText(itemList[0].getName());
 		
-		JLabel AthlNameLable3 = new JLabel("itemLabel2");
-		AthlNameLable3.setBounds(173, 209, 131, 16);
-		setBuyItemsPanel.add(AthlNameLable3);
+		itemLabel2 = new JLabel("itemLabel2");
+		itemLabel2.setBounds(173, 209, 131, 16);
+		setBuyItemsPanel.add(itemLabel2);
+		itemLabel2.setText(itemList[1].getName());
 		
-		JLabel AthlNameLable1_1 = new JLabel("itemLabel3");
-		AthlNameLable1_1.setBounds(30, 335, 131, 16);
-		setBuyItemsPanel.add(AthlNameLable1_1);
+		itemLabel3 = new JLabel("itemLabel3");
+		itemLabel3.setBounds(30, 335, 131, 16);
+		setBuyItemsPanel.add(itemLabel3);
+		itemLabel3.setText(itemList[2].getName());
 		
-		JLabel AthlNameLable3_1 = new JLabel("itemLabel4");
-		AthlNameLable3_1.setBounds(173, 335, 131, 16);
-		setBuyItemsPanel.add(AthlNameLable3_1);
+		itemLabel4 = new JLabel("itemLabel4");
+		itemLabel4.setBounds(173, 335, 131, 16);
+		setBuyItemsPanel.add(itemLabel4);
+		itemLabel4.setText(itemList[3].getName());
 		
-		JLabel AthlNameLable1_2 = new JLabel("itemLabel5");
-		AthlNameLable1_2.setBounds(30, 463, 131, 16);
-		setBuyItemsPanel.add(AthlNameLable1_2);
+		itemLabel5 = new JLabel("itemLabel5");
+		itemLabel5.setBounds(30, 463, 131, 16);
+		setBuyItemsPanel.add(itemLabel5);
+		itemLabel5.setText(itemList[4].getName());
 		
-		JLabel AthlNameLable3_2 = new JLabel("itemLabel6");
-		AthlNameLable3_2.setBounds(173, 463, 131, 16);
-		setBuyItemsPanel.add(AthlNameLable3_2);
+		itemLabel6 = new JLabel("itemLabel6");
+		itemLabel6.setBounds(173, 463, 131, 16);
+		setBuyItemsPanel.add(itemLabel6);
+		itemLabel6.setText(itemList[5].getName());
 		
-		JLabel AthlNameLable1_3 = new JLabel("itemLabel7");
-		AthlNameLable1_3.setBounds(30, 589, 131, 16);
-		setBuyItemsPanel.add(AthlNameLable1_3);
+		itemLabel7 = new JLabel("itemLabel7");
+		itemLabel7.setBounds(30, 589, 131, 16);
+		setBuyItemsPanel.add(itemLabel7);
+		itemLabel7.setText(itemList[6].getName());
 		
-		JLabel AthlNameLable3_3 = new JLabel("itemLabel8");
-		AthlNameLable3_3.setBounds(173, 589, 131, 16);
-		setBuyItemsPanel.add(AthlNameLable3_3);
+		itemLabel8 = new JLabel("itemLabel8");
+		itemLabel8.setBounds(173, 589, 131, 16);
+		setBuyItemsPanel.add(itemLabel8);
+		itemLabel8.setText(itemList[7].getName());
 		
 	}
+	
+	private void cancelSellAthleteToggle() {
+		sellAthleteButton1.setSelected(false);
+		sellAthleteButton2.setSelected(false);
+		sellAthleteButton3.setSelected(false);
+		sellAthleteButton4.setSelected(false);
+		sellAthleteButton5.setSelected(false);
+		sellAthleteButton6.setSelected(false);
+		sellAthleteButton7.setSelected(false);
+	}
+	
+	private void cancelSellItemToggle() {
+		sellitemButton1.setSelected(false);
+		sellitemButton2.setSelected(false);
+		sellitemButton3.setSelected(false);
+		sellitemButton4.setSelected(false);
+		sellitemButton5.setSelected(false);
+		sellitemButton6.setSelected(false);
+		sellitemButton7.setSelected(false);
+		sellitemButton8.setSelected(false);
+		sellitemButton9.setSelected(false);
+		sellitemButton10.setSelected(false);
+	}
+	
 	
 	
 	private void setSellAthleteItemPanel() {
@@ -376,43 +453,169 @@ public class MarketGui implements UserInterface{
 		setSellAthletePanel.setLayout(new GridLayout(2, 4, 0, 0));
 		
 		
-		JToggleButton AthleteButton1 = new JToggleButton("Athlete1");
-		setSellAthletePanel.add(AthleteButton1);
-		JToggleButton AthleteButton2 = new JToggleButton("Athlete2");
-		setSellAthletePanel.add(AthleteButton2);
-		JToggleButton AthleteButton3 = new JToggleButton("Athlete3");
-		setSellAthletePanel.add(AthleteButton3);
-		JToggleButton AthleteButton4 = new JToggleButton("Athlete4");
-		setSellAthletePanel.add(AthleteButton4);
-		JToggleButton AthleteButton5 = new JToggleButton("Athlete5");
-		setSellAthletePanel.add(AthleteButton5);
-		JToggleButton AthleteButton6 = new JToggleButton("Athlete6");
-		setSellAthletePanel.add(AthleteButton6);
-		JToggleButton AthleteButton7 = new JToggleButton("Athlete7");
-		setSellAthletePanel.add(AthleteButton7);
+		sellAthleteButton1 = new JToggleButton("Athlete1");
+		sellAthleteButton2 = new JToggleButton("Athlete2");
+		sellAthleteButton3 = new JToggleButton("Athlete3");
+		sellAthleteButton4 = new JToggleButton("Athlete4");
+		sellAthleteButton5 = new JToggleButton("Athlete5");
+		sellAthleteButton6 = new JToggleButton("Athlete6");
+		sellAthleteButton7 = new JToggleButton("Athlete7");
+		
+		setSellAthletePanel.add(sellAthleteButton1);
+		sellAthleteButton1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cancelSellAthleteToggle();
+				sellAthleteButton1.setSelected(true);
+//				itemDiscriptionLabel.setText(printing(itemList[7].toString()));
+			}
+		});
+		setSellAthletePanel.add(sellAthleteButton2);
+		sellAthleteButton2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cancelSellAthleteToggle();
+				sellAthleteButton2.setSelected(true);
+//				itemDiscriptionLabel.setText(printing(itemList[7].toString()));
+			}
+		});
+		
+		setSellAthletePanel.add(sellAthleteButton3);
+		sellAthleteButton3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cancelSellAthleteToggle();
+				sellAthleteButton3.setSelected(true);
+//				itemDiscriptionLabel.setText(printing(itemList[7].toString()));
+			}
+		});
+		
+		setSellAthletePanel.add(sellAthleteButton4);
+		sellAthleteButton4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cancelSellAthleteToggle();
+				sellAthleteButton4.setSelected(true);
+//				itemDiscriptionLabel.setText(printing(itemList[7].toString()));
+			}
+		});
+		
+		setSellAthletePanel.add(sellAthleteButton5);
+		sellAthleteButton5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cancelSellAthleteToggle();
+				sellAthleteButton5.setSelected(true);
+//				itemDiscriptionLabel.setText(printing(itemList[7].toString()));
+			}
+		});
+		
+		setSellAthletePanel.add(sellAthleteButton6);
+		sellAthleteButton6.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cancelSellAthleteToggle();
+				sellAthleteButton6.setSelected(true);
+//				itemDiscriptionLabel.setText(printing(itemList[7].toString()));
+			}
+		});
+		
+		setSellAthletePanel.add(sellAthleteButton7);
+		sellAthleteButton7.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cancelSellAthleteToggle();
+				sellAthleteButton7.setSelected(true);
+//				itemDiscriptionLabel.setText(printing(itemList[7].toString()));
+			}
+		});
 		
 		
-		JToggleButton itemButton1 = new JToggleButton("Item1");
-		setSellItemPanel.add(itemButton1);
-		JToggleButton itemButton2 = new JToggleButton("Item2");
-		setSellItemPanel.add(itemButton2);
-		JToggleButton itemButton3 = new JToggleButton("Item3");
-		setSellItemPanel.add(itemButton3);
-		JToggleButton itemButton4 = new JToggleButton("Item4");
-		setSellItemPanel.add(itemButton4);
-		JToggleButton itemButton5 = new JToggleButton("Item5");
-		setSellItemPanel.add(itemButton5);
-		JToggleButton itemButton6 = new JToggleButton("Item6");
-		setSellItemPanel.add(itemButton6);
-		JToggleButton itemButton7 = new JToggleButton("Item7");
-		setSellItemPanel.add(itemButton7);
-		JToggleButton itemButton8 = new JToggleButton("Item8");
-		setSellItemPanel.add(itemButton8);
-		JToggleButton itemButton9 = new JToggleButton("Item9");
-		setSellItemPanel.add(itemButton9);
-		JToggleButton itemButton10 = new JToggleButton("Item10");
-		setSellItemPanel.add(itemButton10);
-
+		sellitemButton1 = new JToggleButton("Item1");
+		sellitemButton2 = new JToggleButton("Item2");
+		sellitemButton3 = new JToggleButton("Item3");
+		sellitemButton4 = new JToggleButton("Item4");
+		sellitemButton5 = new JToggleButton("Item5");
+		sellitemButton6 = new JToggleButton("Item6");
+		sellitemButton7 = new JToggleButton("Item7");
+		sellitemButton8 = new JToggleButton("Item8");
+		sellitemButton9 = new JToggleButton("Item9");
+		sellitemButton10 = new JToggleButton("Item10");
+		
+		setSellItemPanel.add(sellitemButton1);
+		sellitemButton1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cancelSellItemToggle();
+				sellitemButton1.setSelected(true);
+//				itemDiscriptionLabel.setText(printing(itemList[7].toString()));
+			}
+		});
+		setSellItemPanel.add(sellitemButton2);
+		sellitemButton2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cancelSellItemToggle();
+				sellitemButton2.setSelected(true);
+//				itemDiscriptionLabel.setText(printing(itemList[7].toString()));
+			}
+		});
+		
+		setSellItemPanel.add(sellitemButton3);
+		sellitemButton3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cancelSellItemToggle();
+				sellitemButton3.setSelected(true);
+//				itemDiscriptionLabel.setText(printing(itemList[7].toString()));
+			}
+		});
+		setSellItemPanel.add(sellitemButton4);
+		sellitemButton4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cancelSellItemToggle();
+				sellitemButton4.setSelected(true);
+//				itemDiscriptionLabel.setText(printing(itemList[7].toString()));
+			}
+		});
+		setSellItemPanel.add(sellitemButton5);
+		sellitemButton5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cancelSellItemToggle();
+				sellitemButton5.setSelected(true);
+//				itemDiscriptionLabel.setText(printing(itemList[7].toString()));
+			}
+		});
+		setSellItemPanel.add(sellitemButton6);
+		sellitemButton6.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cancelSellItemToggle();
+				sellitemButton6.setSelected(true);
+//				itemDiscriptionLabel.setText(printing(itemList[7].toString()));
+			}
+		});
+		setSellItemPanel.add(sellitemButton7);
+		sellitemButton7.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cancelSellItemToggle();
+				sellitemButton7.setSelected(true);
+//				itemDiscriptionLabel.setText(printing(itemList[7].toString()));
+			}
+		});
+		setSellItemPanel.add(sellitemButton8);
+		sellitemButton8.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cancelSellItemToggle();
+				sellitemButton8.setSelected(true);
+//				itemDiscriptionLabel.setText(printing(itemList[7].toString()));
+			}
+		});
+		setSellItemPanel.add(sellitemButton9);
+		sellitemButton9.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cancelSellItemToggle();
+				sellitemButton9.setSelected(true);
+//				itemDiscriptionLabel.setText(printing(itemList[7].toString()));
+			}
+		});
+		setSellItemPanel.add(sellitemButton10);
+		sellitemButton10.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cancelSellItemToggle();
+				sellitemButton10.setSelected(true);
+//				itemDiscriptionLabel.setText(printing(itemList[7].toString()));
+			}
+		});
 	}
 	
 	private void setButton() {
@@ -441,6 +644,7 @@ public class MarketGui implements UserInterface{
 		backButton.setFont(new Font("Lucida Grande", Font.BOLD, 23));
 		backButton.setBounds(30, 982, 97, 31);
 		frmMarket.getContentPane().add(backButton);
+
 	}
 	
 	private void setBuyAthleteItemInfoPanel() {
@@ -456,26 +660,42 @@ public class MarketGui implements UserInterface{
 		frmMarket.getContentPane().add(setBuyAthleteInfoPanel);
 		setBuyAthleteInfoPanel.setLayout(null);
 		
-		itemInfoLabel = new JLabel("<<Item Info.>>");
-		itemInfoLabel.setFont(new Font("Lucida Grande", Font.BOLD, 16));
-		itemInfoLabel.setBounds(22, 34, 206, 20);
-		setBuyItemInfoPanel.add(itemInfoLabel);
-
-		JLabel itemDiscriptionLabel = new JLabel("- Description -");
-		itemDiscriptionLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
-		itemDiscriptionLabel.setBounds(22, 66, 142, 382);
-		setBuyItemInfoPanel.add(itemDiscriptionLabel);
-		itemDiscriptionLabel.setText(printing(athleteList[1].toString()));
+		JPanel setSellAthleteItemInfoPanel = new JPanel();
+		setSellAthleteItemInfoPanel.setLayout(null);
+		setSellAthleteItemInfoPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
+		setSellAthleteItemInfoPanel.setBounds(719, 137, 235, 460);
+		frmMarket.getContentPane().add(setSellAthleteItemInfoPanel);
 		
 		JLabel athleteInfoLabel = new JLabel("<<Athelte Info.>>");
 		athleteInfoLabel.setFont(new Font("Lucida Grande", Font.BOLD, 20));
 		athleteInfoLabel.setBounds(12, 31, 212, 20);
 		setBuyAthleteInfoPanel.add(athleteInfoLabel);
-			
+		
+		JLabel itemInfoLabel = new JLabel("<<Item Info.>>");
+		itemInfoLabel.setFont(new Font("Lucida Grande", Font.BOLD, 16));
+		itemInfoLabel.setBounds(22, 34, 206, 20);
+		setBuyItemInfoPanel.add(itemInfoLabel);
+
+		JLabel sellAthleteItemInfoLabel = new JLabel("<<Info.>>");
+		sellAthleteItemInfoLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		sellAthleteItemInfoLabel.setFont(new Font("Lucida Grande", Font.BOLD, 20));
+		sellAthleteItemInfoLabel.setBounds(12, 31, 212, 20);
+		setSellAthleteItemInfoPanel.add(sellAthleteItemInfoLabel);
+		
 		athleteDiscriptionLabel = new JLabel("");
 		athleteDiscriptionLabel.setBounds(25, 63, 199, 369);
 		setBuyAthleteInfoPanel.add(athleteDiscriptionLabel);
 		athleteDiscriptionLabel.setFont(new Font("Dialog", Font.PLAIN, 18));
+
+		itemDiscriptionLabel = new JLabel("");
+		itemDiscriptionLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
+		itemDiscriptionLabel.setBounds(22, 66, 142, 382);
+		setBuyItemInfoPanel.add(itemDiscriptionLabel);
+		
+		sellDescriptionLabel = new JLabel("");
+		sellDescriptionLabel.setFont(new Font("Dialog", Font.PLAIN, 18));
+		sellDescriptionLabel.setBounds(22, 63, 199, 369);
+		setSellAthleteItemInfoPanel.add(sellDescriptionLabel);
 		
 	}
 	
