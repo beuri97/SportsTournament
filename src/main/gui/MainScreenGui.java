@@ -299,7 +299,7 @@ public class MainScreenGui implements UserInterface{
 		athleteLabel1 = new JLabel("Athlete 1 Name");
 		athleteLabel1.setBounds(30, 182, 131, 16);
 		setAthletePanel.add(athleteLabel1);
-//		athleteLabel1.setText(athleteList[0].getName());
+//		athleteLabel1.setText(printing(athleteList[0].getName().toString()));
 		
 		athleteLabel2 = new JLabel("Athlete 2 Name");
 		athleteLabel2.setBounds(200, 182, 131, 16);
@@ -504,6 +504,13 @@ public class MainScreenGui implements UserInterface{
 		
 		//close the main window and show stadium
 		JButton stadiumButton = new JButton("Stadium");
+		stadiumButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frmMainWindow.dispose();
+				StadiumGui enterStadium = new StadiumGui(gameEnvironment);
+				
+			}
+		});
 		stadiumButton.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		stadiumButton.setBounds(421, 895, 237, 78);
 		frmMainWindow.getContentPane().add(stadiumButton);

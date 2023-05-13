@@ -43,13 +43,6 @@ public class MarketGui implements UserInterface{
 	private JToggleButton buyAthleteBttn5;
 	private JToggleButton buyAthleteBttn6;
 	
-	private JLabel buyAthlNameLable1;
-	private JLabel buyAthlNameLable2;
-	private JLabel buyAthlNameLable3;
-	private JLabel buyAthlNameLable4;
-	private JLabel buyAthlNameLable5;
-	private JLabel buyAthlNameLable6;
-	
 	private JToggleButton buyItemButton1;
 	private JToggleButton buyItemButton2;
 	private JToggleButton buyItemButton3;
@@ -58,15 +51,6 @@ public class MarketGui implements UserInterface{
 	private JToggleButton buyItemButton6;
 	private JToggleButton buyItemButton7;
 	private JToggleButton buyItemButton8;
-	
-	private JLabel buyItemLabel1;
-	private JLabel buyItemLabel2;
-	private JLabel buyItemLabel3;
-	private JLabel buyItemLabel4;
-	private JLabel buyItemLabel5;
-	private JLabel buyItemLabel6;
-	private JLabel buyItemLabel7;
-	private JLabel buyItemLabel8;
 	
 	private JToggleButton sellAthleteButton1;
 	private JToggleButton sellAthleteButton2;
@@ -248,33 +232,7 @@ public class MarketGui implements UserInterface{
 		});
 		buyAthleteBttn6.setBounds(198, 472, 150, 150);
 		setBuyAthletePanel.add(buyAthleteBttn6);
-		
-		buyAthlNameLable1 = new JLabel("Athlete 1 Name");
-		buyAthlNameLable1.setBounds(38, 241, 131, 16);
-		setBuyAthletePanel.add(buyAthlNameLable1);
-			
-		buyAthlNameLable2 = new JLabel("Athlete 2 Name");
-		buyAthlNameLable2.setBounds(208, 241, 131, 16);
-		setBuyAthletePanel.add(buyAthlNameLable2);
-		
-		buyAthlNameLable3 = new JLabel("Athlete 3 Name");
-		buyAthlNameLable3.setBounds(38, 444, 131, 16);
-		setBuyAthletePanel.add(buyAthlNameLable3);
-		
-		buyAthlNameLable4 = new JLabel("Athlete 4 Name");
-		buyAthlNameLable4.setBounds(208, 444, 131, 16);
-		setBuyAthletePanel.add(buyAthlNameLable4);
-		
-		buyAthlNameLable5 = new JLabel("Athlete 5 Name");
-		buyAthlNameLable5.setBounds(38, 634, 131, 16);
-		setBuyAthletePanel.add(buyAthlNameLable5);
-		
-		buyAthlNameLable6 = new JLabel("Athlete 6 Name");
-		buyAthlNameLable6.setBounds(208, 634, 131, 16);
-		setBuyAthletePanel.add(buyAthlNameLable6);
-		
-		//update current market info about athletes
-		refreshAthleteSlots();
+
 	}
 	
 	private void setBuyItemsPanel() {
@@ -388,67 +346,6 @@ public class MarketGui implements UserInterface{
 		});
 		buyItemButton8.setBounds(183, 491, 87, 86);
 		setBuyItemsPanel.add(buyItemButton8);
-		
-		buyItemLabel1 = new JLabel("itemLabel1");
-		buyItemLabel1.setBounds(30, 209, 131, 16);
-		setBuyItemsPanel.add(buyItemLabel1);
-		
-		buyItemLabel2 = new JLabel("itemLabel2");
-		buyItemLabel2.setBounds(173, 209, 131, 16);
-		setBuyItemsPanel.add(buyItemLabel2);
-		
-		buyItemLabel3 = new JLabel("itemLabel3");
-		buyItemLabel3.setBounds(30, 335, 131, 16);
-		setBuyItemsPanel.add(buyItemLabel3);
-		
-		buyItemLabel4 = new JLabel("itemLabel4");
-		buyItemLabel4.setBounds(173, 335, 131, 16);
-		setBuyItemsPanel.add(buyItemLabel4);
-		
-		buyItemLabel5 = new JLabel("itemLabel5");
-		buyItemLabel5.setBounds(30, 463, 131, 16);
-		setBuyItemsPanel.add(buyItemLabel5);
-		
-		buyItemLabel6 = new JLabel("itemLabel6");
-		buyItemLabel6.setBounds(173, 463, 131, 16);
-		setBuyItemsPanel.add(buyItemLabel6);
-		
-		buyItemLabel7 = new JLabel("itemLabel7");
-		buyItemLabel7.setBounds(30, 589, 131, 16);
-		setBuyItemsPanel.add(buyItemLabel7);
-		
-		buyItemLabel8 = new JLabel("itemLabel8");
-		buyItemLabel8.setBounds(173, 589, 131, 16);
-		setBuyItemsPanel.add(buyItemLabel8);
-		
-		//update the item name one the list
-		refreshItemSlots();
-	}
-	
-	
-	/*
-	 * update current market info about athletes
-	 */
-	private void refreshAthleteSlots() {
-		buyAthlNameLable1.setText(athleteList[0].getName());
-		buyAthlNameLable2.setText(athleteList[1].getName());
-		buyAthlNameLable3.setText(athleteList[2].getName());
-		buyAthlNameLable4.setText(athleteList[3].getName());
-		buyAthlNameLable5.setText(athleteList[4].getName());
-		buyAthlNameLable6.setText(athleteList[5].getName());
-	}
-	/*
-	 * update current market info about items
-	 */
-	private void refreshItemSlots() {
-		buyItemLabel1.setText(itemList[0].getName());
-		buyItemLabel2.setText(itemList[1].getName());
-		buyItemLabel3.setText(itemList[2].getName());
-		buyItemLabel4.setText(itemList[3].getName());
-		buyItemLabel5.setText(itemList[4].getName());
-		buyItemLabel6.setText(itemList[5].getName());
-		buyItemLabel7.setText(itemList[6].getName());
-		buyItemLabel8.setText(itemList[7].getName());
 	}
 	
 	/*
@@ -504,24 +401,17 @@ public class MarketGui implements UserInterface{
 	 * if there is no athlete/item in the slot, show the string.
 	 * otherwise, show the information of the clicked athlete/item in the panel.
 	 */
-	private void isAthleteSlotEmpty(int slotNum) {
-		if (myRoster[slotNum] == null) {
-			sellDescriptionLabel.setText(printing("Empty Slot! <br/><br/> Recruite your athlete!"));
-		}
-		else {
+	private void clickedSellAthlete(int slotNum) {
+			cancelSellAthleteItemToggle();
 			athleteSellNum = slotNum;
-			sellDescriptionLabel.setText(printing(myRoster[slotNum].toString()));
-		}		
+			sellDescriptionLabel.setText(printing(myRoster[slotNum]));		
 	}
 	
 	private void isItemSlotEmpty(int slotNum) {
-		if (myInventory[slotNum] == null) {
-			sellDescriptionLabel.setText(printing("Empty Slot! <br/><br/> Purchase items!"));
-		}
-		else {
+			cancelSellAthleteItemToggle();
 			itemSellNum = slotNum;
-			sellDescriptionLabel.setText(printing(myInventory[slotNum].toString()));
-		}	
+			sellDescriptionLabel.setText(printing(myInventory[slotNum]));
+	
 	}
 	
 	/*
@@ -552,63 +442,56 @@ public class MarketGui implements UserInterface{
 		setSellAthletePanel.add(sellAthleteButton1);
 		sellAthleteButton1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cancelSellAthleteItemToggle();
+				clickedSellAthlete(0);
 				sellAthleteButton1.setSelected(true);
-				isAthleteSlotEmpty(0);
 			}
 		});
 		
 		setSellAthletePanel.add(sellAthleteButton2);
 		sellAthleteButton2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cancelSellAthleteItemToggle();
+				clickedSellAthlete(1);
 				sellAthleteButton2.setSelected(true);
-				isAthleteSlotEmpty(1);
 			}
 		});
 		
 		setSellAthletePanel.add(sellAthleteButton3);
 		sellAthleteButton3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cancelSellAthleteItemToggle();
+				clickedSellAthlete(2);
 				sellAthleteButton3.setSelected(true);
-				isAthleteSlotEmpty(2);
 			}
 		});
 		
 		setSellAthletePanel.add(sellAthleteButton4);
 		sellAthleteButton4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cancelSellAthleteItemToggle();
+				clickedSellAthlete(3);
 				sellAthleteButton4.setSelected(true);
-				isAthleteSlotEmpty(3);
 			}
 		});
 		
 		setSellAthletePanel.add(sellAthleteButton5);
 		sellAthleteButton5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cancelSellAthleteItemToggle();
+				clickedSellAthlete(4);
 				sellAthleteButton5.setSelected(true);
-				isAthleteSlotEmpty(4);
 			}
 		});
 		
 		setSellAthletePanel.add(sellAthleteButton6);
 		sellAthleteButton6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cancelSellAthleteItemToggle();
+				clickedSellAthlete(5);
 				sellAthleteButton6.setSelected(true);
-				isAthleteSlotEmpty(5);
 			}
 		});
 		
 		setSellAthletePanel.add(sellAthleteButton7);
 		sellAthleteButton7.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cancelSellAthleteItemToggle();
+				clickedSellAthlete(6);
 				sellAthleteButton7.setSelected(true);
-				isAthleteSlotEmpty(6);
 			}
 		});
 		
@@ -626,82 +509,72 @@ public class MarketGui implements UserInterface{
 		setSellItemPanel.add(sellitemButton1);
 		sellitemButton1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cancelSellAthleteItemToggle();
-				sellitemButton1.setSelected(true);
 				isItemSlotEmpty(0);
+				sellitemButton1.setSelected(true);
 			}
 		});
 		setSellItemPanel.add(sellitemButton2);
 		sellitemButton2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cancelSellAthleteItemToggle();
-				sellitemButton2.setSelected(true);
 				isItemSlotEmpty(1);
+				sellitemButton2.setSelected(true);
 			}
 		});
 		
 		setSellItemPanel.add(sellitemButton3);
 		sellitemButton3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cancelSellAthleteItemToggle();
-				sellitemButton3.setSelected(true);
 				isItemSlotEmpty(2);
+				sellitemButton3.setSelected(true);
 			}
 		});
 		setSellItemPanel.add(sellitemButton4);
 		sellitemButton4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cancelSellAthleteItemToggle();
-				sellitemButton4.setSelected(true);
 				isItemSlotEmpty(3);
+				sellitemButton4.setSelected(true);
 			}
 		});
 		setSellItemPanel.add(sellitemButton5);
 		sellitemButton5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cancelSellAthleteItemToggle();
-				sellitemButton5.setSelected(true);
 				isItemSlotEmpty(4);
+				sellitemButton5.setSelected(true);
 			}
 		});
 		setSellItemPanel.add(sellitemButton6);
 		sellitemButton6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cancelSellAthleteItemToggle();
-				sellitemButton6.setSelected(true);
 				isItemSlotEmpty(5);
+				sellitemButton6.setSelected(true);
 			}
 		});
 		setSellItemPanel.add(sellitemButton7);
 		sellitemButton7.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cancelSellAthleteItemToggle();
-				sellitemButton7.setSelected(true);
 				isItemSlotEmpty(6);
+				sellitemButton7.setSelected(true);
 			}
 		});
 		setSellItemPanel.add(sellitemButton8);
 		sellitemButton8.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cancelSellAthleteItemToggle();
-				sellitemButton8.setSelected(true);
 				isItemSlotEmpty(7);
+				sellitemButton8.setSelected(true);
 			}
 		});
 		setSellItemPanel.add(sellitemButton9);
 		sellitemButton9.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cancelSellAthleteItemToggle();
-				sellitemButton9.setSelected(true);
 				isItemSlotEmpty(8);
+				sellitemButton9.setSelected(true);
 			}
 		});
 		setSellItemPanel.add(sellitemButton10);
 		sellitemButton10.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cancelSellAthleteItemToggle();
-				sellitemButton10.setSelected(true);
 				isItemSlotEmpty(9);
+				sellitemButton10.setSelected(true);
 			}
 		});
 	}
@@ -714,10 +587,7 @@ public class MarketGui implements UserInterface{
 			public void actionPerformed(ActionEvent e) {
 				if (athleteBuyNum == -1){athleteDiscriptionLabel.setText("Choose an athelte!");}
 				else {
-					
 					gameEnvironment.tradingProcess("buy", athleteList ,athleteBuyNum);
-					refreshAthleteSlots();
-					sellitemButton1.revalidate();
 					athleteBuyNum = -1;
 				}
 			}
@@ -730,6 +600,13 @@ public class MarketGui implements UserInterface{
 		JButton purchaseButton = new JButton("PURCHASE");
 		purchaseButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if (itemBuyNum == -1) {itemDiscriptionLabel.setText("Choose an item!");}
+				else {
+					gameEnvironment.tradingProcess("buy", itemList ,itemBuyNum);
+					itemBuyNum = -1;
+					moneyLabel.setText("$ " + gameEnvironment.getTeam().getMoney());
+				}
+				
 			}
 		});
 		purchaseButton.setFont(new Font("Lucida Grande", Font.BOLD, 23));
@@ -808,7 +685,7 @@ public class MarketGui implements UserInterface{
 		
 		sellDescriptionLabel = new JLabel("");
 		sellDescriptionLabel.setFont(new Font("Dialog", Font.PLAIN, 18));
-		sellDescriptionLabel.setBounds(50, 63, 240, 147);
+		sellDescriptionLabel.setBounds(41, 44, 342, 158);
 		setSellAthleteItemInfoPanel.add(sellDescriptionLabel);
 		
 	}
