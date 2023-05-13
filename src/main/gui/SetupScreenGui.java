@@ -146,7 +146,6 @@ public class SetupScreenGui implements UserInterface{
 		teamNameField.setBounds(759, 500, 370, 26);
 		frmFencingGame.getContentPane().add(teamNameField);	
 		teamNameField.setColumns(30);
-		
 	}
 	/**
 	 * show difficulty option with label and buttons to choose.

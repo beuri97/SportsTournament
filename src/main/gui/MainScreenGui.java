@@ -75,6 +75,7 @@ public class MainScreenGui implements UserInterface{
 	JLabel noticeUsingSwitching;
 	JLabel athleteDescriptionLabel;
 	JLabel itemDescriptionLabel;
+	JLabel moneyLabel;
 	
 	/**
 	 * Create the application.
@@ -96,7 +97,6 @@ public class MainScreenGui implements UserInterface{
 		setItemPanel();
 		setAthleteItemInfoPanel();
 		setButton();
-		
 	}
 
 	/*
@@ -115,11 +115,6 @@ public class MainScreenGui implements UserInterface{
 		myTeamLabel.setFont(new Font("Lucida Grande", Font.BOLD, 20));
 		myTeamLabel.setBounds(48, 36, 218, 30);
 		frmMainWindow.getContentPane().add(myTeamLabel);
-		
-		JLabel weekLabel = new JLabel(" / ");
-		weekLabel.setFont(new Font("Lucida Grande", Font.BOLD, 15));
-		weekLabel.setBounds(771, 38, 15, 30);
-		frmMainWindow.getContentPane().add(weekLabel);
 		
 		JLabel diffLevelLabel = new JLabel("Difficulty Level : ");
 		diffLevelLabel.setFont(new Font("Lucida Grande", Font.BOLD, 20));
@@ -162,7 +157,7 @@ public class MainScreenGui implements UserInterface{
 		totalweekLabel.setFont(new Font("Dialog", Font.BOLD, 15));
 		totalweekLabel.setBounds(785, 38, 243, 30);
 		frmMainWindow.getContentPane().add(totalweekLabel);
-		totalweekLabel.setText("Total "+ gameEnvironment.getTotalSeason() + "weeks");
+		totalweekLabel.setText(" / Total "+ gameEnvironment.getTotalSeason() + "weeks");
 		
 		JLabel selectedDifficultyLabel = new JLabel("SelectedDifficulty");
 		selectedDifficultyLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
@@ -170,7 +165,7 @@ public class MainScreenGui implements UserInterface{
 		frmMainWindow.getContentPane().add(selectedDifficultyLabel);
 		selectedDifficultyLabel.setText(gameEnvironment.getDifficulty().toString());
 		
-		JLabel moneyLabel = new JLabel("$ Money");
+		moneyLabel = new JLabel("$ Money");
 		moneyLabel.setFont(new Font("Lucida Grande", Font.BOLD, 27));
 		moneyLabel.setBounds(1277, 36, 202, 30);
 		frmMainWindow.getContentPane().add(moneyLabel);
@@ -181,6 +176,7 @@ public class MainScreenGui implements UserInterface{
 		noticeUsingSwitching.setBounds(906, 738, 282, 16);
 		frmMainWindow.getContentPane().add(noticeUsingSwitching);
 	}
+
 	/**
 	 * Panel for Athlete lists on main screen
 	 */
@@ -220,10 +216,8 @@ public class MainScreenGui implements UserInterface{
 		
 		athleteButton1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				athleteButton2.setSelected(false);
-				athleteButton3.setSelected(false);
-				athleteButton4.setSelected(false);
-				isAthleteSlotEmpty(0);		
+				helpFuncAthleteSlots(0);	
+				athleteButton1.setSelected(true);
 			}
 		});
 		athleteButton1.setBounds(20, 20, 150, 150);
@@ -231,10 +225,8 @@ public class MainScreenGui implements UserInterface{
 		
 		athleteButton2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				athleteButton1.setSelected(false);
-				athleteButton3.setSelected(false);
-				athleteButton4.setSelected(false);	
-				isAthleteSlotEmpty(1);			
+				helpFuncAthleteSlots(1);	
+				athleteButton2.setSelected(true);
 			}
 		});
 		athleteButton2.setBounds(190, 20, 150, 150);
@@ -242,10 +234,8 @@ public class MainScreenGui implements UserInterface{
 		
 		athleteButton3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				athleteButton1.setSelected(false);
-				athleteButton2.setSelected(false);
-				athleteButton4.setSelected(false);
-				isAthleteSlotEmpty(2);			
+				helpFuncAthleteSlots(2);	
+				athleteButton3.setSelected(true);
 			}
 		});
 		athleteButton3.setBounds(360, 20, 150, 150);
@@ -253,10 +243,8 @@ public class MainScreenGui implements UserInterface{
 				
 		athleteButton4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				athleteButton1.setSelected(false);
-				athleteButton2.setSelected(false);
-				athleteButton3.setSelected(false);
-				isAthleteSlotEmpty(3);			
+				helpFuncAthleteSlots(3);	
+				athleteButton4.setSelected(true);
 			}
 		});
 		athleteButton4.setBounds(530, 20, 150, 150);
@@ -264,10 +252,8 @@ public class MainScreenGui implements UserInterface{
 			
 		athleteButton5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				athleteSwitchingNum2 = 4;
-				athleteButton6.setSelected(false);
-				athleteButton7.setSelected(false);
-				isAthleteSlotEmpty(4);			
+				helpFuncAthleteSlots(4);	
+				athleteButton5.setSelected(true);
 			}
 		});
 		athleteButton5.setBounds(20, 20, 150, 150);
@@ -275,10 +261,8 @@ public class MainScreenGui implements UserInterface{
 			
 		athleteButton6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				athleteSwitchingNum2 = 5;
-				athleteButton5.setSelected(false);
-				athleteButton7.setSelected(false);
-				isAthleteSlotEmpty(5);			
+				helpFuncAthleteSlots(5);	
+				athleteButton6.setSelected(true);
 			}
 		});
 		athleteButton6.setBounds(190, 20, 150, 150);
@@ -286,35 +270,13 @@ public class MainScreenGui implements UserInterface{
 			
 		athleteButton7.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				athleteButton5.setSelected(false);
-				athleteButton6.setSelected(false);
-				isAthleteSlotEmpty(6);		
+				helpFuncAthleteSlots(6);	
+				athleteButton7.setSelected(true);
 
 			}
 		});
 		athleteButton7.setBounds(360, 20, 150, 150);
 		setReservePanel.add(athleteButton7);
-//		athleteLabel7.setText(athleteList[6].getName());
-	}
-	
-	private void isAthleteSlotEmpty(int slotNum) {
-		if (athleteList[slotNum] == null) {
-			athleteDescriptionLabel.setText(printing("Empty Slot! <br/><br/> Recruite your athlete in market!"));
-		}
-		else {
-			athleteSwitchingNum1 = slotNum;
-			athleteDescriptionLabel.setText(printing(athleteList[slotNum].toString()));
-		}		
-	}
-	
-	private void isItemSlotEmpty(int slotNum) {
-		if (itemList[slotNum] == null) {
-			itemDescriptionLabel.setText(printing("Empty Slot! <br/><br/> Purchase items in market!"));
-		}
-		else {
-			usingItemNum = slotNum;
-			itemDescriptionLabel.setText(printing(itemList[slotNum].toString()));
-		}	
 	}
 	
 	private void setItemPanel(){
@@ -338,8 +300,7 @@ public class MainScreenGui implements UserInterface{
 	
 	itemButton1.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
-			isItemSlotEmpty(0);
-			cancelItemToggle();				
+			helpFuncItemSlots(0);
 			itemButton1.setSelected(true);
 		}
 	});
@@ -347,8 +308,7 @@ public class MainScreenGui implements UserInterface{
 	
 	itemButton2.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
-			isItemSlotEmpty(1);
-			cancelItemToggle();				
+			helpFuncItemSlots(1);
 			itemButton2.setSelected(true);
 		}
 	});
@@ -356,8 +316,7 @@ public class MainScreenGui implements UserInterface{
 	
 	itemButton3.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
-			isItemSlotEmpty(2);
-			cancelItemToggle();				
+			helpFuncItemSlots(2);
 			itemButton3.setSelected(true);
 		}
 	});
@@ -365,8 +324,7 @@ public class MainScreenGui implements UserInterface{
 	
 	itemButton4.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
-			isItemSlotEmpty(3);			
-			cancelItemToggle();				
+			helpFuncItemSlots(3);			
 			itemButton4.setSelected(true);
 		}
 	});
@@ -374,8 +332,7 @@ public class MainScreenGui implements UserInterface{
 	
 	itemButton5.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
-			isItemSlotEmpty(4);
-			cancelItemToggle();			
+			helpFuncItemSlots(4);
 			itemButton5.setSelected(true);
 		}
 	});
@@ -383,8 +340,7 @@ public class MainScreenGui implements UserInterface{
 	
 	itemButton6.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
-			isItemSlotEmpty(5);
-			cancelItemToggle();				
+			helpFuncItemSlots(5);
 			itemButton6.setSelected(true);
 		}
 	});
@@ -392,8 +348,7 @@ public class MainScreenGui implements UserInterface{
 	
 	itemButton7.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
-			isItemSlotEmpty(6);
-			cancelItemToggle();		
+			helpFuncItemSlots(6);
 			itemButton7.setSelected(true);
 		}
 	});
@@ -401,8 +356,7 @@ public class MainScreenGui implements UserInterface{
 	
 	itemButton8.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
-			isItemSlotEmpty(7);
-			cancelItemToggle();		
+			helpFuncItemSlots(7);
 			itemButton8.setSelected(true);
 		}
 	});
@@ -410,8 +364,7 @@ public class MainScreenGui implements UserInterface{
 	
 	itemButton9.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
-			isItemSlotEmpty(8);
-			cancelItemToggle();		
+			helpFuncItemSlots(8);
 			itemButton9.setSelected(true);
 		}
 	});
@@ -419,16 +372,47 @@ public class MainScreenGui implements UserInterface{
 	
 	itemButton10.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
-			isItemSlotEmpty(9);
-			cancelItemToggle();
+			helpFuncItemSlots(9);
 			itemButton10.setSelected(true);
 		}
 	});
 	setItemPanel.add(itemButton10);	
+	}
 	
+	private void helpFuncAthleteSlots(int slotNum) {
+		if (slotNum < 4){
+			athleteSwitchingNum1 = slotNum;
+			athleteButton1.setSelected(false);
+			athleteButton2.setSelected(false);
+			athleteButton3.setSelected(false);
+			athleteButton4.setSelected(false);	
+		}
+		else if (slotNum >= 4){
+			athleteSwitchingNum2 = slotNum;
+			athleteButton5.setSelected(false);
+			athleteButton6.setSelected(false);
+			athleteButton7.setSelected(false);
+		}
+
+			athleteDescriptionLabel.setText(printing(athleteList[slotNum]));
+			
+	}
+	
+	private void helpFuncItemSlots(int slotNum) {
+			cancelItemToggle();
+			usingItemNum = slotNum;
+			itemDescriptionLabel.setText(printing(itemList[slotNum]));
 	}
 
-	private void cancelAhtleteToggle() {
+	/*
+	 * update screen with the latest information.
+	 */
+	private void refreshScreen() {
+		moneyLabel.setText("$ " + gameEnvironment.getTeam().getMoney());
+		athleteList = gameEnvironment.getTeam().getRoster();
+		itemList = gameEnvironment.getTeam().getInventory();
+	}
+	private void cancelAthleteToggle() {
 		athleteButton1.setSelected(false);
 		athleteButton2.setSelected(false);
 		athleteButton3.setSelected(false);
@@ -436,6 +420,8 @@ public class MainScreenGui implements UserInterface{
 		athleteButton5.setSelected(false);
 		athleteButton6.setSelected(false);
 		athleteButton7.setSelected(false);
+		athleteSwitchingNum1 = -1;
+		athleteSwitchingNum2 = -1;
 	}
 	
 	private void cancelItemToggle() {
@@ -449,6 +435,7 @@ public class MainScreenGui implements UserInterface{
 		itemButton8.setSelected(false);
 		itemButton9.setSelected(false);
 		itemButton10.setSelected(false);
+		usingItemNum = -1;
 	}
 
 	/*
@@ -495,12 +482,17 @@ public class MainScreenGui implements UserInterface{
 		JButton switchButton = new JButton("Switch");
 		switchButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (athleteSwitchingNum1 >= 0 && athleteSwitchingNum2 >= 0) {
-					//Swap
+				if (athleteList[athleteSwitchingNum1] == null 
+						|| athleteList[athleteSwitchingNum2] == null
+						|| athleteSwitchingNum1 < 0 
+						|| athleteSwitchingNum2 < 0) {
+					noticeUsingSwitching.setText("Select two athlete to switch!");
 				}
-				cancelAhtleteToggle();
-				athleteSwitchingNum1 = -1;
-				athleteSwitchingNum2 = -1;
+				else {
+					gameEnvironment.swap(athleteSwitchingNum1, athleteSwitchingNum2);
+				}
+				cancelAthleteToggle();
+				refreshScreen();
 			}
 		});
 		switchButton.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
@@ -511,29 +503,28 @@ public class MainScreenGui implements UserInterface{
 		JButton itemUseButton = new JButton("Use");
 		itemUseButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//print select only one athlete
+				//if two athletes are selected, print select only one athlete
 				if (athleteSwitchingNum1 >= 0 && athleteSwitchingNum2 >= 0) {
 					noticeUsingSwitching.setText("Select One Athlete for using a item!");
 				}
-				//print select one item & one athlete
+				//if nothing or just one thing is selected, print select one item & one athlete
 				else if (usingItemNum < 0 || (athleteSwitchingNum1 < 0 && athleteSwitchingNum2 < 0)){
 					noticeUsingSwitching.setText("Select One Item and Athlete for each!");
 				}
 				else if (usingItemNum >= 0 && (athleteSwitchingNum1 >= 0 || athleteSwitchingNum2 >= 0)) {
 					if (athleteSwitchingNum1 >= 0) {
-						//use item for num1
+						gameEnvironment.useItem(athleteSwitchingNum1, usingItemNum);
 						noticeUsingSwitching.setText("Used item! Check the difference!!");
 					}
 					else if(athleteSwitchingNum2 >= 0) {
-						//use item for num2
+						gameEnvironment.useItem(athleteSwitchingNum2, usingItemNum);
 						noticeUsingSwitching.setText("Used item! Check the difference!!");
 					}
 				}
-				cancelAhtleteToggle();
+				cancelAthleteToggle();
 				cancelItemToggle();	
-				athleteSwitchingNum1 = -1;
-				athleteSwitchingNum2 = -1;		
 				usingItemNum = -1;
+				refreshScreen();
 			}
 		});
 		itemUseButton.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
@@ -573,7 +564,7 @@ public class MainScreenGui implements UserInterface{
 		itemInfoTitleLabel.setBounds(44, 17, 247, 20);
 		setItemInfoPanel.add(itemInfoTitleLabel);
 		
-		itemDescriptionLabel = new JLabel("IncStat");
+		itemDescriptionLabel = new JLabel("");
 		itemDescriptionLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
 		itemDescriptionLabel.setBounds(25, 101, 247, 90);
 		setItemInfoPanel.add(itemDescriptionLabel);

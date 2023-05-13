@@ -101,7 +101,7 @@ public class MarketGui implements UserInterface{
 		setFrameLabel();
 		setBuyAthletePanel();
 		setBuyItemsPanel();
-		setBuyAthleteItemInfoPanel();
+		setAthleteItemInfoPanel();
 		setSellAthleteItemPanel();
 		setButton();
 	}
@@ -129,12 +129,6 @@ public class MarketGui implements UserInterface{
 		moneyLabel.setBounds(1480, 45, 145, 49);
 		frmMarket.getContentPane().add(moneyLabel);
 		moneyLabel.setText("$ " + gameEnvironment.getTeam().getMoney());
-		
-////////////////////////////////after test.this will be deleted /////////////////////////////////////////////////////////////////////////////		
-		tempTest = new JLabel("tempTest label");
-		tempTest.setBounds(522, 45, 212, 24);
-		frmMarket.getContentPane().add(tempTest);
-////////////////////////////////after test.this will be deleted /////////////////////////////////////////////////////////////////////////////	
 	}
 	
 	private void setBuyAthletePanel() {
@@ -164,11 +158,8 @@ public class MarketGui implements UserInterface{
 		
 		buyAthleteBttn1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cancelBuyAhtleteToggle();
-				athleteBuyNum = 0;
+				helpFuncBuyAthlete(0);
 				buyAthleteBttn1.setSelected(true);
-				athleteDiscriptionLabel.setText(printing(athleteList[0].toString()));
-
 			}
 		});
 		buyAthleteBttn1.setBounds(28, 79, 150, 150);
@@ -176,11 +167,8 @@ public class MarketGui implements UserInterface{
 		
 		buyAthleteBttn2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cancelBuyAhtleteToggle();
-				athleteBuyNum = 1;
+				helpFuncBuyAthlete(1);
 				buyAthleteBttn2.setSelected(true);
-				athleteDiscriptionLabel.setText(printing(athleteList[1].toString()));
-
 			}
 		});
 		buyAthleteBttn2.setBounds(198, 79, 150, 150);
@@ -188,10 +176,8 @@ public class MarketGui implements UserInterface{
 		
 		buyAthleteBttn3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cancelBuyAhtleteToggle();
-				athleteBuyNum = 2;
+				helpFuncBuyAthlete(2);
 				buyAthleteBttn3.setSelected(true);
-				athleteDiscriptionLabel.setText(printing(athleteList[2].toString()));
 			}
 		});
 		buyAthleteBttn3.setBounds(28, 282, 150, 150);
@@ -199,11 +185,8 @@ public class MarketGui implements UserInterface{
 		
 		buyAthleteBttn4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cancelBuyAhtleteToggle();
-				athleteBuyNum = 3;
+				helpFuncBuyAthlete(3);
 				buyAthleteBttn4.setSelected(true);
-				athleteDiscriptionLabel.setText(printing(athleteList[3].toString()));
-
 			}
 		});
 		buyAthleteBttn4.setBounds(198, 282, 150, 150);
@@ -211,11 +194,8 @@ public class MarketGui implements UserInterface{
 			
 		buyAthleteBttn5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cancelBuyAhtleteToggle();
-				athleteBuyNum = 4;
+				helpFuncBuyAthlete(4);
 				buyAthleteBttn5.setSelected(true);
-				athleteDiscriptionLabel.setText(printing(athleteList[4].toString()));
-
 			}
 		});
 		buyAthleteBttn5.setBounds(28, 472, 150, 150);
@@ -223,11 +203,8 @@ public class MarketGui implements UserInterface{
 		
 		buyAthleteBttn6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cancelBuyAhtleteToggle();
-				athleteBuyNum = 5;
+				helpFuncBuyAthlete(5);
 				buyAthleteBttn6.setSelected(true);
-				athleteDiscriptionLabel.setText(printing(athleteList[5].toString()));
-
 			}
 		});
 		buyAthleteBttn6.setBounds(198, 472, 150, 150);
@@ -260,10 +237,8 @@ public class MarketGui implements UserInterface{
 		
 		buyItemButton1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cancelBuyItemToggle();
-				itemBuyNum = 0;
+				helpFuncBuyItem(0);
 				buyItemButton1.setSelected(true);
-				itemDiscriptionLabel.setText(printing(itemList[0].toString()));
 			}
 		});
 		buyItemButton1.setBounds(46, 111, 87, 86);
@@ -271,10 +246,8 @@ public class MarketGui implements UserInterface{
 		
 		buyItemButton2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cancelBuyItemToggle();
-				itemBuyNum = 1;
+				helpFuncBuyItem(1);
 				buyItemButton2.setSelected(true);
-				itemDiscriptionLabel.setText(printing(itemList[1].toString()));
 			}
 		});
 		buyItemButton2.setBounds(183, 111, 87, 86);
@@ -282,10 +255,8 @@ public class MarketGui implements UserInterface{
 		
 		buyItemButton3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cancelBuyItemToggle();
-				itemBuyNum = 2;
+				helpFuncBuyItem(2);
 				buyItemButton3.setSelected(true);
-				itemDiscriptionLabel.setText(printing(itemList[2].toString()));
 			}
 		});
 		buyItemButton3.setBounds(46, 237, 87, 86);
@@ -293,10 +264,8 @@ public class MarketGui implements UserInterface{
 		
 		buyItemButton4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cancelBuyItemToggle();
-				itemBuyNum = 3;
+				helpFuncBuyItem(3);
 				buyItemButton4.setSelected(true);
-				itemDiscriptionLabel.setText(printing(itemList[3].toString()));
 			}
 		});
 		buyItemButton4.setBounds(183, 237, 87, 86);
@@ -304,10 +273,8 @@ public class MarketGui implements UserInterface{
 		
 		buyItemButton5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cancelBuyItemToggle();
-				itemBuyNum = 4;
+				helpFuncBuyItem(4);
 				buyItemButton5.setSelected(true);
-				itemDiscriptionLabel.setText(printing(itemList[4].toString()));
 			}
 		});
 		buyItemButton5.setBounds(46, 365, 87, 86);
@@ -315,10 +282,8 @@ public class MarketGui implements UserInterface{
 		
 		buyItemButton6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cancelBuyItemToggle();
-				itemBuyNum = 5;
+				helpFuncBuyItem(5);
 				buyItemButton6.setSelected(true);
-				itemDiscriptionLabel.setText(printing(itemList[5].toString()));
 			}
 		});
 		buyItemButton6.setBounds(183, 365, 87, 86);
@@ -327,10 +292,8 @@ public class MarketGui implements UserInterface{
 		
 		buyItemButton7.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cancelBuyItemToggle();
-				itemBuyNum = 6;
+				helpFuncBuyItem(6);
 				buyItemButton7.setSelected(true);
-				itemDiscriptionLabel.setText(printing(itemList[6].toString()));
 			}
 		});
 		buyItemButton7.setBounds(46, 491, 87, 86);
@@ -338,10 +301,8 @@ public class MarketGui implements UserInterface{
 		
 		buyItemButton8.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cancelBuyItemToggle();
-				itemBuyNum = 7;
+				helpFuncBuyItem(7);
 				buyItemButton8.setSelected(true);
-				itemDiscriptionLabel.setText(printing(itemList[7].toString()));
 			}
 		});
 		buyItemButton8.setBounds(183, 491, 87, 86);
@@ -396,6 +357,19 @@ public class MarketGui implements UserInterface{
 		sellitemButton10.setSelected(false);
 	}
 
+	private void helpFuncBuyAthlete(int slotNum) {
+		cancelBuyAhtleteToggle();
+		athleteBuyNum = slotNum;
+		athleteDiscriptionLabel.setText(printing(athleteList[slotNum]));
+	}
+	
+	private void helpFuncBuyItem(int slotNum) {
+		cancelBuyItemToggle();
+		itemBuyNum = slotNum;
+		itemDiscriptionLabel.setText(printing(itemList[slotNum]));
+	}
+	
+	
 	/*
 	 * Sell button is clicked, cancel all the other sell buttons,
 	 * and assign the index number of athlete list
@@ -403,7 +377,7 @@ public class MarketGui implements UserInterface{
 	private void helpFuncSellAthlete(int slotNum) {
 			cancelSellAthleteItemToggle();
 			athleteSellNum = slotNum;
-			sellDescriptionLabel.setText(printing(myRoster[slotNum]));		
+			sellDescriptionLabel.setText(printing(myRoster[slotNum]).replace("<br/><br/>", "<br/>"));		
 	}
 	/*
 	 * Sell button is clicked, cancel all the other sell buttons,
@@ -413,11 +387,10 @@ public class MarketGui implements UserInterface{
 			cancelSellAthleteItemToggle();
 			itemSellNum = slotNum;
 			sellDescriptionLabel.setText(printing(myInventory[slotNum]));
-	
 	}
 	
 	/*
-	 * update screen with latest information.
+	 * update screen with the latest information.
 	 */
 	private void refreshScreen() {
 		moneyLabel.setText("$ " + gameEnvironment.getTeam().getMoney());
@@ -626,8 +599,7 @@ public class MarketGui implements UserInterface{
 					itemBuyNum = -1;
 					cancelBuyItemToggle();
 					refreshScreen();
-				}
-				
+				}	
 			}
 		});
 		purchaseButton.setFont(new Font("Lucida Grande", Font.BOLD, 23));
@@ -645,9 +617,6 @@ public class MarketGui implements UserInterface{
 					refreshScreen();
 					}
 				else if(itemSellNum != -1) {
-					//////////////////////////////////////////////////////////////////////////////////////////////////test. will be deleted
-					tempTest.setText(itemSellNum+"");					
-					//////////////////////////////////////////////////////////////////////////////////////////////////test. will be deleted
 					gameEnvironment.tradingProcess("sell", myInventory ,itemSellNum);
 					itemSellNum = -1;
 					cancelSellAthleteItemToggle();
@@ -674,7 +643,7 @@ public class MarketGui implements UserInterface{
 
 	}
 	
-	private void setBuyAthleteItemInfoPanel() {
+	private void setAthleteItemInfoPanel() {
 		JPanel setBuyItemInfoPanel = new JPanel();
 		setBuyItemInfoPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
 		setBuyItemInfoPanel.setBounds(1373, 137, 180, 460);
