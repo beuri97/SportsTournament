@@ -1,4 +1,7 @@
 package main;
+
+import main.gameObject.Product;
+
 /**
  * Interface that is used in CmdLineUi, GameEnvironment.
  * @author H Yang, J Kim
@@ -23,7 +26,13 @@ public interface UserInterface {
 	
 	default String printing(String message) {
 
-		return String.format("<html>%s</html>", message.replace("\n", "<br/><br/>"));
+		return (message == null) ? "EMPTY" : String.format("<html>%s</html>", message.replace("\n", "<br/><br/>"));
+	}
+
+	default String printing(Product product) {
+
+		return (product == null) ? "EMPTY" : String.format("<html>%s</html>",
+									product.toString().replace("\n", "<br/><br/>"));
 	}
 }
 
