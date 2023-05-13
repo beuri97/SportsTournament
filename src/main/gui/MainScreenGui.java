@@ -162,7 +162,7 @@ public class MainScreenGui implements UserInterface{
 		selectedDifficultyLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		selectedDifficultyLabel.setBounds(1087, 36, 174, 30);
 		frmMainWindow.getContentPane().add(selectedDifficultyLabel);
-		selectedDifficultyLabel.setText(gameEnvironment.getDifficulty());
+		selectedDifficultyLabel.setText(gameEnvironment.getDifficulty().toString());
 		
 		JLabel moneyLabel = new JLabel("$ Money");
 		moneyLabel.setFont(new Font("Lucida Grande", Font.BOLD, 27));

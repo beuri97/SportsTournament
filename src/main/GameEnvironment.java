@@ -25,10 +25,14 @@ public class GameEnvironment {
     DifficultyOption difficulty;
 
 	/**
-	 * Game season (Weekly)
+	 * Game Total Season (Weekly)
 	 */
-	int season;
+	int totalSeason;
 
+	/**
+	 * game current season (in week)
+	 */
+	int currentSeason;
 	/**
 	 * Player's {@link main.gameObject.Team team}
 	 */
@@ -62,7 +66,7 @@ public class GameEnvironment {
 	/**
 	 * Boolean set true if player play game at least once
 	 */
-	private boolean isPlayed;
+	private boolean played;
 
 	/**
 	 * Start new game by setting up Team name, number of weeks for season and difficulty of game
@@ -73,7 +77,8 @@ public class GameEnvironment {
 	}
 
 	public void set(String name, int week, DifficultyOption difficulty){
-		this.season = week;
+		this.totalSeason = week;
+		this.currentSeason = 1;
 		this.difficulty = difficulty;
 		this.team = new Team();
 		this.team.setName(name);
@@ -98,9 +103,19 @@ public class GameEnvironment {
 		return this.market;
 	}
 
-	public String getDifficulty() {
+	public DifficultyOption getDifficulty() {
 
-		return this.difficulty.toString();
+		return this.difficulty;
+	}
+
+	public int getCurrentSeason() {
+
+		return this.currentSeason;
+	}
+
+	public int getTotalSeason() {
+
+		return this.totalSeason;
 	}
 
 	/**
@@ -120,8 +135,6 @@ public class GameEnvironment {
 	public void tradingProcess(String type, Product[] stockType, int col) throws RuntimeException {
 
 		// setup.tradingManager(team, market, type, stockType, col);
-
-		//Can we generate this kind of business logic in facade class?????????????????????????????????????????????????
 		switch(type) {
 			case "buy":
 				Product[] properties = (stockType instanceof Athlete[]) ? this.team.getRoster() : this.team.getInventory();
@@ -171,6 +184,11 @@ public class GameEnvironment {
 		this.setup.checkRegex(input, REGEX, message);
 	}
 
+	public void swap(int athlete1, int athlete2) {
+
+		team.swapAthletes(athlete1, athlete2);
+	}
+
 
 	public void setOpponent() {
 
@@ -190,14 +208,14 @@ public class GameEnvironment {
 	/**
 	 * main Game start from here
 	 *
-	 * @param index
+	 * @param index opponent index of this.opponents,
 	 */
 	public void gameStart(int index) {
 
 		Team opponent = this.opponents[index];
 		this.opponents[index] = null;
-		this.isPlayed = true;
-		this.gameManager = new GameManager(this, opponent);
+		this.played = true;
+		this.gameManager = new GameManager(this, opponent, difficulty);
 	}
 
 	public boolean isGame() {
@@ -215,6 +233,11 @@ public class GameEnvironment {
 		this.getTeam().isQualify();
 	}
 
+	public boolean isPlayed() {
+
+		return this.played;
+	}
+
 	public Team getOpponent() {
 
 		return gameManager.getOpponent();
@@ -225,6 +248,7 @@ public class GameEnvironment {
 		this.gameManager.setOffensiveAdjust(0);
 		this.gameManager.setDefensiveAdjust(1);
 	}
+
 	public void buffDefensive() {
 
 		this.gameManager.setDefensiveAdjust(0);
@@ -237,13 +261,26 @@ public class GameEnvironment {
 
 	}
 
+	public String getBattleMessage() {
+
+		return gameManager.battleMessage();
+	}
+
+	public int[] matchResult() {
+
+		int playerScore = gameManager.getPlayerGameScore();
+		int opponentScore = gameManager.getOpponentGameScore();
+		return new int[] {playerScore, opponentScore};
+	}
+
 	/**
 	 * reset market status and match list when user take a bye
 	 */
 	public void reset() {
-		this.isPlayed = false;
+
+		this.played = false;
 		this.market = new Market();
-		setOpponent();
+		this.setOpponent();
 		// TODO - Athlete Random events
 	}
 }

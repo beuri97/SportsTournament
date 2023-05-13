@@ -245,7 +245,7 @@ public class CmdLineUi implements UserInterface {
 					case "team" -> teamInfoSystem();
 					//TODO - create methods and call them here
 					case "stadium" -> stadium();
-					//case "bye"
+					case "bye" -> takeBye();
 					default -> throw new IllegalInputException();
 				}
 			}catch (IllegalInputException e) {
@@ -373,7 +373,7 @@ public class CmdLineUi implements UserInterface {
 					String[] str = input.split(" ");
 					int athlete1 = Integer.parseInt(str[1]) -1;
 					int athlete2 = Integer.parseInt(str[3]) -1;
-					player.swapAthletes(athlete1, athlete2);
+					gameEnvironment.swap(athlete1, athlete2);
 				} else throw new IllegalInputException();
 
 			} catch (IllegalInputException e) {
@@ -395,8 +395,11 @@ public class CmdLineUi implements UserInterface {
 				gameEnvironment.check(input, REGEX, "");
 				this.actualGame(Integer.parseInt(input) - 1);
 				break;
-			} catch(IllegalInputException | EmptySlotException | InsufficientAthleteException e) {
+			} catch(IllegalInputException | EmptySlotException e) {
 				System.out.println(e.getMessage());
+			} catch(InsufficientAthleteException iae) {
+				System.out.println(iae.getMessage());
+				break;
 			}
 		}
 	}
@@ -427,26 +430,60 @@ public class CmdLineUi implements UserInterface {
 				System.out.println("Then athlete will battle");
 				try{
 					String input = scan.nextLine();
-					if(input.equals("aggressively")) {
+					if(input.equals("aggressively"))
 						gameEnvironment.buffOffensive();
-					} else if (input.equals("carefully")) {
+					else if (input.equals("carefully"))
 						gameEnvironment.buffDefensive();
-					} else if (input.equals(""));
-
+					else if (input.equals(""))
+						System.out.println();
 					else throw new IllegalInputException();
 
 					System.out.println("Battle Start!");
 					gameEnvironment.battleSequences();
-
+					System.out.println(gameEnvironment.getBattleMessage());
 				} catch (IllegalInputException e) {
 					System.out.println(e.getMessage());
 				}
 			} while(!gameEnvironment.isSet());
+
+			this.gameResult();
 		}
+
+
 	}
 
 
-	private void takeBye() {}
+	private void takeBye() {
+
+		if(this.gameEnvironment.isPlayed()) {
+			System.out.println("See you next week!");
+			this.gameEnvironment.reset();
+		}else {
+			System.out.println("You are not played at least one game in this week");
+			System.out.println("Are you sure you want to finish this season?(Y|n)");
+			String input = scan.nextLine();
+			try{
+				switch (input) {
+
+					case "Y":
+						// TODO - create method gameOver to finish it
+						break;
+
+					case "n":
+					case "N":
+						System.out.println();
+						break;
+					default:
+						throw new IllegalInputException();
+
+				}
+
+			}catch (IllegalInputException e) {
+				System.out.println(e.getMessage());
+			}
+
+		}
+	}
 
 
 	private void declareGameOver() {}
@@ -463,9 +500,29 @@ public class CmdLineUi implements UserInterface {
 		}
 	}
 
+	private void gameResult() {
+		int[] result = gameEnvironment.matchResult();
+		int playerScore = result[0];
+		int opponentScore = result[1];
+		String message;
+		double money;
+		System.out.printf("Your Score: %d%nOpponent Score: %s%n", playerScore, opponentScore);
 
-	private void gameComment(String message) {
-
+		if (playerScore > opponentScore) {
+			message = "YOU WIN\n";
+			money = gameEnvironment.getDifficulty().getMoneyGain() * 1.5;
+			message += String.format("MONEY GAIN: %.2f", money);
+		}
+		else if (playerScore < opponentScore) {
+			message = "YOU LOSE\n";
+			money = gameEnvironment.getDifficulty().getMoneyGain() * 0.7;
+			message += String.format("MONEY GAIN: %.2f", money);
+		}
+		else {
+			message = "DRAW";
+			money = gameEnvironment.getDifficulty().getMoneyGain();
+			message += String.format("MONEY GAIN: %.2f", money);
+		}
 		System.out.println(message);
 	}
 

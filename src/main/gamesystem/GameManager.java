@@ -39,6 +39,8 @@ public class GameManager{
      */
     private Athlete opponentAthlete;
 
+    private DifficultyOption difficulty;
+
     /**
      * Adjusted offensive and defensive statistics for game playing
      * use this statistics to get pseudorandom number to fight
@@ -79,10 +81,11 @@ public class GameManager{
      * Game Manager Constructor
      * @param gameEnvironment main game environment system
      */
-    public GameManager(GameEnvironment gameEnvironment, Team opponent) {
+    public GameManager(GameEnvironment gameEnvironment, Team opponent, DifficultyOption difficulty) {
 
         this.opponent = opponent;
         this.player = gameEnvironment.getTeam();
+        this.difficulty = difficulty;
         this.setNumber = 1;
         this.playerOnStadium();
         this.buffOffensive = playerAthlete.getOffenseStat() +30;
@@ -233,17 +236,31 @@ public class GameManager{
         this.opponentAthlete = this.opponent.getRoster()[this.setNumber -1];
     }
 
+    public String battleMessage(){
+
+        String message = "Battle result: \n";
+        message += String.format("%s attacked %s%n", this.playerAthlete.getName(),
+                (this. playerScored) ? "and Success!" : "but failed");
+        message += (this.playerScored) ? String.format("%s get score.%n", playerAthlete) : "";
+        message += String.format("%s attacked %s%n", opponentAthlete.getName(),
+                (opponentScored) ? "and Success!" : "but failed");
+        message += (playerScored) ? String.format("%s get score.%n", opponentAthlete) : "";
+
+        return message;
+    }
+
     /**
      * Report method for give result of the game
      * @return game result in string
      */
-    public String gameResult() {
-
-        String result;
-        if (this.playerGameScore > this.opponentGameScore) result = "YOU WIN";
-        else if (this.playerGameScore == this.opponentGameScore) result = "DRAW";
-        else result = "YOU LOSE";
-
-        return result;
-    }
+//    public String gameResult() {
+//
+//        String result;
+//        if (this.playerGameScore > this.opponentGameScore) result = "YOU WIN";
+//        else if (this.playerGameScore == this.opponentGameScore) result = "DRAW";
+//        else result = "YOU LOSE";
+//        result += String.format("MONEY: %d%n")
+//
+//        return result;
+//    }
 }
