@@ -128,12 +128,12 @@ public class MainScreenGui implements UserInterface{
 		
 		JLabel activeLabel = new JLabel("Active Athlete");
 		activeLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 23));
-		activeLabel.setBounds(92, 206, 174, 28);
+		activeLabel.setBounds(92, 182, 174, 28);
 		frmMainWindow.getContentPane().add(activeLabel);
 		
 		JLabel reservesLabel = new JLabel("Reserves");
 		reservesLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 23));
-		reservesLabel.setBounds(125, 414, 141, 59);
+		reservesLabel.setBounds(125, 407, 141, 59);
 		frmMainWindow.getContentPane().add(reservesLabel);
 		
 		JLabel inventoryLabel = new JLabel("Inventory");
@@ -189,7 +189,7 @@ public class MainScreenGui implements UserInterface{
 		//Create the panel for Active Athletes
 		JPanel setAthletePanel = new JPanel();
 		setAthletePanel.setBorder(new CompoundBorder(new LineBorder(new Color(0, 0, 0)), null));
-		setAthletePanel.setBounds(300, 100, 700, 220);
+		setAthletePanel.setBounds(300, 100, 698, 190);
 		frmMainWindow.getContentPane().add(setAthletePanel);
 		setAthletePanel.setLayout(null);
 		
@@ -197,7 +197,7 @@ public class MainScreenGui implements UserInterface{
 		JPanel setReservePanel = new JPanel();
 		setReservePanel.setLayout(null);
 		setReservePanel.setBorder(new CompoundBorder(new LineBorder(new Color(0, 0, 0)), null));
-		setReservePanel.setBounds(300, 338, 530, 220);
+		setReservePanel.setBounds(300, 338, 535, 190);
 		frmMainWindow.getContentPane().add(setReservePanel);
 		
 		//Create toggle buttons for All the athletes that the player owns.
@@ -294,41 +294,6 @@ public class MainScreenGui implements UserInterface{
 		});
 		athleteButton7.setBounds(360, 20, 150, 150);
 		setReservePanel.add(athleteButton7);
-		
-		
-		athleteLabel1 = new JLabel("Athlete 1 Name");
-		athleteLabel1.setBounds(30, 182, 131, 16);
-		setAthletePanel.add(athleteLabel1);
-//		athleteLabel1.setText(printing(athleteList[0].getName().toString()));
-		
-		athleteLabel2 = new JLabel("Athlete 2 Name");
-		athleteLabel2.setBounds(200, 182, 131, 16);
-		setAthletePanel.add(athleteLabel2);
-//		athleteLabel2.setText(athleteList[1].getName());
-		
-		athleteLabel3 = new JLabel("Athlete 3 Name");
-		athleteLabel3.setBounds(370, 182, 131, 16);
-		setAthletePanel.add(athleteLabel3);
-//		athleteLabel3.setText(athleteList[2].getName());
-	
-		athleteLabel4 = new JLabel("Athlete 4 Name");
-		athleteLabel4.setBounds(540, 182, 131, 16);
-		setAthletePanel.add(athleteLabel4);
-//		athleteLabel4.setText(athleteList[3].getName());
-		
-		athleteLabel5 = new JLabel("Athlete 5 Name");
-		athleteLabel5.setBounds(30, 182, 131, 16);
-		setReservePanel.add(athleteLabel5);
-//		athleteLabel5.setText(athleteList[4].getName());
-		
-		athleteLabel6 = new JLabel("Athlete 6 Name");
-		athleteLabel6.setBounds(200, 182, 131, 16);
-		setReservePanel.add(athleteLabel6);
-//		athleteLabel6.setText(athleteList[5].getName());
-		
-		athleteLabel7 = new JLabel("Athlete 7 Name");
-		athleteLabel7.setBounds(370, 182, 131, 16);
-		setReservePanel.add(athleteLabel7);
 //		athleteLabel7.setText(athleteList[6].getName());
 	}
 	
@@ -539,7 +504,7 @@ public class MainScreenGui implements UserInterface{
 			}
 		});
 		switchButton.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-		switchButton.setBounds(861, 480, 117, 78);
+		switchButton.setBounds(881, 450, 117, 78);
 		frmMainWindow.getContentPane().add(switchButton);
 		
 		//make use button to use item to one athlete
