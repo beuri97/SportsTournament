@@ -51,14 +51,6 @@ public class MainScreenGui implements UserInterface{
 	private JToggleButton athleteButton6;
 	private JToggleButton athleteButton7;
 	
-	private JLabel athleteLabel1;
-	private JLabel athleteLabel2;
-	private JLabel athleteLabel3;
-	private JLabel athleteLabel4;
-	private JLabel athleteLabel5;
-	private JLabel athleteLabel6;
-	private JLabel athleteLabel7;
-	
 	private JToggleButton itemButton1;
 	private JToggleButton itemButton2;
 	private JToggleButton itemButton3;
@@ -153,23 +145,20 @@ public class MainScreenGui implements UserInterface{
 		else if((currentWeek == 2)){weekNumLabel.setText("2nd week");}
 		else {weekNumLabel.setText(gameEnvironment.getCurrentSeason() + "rd week");}
 		
-		JLabel totalweekLabel = new JLabel("TOTAL WEEKS HERE");
+		JLabel totalweekLabel = new JLabel(" / Total "+ gameEnvironment.getTotalSeason() + "weeks");
 		totalweekLabel.setFont(new Font("Dialog", Font.BOLD, 15));
 		totalweekLabel.setBounds(785, 38, 243, 30);
 		frmMainWindow.getContentPane().add(totalweekLabel);
-		totalweekLabel.setText(" / Total "+ gameEnvironment.getTotalSeason() + "weeks");
 		
-		JLabel selectedDifficultyLabel = new JLabel("SelectedDifficulty");
+		JLabel selectedDifficultyLabel = new JLabel(gameEnvironment.getDifficulty().toString());
 		selectedDifficultyLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		selectedDifficultyLabel.setBounds(1140, 36, 174, 30);
 		frmMainWindow.getContentPane().add(selectedDifficultyLabel);
-		selectedDifficultyLabel.setText(gameEnvironment.getDifficulty().toString());
 		
-		moneyLabel = new JLabel("$ Money");
+		moneyLabel = new JLabel("$ " + gameEnvironment.getTeam().getMoney());
 		moneyLabel.setFont(new Font("Lucida Grande", Font.BOLD, 27));
 		moneyLabel.setBounds(1277, 36, 202, 30);
 		frmMainWindow.getContentPane().add(moneyLabel);
-		moneyLabel.setText("$ " + gameEnvironment.getTeam().getMoney());
 		
 		noticeUsingSwitching = new JLabel("");
 		noticeUsingSwitching.setForeground(new Color(255, 11, 3));
@@ -205,14 +194,6 @@ public class MainScreenGui implements UserInterface{
 		athleteButton5 = new JToggleButton("Athlete5");
 		athleteButton6 = new JToggleButton("Athlete6");
 		athleteButton7 = new JToggleButton("Athlete7");
-		
-		athleteLabel1 = new JLabel("AthleteName1");
-		athleteLabel2 = new JLabel("AthleteName2");
-		athleteLabel3 = new JLabel("AthleteName3");
-		athleteLabel4 = new JLabel("AthleteName4");
-		athleteLabel5 = new JLabel("AthleteName5");
-		athleteLabel6 = new JLabel("AthleteName6");
-		athleteLabel7 = new JLabel("AthleteName7");
 		
 		athleteButton1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -458,9 +439,8 @@ public class MainScreenGui implements UserInterface{
 		JButton stadiumButton = new JButton("Stadium");
 		stadiumButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				frmMainWindow.dispose();
-				StadiumGui enterStadium = new StadiumGui(gameEnvironment);
-				
+//				frmMainWindow.dispose();
+//				StadiumGui enterStadium = new StadiumGui(gameEnvironment);		
 			}
 		});
 		stadiumButton.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
