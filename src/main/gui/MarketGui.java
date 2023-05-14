@@ -576,12 +576,13 @@ public class MarketGui implements UserInterface{
 		JButton recruitButton = new JButton("RECRUIT");
 		recruitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (athleteBuyNum == -1){athleteDiscriptionLabel.setText("Choose an athelte!");}
+				if (athleteList[athleteBuyNum] == null){athleteDiscriptionLabel.setText("Choose an athelte!");}
 				else {
 					gameEnvironment.tradingProcess("buy", athleteList ,athleteBuyNum);
 					athleteBuyNum = -1;
 					cancelBuyAhtleteToggle();
 					refreshScreen();
+					athleteDiscriptionLabel.setText("Recruited!!");
 				}
 			}
 		});
@@ -593,12 +594,13 @@ public class MarketGui implements UserInterface{
 		JButton purchaseButton = new JButton("PURCHASE");
 		purchaseButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (itemBuyNum == -1) {itemDiscriptionLabel.setText("Choose an item!");}
+				if (itemList[itemBuyNum] == null) {itemDiscriptionLabel.setText("Choose an item!");}
 				else {
 					gameEnvironment.tradingProcess("buy", itemList ,itemBuyNum);
 					itemBuyNum = -1;
 					cancelBuyItemToggle();
 					refreshScreen();
+					itemDiscriptionLabel.setText("Purchased!!");
 				}	
 			}
 		});
@@ -615,12 +617,14 @@ public class MarketGui implements UserInterface{
 					athleteSellNum = -1;
 					cancelSellAthleteItemToggle();
 					refreshScreen();
+					sellDescriptionLabel.setText("Sold your athlete!!");
 					}
 				else if(itemSellNum != -1) {
 					gameEnvironment.tradingProcess("sell", myInventory ,itemSellNum);
 					itemSellNum = -1;
 					cancelSellAthleteItemToggle();
 					refreshScreen();
+					sellDescriptionLabel.setText("Sold your item!!");
 				}
 			}		
 		});

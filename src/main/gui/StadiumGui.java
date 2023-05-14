@@ -123,14 +123,6 @@ public class StadiumGui {
 		frmStadium.getContentPane().add(btnNewButton_1);
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
 	/*
 	 * create option panel to ask whether the player really wants to quit the game or not
 	 */
