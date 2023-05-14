@@ -44,7 +44,7 @@ public class CmdLineUi implements UserInterface {
 		USAGE("""
 				usage
 				\tbuy -a [1-6]|-i [1-8]
-				\tsell -a [1-7]|-i ([1-9]|1[0-4])
+				\tsell -a [1-7]|-i ([1-9]|10)
 				\texit"""),
 		BUY("""
 				buy - show Market stock to athletes or items
@@ -286,7 +286,7 @@ public class CmdLineUi implements UserInterface {
 				// Market has 6 athletes stocks 8 items stocks, Team can have 7 athletes and 8 items as maximum
 				// if this preference is changed regex need to be fixed
 				// if input requirement is not met exception will be thrown
-				gameEnvironment.check(input, "exit|help|buy ((-a|-i)|(-a [1-6]|-i [1-8]))|sell ((-a|-i)|(-a [1-7]|-i ([1-9]|1[0-4])))",
+				gameEnvironment.check(input, "exit|help|buy ((-a|-i)|(-a [1-6]|-i [1-8]))|sell ((-a|-i)|(-a [1-7]|-i ([1-9]|10)))",
 						null);
 
 				//split command input value
@@ -303,13 +303,13 @@ public class CmdLineUi implements UserInterface {
 				}
 				// provide market athlete stocks to player
 				else if (input.equals("buy -a")) listing(market.getAthleteProduct());
-					// provide market Item stocks to player
+				// provide market Item stocks to player
 				else if (input.equals("buy -i")) listing(market.getItemProduct());
-					// provide Team Athlete roster to player
+				// provide Team Athlete roster to player
 				else if(input.equals("sell -a")) listing(player.getRoster());
-					// provide Team Inventory to player
+				// provide Team Inventory to player
 				else if(input.equals("sell -i")) listing(player.getInventory());
-					// provide purchase sequence to player
+				// provide purchase sequence to player
 				else if (input.matches("buy (-a [1-6]|-i [1-8])")){
 					int col = Integer.parseInt(str[2]) - 1;
 					Product[] stocks = (str[1].equals("-a")) ? market.getAthleteProduct() : market.getItemProduct();
@@ -419,9 +419,9 @@ public class CmdLineUi implements UserInterface {
 		while (!gameEnvironment.isGame()) {
 
 			System.out.println("\nYour athlete on the stadium\n");
-			System.out.println(gameEnvironment.getTeam().getRoster()[i]); // TODO - this line need to fix (Will not use i here)
+			System.out.println(gameEnvironment.getTeam().getRoster()[i]);
 			System.out.println("\nOpponent athlete on the stadium\n");
-			System.out.println(gameEnvironment.getOpponent().getRoster()[i]); // TODO - this line need to fix (Will not use i here)
+			System.out.println(gameEnvironment.getOpponent().getRoster()[i]);
 
 			do {
 				System.out.println("Order to your Athlete:");
@@ -466,7 +466,7 @@ public class CmdLineUi implements UserInterface {
 				switch (input) {
 
 					case "Y":
-						// TODO - create method gameOver to finish it
+						this.declareGameOver();
 						break;
 
 					case "n":
@@ -486,7 +486,22 @@ public class CmdLineUi implements UserInterface {
 	}
 
 
-	private void declareGameOver() {}
+	private void declareGameOver() {
+
+		int lastSeason = gameEnvironment.getCurrentSeason();
+		int totalSeason = gameEnvironment.getTotalSeason();
+		int[] playerOverall = gameEnvironment.getPlayerOverall();
+
+		System.out.println("GAME OVER");
+		System.out.printf("You played %d week(s) out of %d seeks%n", lastSeason, totalSeason);
+		System.out.println("Your game Summary:");
+		System.out.printf("Your game difficulty was %s%n", gameEnvironment.getDifficulty());
+		System.out.printf("You Played %d you won %d%n", playerOverall[1], playerOverall[0]);
+		System.out.printf("Your percentage of victory is %.2f%n", (float)(playerOverall[0]/playerOverall[1])*100);
+
+		System.out.println("Thank You For Playing!!!");
+		System.exit(0);
+	}
 
 
 	/**
@@ -508,6 +523,7 @@ public class CmdLineUi implements UserInterface {
 		double money;
 		System.out.printf("Your Score: %d%nOpponent Score: %s%n", playerScore, opponentScore);
 
+		//TODO - Reduce athletes stamina
 		if (playerScore > opponentScore) {
 			message = "YOU WIN\n";
 			money = gameEnvironment.getDifficulty().getMoneyGain() * 1.5;

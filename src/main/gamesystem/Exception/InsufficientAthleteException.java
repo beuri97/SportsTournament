@@ -6,4 +6,9 @@ public class InsufficientAthleteException extends RuntimeException{
 
         super("FATAL: You do not have enough athletes. Recurit athletes at market.");
     }
+
+    public InsufficientAthleteException(String message) {
+
+        super("FATAL: " + message);
+    }
 }

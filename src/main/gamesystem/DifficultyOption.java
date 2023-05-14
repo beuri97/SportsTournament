@@ -5,8 +5,8 @@ package main.gamesystem;
  * @author J Kim, H Yang
  */
 public enum DifficultyOption {
-    EASY("Easy", 30000.00, 15000.00, 0),
-    DIFFICULT("Difficult", 20000.00, 7000.00, 1);
+    EASY("Easy", 15000.00, 7000.00, 0),
+    DIFFICULT("Difficult", 12000.00, 4000.00, 1);
 
     final String DIFFICULTY;
     final double MONEY;
