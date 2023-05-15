@@ -16,8 +16,6 @@ import java.awt.Font;
 import javax.swing.JToggleButton;
 import javax.swing.border.LineBorder;
 import javax.swing.UIManager;
-import java.awt.Color;
-import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -61,7 +59,6 @@ public class StadiumGui implements UserInterface{
 	JPanel opponentAthletePhoto2;
 	JPanel opponentAthletePhoto3;
 	JPanel opponentAthletePhoto4;
-
 
 	/**
 	 * Create the application.

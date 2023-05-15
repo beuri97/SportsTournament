@@ -33,7 +33,7 @@ public class MainScreenGui implements UserInterface{
 	Team team;
 	String teamName;
 	Athlete[] myRoster;
-	Item[] myInvertory;
+	Item[] myInventory;
 
 	// next three ints indicate the Athlete buttons in Active, Reserve and item button are clicked, 
 	//	when int is -1, button is not clicked
@@ -42,6 +42,7 @@ public class MainScreenGui implements UserInterface{
 	int athleteSwitchingNum1 = -1;
 	int athleteSwitchingNum2 = -1;
 	int usingItemNum = -1;
+	int flag;
 	
 	private JToggleButton athleteButton1;
 	private JToggleButton athleteButton2;
@@ -62,8 +63,6 @@ public class MainScreenGui implements UserInterface{
 	private JToggleButton itemButton9;
 	private JToggleButton itemButton10;
 	
-	
-
 	JLabel noticeLabel;
 	JLabel athleteDescriptionLabel;
 	JLabel itemDescriptionLabel;
@@ -75,7 +74,7 @@ public class MainScreenGui implements UserInterface{
 	public  MainScreenGui(GameEnvironment gameEnvironment) {
 		this.gameEnvironment = gameEnvironment;
 		this.myRoster = gameEnvironment.getTeam().getRoster();
-		this.myInvertory = gameEnvironment.getTeam().getInventory();
+		this.myInventory = gameEnvironment.getTeam().getInventory();
 		setup(gameEnvironment);
 	}
 
@@ -165,7 +164,11 @@ public class MainScreenGui implements UserInterface{
 		noticeLabel.setBounds(300, 566, 594, 30);
 		frmMainWindow.getContentPane().add(noticeLabel);
 	}
-
+	private String printingName(int flag, int indexNum) {
+		if(flag == 0) {return (myRoster[indexNum] == null) ? "EMPTY" : printing(myRoster[indexNum].getName());}
+		else {return(myInventory[indexNum] == null) ? "EMPTY" : printing(myInventory[indexNum].getName());}			
+	}
+	
 	/**
 	 * Panel for Athlete lists on main screen
 	 */
@@ -187,13 +190,13 @@ public class MainScreenGui implements UserInterface{
 		
 		//Create toggle buttons for All the athletes that the player owns.
 		// 1~4 are Active, 5~7 are Reserves
-		athleteButton1 = new JToggleButton("Athlete1");
-		athleteButton2 = new JToggleButton("Athlete2");
-		athleteButton3 = new JToggleButton("Athlete3");
-		athleteButton4 = new JToggleButton("Athlete4");
-		athleteButton5 = new JToggleButton("Athlete5");
-		athleteButton6 = new JToggleButton("Athlete6");
-		athleteButton7 = new JToggleButton("Athlete7");
+		athleteButton1 = new JToggleButton(printingName(0, 0));
+		athleteButton2 = new JToggleButton(printingName(0, 1));
+		athleteButton3 = new JToggleButton(printingName(0, 2));
+		athleteButton4 = new JToggleButton(printingName(0, 3));
+		athleteButton5 = new JToggleButton(printingName(0, 4));
+		athleteButton6 = new JToggleButton(printingName(0, 5));
+		athleteButton7 = new JToggleButton(printingName(0, 6));
 		
 		athleteButton1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -253,16 +256,16 @@ public class MainScreenGui implements UserInterface{
 	frmMainWindow.getContentPane().add(setItemPanel);
 	setItemPanel.setLayout(new GridLayout(2, 7, 0, 0));
 	
-	itemButton1 = new JToggleButton("Item1");
-	itemButton2 = new JToggleButton("Item2");
-	itemButton3 = new JToggleButton("Item3");
-	itemButton4 = new JToggleButton("Item4");
-	itemButton5 = new JToggleButton("Item5");
-	itemButton6 = new JToggleButton("Item6");
-	itemButton7 = new JToggleButton("Item7");
-	itemButton8 = new JToggleButton("Item8");
-	itemButton9 = new JToggleButton("Item9");
-	itemButton10 = new JToggleButton("Item10");
+	itemButton1 = new JToggleButton(printingName(1, 0));
+	itemButton2 = new JToggleButton(printingName(1, 1));
+	itemButton3 = new JToggleButton(printingName(1, 2));
+	itemButton4 = new JToggleButton(printingName(1, 3));
+	itemButton5 = new JToggleButton(printingName(1, 4));
+	itemButton6 = new JToggleButton(printingName(1, 5));
+	itemButton7 = new JToggleButton(printingName(1, 6));
+	itemButton8 = new JToggleButton(printingName(1, 7));
+	itemButton9 = new JToggleButton(printingName(1, 8));
+	itemButton10 = new JToggleButton(printingName(1, 9));
 	
 	itemButton1.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
@@ -341,7 +344,6 @@ public class MainScreenGui implements UserInterface{
 			athleteButton6.setSelected(false);
 			athleteButton7.setSelected(false);
 		}
-
 			athleteDescriptionLabel.setText(printing(myRoster[slotNum]));
 			
 	}
@@ -351,7 +353,7 @@ public class MainScreenGui implements UserInterface{
 	private void helpFuncItemSlots(int slotNum) {
 			cancelItemToggle();
 			usingItemNum = slotNum;
-			itemDescriptionLabel.setText(printing(myInvertory[slotNum]));
+			itemDescriptionLabel.setText(printing(myInventory[slotNum]));
 	}
 
 	/*
@@ -360,7 +362,25 @@ public class MainScreenGui implements UserInterface{
 	private void refreshScreen() {
 		moneyLabel.setText("$ " + gameEnvironment.getTeam().getMoney());
 		myRoster = gameEnvironment.getTeam().getRoster();
-		myInvertory = gameEnvironment.getTeam().getInventory();
+		myInventory = gameEnvironment.getTeam().getInventory();
+		athleteButton1.setText(printingName(0, 0));
+		athleteButton2.setText(printingName(0, 1));
+		athleteButton3.setText(printingName(0, 2));
+		athleteButton4.setText(printingName(0, 3));
+		athleteButton5.setText(printingName(0, 4));
+		athleteButton6.setText(printingName(0, 5));
+		athleteButton7.setText(printingName(0, 6));
+		
+		itemButton1.setText(printingName(1, 0));
+		itemButton2.setText(printingName(1, 1));
+		itemButton3.setText(printingName(1, 2));
+		itemButton4.setText(printingName(1, 3));
+		itemButton5.setText(printingName(1, 4));
+		itemButton6.setText(printingName(1, 5));
+		itemButton7.setText(printingName(1, 6));
+		itemButton8.setText(printingName(1, 7));
+		itemButton9.setText(printingName(1, 8));
+		itemButton10.setText(printingName(1, 9));
 	}
 	
 	/*
@@ -403,10 +423,10 @@ public class MainScreenGui implements UserInterface{
 		marketButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//////////////////////////////////////////////////////////////////////////////for test, autometically buy 4 athletes/////////////////////////////////////
-				gameEnvironment.tradingProcess("buy", gameEnvironment.getMarket().getAthleteProduct() ,0);
-				gameEnvironment.tradingProcess("buy", gameEnvironment.getMarket().getAthleteProduct() ,1);
-				gameEnvironment.tradingProcess("buy", gameEnvironment.getMarket().getAthleteProduct() ,2);
-				gameEnvironment.tradingProcess("buy", gameEnvironment.getMarket().getAthleteProduct() ,3);
+//				gameEnvironment.tradingProcess("buy", gameEnvironment.getMarket().getAthleteProduct() ,0);
+//				gameEnvironment.tradingProcess("buy", gameEnvironment.getMarket().getAthleteProduct() ,1);
+//				gameEnvironment.tradingProcess("buy", gameEnvironment.getMarket().getAthleteProduct() ,2);
+//				gameEnvironment.tradingProcess("buy", gameEnvironment.getMarket().getAthleteProduct() ,3);
 				//////////////////////////////////////////////////////////////////////////////for test, autometically buy 4 athletes//////////////////////////////////////
 
 				frmMainWindow.dispose();
@@ -448,8 +468,10 @@ public class MainScreenGui implements UserInterface{
 		JButton switchButton = new JButton("Switch");
 		switchButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (myRoster[athleteSwitchingNum1] == null || myRoster[athleteSwitchingNum2] == null
-						|| athleteSwitchingNum1 < 0 || athleteSwitchingNum2 < 0) {
+				if (athleteSwitchingNum1 == -1 || athleteSwitchingNum2 ==-1){
+					noticeLabel.setText("Select two athlete to switch!");}
+		
+				else if (myRoster[athleteSwitchingNum1] == null || myRoster[athleteSwitchingNum2] == null) {
 					noticeLabel.setText("Select two athlete to switch!");}
 				else {gameEnvironment.swap(athleteSwitchingNum1, athleteSwitchingNum2);}
 				cancelAthleteToggle();
@@ -465,14 +487,14 @@ public class MainScreenGui implements UserInterface{
 			public void actionPerformed(ActionEvent e) {
 				//check which athlete is selected
 				if (athleteSwitchingNum1 >= 0 && athleteSwitchingNum2 < 0) {
-					if (myRoster[athleteSwitchingNum1] == null || myInvertory[usingItemNum] == null) {
+					if (myRoster[athleteSwitchingNum1] == null || myInventory[usingItemNum] == null) {
 						noticeLabel.setText("You clicked the empty slot!"); 
 						return;}
 					gameEnvironment.useItem(athleteSwitchingNum1, usingItemNum);
 					noticeLabel.setText("Used item! Check the difference!!");
 				}
 				else if (athleteSwitchingNum1 < 0 && athleteSwitchingNum2 >= 0){
-					if (myRoster[athleteSwitchingNum2] == null || myInvertory[usingItemNum] == null) {
+					if (myRoster[athleteSwitchingNum2] == null || myInventory[usingItemNum] == null) {
 						noticeLabel.setText("You clicked the empty slot!"); 
 						return;}
 					gameEnvironment.useItem(athleteSwitchingNum2, usingItemNum);
@@ -482,10 +504,11 @@ public class MainScreenGui implements UserInterface{
 					noticeLabel.setText("Select One Item and Athlete for each!");
 					return;
 				}
+				refreshScreen();
 				cancelAthleteToggle();
 				cancelItemToggle();	
 				usingItemNum = -1;
-				refreshScreen();
+				
 			}
 		});
 		itemUseButton.setFont(new Font("Lucida Grande", Font.PLAIN, 20));

@@ -160,6 +160,12 @@ public class OpponentSelectingGui implements UserInterface {
 		myAthletePhoto4.setBounds(22, 397, 100, 100);
 		myTeamPanel.add(myAthletePhoto4);
 	}
+	
+	
+	private String printing(int flag, int teamNum, int indexNum) {
+		if (flag == 0) {
+		return printing(opponentList[teamNum].getRoster()[indexNum].getAthleteSummary());
+	}
 	/*
 	 * make five opponent teams panels and show their photos and stats
 	 */
@@ -194,10 +200,14 @@ public class OpponentSelectingGui implements UserInterface {
 		opponentTeamLabel1.setBounds(12, 12, 185, 33);
 		opponentPanel.add(opponentTeamLabel1);
 		
-		opponentTeam1Label1 = new JLabel(printing(opponentList[0].getRoster()[0].getAthleteSummary()));
-		opponentTeam1Label2 = new JLabel("opponentAthlete2");
-		opponentTeam1Label3 = new JLabel("opponentAthlete3");
-		opponentTeam1Label4 = new JLabel("opponentAthlete4");
+		opponentTeam1Label1 = new JLabel(printing(0,0));
+		opponentTeam1Label1.setFont(new Font("Dialog", Font.BOLD, 10));
+		opponentTeam1Label2 = new JLabel(printing(0,1));
+		opponentTeam1Label2.setFont(new Font("Dialog", Font.BOLD, 10));
+		opponentTeam1Label3 = new JLabel(printing(0,2));
+		opponentTeam1Label3.setFont(new Font("Dialog", Font.BOLD, 10));
+		opponentTeam1Label4 = new JLabel(printing(0,3));
+		opponentTeam1Label4.setFont(new Font("Dialog", Font.BOLD, 10));
 		
 		opponentTeam1Label1.setHorizontalAlignment(SwingConstants.CENTER);
 		opponentTeam1Label1.setBounds(120, 57, 77, 100);
