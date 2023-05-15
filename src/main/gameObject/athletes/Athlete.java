@@ -117,7 +117,7 @@ public class Athlete implements Product{
 
     public String getAthleteSummary() {
 
-        return String.format("Name: %s%n Offense: %d%n Defense: %s%n, Stamina: %d/%d%n, Injured: %s%n",
+        return String.format("Name: %s%n Offense: %d%n Defense: %s%n Stamina: %d/%d%n Injured: %s%n",
                 getName(), getOffenseStat(), getDefenseStat(), getStamina(), getMaxStamina(),
                 (isInjured()) ? "Yes":"No");
     }
