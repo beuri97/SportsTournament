@@ -24,6 +24,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import main.gamesystem.Exception.EmptySlotException;
+import main.gamesystem.Exception.LackOfMoneyException;
 import main.gamesystem.Exception.NoSpaceException;
 
 
@@ -522,33 +523,34 @@ public class MarketGui implements UserInterface{
 				sellAthleteButton7.setSelected(true);}});
 		//set the sell item buttons
 		sellitemButton1 = new JToggleButton(printingName(2, 0));
+		sellitemButton2 = new JToggleButton(printingName(2, 1));
+		sellitemButton3 = new JToggleButton(printingName(2, 2));
+		sellitemButton4 = new JToggleButton(printingName(2, 3));
+		sellitemButton5 = new JToggleButton(printingName(2, 4));
+		sellitemButton6 = new JToggleButton(printingName(2, 5));
+		sellitemButton7 = new JToggleButton(printingName(2, 6));
+		sellitemButton8 = new JToggleButton(printingName(2, 7));
+		sellitemButton9 = new JToggleButton(printingName(2, 8));
+		sellitemButton10 = new JToggleButton(printingName(2, 9));
+
 		sellitemButton1.setFont(new Font("Dialog", Font.BOLD, 10));
 		sellitemButton1.setHorizontalAlignment(SwingConstants.LEFT);
-		sellitemButton2 = new JToggleButton(printingName(2, 1));
 		sellitemButton2.setFont(new Font("Dialog", Font.BOLD, 10));
 		sellitemButton2.setHorizontalAlignment(SwingConstants.LEFT);
-		sellitemButton3 = new JToggleButton(printingName(2, 2));
 		sellitemButton3.setFont(new Font("Dialog", Font.BOLD, 10));
 		sellitemButton3.setHorizontalAlignment(SwingConstants.LEFT);
-		sellitemButton4 = new JToggleButton(printingName(2, 3));
 		sellitemButton4.setFont(new Font("Dialog", Font.BOLD, 10));
 		sellitemButton4.setHorizontalAlignment(SwingConstants.LEFT);
-		sellitemButton5 = new JToggleButton(printingName(2, 4));
 		sellitemButton5.setFont(new Font("Dialog", Font.BOLD, 10));
 		sellitemButton5.setHorizontalAlignment(SwingConstants.LEFT);
-		sellitemButton6 = new JToggleButton(printingName(2, 5));
 		sellitemButton6.setFont(new Font("Dialog", Font.BOLD, 10));
 		sellitemButton6.setHorizontalAlignment(SwingConstants.LEFT);
-		sellitemButton7 = new JToggleButton(printingName(2, 6));
 		sellitemButton7.setFont(new Font("Dialog", Font.BOLD, 10));
 		sellitemButton7.setHorizontalAlignment(SwingConstants.LEFT);
-		sellitemButton8 = new JToggleButton(printingName(2, 7));
 		sellitemButton8.setFont(new Font("Dialog", Font.BOLD, 10));
 		sellitemButton8.setHorizontalAlignment(SwingConstants.LEFT);
-		sellitemButton9 = new JToggleButton(printingName(2, 8));
 		sellitemButton9.setFont(new Font("Dialog", Font.BOLD, 10));
 		sellitemButton9.setHorizontalAlignment(SwingConstants.LEFT);
-		sellitemButton10 = new JToggleButton(printingName(2, 9));
 		sellitemButton10.setFont(new Font("Dialog", Font.BOLD, 10));
 		sellitemButton10.setHorizontalAlignment(SwingConstants.LEFT);
 		
@@ -619,13 +621,9 @@ public class MarketGui implements UserInterface{
 					refreshScreen();
 					athleteDiscriptionLabel.setText("Recruited!!");
 				}
-				catch(EmptySlotException a){
-					athleteDiscriptionLabel.setText(a.getMessage());	
-				}		
-				catch(NoSpaceException a) {
-					athleteDiscriptionLabel.setText(a.getMessage());
-				}
-			}
+				catch(EmptySlotException a){athleteDiscriptionLabel.setText(a.getMessage());}		
+				catch(NoSpaceException a) {athleteDiscriptionLabel.setText(a.getMessage());}
+				catch(LackOfMoneyException a) {athleteDiscriptionLabel.setText(a.getMessage());}}
 		});
 		recruitButton.setFont(new Font("Lucida Grande", Font.BOLD, 23));
 		recruitButton.setBounds(705, 607, 287, 63);
@@ -643,11 +641,10 @@ public class MarketGui implements UserInterface{
 					refreshScreen();
 					itemDiscriptionLabel.setText("Purchased!!");
 				}
-				catch(EmptySlotException a) {
-					itemDiscriptionLabel.setText(a.getMessage());
-				}
-			}
-		});
+				catch(EmptySlotException a) {itemDiscriptionLabel.setText(a.getMessage());}
+				catch(NoSpaceException a) {athleteDiscriptionLabel.setText(a.getMessage());}
+				catch(LackOfMoneyException a) {itemDiscriptionLabel.setText(a.getMessage());}}});
+		
 		purchaseButton.setFont(new Font("Lucida Grande", Font.BOLD, 23));
 		purchaseButton.setBounds(1373, 611, 180, 55);
 		frmMarket.getContentPane().add(purchaseButton);
@@ -664,24 +661,18 @@ public class MarketGui implements UserInterface{
 						refreshScreen();
 						sellDescriptionLabel.setText("Sold your athlete!!");
 					}
-					catch(EmptySlotException a){	
-						sellDescriptionLabel.setText(a.getMessage());
-					}	
-				}
+					catch(EmptySlotException a){sellDescriptionLabel.setText(a.getMessage());}}
+				
 				else if(itemSellNum != -1) {
 					try {
 						gameEnvironment.tradingProcess("sell", myInventory ,itemSellNum);
 						itemSellNum = -1;
 						cancelSellAthleteItemToggle();
 						refreshScreen();
-						sellDescriptionLabel.setText("Sold your item!!");
-				}
-					catch(EmptySlotException a) {
-						sellDescriptionLabel.setText(a.getMessage());
-					}
-				}
-			}
-		});
+						sellDescriptionLabel.setText("Sold your item!!");}
+					
+					catch(EmptySlotException a) {sellDescriptionLabel.setText(a.getMessage());}}}});
+		
 		sellButton.setFont(new Font("Lucida Grande", Font.BOLD, 23));
 		sellButton.setBounds(1451, 900, 174, 63);
 		frmMarket.getContentPane().add(sellButton);

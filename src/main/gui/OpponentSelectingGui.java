@@ -162,8 +162,7 @@ public class OpponentSelectingGui implements UserInterface {
 	}
 	
 	
-	private String printing(int flag, int teamNum, int indexNum) {
-		if (flag == 0) {
+	private String printing( int teamNum, int indexNum) {
 		return printing(opponentList[teamNum].getRoster()[indexNum].getAthleteSummary());
 	}
 	/*

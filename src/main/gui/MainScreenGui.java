@@ -19,6 +19,7 @@ import javax.swing.JToggleButton;
 import main.gameObject.*;
 import main.gameObject.athletes.Athlete;
 import main.gameObject.item.Item;
+import main.gamesystem.Exception.InsufficientAthleteException;
 
 import javax.swing.SwingConstants;
 
@@ -422,13 +423,6 @@ public class MainScreenGui implements UserInterface{
 		JButton marketButton = new JButton("Market");
 		marketButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//////////////////////////////////////////////////////////////////////////////for test, autometically buy 4 athletes/////////////////////////////////////
-//				gameEnvironment.tradingProcess("buy", gameEnvironment.getMarket().getAthleteProduct() ,0);
-//				gameEnvironment.tradingProcess("buy", gameEnvironment.getMarket().getAthleteProduct() ,1);
-//				gameEnvironment.tradingProcess("buy", gameEnvironment.getMarket().getAthleteProduct() ,2);
-//				gameEnvironment.tradingProcess("buy", gameEnvironment.getMarket().getAthleteProduct() ,3);
-				//////////////////////////////////////////////////////////////////////////////for test, autometically buy 4 athletes//////////////////////////////////////
-
 				frmMainWindow.dispose();
 				MarketGui openMarket = new MarketGui(gameEnvironment);
 			}
@@ -441,12 +435,14 @@ public class MainScreenGui implements UserInterface{
 		JButton stadiumButton = new JButton("Stadium");
 		stadiumButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				for (int i=0; i<4;i++) {
-					if (null == myRoster[i]) {
-						noticeLabel.setText("You need at least 4 Athletes in Active slots");
-						return;}}
-				frmMainWindow.dispose();
-				OpponentSelectingGui letsSelectOpponent = new OpponentSelectingGui(gameEnvironment);		
+				try {
+					gameEnvironment.isPlayable();
+					frmMainWindow.dispose();
+					OpponentSelectingGui letsSelectOpponent = new OpponentSelectingGui(gameEnvironment);}
+				catch(InsufficientAthleteException a) {
+					noticeLabel.setText(a.getMessage());
+							
+				}
 			}
 		});
 		stadiumButton.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
@@ -464,7 +460,7 @@ public class MainScreenGui implements UserInterface{
 		exitButton.setBounds(1512, 971, 117, 30);
 		frmMainWindow.getContentPane().add(exitButton);
 		
-		//switch two selected athletes around and reset all toggle buttons of Athletes
+		//switch two selected athletes around and reset all toggle buttons of Athletes 
 		JButton switchButton = new JButton("Switch");
 		switchButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -507,8 +503,7 @@ public class MainScreenGui implements UserInterface{
 				refreshScreen();
 				cancelAthleteToggle();
 				cancelItemToggle();	
-				usingItemNum = -1;
-				
+				usingItemNum = -1;	
 			}
 		});
 		itemUseButton.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
@@ -568,8 +563,6 @@ public class MainScreenGui implements UserInterface{
 	    	System.exit(0);
 	    }
 	}
-	
-	
 	/*
 	 * create panel to notify the player that one athlete has left. This is random occasion.
 	 */
