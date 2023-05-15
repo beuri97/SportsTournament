@@ -19,7 +19,8 @@ import main.gamesystem.SetUp;
  * @author H Yang, J Kim
  */
 public class GameEnvironment {
-    /**
+
+	/**
      * game difficulty
      */
     DifficultyOption difficulty;
@@ -98,6 +99,7 @@ public class GameEnvironment {
 		return this.team;
 	}
 
+
 	public Market getMarket() {
 
 		return this.market;
@@ -108,10 +110,12 @@ public class GameEnvironment {
 		return this.difficulty;
 	}
 
+
 	public int getCurrentSeason() {
 
 		return this.currentSeason;
 	}
+
 
 	public int getTotalSeason() {
 
@@ -256,7 +260,7 @@ public class GameEnvironment {
 	}
 
 	public void battleSequences() {
-
+		//TODO - check if athlete is injured
 		this.gameManager.battle();
 
 	}
@@ -273,6 +277,13 @@ public class GameEnvironment {
 		return new int[] {playerScore, opponentScore};
 	}
 
+	public int[] getPlayerOverall() {
+
+		int playerWin = team.getGameWin();
+		int totalPlayerPlay = team.getTotalGamePlay();
+		return new int[] {playerWin, totalPlayerPlay};
+	}
+
 	/**
 	 * reset market status and match list when user take a bye
 	 */
@@ -281,6 +292,13 @@ public class GameEnvironment {
 		this.played = false;
 		this.market = new Market();
 		this.setOpponent();
+		Athlete[] roster = this.getTeam().getRoster();
+		for(int i = 0; i < roster.length; i++){
+
+
+			if (setup.isLeave(3.00)) team.leaveAthletes(i);
+			this.getTeam().getRoster()[i].setStamina(roster[i].getMaxStamina());
+		}
 		// TODO - Athlete Random events
 	}
 }

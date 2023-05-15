@@ -15,7 +15,7 @@ import java.util.*;
 public class Team {
 
     protected final int TOTAL_ATHLETE = 7;
-    protected final int TOTAL_ITEM = 14;
+    protected final int TOTAL_ITEM = 10;
     /**
      * Team name
      */
@@ -35,6 +35,9 @@ public class Team {
      */
     ArrayList<Item> inventory = new ArrayList<>();
 
+    int gameWin;
+    int totalGamePlay;
+
 
     /**
      * set Team Name
@@ -45,13 +48,33 @@ public class Team {
         this.name = name;
     }
 
+    public void setGameWin(){
+
+        gameWin++;
+    }
+
+    public void setTotalGamePlay() {
+
+        totalGamePlay++;
+    }
+
     /**
      * get method to return Team name
      * @return Team name
      */
     public String getName(){
 
-        return this.name;
+        return name;
+    }
+
+    public int getGameWin() {
+
+        return gameWin;
+    }
+
+    public int getTotalGamePlay() {
+
+        return totalGamePlay;
     }
 
     /**
@@ -61,7 +84,7 @@ public class Team {
      */
     public Athlete[] getRoster() {
 
-        return this.roster.toArray(new Athlete[TOTAL_ATHLETE]);
+        return roster.toArray(new Athlete[TOTAL_ATHLETE]);
     }
 
     /**
@@ -70,7 +93,7 @@ public class Team {
      */
     public Item[] getInventory() {
 
-        return this.inventory.toArray(new Item[TOTAL_ITEM]);
+        return inventory.toArray(new Item[TOTAL_ITEM]);
     }
 
     /**
@@ -79,23 +102,23 @@ public class Team {
      */
     public double getMoney() {
 
-        return this.money;
+        return money;
     }
 
 
     public void setMoney(double price) throws RuntimeException {
 
-        if(this.money + price < 0) throw new LackOfMoneyException();
-        this.money += price;
+        if(money + price < 0) throw new LackOfMoneyException();
+        money += price;
     }
 
     public void isQualify(){
         int count = 0;
 
-        for (Athlete a : this.roster) {
-            if (a != null) count++;
-            if ((a == null && count < 4)) throw new InsufficientAthleteException();
-
+        for (Athlete athlete : this.getRoster()) {
+            if (athlete != null) count++;
+            if (athlete != null && count < 4 && athlete.isInjured()) throw new InsufficientAthleteException("Detected Injured regular athletes.");
+            if (athlete == null && count < 4) throw new InsufficientAthleteException();
         }
 
     }
@@ -109,14 +132,14 @@ public class Team {
 
         // if there is any null in array swap null to new athlete
         // else add new athlete at the end if total number of current athletes are less than 7
-        for(int i=0; i<this.roster.size(); i++){
-            if (this.roster.get(i) == null) {
-                this.roster.set(i,(Athlete) athlete);
+        for(int i=0; i<roster.size(); i++){
+            if (roster.get(i) == null) {
+                roster.set(i,(Athlete) athlete);
                 break;
             }
         }
-        if(this.roster.size()<=TOTAL_ATHLETE && !this.roster.contains((Athlete)athlete))
-            this.roster.add((Athlete)athlete);
+        if(roster.size()<=TOTAL_ATHLETE && !roster.contains((Athlete)athlete))
+            roster.add((Athlete)athlete);
 
         // This will not run but keep it for this program to run safe
         else throw new NoSpaceException();
@@ -130,7 +153,7 @@ public class Team {
  */
     public void leaveAthletes(int col) {
 
-        this.roster.set(col, null);
+        roster.set(col, null);
     }
 
     /**
@@ -139,14 +162,14 @@ public class Team {
      */
     public void addItem(Product item) {
 
-        for(int i=0; i<this.inventory.size(); i++){
-            if (this.inventory.get(i) == null) {
-                this.inventory.set(i,(Item) item);
+        for(int i=0; i<inventory.size(); i++){
+            if (inventory.get(i) == null) {
+                inventory.set(i,(Item) item);
                 break;
             }
         }
-        if(this.inventory.size() < TOTAL_ITEM && !this.inventory.contains((Item)item))
-            this.inventory.add((Item) item);
+        if(inventory.size() < TOTAL_ITEM && !inventory.contains((Item)item))
+            inventory.add((Item) item);
 
         // This will not run but keep it for this program to run safe
         else throw new NoSpaceException();
@@ -157,7 +180,7 @@ public class Team {
      * @param col target item's index that will be removed
      */
     public void removeItem(int col) {
-        this.inventory.set(col, null);
+        inventory.set(col, null);
     }
 
     public boolean isFull(Product[] products) {
@@ -173,6 +196,6 @@ public class Team {
 
     public void swapAthletes(int athlete1, int athlete2) {
 
-        Collections.swap(this.roster, athlete1, athlete2);
+        Collections.swap(roster, athlete1, athlete2);
     }
 }

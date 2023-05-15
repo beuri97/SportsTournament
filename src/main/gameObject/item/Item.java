@@ -42,11 +42,10 @@ public class Item implements Product{
 		return buyPrice;
 	}
 	/**
-	 * @return the price of item to sell
-	 */
-	public float getSellPrice() {
-		float i = getPrice() * SELL_PRICE_PENALTY;		
-		return i;
+     *
+     */
+	public void setSellPrice() {
+		buyPrice *= SELL_PRICE_PENALTY;
 	}
 	/**
 	 * @return the amount increasing specific stat by item
@@ -62,6 +61,7 @@ public class Item implements Product{
 		
 		return incStat;
 	}
+
 	/**
 	 * @return description of item
 	 */

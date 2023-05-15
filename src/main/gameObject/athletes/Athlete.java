@@ -103,11 +103,24 @@ public class Athlete implements Product{
      */
     public int getStamina() {return this.stamina;}
 
+
+    public int getMaxStamina() {
+
+        return maxStamina;
+    }
+
     /**
      * show athletes' price
      * @return athletes' price
      */
     public float getPrice() {return this.price;}
+
+    public String getAthleteSummary() {
+
+        return String.format("Name: %s%n Offense: %d%n Defense: %s%n, Stamina: %d/%d%n, Injured: %s%n",
+                getName(), getOffenseStat(), getDefenseStat(), getStamina(), getMaxStamina(),
+                (isInjured()) ? "Yes":"No");
+    }
 
     /**
      * check if an athlete is injured,
@@ -163,14 +176,11 @@ public class Athlete implements Product{
     @Override
     public String toString() {
 
-        return String.format("Name: %s%nRarity: %s%nOffense: %d%nDefense: %d%nStamina: %d%nPrice: %.2f%nDescription: %s%n",
-                getName(), getRarity(), getOffenseStat(), getDefenseStat(), getStamina(), getPrice(), getDescription());
+        return String.format("Name: %s%nRarity: %s%nOffense: %d%nDefense: %d%nStamina: %d/%d%nPrice: %.2f%nDescription: %s%n",
+                getName(), getRarity(), getOffenseStat(), getDefenseStat(), getStamina(), getMaxStamina(), getPrice(), getDescription());
     }
 
-    public float getSellPrice() {
-        float sellPrice = this.price;
-        sellPrice *= SELL_PRICE_PENALTY;
-
-        return sellPrice;
+    public void setSellPrice() {
+       price *= SELL_PRICE_PENALTY;
     }
 }
