@@ -26,7 +26,7 @@ public interface UserInterface {
 	
 	default String printing(String message) {
 
-		return (message == null) ? "EMPTY" : String.format("<html>%s</html>", message.replace("\n", "<br/><br/>"));
+		return (message == null) ? "EMPTY" : String.format("<html>%s</html>", message.replace("\n", "<br/>"));
 	}
 
 	default String printing(Object product) {
