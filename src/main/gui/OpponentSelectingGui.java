@@ -130,7 +130,7 @@ public class OpponentSelectingGui implements UserInterface {
 		myTeamLabel.setBounds(12, 12, 236, 33);
 		myTeamPanel.add(myTeamLabel);
 		
-		myAthleteLabel1 = new JLabel(printingAthleteInfo(0));
+		myAthleteLabel1 = new JLabel(printing(myRoster[0].getAthleteSummary()));
 		myAthleteLabel2 = new JLabel(printingAthleteInfo(1));
 		myAthleteLabel3 = new JLabel(printingAthleteInfo(2));
 		myAthleteLabel4 = new JLabel(printingAthleteInfo(3));
@@ -194,7 +194,7 @@ public class OpponentSelectingGui implements UserInterface {
 		opponentTeamLabel1.setBounds(12, 12, 185, 33);
 		opponentPanel.add(opponentTeamLabel1);
 		
-		opponentTeam1Label1 = new JLabel("opponentAthlete1");
+		opponentTeam1Label1 = new JLabel(printing(opponentList[0].getRoster()[0].getAthleteSummary()));
 		opponentTeam1Label2 = new JLabel("opponentAthlete2");
 		opponentTeam1Label3 = new JLabel("opponentAthlete3");
 		opponentTeam1Label4 = new JLabel("opponentAthlete4");
