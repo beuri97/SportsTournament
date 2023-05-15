@@ -38,6 +38,7 @@ public class Market {
 
 		}
 	}
+
 	/**
 	 * Represent kinds of {@link main.gameObject.item.Item Items}.
 	 * This will be used to generate items randomly.

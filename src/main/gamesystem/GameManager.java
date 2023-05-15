@@ -47,6 +47,9 @@ public class GameManager{
      */
     private int buffOffensive, nerfOffensive, buffDefensive, nerfDefensive;
 
+
+    private int opponentBuff;
+
     /**
      * Define total number of set of each game
      */
@@ -92,6 +95,8 @@ public class GameManager{
         this.nerfOffensive = playerAthlete.getOffenseStat() + 10;
         this.buffDefensive = playerAthlete.getDefenseStat() + 15;
         this.nerfDefensive = playerAthlete.getDefenseStat() + 5;
+        // this.opponentBuff = setOpponentAdjustStat();
+        // this.opponentNerf = setOpponentAdjustStat();
 
     }
 
@@ -194,20 +199,36 @@ public class GameManager{
         }
     }
 
+    private int setOpponentAdjustStat(){
+
+        return (difficulty.toString().equals("Easy")) ? random.nextInt(10, 30) +1 :
+                random.nextInt(15,40) + 1;
+
+
+    }
+
     /**
      * main battle is executed when this method is called.
      */
     public void battle() {
 
+
+        // Use Athletes offense and defense stat to get result of each battle
+        int opponentOffense = opponentAthlete.getOffenseStat();
+        int opponentDefense = opponentAthlete.getDefenseStat();
+
         do {
-            // Use Athletes offense and defense stat to get result of each battle
-            int opponentOffense = opponentAthlete.getOffenseStat();
-            int opponentDefense = opponentAthlete.getDefenseStat();
+            this.playerScored = false;
+            this.opponentScored = false;
+            this.opponentBuff = setOpponentAdjustStat();
             // use random numerical value from revised stats that is revised with nerf and buff stat
             double playerAttackStat = random.nextDouble(this.nerfOffensive, this.buffOffensive);
             double playerDefenseStat = random.nextDouble(this.nerfDefensive, this.buffDefensive);
-            double opponentAttackStat =  random.nextDouble(opponentOffense - 10, opponentOffense + 30);
-            double opponentDefenseStat = random.nextDouble(opponentDefense - 10, opponentDefense + 30);
+
+            // use random numerical value from revised stats that is revised with nerf and buff stat
+            double opponentAttackStat =  random.nextDouble(opponentOffense - 10, opponentOffense + opponentBuff);
+
+            double opponentDefenseStat = random.nextDouble(opponentDefense - 5, opponentDefense + opponentBuff);
             // analyze outcome of the battle
             if (playerAttackStat > opponentDefenseStat) {
                 this.playerScored = true;
@@ -223,8 +244,6 @@ public class GameManager{
         } while (!this.playerScored && !this.opponentScored);
 
         //reset flag when while loop is terminated
-        this.playerScored = false;
-        this.opponentScored = false;
     }
 
     /**
@@ -238,29 +257,13 @@ public class GameManager{
 
     public String battleMessage(){
 
-        String message = "Battle result: \n";
-        message += String.format("%s attacked %s%n", this.playerAthlete.getName(),
-                (this. playerScored) ? "and Success!" : "but failed");
-        message += (this.playerScored) ? String.format("%s get score.%n", playerAthlete) : "";
-        message += String.format("%s attacked %s%n", opponentAthlete.getName(),
-                (opponentScored) ? "and Success!" : "but failed");
-        message += (playerScored) ? String.format("%s get score.%n", opponentAthlete) : "";
+        String message = "Batte Result: " + String.format("%s attacked %s%n", this.playerAthlete.getName(),
+                (this.playerScored) ? "and Success!" : "but failed") +
+                ((this.playerScored) ? String.format("%s get score.%n", playerAthlete) : "") +
+                String.format("%s attacked %s%n", opponentAthlete.getName(),
+                        (opponentScored) ? "and Success!" : "but failed") +
+                ((playerScored) ? String.format("%s get score.%n", opponentAthlete) : "");
 
         return message;
     }
-
-    /**
-     * Report method for give result of the game
-     * @return game result in string
-     */
-//    public String gameResult() {
-//
-//        String result;
-//        if (this.playerGameScore > this.opponentGameScore) result = "YOU WIN";
-//        else if (this.playerGameScore == this.opponentGameScore) result = "DRAW";
-//        else result = "YOU LOSE";
-//        result += String.format("MONEY: %d%n")
-//
-//        return result;
-//    }
 }

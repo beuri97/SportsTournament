@@ -385,11 +385,11 @@ public class CmdLineUi implements UserInterface {
 
 	private void stadium() {
 
-		System.out.println("Select opponent:");
 		final String REGEX = String.format("[1-%d]", gameEnvironment.getAllOpponent().length);
 		while(true) {
 			try {
 				this.gameEnvironment.isPlayable();
+				System.out.println("Select opponent:");
 				listing(gameEnvironment.getAllOpponent());
 				String input = scan.nextLine();
 				gameEnvironment.check(input, REGEX, "");
@@ -426,13 +426,13 @@ public class CmdLineUi implements UserInterface {
 			do {
 				System.out.println("Order to your Athlete:");
 				System.out.println("You have follow option");
-				System.out.println("1. Choose either aggressively, carefully, or skip this command pressing enter");
+				System.out.println("1. Choose either aggressive, careful, or skip this command pressing enter");
 				System.out.println("Then athlete will battle");
 				try{
 					String input = scan.nextLine();
-					if(input.equals("aggressively"))
+					if (input.equals("aggressive"))
 						gameEnvironment.buffOffensive();
-					else if (input.equals("carefully"))
+					else if (input.equals("careful"))
 						gameEnvironment.buffDefensive();
 					else if (input.equals(""))
 						System.out.println();
@@ -445,11 +445,8 @@ public class CmdLineUi implements UserInterface {
 					System.out.println(e.getMessage());
 				}
 			} while(!gameEnvironment.isSet());
-
-			this.gameResult();
 		}
-
-
+		this.gameResult();
 	}
 
 

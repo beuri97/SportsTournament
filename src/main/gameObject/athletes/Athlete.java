@@ -115,6 +115,13 @@ public class Athlete implements Product{
      */
     public float getPrice() {return this.price;}
 
+    public String getAthleteSummary() {
+
+        return String.format("Name: %s%n Offense: %d%n Defense: %s%n, Stamina: %d/%d%n, Injured: %s%n",
+                getName(), getOffenseStat(), getDefenseStat(), getStamina(), getMaxStamina(),
+                (isInjured()) ? "Yes":"No");
+    }
+
     /**
      * check if an athlete is injured,
      * athletes' injured variable becomes true if athletes' stamina is lower than or equal to zero
@@ -169,7 +176,7 @@ public class Athlete implements Product{
     @Override
     public String toString() {
 
-        return String.format("Name: %s%nRarity: %s%nOffense: %d%nDefense: %d/%d%nStamina: %d%nPrice: %.2f%nDescription: %s%n",
+        return String.format("Name: %s%nRarity: %s%nOffense: %d%nDefense: %d%nStamina: %d/%d%nPrice: %.2f%nDescription: %s%n",
                 getName(), getRarity(), getOffenseStat(), getDefenseStat(), getStamina(), getMaxStamina(), getPrice(), getDescription());
     }
 

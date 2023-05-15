@@ -19,7 +19,8 @@ import main.gamesystem.SetUp;
  * @author H Yang, J Kim
  */
 public class GameEnvironment {
-    /**
+
+	/**
      * game difficulty
      */
     DifficultyOption difficulty;

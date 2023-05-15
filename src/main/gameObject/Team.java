@@ -115,7 +115,7 @@ public class Team {
     public void isQualify(){
         int count = 0;
 
-        for (Athlete athlete : roster) {
+        for (Athlete athlete : this.getRoster()) {
             if (athlete != null) count++;
             if (athlete != null && count < 4 && athlete.isInjured()) throw new InsufficientAthleteException("Detected Injured regular athletes.");
             if (athlete == null && count < 4) throw new InsufficientAthleteException();
