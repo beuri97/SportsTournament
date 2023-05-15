@@ -186,6 +186,7 @@ public class SetupScreenGui implements UserInterface{
 				else {
 					//if player doesn't choose difficulty, go with default(easy) level.
 					if (gameEnvironment.getDifficulty() == null) {level = DifficultyOption.EASY;}
+					
 					gameEnvironment.set(teamNameField.getText(), slider.getValue(), level);	
 					frmFencingGame.dispose();
 					MainScreenGui gameStart = new MainScreenGui(gameEnvironment);

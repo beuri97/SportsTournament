@@ -32,10 +32,7 @@ public class MarketGui implements UserInterface{
 	Product[] itemList;
 	Athlete[] myRoster;
 	Item[] myInventory;
-	
-////////////////////////////////after test.this will be deleted /////////////////////////////////////////////////////////////////////////////		
-	JLabel tempTest;
-////////////////////////////////after test.this will be deleted /////////////////////////////////////////////////////////////////////////////		
+		
 	private JToggleButton buyAthleteBttn1;
 	private JToggleButton buyAthleteBttn2;
 	private JToggleButton buyAthleteBttn3;
@@ -105,7 +102,9 @@ public class MarketGui implements UserInterface{
 		setSellAthleteItemPanel();
 		setButton();
 	}
-	
+	/*
+	 * set the frame with labels
+	 */
 	private void setFrameLabel() {
 		frmMarket = new JFrame();
 		frmMarket.setTitle("Market");
@@ -130,7 +129,9 @@ public class MarketGui implements UserInterface{
 		frmMarket.getContentPane().add(moneyLabel);
 		moneyLabel.setText("$ " + gameEnvironment.getTeam().getMoney());
 	}
-	
+	/*
+	 * set the panel to show available athletes in market
+	 */
 	private void setBuyAthletePanel() {
 		
 		JPanel atheltePhotoPanel = new JPanel();
@@ -211,7 +212,9 @@ public class MarketGui implements UserInterface{
 		setBuyAthletePanel.add(buyAthleteBttn6);
 
 	}
-	
+	/*
+	 * set the panel to show available items in market
+	 */
 	private void setBuyItemsPanel() {
 
 		JPanel setBuyItemsPanel = new JPanel();
@@ -356,20 +359,24 @@ public class MarketGui implements UserInterface{
 		sellitemButton9.setSelected(false);
 		sellitemButton10.setSelected(false);
 	}
-
+	/* 
+	 * function to help buying athletes
+	 * assign the athlete slot number and cancel all the toggle buttons clicked
+	 */
 	private void helpFuncBuyAthlete(int slotNum) {
 		cancelBuyAhtleteToggle();
 		athleteBuyNum = slotNum;
 		athleteDiscriptionLabel.setText(printing(athleteList[slotNum]));
 	}
-	
+	/* 
+	 * function to help buying items
+	 * assign the athlete slot number and cancel all the toggle buttons clicked
+	 */
 	private void helpFuncBuyItem(int slotNum) {
 		cancelBuyItemToggle();
 		itemBuyNum = slotNum;
 		itemDiscriptionLabel.setText(printing(itemList[slotNum]));
 	}
-	
-	
 	/*
 	 * Sell button is clicked, cancel all the other sell buttons,
 	 * and assign the index number of athlete list
@@ -388,7 +395,6 @@ public class MarketGui implements UserInterface{
 			itemSellNum = slotNum;
 			sellDescriptionLabel.setText(printing(myInventory[slotNum]));
 	}
-	
 	/*
 	 * update screen with the latest information.
 	 */
@@ -398,9 +404,7 @@ public class MarketGui implements UserInterface{
 		itemList = gameEnvironment.getMarket().getItemProduct();
 		myInventory = gameEnvironment.getTeam().getInventory();
 		myRoster = gameEnvironment.getTeam().getRoster();
-		
 	}
-	
 	/*
 	 * show the current athletes and items that the player has
 	 */
@@ -431,57 +435,43 @@ public class MarketGui implements UserInterface{
 		sellAthleteButton1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				helpFuncSellAthlete(0);
-				sellAthleteButton1.setSelected(true);
-			}
-		});
+				sellAthleteButton1.setSelected(true);}});
 		
 		setSellAthletePanel.add(sellAthleteButton2);
 		sellAthleteButton2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				helpFuncSellAthlete(1);
-				sellAthleteButton2.setSelected(true);
-			}
-		});
+				sellAthleteButton2.setSelected(true);}});
 		
 		setSellAthletePanel.add(sellAthleteButton3);
 		sellAthleteButton3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				helpFuncSellAthlete(2);
-				sellAthleteButton3.setSelected(true);
-			}
-		});
+				sellAthleteButton3.setSelected(true);}});
 		
 		setSellAthletePanel.add(sellAthleteButton4);
 		sellAthleteButton4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				helpFuncSellAthlete(3);
-				sellAthleteButton4.setSelected(true);
-			}
-		});
+				sellAthleteButton4.setSelected(true);}});
 		
 		setSellAthletePanel.add(sellAthleteButton5);
 		sellAthleteButton5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				helpFuncSellAthlete(4);
-				sellAthleteButton5.setSelected(true);
-			}
-		});
+				sellAthleteButton5.setSelected(true);}});
 		
 		setSellAthletePanel.add(sellAthleteButton6);
 		sellAthleteButton6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				helpFuncSellAthlete(5);
-				sellAthleteButton6.setSelected(true);
-			}
-		});
+				sellAthleteButton6.setSelected(true);}});
 		
 		setSellAthletePanel.add(sellAthleteButton7);
 		sellAthleteButton7.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				helpFuncSellAthlete(6);
-				sellAthleteButton7.setSelected(true);
-			}
-		});
+				sellAthleteButton7.setSelected(true);}});
 		//set the sell item buttons
 		sellitemButton1 = new JToggleButton("Item1");
 		sellitemButton2 = new JToggleButton("Item2");
@@ -498,80 +488,57 @@ public class MarketGui implements UserInterface{
 		sellitemButton1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				helpFuncSellItem(0);
-				sellitemButton1.setSelected(true);
-			}
-		});
+				sellitemButton1.setSelected(true);}});
 		setSellItemPanel.add(sellitemButton2);
 		sellitemButton2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				helpFuncSellItem(1);
-				sellitemButton2.setSelected(true);
-			}
-		});
-		
+				sellitemButton2.setSelected(true);}});
 		setSellItemPanel.add(sellitemButton3);
 		sellitemButton3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				helpFuncSellItem(2);
-				sellitemButton3.setSelected(true);
-			}
-		});
+				sellitemButton3.setSelected(true);}});
 		setSellItemPanel.add(sellitemButton4);
 		sellitemButton4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				helpFuncSellItem(3);
-				sellitemButton4.setSelected(true);
-			}
-		});
+				sellitemButton4.setSelected(true);}});
 		setSellItemPanel.add(sellitemButton5);
 		sellitemButton5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				helpFuncSellItem(4);
-				sellitemButton5.setSelected(true);
-			}
-		});
+				sellitemButton5.setSelected(true);}});
 		setSellItemPanel.add(sellitemButton6);
 		sellitemButton6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				helpFuncSellItem(5);
-				sellitemButton6.setSelected(true);
-			}
-		});
+				sellitemButton6.setSelected(true);}});
 		setSellItemPanel.add(sellitemButton7);
 		sellitemButton7.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				helpFuncSellItem(6);
-				sellitemButton7.setSelected(true);
-			}
-		});
+				sellitemButton7.setSelected(true);}});
 		setSellItemPanel.add(sellitemButton8);
 		sellitemButton8.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				helpFuncSellItem(7);
-				sellitemButton8.setSelected(true);
-			}
-		});
+				sellitemButton8.setSelected(true);}});
 		setSellItemPanel.add(sellitemButton9);
 		sellitemButton9.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				helpFuncSellItem(8);
-				sellitemButton9.setSelected(true);
-			}
-		});
+				sellitemButton9.setSelected(true);}});
 		setSellItemPanel.add(sellitemButton10);
 		sellitemButton10.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				helpFuncSellItem(9);
-				sellitemButton10.setSelected(true);
-			}
-		});
+				sellitemButton10.setSelected(true);}});
 	}
-	
 	/*
 	 * set all the buttons on window, but not in the panel.
 	 */
 	private void setButton() {
-		
 		// button to recruit the clicked athlete
 		JButton recruitButton = new JButton("RECRUIT");
 		recruitButton.addActionListener(new ActionListener() {
@@ -644,9 +611,10 @@ public class MarketGui implements UserInterface{
 		backButton.setBounds(30, 982, 97, 31);
 		frmMarket.getContentPane().add(backButton);
 
-
 	}
-	
+	/*
+	 * make a panel to show the information of athletes and items when the player click
+	 */
 	private void setAthleteItemInfoPanel() {
 		JPanel setBuyItemInfoPanel = new JPanel();
 		setBuyItemInfoPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -682,17 +650,17 @@ public class MarketGui implements UserInterface{
 		sellAthleteItemInfoLabel.setBounds(112, 12, 212, 20);
 		setSellAthleteItemInfoPanel.add(sellAthleteItemInfoLabel);
 		
-		athleteDiscriptionLabel = new JLabel("");
+		athleteDiscriptionLabel = new JLabel();
 		athleteDiscriptionLabel.setBounds(25, 63, 199, 369);
 		setBuyAthleteInfoPanel.add(athleteDiscriptionLabel);
 		athleteDiscriptionLabel.setFont(new Font("Dialog", Font.PLAIN, 18));
 
-		itemDiscriptionLabel = new JLabel("");
+		itemDiscriptionLabel = new JLabel();
 		itemDiscriptionLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
 		itemDiscriptionLabel.setBounds(22, 66, 142, 382);
 		setBuyItemInfoPanel.add(itemDiscriptionLabel);
 		
-		sellDescriptionLabel = new JLabel("");
+		sellDescriptionLabel = new JLabel();
 		sellDescriptionLabel.setFont(new Font("Dialog", Font.PLAIN, 14));
 		sellDescriptionLabel.setBounds(41, 44, 342, 158);
 		setSellAthleteItemInfoPanel.add(sellDescriptionLabel);
