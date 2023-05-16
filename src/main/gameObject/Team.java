@@ -151,9 +151,10 @@ public class Team {
  * or an athlete is injured.
  * @param col target athlete's index that will be removed
  */
-    public void leaveAthletes(int col) {
+    public void leaveAthletes(Product athlete) {
 
-        roster.set(col, null);
+        int index = roster.indexOf((Athlete) athlete);
+        roster.set(index, null);
     }
 
     /**
