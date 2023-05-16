@@ -64,7 +64,6 @@ public class StadiumGui implements UserInterface{
 	 * Create the application.
 	 */
 	public StadiumGui(GameEnvironment gameEnvironment) {
-		this.gameEnvironment = gameEnvironment;
 		this.myRoster = gameEnvironment.getTeam().getRoster();
 		this.opponentRoster = gameEnvironment.getOpponent();
 		setup(gameEnvironment);
@@ -84,6 +83,7 @@ public class StadiumGui implements UserInterface{
 		frmStadium = new JFrame();
 		frmStadium.setSize(1650,1080);
 		frmStadium.getContentPane().setLayout(null);
+		frmStadium.setLocation((1925 - frmStadium.getWidth()) / 2, (1080 - frmStadium.getHeight()) / 2);
 		frmStadium.setVisible(true);
 		
 		JLabel statBuffLabel = new JLabel("My Athlete Stat with Buff");
@@ -294,9 +294,16 @@ public class StadiumGui implements UserInterface{
 	        JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null,
 	        options1, null);
 	    if (result == JOptionPane.YES_OPTION) {
-	    	frmStadium.dispose();
-			MainScreenGui backToMain = new MainScreenGui(gameEnvironment);
+	    	finishedWindow();
+			gameEnvironment.openMainScreen();
 	    }
-
+	    
+	}
+	public void closeWindow() {
+		frmStadium.dispose();
+	}
+	
+	public void finishedWindow() {
+		gameEnvironment.closeStatiumScreen(this);
 	}
 }

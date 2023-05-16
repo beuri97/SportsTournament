@@ -10,6 +10,11 @@ import main.gamesystem.Exception.EmptySlotException;
 import main.gamesystem.Exception.IllegalInputException;
 import main.gamesystem.Exception.InsufficientAthleteException;
 import main.gamesystem.Exception.NoSpaceException;
+import main.gui.MainScreenGui;
+import main.gui.MarketGui;
+import main.gui.SelectOpponentGui;
+import main.gui.SetupWindowGui;
+import main.gui.StadiumGui;
 import main.gamesystem.GameManager;
 import main.gamesystem.Market;
 import main.gamesystem.SetUp;
@@ -68,7 +73,7 @@ public class GameEnvironment {
 	 * Boolean set true if player play game at least once
 	 */
 	private boolean played;
-
+	
 	/**
 	 * Start new game by setting up Team name, number of weeks for season and difficulty of game
 	 */
@@ -302,4 +307,41 @@ public class GameEnvironment {
 		}
 		// TODO - Athlete Random events
 	}
+	/**
+	 *open gui screens for Setup, Main, Market, Selecting Opponents, Stadium 
+	 */
+	public void openSetupWindow() {
+		SetupWindowGui setupWindow = new SetupWindowGui(this);
+	}
+	public void openMainScreen() {
+		MainScreenGui mainWindow = new MainScreenGui(this);
+	}
+	public void openMarketScreen() {
+		MarketGui marketWindow = new MarketGui(this);
+	}
+	public void openSelectingOpponent() {
+		SelectOpponentGui selectOpponentWindow = new SelectOpponentGui(this);
+	}
+	public void openStatiumScreen() {
+		StadiumGui stadiumWindow = new StadiumGui(this);
+	}
+	/**
+	 *close gui screens for Setup, Main, Market, Selecting Opponents, Stadium 
+	 */
+	public void closeSetupWindow(SetupWindowGui setupWindow) {
+		setupWindow.closeWindow();
+	}
+	public void closeMainScreen(MainScreenGui mainWindow) {
+		mainWindow.closeWindow();
+	}
+	public void closeMarketScreen(MarketGui marketWindow) {
+		marketWindow.closeWindow();
+	}
+	public void closeSelectingOpponent(SelectOpponentGui selectOpponentWindow) {
+		selectOpponentWindow.closeWindow();
+	}
+	public void closeStatiumScreen(StadiumGui stadiumWindow) {
+		stadiumWindow.closeWindow();
+	}
+	
 }

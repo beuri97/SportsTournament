@@ -97,10 +97,9 @@ public class MainScreenGui implements UserInterface{
 	private void setFrameLabels() {
 		
 		frmMainWindow = new JFrame();
-		frmMainWindow.setTitle("MAIN WINDOW");
 		frmMainWindow.setSize(1650,1080);
-		frmMainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmMainWindow.getContentPane().setLayout(null);
+		frmMainWindow.setLocation((1925 - frmMainWindow.getWidth()) / 2, (1080 - frmMainWindow.getHeight()) / 2);
 		frmMainWindow.setVisible(true);
 		
 		JLabel myTeamLabel = new JLabel("My team name :");
@@ -423,8 +422,8 @@ public class MainScreenGui implements UserInterface{
 		JButton marketButton = new JButton("Market");
 		marketButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				frmMainWindow.dispose();
-				MarketGui openMarket = new MarketGui(gameEnvironment);
+				finishedWindow();
+				gameEnvironment.openMarketScreen();;
 			}
 		});
 		marketButton.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
@@ -437,8 +436,8 @@ public class MainScreenGui implements UserInterface{
 			public void actionPerformed(ActionEvent e) {
 				try {
 					gameEnvironment.isPlayable();
-					frmMainWindow.dispose();
-					OpponentSelectingGui letsSelectOpponent = new OpponentSelectingGui(gameEnvironment);}
+					finishedWindow();
+					gameEnvironment.openSelectingOpponent();}
 				catch(InsufficientAthleteException a) {
 					noticeLabel.setText(a.getMessage());
 							
@@ -572,7 +571,13 @@ public class MainScreenGui implements UserInterface{
 	    JOptionPane.showOptionDialog(null, athleteLeft, "Such a tragic!",
 	        JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null,
 	        null, null);
- 
-
+	}
+	
+	public void closeWindow() {
+		frmMainWindow.dispose();
+	}
+	
+	public void finishedWindow() {
+		gameEnvironment.closeMainScreen(this);
 	}
 }

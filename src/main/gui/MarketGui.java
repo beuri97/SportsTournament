@@ -115,6 +115,7 @@ public class MarketGui implements UserInterface{
 		frmMarket = new JFrame();
 		frmMarket.setSize(1650,1080);
 		frmMarket.getContentPane().setLayout(null);
+		frmMarket.setLocation((1925 - frmMarket.getWidth()) / 2, (1080 - frmMarket.getHeight()) / 2);
 		frmMarket.setVisible(true);
 		
 		JLabel myTeamLabel = new JLabel("My Team");
@@ -681,8 +682,8 @@ public class MarketGui implements UserInterface{
 		JButton backButton = new JButton("Back");
 		backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				frmMarket.dispose();
-				MainScreenGui backToMain = new MainScreenGui(gameEnvironment);
+				finishedWindow();
+				gameEnvironment.openMainScreen();
 			}
 		});
 		backButton.setFont(new Font("Lucida Grande", Font.BOLD, 23));
@@ -755,4 +756,11 @@ public class MarketGui implements UserInterface{
 		setSellAthleteItemInfoPanel.add(sellDescriptionLabel);
 		
 	}
+	public void closeWindow() {
+		frmMarket.dispose();
+	}
+	public void finishedWindow() {
+		gameEnvironment.closeMarketScreen(this);
+	}
+	
 }
