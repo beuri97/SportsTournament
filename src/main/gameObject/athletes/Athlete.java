@@ -5,7 +5,7 @@ import main.gameObject.item.Item;
 
 /**
  * Class to implement athletes objects in game
- * @author Yang
+ * @author H Yang
  *
  */
 public class Athlete implements Product{

@@ -157,7 +157,7 @@ public class GameEnvironment {
 				if(stockType[col] == null) throw new EmptySlotException();
 				Product sale = stockType[col];
 				this.team.setMoney(sale.getPrice());
-				if(stockType[col] instanceof Athlete) this.team.leaveAthletes(col);
+				if(stockType[col] instanceof Athlete) this.team.leaveAthletes(stockType[col]);
 				else this.team.removeItem(col);
 				break;
 		}
@@ -174,6 +174,7 @@ public class GameEnvironment {
 		Athlete athlete = this.team.getRoster()[athleteIndex];
 		Item item = this.team.getInventory()[itemIndex];
 		athlete.useItem(item);
+		team.removeItem(itemIndex);
 	}
 
 	/**
@@ -293,11 +294,11 @@ public class GameEnvironment {
 		this.market = new Market();
 		this.setOpponent();
 		Athlete[] roster = this.getTeam().getRoster();
-		for(int i = 0; i < roster.length; i++){
+		for(Athlete athlete : roster){
 
 
-			if (setup.isLeave(3.00)) team.leaveAthletes(i);
-			this.getTeam().getRoster()[i].setStamina(roster[i].getMaxStamina());
+			if (setup.isLeave(3.00) && athlete.isInjured()) team.leaveAthletes(athlete);
+			athlete.setStamina(athlete.getMaxStamina());
 		}
 		// TODO - Athlete Random events
 	}
