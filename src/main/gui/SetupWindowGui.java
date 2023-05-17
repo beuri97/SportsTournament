@@ -18,13 +18,15 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JToggleButton;
 import main.gamesystem.*;
+import main.gamesystem.Exception.IllegalInputException;
+
 import javax.swing.SwingConstants;
 
 /**
  * class for Setup window when start the game
  * @author J Kim
  */
-public class SetupScreenGui implements UserInterface{
+public class SetupWindowGui implements UserInterface {
 
 	private JFrame frmFencingGame;
 	private JTextField teamNameField;
@@ -36,26 +38,9 @@ public class SetupScreenGui implements UserInterface{
 	static GameEnvironment gameEnvironment;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					UserInterface ui = new CmdLineUi();
-			        gameEnvironment = new GameEnvironment(ui);
-			        SetupScreenGui window = new SetupScreenGui(gameEnvironment);
-					window.frmFencingGame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-	/**
 	 * 
 	 */
-	private SetupScreenGui(GameEnvironment gameEnvironment) {
+	public SetupWindowGui(GameEnvironment gameEnvironment) {
 		
 		setup(gameEnvironment);
 	}
@@ -69,15 +54,17 @@ public class SetupScreenGui implements UserInterface{
 		setTextField();
 		setJSlider();
 		setJbutton();			
+		
+		
 	}
 	/*
 	 * set the frame of setup window
 	 */
 	private void setFrame() {
 		frmFencingGame = new JFrame();
-		frmFencingGame.setTitle("Fencing Game");
 		frmFencingGame.setSize(1650,1080);
-		frmFencingGame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmFencingGame.setLocation((1925 - frmFencingGame.getWidth()) / 2, (1080 - frmFencingGame.getHeight()) / 2);
+		frmFencingGame.setVisible(true);
 	}
 	/**
 	 * show the labels on window
@@ -99,7 +86,7 @@ public class SetupScreenGui implements UserInterface{
 		
 		infoLabel = new JLabel("");
 		infoLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		infoLabel.setBounds(759, 531, 370, 14);
+		infoLabel.setBounds(558, 531, 783, 14);
 		infoLabel.setForeground(new Color(255, 0, 0));
 		infoLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
 		frmFencingGame.getContentPane().add(infoLabel);
@@ -179,17 +166,14 @@ public class SetupScreenGui implements UserInterface{
 		startBttn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (!teamNameField.getText().matches(NAME_REGEX)) {
-					infoLabel.setText(NAME_LENGTH_REQUIREMENT);	
-					infoLabel2.setText(NAME_CHAR_REQUIREMENT);
-				}
-				else {
-					//if player doesn't choose difficulty, go with default(easy) level.
-					if (gameEnvironment.getDifficulty() == null) {level = DifficultyOption.EASY;}
-					
+				try {
+					gameEnvironment.check(teamNameField.getText(), NAME_REGEX, NAME_CHAR_REQUIREMENT);
 					gameEnvironment.set(teamNameField.getText(), slider.getValue(), level);	
-					frmFencingGame.dispose();
-					MainScreenGui gameStart = new MainScreenGui(gameEnvironment);
+					finishedWindow();
+					gameEnvironment.openMainScreen();
+				}
+				catch(IllegalInputException a) {
+					infoLabel.setText(a.getMessage());	
 				}
 			}
 		});	
@@ -221,5 +205,15 @@ public class SetupScreenGui implements UserInterface{
 	    	System.exit(0);
 	    }
 
+	}
+	/*
+	 * close setup window.
+	 */
+	public void closeWindow() {
+		frmFencingGame.dispose();
+	}
+	
+	public void finishedWindow() {
+		gameEnvironment.closeSetupWindow(this);
 	}
 }
