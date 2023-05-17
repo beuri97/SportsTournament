@@ -24,8 +24,8 @@ public class RandomChicken extends Item{
 	 * Random stat will be selected between "Offence", "Defence" and "Stamina".
 	 */
 	private static String getRandomStat() {
-		statList.add("Offence");
-		statList.add("Defence");
+		statList.add("Offense");
+		statList.add("Defense");
 		statList.add("Stamina");
 		Random result = new Random();
 		int i = result.nextInt(3);

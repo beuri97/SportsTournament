@@ -1,4 +1,7 @@
 package main;
+
+import main.gameObject.Product;
+
 /**
  * Interface that is used in CmdLineUi, GameEnvironment.
  * @author H Yang, J Kim
@@ -17,13 +20,19 @@ public interface UserInterface {
 	String INVALID_NUMBER = "Invalid number please enter it again.";
 
 
-	void main();
+//	void main();
 	
 	void setup(GameEnvironment gameEnvironment);
-
-	void listing(Object[] array);
 	
-	
+	default String printing(String message) {
 
+		return (message == null) ? "EMPTY" : String.format("<html>%s</html>", message.replace("\n", "<br/>"));
+	}
+
+	default String printing(Object product) {
+
+		return (product == null) ? "EMPTY" : String.format("<html>%s</html>",
+									product.toString().replace("\n", "<br/><br/>"));
+	}
 }
 

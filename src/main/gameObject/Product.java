@@ -3,7 +3,7 @@ package main.gameObject;
 /**
  * Interface for purchasable objects such as {@link main.gameObject.athletes.Athlete Athlete} 
  * and {@link main.gameObject.item.Item Item}.
- * @author Yang
+ * @author H Yang
  *
  */
 public interface Product {
@@ -24,9 +24,10 @@ public interface Product {
 	/**
 	 * get amount of price of Products({@link main.gameObject.athletes.Athlete Athletes}
 	 * and {@link main.gameObject.item.Item Items}) to sell
-	 * @return Products' ({@link main.gameObject.athletes.Athlete Athletes}}
-	 * and {@link main.gameObject.item.Item Items}) selling price
 	 */
-	float getSellPrice();
+	void setSellPrice();
+
+	String getName();
+
 
 }

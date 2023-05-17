@@ -1,10 +1,11 @@
 package main.gameObject.athletes;
 import main.gameObject.Product;
 import main.gameObject.Rarity;
+import main.gameObject.item.Item;
 
 /**
  * Class to implement athletes objects in game
- * @author Yang
+ * @author H Yang
  *
  */
 public class Athlete implements Product{
@@ -60,8 +61,8 @@ public class Athlete implements Product{
      * @param description athlete's description
      */
     public Athlete(String name, String description) {
-    	
-    	
+
+
         this.name = name;
         this.rarity = Rarity.setRarity();
         this. description = description;
@@ -102,11 +103,24 @@ public class Athlete implements Product{
      */
     public int getStamina() {return this.stamina;}
 
+
+    public int getMaxStamina() {
+
+        return maxStamina;
+    }
+
     /**
      * show athletes' price
      * @return athletes' price
      */
     public float getPrice() {return this.price;}
+
+    public String getAthleteSummary() {
+
+        return String.format("Name: %s%n Offense: %d%n Defense: %s%n Stamina: %d/%d%n Injured: %s%n",
+                getName(), getOffenseStat(), getDefenseStat(), getStamina(), getMaxStamina(),
+                (isInjured()) ? "Yes":"No");
+    }
 
     /**
      * check if an athlete is injured,
@@ -141,21 +155,32 @@ public class Athlete implements Product{
         //if stamina exceed maximum stamina then change it to maximum stamina
         if (this.stamina > this.maxStamina) this.stamina = this.maxStamina;
     }
+
+    public void setMaxStamina(int changedStamina) {
+
+        this.maxStamina += changedStamina;
+    }
+
+    public void useItem(Item item) {
+
+        switch(item.getIncStat()) {
+            case "Defense" -> setDefenseStat(item.getIncAmount());
+            case "Offense" -> setOffenseStat(item.getIncAmount());
+            case "Stamina" -> setStamina(item.getIncAmount());
+        }
+    }
     
     /**
      * toString method to show information about athletes.
      */
     @Override
     public String toString() {
-    	
-    	return String.format("Name: %s%nRarity: %s%nOffense: %d%nDefense: %d%nStamina: %d%nPrice: %.2f%nDescription: %s%n",
-    			getName(), getRarity(), getOffenseStat(), getDefenseStat(), getStamina(), getPrice(), getDescription());
+
+        return String.format("Name: %s%nRarity: %s%nOffense: %d%nDefense: %d%nStamina: %d/%d%nPrice: %.2f%nDescription: %s%n",
+                getName(), getRarity(), getOffenseStat(), getDefenseStat(), getStamina(), getMaxStamina(), getPrice(), getDescription());
     }
 
-	public float getSellPrice() {
-		float sellPrice = this.price;
-		sellPrice *= SELL_PRICE_PENALTY;
-		
-		return sellPrice;
-	}
+    public void setSellPrice() {
+       price *= SELL_PRICE_PENALTY;
+    }
 }

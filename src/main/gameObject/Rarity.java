@@ -28,7 +28,7 @@ public enum Rarity {
 	public static Rarity setRarity() {
 
 		double rarity = new Random().nextDouble(100.00);
-		if(rarity <= 0.7) return Rarity.SUPER_SUPER_RARE;
+		if(rarity <= 3) return Rarity.SUPER_SUPER_RARE;
 		else if(rarity <= 15) return Rarity.SUPER_RARE;
 		else if(rarity <= 45) return Rarity.RARE;
 		else return Rarity.NORMAL;
