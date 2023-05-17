@@ -1,5 +1,7 @@
 package main;
 
+import javax.swing.SwingUtilities;
+
 import main.gameObject.Opponent;
 import main.gameObject.Product;
 import main.gameObject.Team;
@@ -310,9 +312,7 @@ public class GameEnvironment {
 	/**
 	 *open gui screens for Setup, Main, Market, Selecting Opponents, Stadium 
 	 */
-	public void openSetupWindow() {
-		SetupWindowGui setupWindow = new SetupWindowGui(this);
-	}
+	
 	public void openMainScreen() {
 		MainScreenGui mainWindow = new MainScreenGui(this);
 	}
@@ -343,5 +343,24 @@ public class GameEnvironment {
 	public void closeStatiumScreen(StadiumGui stadiumWindow) {
 		stadiumWindow.closeWindow();
 	}
+	
+	
+	 public static void main(String[] args) {
+	        
+	    	
+	    	UserInterface ui;
+	    	
+	        if(args.length != 0 && args[0].equals("cmd")) {
+	        	
+	        	ui = new CmdLineUi();
+	        }
+	        else {
+	        	
+	        	ui = new SetupWindowGui();
+	        }
+	        
+	        GameEnvironment game = new GameEnvironment(ui);
+	        SwingUtilities.invokeLater(() -> game.start());
+	 }
 	
 }
