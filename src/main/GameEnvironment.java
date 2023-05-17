@@ -352,4 +352,7 @@ public class GameEnvironment {
 	public void closeGameOverScreen(GameOverGui gameOverWindow) {
 		gameOverWindow.closeWindow();
 	}
+	public void closeImprovingScreen(ImprovingAthleteGui ImprovingWindow) {
+		ImprovingWindow.closeWindow();
+	}
 }
