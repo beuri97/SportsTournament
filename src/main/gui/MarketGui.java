@@ -83,6 +83,7 @@ public class MarketGui implements UserInterface{
 	int itemBuyNum = -1;
 	int itemSellNum = -1;
 
+	private JLabel warningLabel;
 	private JLabel athleteDiscriptionLabel;
 	private JLabel itemDiscriptionLabel;
 	private JLabel moneyLabel;
@@ -133,6 +134,13 @@ public class MarketGui implements UserInterface{
 		moneyLabel.setBounds(1480, 45, 145, 49);
 		frmMarket.getContentPane().add(moneyLabel);
 		moneyLabel.setText("$ " + gameEnvironment.getTeam().getMoney());
+		
+		
+		warningLabel = new JLabel("");
+		warningLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		warningLabel.setBounds(568, 682, 425, 20);
+		warningLabel.setForeground(Color.RED);
+		frmMarket.getContentPane().add(warningLabel);
 	}
 	/*
 	 * set the panel to show available athletes in market
@@ -335,6 +343,7 @@ public class MarketGui implements UserInterface{
 		buyAthleteBttn4.setSelected(false);
 		buyAthleteBttn5.setSelected(false);
 		buyAthleteBttn6.setSelected(false);
+		warningLabel.setText(null);
 	}
 	/*
 	 * cancel all toggle buttons for buying item
@@ -348,6 +357,7 @@ public class MarketGui implements UserInterface{
 		buyItemButton6.setSelected(false);
 		buyItemButton7.setSelected(false);
 		buyItemButton8.setSelected(false);
+		warningLabel.setText(null);
 	}
 	/*
 	 * cancel all toggle buttons for selling athletes and items
@@ -371,6 +381,8 @@ public class MarketGui implements UserInterface{
 		sellitemButton8.setSelected(false);
 		sellitemButton9.setSelected(false);
 		sellitemButton10.setSelected(false);
+		
+		warningLabel.setText(null);
 	}
 	/* 
 	 * function to help buying athletes
@@ -464,6 +476,12 @@ public class MarketGui implements UserInterface{
 		setSellAthletePanel.setBorder(new LineBorder(new Color(0, 0, 0)));
 		setSellAthletePanel.setBounds(124, 811, 350, 152);
 		frmMarket.getContentPane().add(setSellAthletePanel);
+		private GameEnvironment gameEnvironment;
+		private Product[] athleteList;
+		private Product[] itemList;
+		private Athlete[] myRoster;
+		private Item[] myInventory;
+		int flag;
 		setSellAthletePanel.setLayout(new GridLayout(2, 4, 0, 0));
 		
 		JPanel setSellItemPanel = new JPanel();
@@ -622,9 +640,9 @@ public class MarketGui implements UserInterface{
 					refreshScreen();
 					athleteDiscriptionLabel.setText("Recruited!!");
 				}
-				catch(EmptySlotException a){athleteDiscriptionLabel.setText(a.getMessage());}		
-				catch(NoSpaceException a) {athleteDiscriptionLabel.setText(a.getMessage());}
-				catch(LackOfMoneyException a) {athleteDiscriptionLabel.setText(a.getMessage());}}
+				catch(EmptySlotException a){warningLabel.setText(a.getMessage());}		
+				catch(NoSpaceException a) {warningLabel.setText(a.getMessage());}
+				catch(LackOfMoneyException a) {warningLabel.setText(a.getMessage());}}
 		});
 		recruitButton.setFont(new Font("Lucida Grande", Font.BOLD, 23));
 		recruitButton.setBounds(705, 607, 287, 63);
@@ -642,9 +660,9 @@ public class MarketGui implements UserInterface{
 					refreshScreen();
 					itemDiscriptionLabel.setText("Purchased!!");
 				}
-				catch(EmptySlotException a) {itemDiscriptionLabel.setText(a.getMessage());}
-				catch(NoSpaceException a) {athleteDiscriptionLabel.setText(a.getMessage());}
-				catch(LackOfMoneyException a) {itemDiscriptionLabel.setText(a.getMessage());}}});
+				catch(EmptySlotException a) {warningLabel.setText(a.getMessage());}
+				catch(NoSpaceException a) {warningLabel.setText(a.getMessage());}
+				catch(LackOfMoneyException a) {warningLabel.setText(a.getMessage());}}});
 		
 		purchaseButton.setFont(new Font("Lucida Grande", Font.BOLD, 23));
 		purchaseButton.setBounds(1373, 611, 180, 55);
@@ -662,7 +680,7 @@ public class MarketGui implements UserInterface{
 						refreshScreen();
 						sellDescriptionLabel.setText("Sold your athlete!!");
 					}
-					catch(EmptySlotException a){sellDescriptionLabel.setText(a.getMessage());}}
+					catch(EmptySlotException a){warningLabel.setText(a.getMessage());}}
 				
 				else if(itemSellNum != -1) {
 					try {
@@ -672,7 +690,7 @@ public class MarketGui implements UserInterface{
 						refreshScreen();
 						sellDescriptionLabel.setText("Sold your item!!");}
 					
-					catch(EmptySlotException a) {sellDescriptionLabel.setText(a.getMessage());}}}});
+					catch(EmptySlotException a) {warningLabel.setText(a.getMessage());}}}});
 		
 		sellButton.setFont(new Font("Lucida Grande", Font.BOLD, 23));
 		sellButton.setBounds(1451, 900, 174, 63);
@@ -689,7 +707,6 @@ public class MarketGui implements UserInterface{
 		backButton.setFont(new Font("Lucida Grande", Font.BOLD, 23));
 		backButton.setBounds(30, 982, 97, 31);
 		frmMarket.getContentPane().add(backButton);
-
 	}
 	/*
 	 * print name for Athletes & items on the button
@@ -762,5 +779,4 @@ public class MarketGui implements UserInterface{
 	public void finishedWindow() {
 		gameEnvironment.closeMarketScreen(this);
 	}
-	
 }

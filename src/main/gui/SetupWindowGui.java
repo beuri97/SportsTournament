@@ -33,17 +33,13 @@ public class SetupWindowGui implements UserInterface {
 	private JLabel NumWeekLabel;
 	private JSlider slider;
 	private JLabel infoLabel;
-	private JLabel infoLabel2;
 	private DifficultyOption level;
 	static GameEnvironment gameEnvironment;
 
 	/**
 	 * 
 	 */
-	public SetupWindowGui(GameEnvironment gameEnvironment) {
-		
-		setup(gameEnvironment);
-	}
+	public SetupWindowGui() {}
 	/**
 	 * create the setup window
 	 */
@@ -90,13 +86,6 @@ public class SetupWindowGui implements UserInterface {
 		infoLabel.setForeground(new Color(255, 0, 0));
 		infoLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
 		frmFencingGame.getContentPane().add(infoLabel);
-		
-		infoLabel2 = new JLabel("");
-		infoLabel2.setHorizontalAlignment(SwingConstants.CENTER);
-		infoLabel2.setForeground(Color.RED);
-		infoLabel2.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
-		infoLabel2.setBounds(759, 545, 370, 14);
-		frmFencingGame.getContentPane().add(infoLabel2);
 		
 		JLabel diffcultyLabel = new JLabel("Difficulty :");
 		diffcultyLabel.setBounds(568, 664, 96, 16);
