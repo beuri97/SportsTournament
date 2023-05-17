@@ -7,45 +7,51 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+
+import main.GameEnvironment;
+import main.UserInterface;
+
 import java.awt.Font;
 
-public class GameOverGui {
+public class GameOverGui implements UserInterface{
 
 	private JFrame frmGameover;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					GameOverGui window = new GameOverGui();
-					window.frmGameover.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	private GameEnvironment gameEnvironment;
+//	
+//	/**
+//	 * Launch the application.
+//	 */
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					GameOverGui window = new GameOverGui();
+//					window.frmGameover.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the application.
 	 */
-	public GameOverGui() {
-		initialize();
+	public GameOverGui(GameEnvironment gameEnvironment) {
+		setup(gameEnvironment);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	public void setup(GameEnvironment gameEnvironment) {
 		frmGameover = new JFrame();
 		frmGameover.setSize(1650,1080);
 		frmGameover.setLocation((1925 - frmGameover.getWidth()) / 2, (1080 - frmGameover.getHeight()) / 2);
 		frmGameover.getContentPane().setLayout(null);
 		
-		JButton backToMainButton = new JButton("Back to main");
+		JButton backToMainButton = new JButton("EXIT");
+		backToMainButton.setFont(new Font("Dialog", Font.BOLD, 28));
 		backToMainButton.setBounds(758, 860, 266, 46);
 		frmGameover.getContentPane().add(backToMainButton);
 		
@@ -54,10 +60,18 @@ public class GameOverGui {
 		frmGameover.getContentPane().add(resultDescription);
 		
 		JLabel gameOverLabel = new JLabel("Game Over!");
-		gameOverLabel.setFont(new Font("Dialog", Font.BOLD, 39));
+		gameOverLabel.setFont(new Font("Dialog", Font.BOLD, 70));
 		gameOverLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		gameOverLabel.setBounds(380, 228, 936, 213);
 		frmGameover.getContentPane().add(gameOverLabel);
 	}
 
+	
+	public void closeWindow() {
+		frmGameover.dispose();
+	}
+	
+	public void finishedWindow() {
+		gameEnvironment.closeGameOverScreen(this);
+	}
 }

@@ -38,7 +38,7 @@ public class MarketGui implements UserInterface{
 	private Athlete[] myRoster;
 	private Item[] myInventory;
 	int flag;
-		
+
 	private JToggleButton buyAthleteBttn1;
 	private JToggleButton buyAthleteBttn2;
 	private JToggleButton buyAthleteBttn3;
@@ -476,17 +476,11 @@ public class MarketGui implements UserInterface{
 		setSellAthletePanel.setBorder(new LineBorder(new Color(0, 0, 0)));
 		setSellAthletePanel.setBounds(124, 811, 350, 152);
 		frmMarket.getContentPane().add(setSellAthletePanel);
-		private GameEnvironment gameEnvironment;
-		private Product[] athleteList;
-		private Product[] itemList;
-		private Athlete[] myRoster;
-		private Item[] myInventory;
-		int flag;
 		setSellAthletePanel.setLayout(new GridLayout(2, 4, 0, 0));
 		
 		JPanel setSellItemPanel = new JPanel();
 		setSellItemPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
-		setSellItemPanel.setBounds(527, 811, 425, 152);
+		setSellItemPanel.setBounds(505, 811, 654, 152);
 		frmMarket.getContentPane().add(setSellItemPanel);
 		setSellItemPanel.setLayout(new GridLayout(2, 5, 0, 0));
 			
@@ -553,25 +547,15 @@ public class MarketGui implements UserInterface{
 		sellitemButton10 = new JToggleButton(printingName(2, 9));
 
 		sellitemButton1.setFont(new Font("Dialog", Font.BOLD, 10));
-		sellitemButton1.setHorizontalAlignment(SwingConstants.LEFT);
 		sellitemButton2.setFont(new Font("Dialog", Font.BOLD, 10));
-		sellitemButton2.setHorizontalAlignment(SwingConstants.LEFT);
 		sellitemButton3.setFont(new Font("Dialog", Font.BOLD, 10));
-		sellitemButton3.setHorizontalAlignment(SwingConstants.LEFT);
 		sellitemButton4.setFont(new Font("Dialog", Font.BOLD, 10));
-		sellitemButton4.setHorizontalAlignment(SwingConstants.LEFT);
 		sellitemButton5.setFont(new Font("Dialog", Font.BOLD, 10));
-		sellitemButton5.setHorizontalAlignment(SwingConstants.LEFT);
 		sellitemButton6.setFont(new Font("Dialog", Font.BOLD, 10));
-		sellitemButton6.setHorizontalAlignment(SwingConstants.LEFT);
 		sellitemButton7.setFont(new Font("Dialog", Font.BOLD, 10));
-		sellitemButton7.setHorizontalAlignment(SwingConstants.LEFT);
 		sellitemButton8.setFont(new Font("Dialog", Font.BOLD, 10));
-		sellitemButton8.setHorizontalAlignment(SwingConstants.LEFT);
 		sellitemButton9.setFont(new Font("Dialog", Font.BOLD, 10));
-		sellitemButton9.setHorizontalAlignment(SwingConstants.LEFT);
 		sellitemButton10.setFont(new Font("Dialog", Font.BOLD, 10));
-		sellitemButton10.setHorizontalAlignment(SwingConstants.LEFT);
 		
 		setSellItemPanel.add(sellitemButton1);
 		sellitemButton1.addActionListener(new ActionListener() {
@@ -738,7 +722,7 @@ public class MarketGui implements UserInterface{
 		JPanel setSellAthleteItemInfoPanel = new JPanel();
 		setSellAthleteItemInfoPanel.setLayout(null);
 		setSellAthleteItemInfoPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
-		setSellAthleteItemInfoPanel.setBounds(987, 749, 425, 214);
+		setSellAthleteItemInfoPanel.setBounds(1183, 746, 256, 215);
 		frmMarket.getContentPane().add(setSellAthleteItemInfoPanel);
 		
 		JLabel athleteInfoLabel = new JLabel("<<Athelte Info.>>");
@@ -754,7 +738,7 @@ public class MarketGui implements UserInterface{
 		JLabel sellAthleteItemInfoLabel = new JLabel("<<Info.>>");
 		sellAthleteItemInfoLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		sellAthleteItemInfoLabel.setFont(new Font("Lucida Grande", Font.BOLD, 20));
-		sellAthleteItemInfoLabel.setBounds(112, 12, 212, 20);
+		sellAthleteItemInfoLabel.setBounds(24, 12, 212, 20);
 		setSellAthleteItemInfoPanel.add(sellAthleteItemInfoLabel);
 		
 		athleteDiscriptionLabel = new JLabel();
@@ -769,7 +753,7 @@ public class MarketGui implements UserInterface{
 		
 		sellDescriptionLabel = new JLabel();
 		sellDescriptionLabel.setFont(new Font("Dialog", Font.PLAIN, 14));
-		sellDescriptionLabel.setBounds(41, 44, 342, 158);
+		sellDescriptionLabel.setBounds(18, 44, 218, 158);
 		setSellAthleteItemInfoPanel.add(sellDescriptionLabel);
 		
 	}

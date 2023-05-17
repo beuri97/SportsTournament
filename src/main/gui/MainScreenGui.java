@@ -124,7 +124,7 @@ public class MainScreenGui implements UserInterface{
 		
 		JLabel inventoryLabel = new JLabel("Inventory");
 		inventoryLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 23));
-		inventoryLabel.setBounds(125, 700, 141, 59);
+		inventoryLabel.setBounds(180, 624, 141, 59);
 		frmMainWindow.getContentPane().add(inventoryLabel);
 	
 		JLabel teamNameLabel = new JLabel("teamName");
@@ -252,7 +252,7 @@ public class MainScreenGui implements UserInterface{
 	//Create the panel for item in player's inventory
 	JPanel setItemPanel = new JPanel();
 	setItemPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
-	setItemPanel.setBounds(300, 624, 594, 220);
+	setItemPanel.setBounds(180, 710, 784, 138);
 	frmMainWindow.getContentPane().add(setItemPanel);
 	setItemPanel.setLayout(new GridLayout(2, 7, 0, 0));
 	
@@ -460,6 +460,8 @@ public class MainScreenGui implements UserInterface{
 		JButton takeAByeButton = new JButton("Take a BYE");
 		takeAByeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				gameEnvironment.reset();
+				
 
 			}});
 		takeAByeButton.setFont(new Font("Lucida Grande", Font.ITALIC, 20));
