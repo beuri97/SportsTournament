@@ -42,15 +42,15 @@ public class SelectOpponentGui implements UserInterface{
 	 */
 	public void setup(GameEnvironment gameEnvironment) {
 		frmSelectingOpponent = new JFrame();
-		frmSelectingOpponent.setBounds(100, 100, 490, 300);
+		frmSelectingOpponent.setSize(1650,1080);
 		frmSelectingOpponent.getContentPane().setLayout(null);
 		frmSelectingOpponent.setVisible(true);
 		frmSelectingOpponent.setLocation((1925 - frmSelectingOpponent.getWidth()) / 2, (1080 - frmSelectingOpponent.getHeight()) / 2);
 		
 		chooseOpponentLabel = new JLabel("Choose Your Opponent!!");
-		chooseOpponentLabel.setFont(new Font("Dialog", Font.BOLD, 20));
+		chooseOpponentLabel.setFont(new Font("Dialog", Font.BOLD, 28));
 		chooseOpponentLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		chooseOpponentLabel.setBounds(12, 0, 456, 59);
+		chooseOpponentLabel.setBounds(569, 212, 707, 151);
 		frmSelectingOpponent.getContentPane().add(chooseOpponentLabel);
 		
 		JButton teamButton1 = new JButton("<html>Opponent<br/>Team<br/> No.1</html>");
@@ -89,20 +89,20 @@ public class SelectOpponentGui implements UserInterface{
 			}
 		});
 		
-		teamButton1.setFont(new Font("Dialog", Font.BOLD | Font.ITALIC, 11));
-		teamButton1.setBounds(12, 71, 80, 97);
+		teamButton1.setFont(new Font("Dialog", Font.BOLD | Font.ITALIC, 17));
+		teamButton1.setBounds(569, 375, 120, 292);
 		frmSelectingOpponent.getContentPane().add(teamButton1);
-		teamButton2.setFont(new Font("Dialog", Font.BOLD | Font.ITALIC, 11));
-		teamButton2.setBounds(104, 71, 80, 97);
+		teamButton2.setFont(new Font("Dialog", Font.BOLD | Font.ITALIC, 17));
+		teamButton2.setBounds(715, 375, 120, 292);
 		frmSelectingOpponent.getContentPane().add(teamButton2);
-		teamButton3.setFont(new Font("Dialog", Font.BOLD | Font.ITALIC, 11));
-		teamButton3.setBounds(196, 71, 80, 97);
+		teamButton3.setFont(new Font("Dialog", Font.BOLD | Font.ITALIC, 17));
+		teamButton3.setBounds(859, 375, 120, 292);
 		frmSelectingOpponent.getContentPane().add(teamButton3);
-		teamButton4.setFont(new Font("Dialog", Font.BOLD | Font.ITALIC, 11));
-		teamButton4.setBounds(288, 71, 80, 97);
+		teamButton4.setFont(new Font("Dialog", Font.BOLD | Font.ITALIC, 17));
+		teamButton4.setBounds(1005, 375, 120, 292);
 		frmSelectingOpponent.getContentPane().add(teamButton4);
-		teamButton5.setFont(new Font("Dialog", Font.BOLD | Font.ITALIC, 11));
-		teamButton5.setBounds(382, 71, 80, 97);
+		teamButton5.setFont(new Font("Dialog", Font.BOLD | Font.ITALIC, 17));
+		teamButton5.setBounds(1155, 375, 120, 292);
 		frmSelectingOpponent.getContentPane().add(teamButton5);
 		
 		JButton startAMatchButton = new JButton("Start a match!!");
@@ -114,18 +114,19 @@ public class SelectOpponentGui implements UserInterface{
 				gameEnvironment.openStatiumScreen();;
 			}
 		});
-		startAMatchButton.setFont(new Font("Gentium", Font.BOLD | Font.ITALIC, 29));
-		startAMatchButton.setBounds(12, 184, 450, 47);
+		startAMatchButton.setFont(new Font("Gentium", Font.BOLD | Font.ITALIC, 55));
+		startAMatchButton.setBounds(568, 690, 707, 171);
 		frmSelectingOpponent.getContentPane().add(startAMatchButton);
 		
 		JButton cancelButton = new JButton("Cancel");
+		cancelButton.setFont(new Font("Dialog", Font.BOLD, 25));
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				finishedWindow();
 				gameEnvironment.openMainScreen();
 			}
 		});
-		cancelButton.setBounds(374, 235, 88, 25);
+		cancelButton.setBounds(1454, 948, 137, 47);
 		frmSelectingOpponent.getContentPane().add(cancelButton);
 	}
 	
@@ -134,6 +135,7 @@ public class SelectOpponentGui implements UserInterface{
 	 */
 	public void closeWindow() {
 		frmSelectingOpponent.dispose();
+		
 	}
 	public void finishedWindow() {
 		gameEnvironment.closeSelectingOpponent(this);
