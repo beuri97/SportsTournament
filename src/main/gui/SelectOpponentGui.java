@@ -35,7 +35,7 @@ public class SelectOpponentGui implements UserInterface{
 	}
 
 	private String printTitle() {
-		return String.format("%s vs Opponent Team No.%d",myTeamName, selectedOpponentNum);
+		return String.format("%s vs Opponent Team No.%d",myTeamName, selectedOpponentNum+1);
 	}
 	/**
 	 * Initialize the contents of the frame.
@@ -53,35 +53,35 @@ public class SelectOpponentGui implements UserInterface{
 		chooseOpponentLabel.setBounds(12, 0, 456, 59);
 		frmSelectingOpponent.getContentPane().add(chooseOpponentLabel);
 		
-		JButton teamButton1 = new JButton("<html>Team<br/> No.1</html>");
+		JButton teamButton1 = new JButton("<html>Opponent<br/>Team<br/> No.1</html>");
 		teamButton1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				selectedOpponentNum = 0;
 				chooseOpponentLabel.setText(printTitle());
 			}
 		});
-		JButton teamButton2 = new JButton("<html>Team<br/> No.2</html>");
+		JButton teamButton2 = new JButton("<html>Opponent<br/>Team<br/> No.2</html>");
 		teamButton2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				selectedOpponentNum = 1;
 				chooseOpponentLabel.setText(printTitle());
 			}
 		});
-		JButton teamButton3 = new JButton("<html>Team<br/> No.3</html>");
+		JButton teamButton3 = new JButton("<html>Opponent<br/>Team<br/> No.3</html>");
 		teamButton3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				selectedOpponentNum = 2;
 				chooseOpponentLabel.setText(printTitle());
 			}
 		});
-		JButton teamButton4 = new JButton("<html>Team<br/> No.4</html>");
+		JButton teamButton4 = new JButton("<html>Opponent<br/>Team<br/> No.4</html>");
 		teamButton4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				selectedOpponentNum = 3;
 				chooseOpponentLabel.setText(printTitle());
 			}
 		});
-		JButton teamButton5 = new JButton("<html>Team<br/> No.5</html>");
+		JButton teamButton5 = new JButton("<html>Opponent<br/>Team<br/> No.5</html>");
 		teamButton5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				selectedOpponentNum = 4;

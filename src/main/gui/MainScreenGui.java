@@ -201,49 +201,49 @@ public class MainScreenGui implements UserInterface{
 		athleteButton1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				helpFuncAthleteSlots(0);	
-				athleteButton1.setSelected(true);}});
+				}});
 		athleteButton1.setBounds(20, 20, 150, 150);
 		setAthletePanel.add(athleteButton1);
 		
 		athleteButton2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				helpFuncAthleteSlots(1);	
-				athleteButton2.setSelected(true);}});
+				}});
 		athleteButton2.setBounds(190, 20, 150, 150);
 		setAthletePanel.add(athleteButton2);
 		
 		athleteButton3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				helpFuncAthleteSlots(2);	
-				athleteButton3.setSelected(true);}});
+				}});
 		athleteButton3.setBounds(360, 20, 150, 150);
 		setAthletePanel.add(athleteButton3);
 				
 		athleteButton4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				helpFuncAthleteSlots(3);	
-				athleteButton4.setSelected(true);}});
+				}});
 		athleteButton4.setBounds(530, 20, 150, 150);
 		setAthletePanel.add(athleteButton4);
 			
 		athleteButton5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				helpFuncAthleteSlots(4);	
-				athleteButton5.setSelected(true);}});
+				}});
 		athleteButton5.setBounds(20, 20, 150, 150);
 		setReservePanel.add(athleteButton5);
 			
 		athleteButton6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				helpFuncAthleteSlots(5);	
-				athleteButton6.setSelected(true);}});
+				}});
 		athleteButton6.setBounds(190, 20, 150, 150);
 		setReservePanel.add(athleteButton6);
 			
 		athleteButton7.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				helpFuncAthleteSlots(6);	
-				athleteButton7.setSelected(true);}});
+				}});
 		athleteButton7.setBounds(360, 20, 150, 150);
 		setReservePanel.add(athleteButton7);
 	}
@@ -328,23 +328,19 @@ public class MainScreenGui implements UserInterface{
 	setItemPanel.add(itemButton10);	
 	}
 	/*
-	 * this is help function to reset athlete toggle buttons and assign athlete slot number that player clicked to switch athletes
+	 * this is help function to swap two athletes when player click two athletes and refresh screen to show changes and cancel clicked toggle buttons
 	 */
 	private void helpFuncAthleteSlots(int slotNum) {
-		if (slotNum < 4){
-			athleteSwitchingNum1 = slotNum;
-			athleteButton1.setSelected(false);
-			athleteButton2.setSelected(false);
-			athleteButton3.setSelected(false);
-			athleteButton4.setSelected(false);	
+		athleteSwitchingNum1 = athleteSwitchingNum2;
+		athleteSwitchingNum2 = slotNum;
+		athleteDescriptionLabel.setText(printing(myRoster[slotNum]));
+		if (athleteSwitchingNum1 != -1 && athleteSwitchingNum2 != -1) {
+			if (myRoster[athleteSwitchingNum1] == null || myRoster[athleteSwitchingNum2] == null) {
+				noticeLabel.setText("Select two athlete to switch!");}
+			else {gameEnvironment.swap(athleteSwitchingNum1, athleteSwitchingNum2);}
+			cancelAthleteToggle();
+			refreshScreen();
 		}
-		else if (slotNum >= 4){
-			athleteSwitchingNum2 = slotNum;
-			athleteButton5.setSelected(false);
-			athleteButton6.setSelected(false);
-			athleteButton7.setSelected(false);
-		}
-			athleteDescriptionLabel.setText(printing(myRoster[slotNum]));
 			
 	}
 	/*
@@ -363,6 +359,7 @@ public class MainScreenGui implements UserInterface{
 		moneyLabel.setText("$ " + gameEnvironment.getTeam().getMoney());
 		myRoster = gameEnvironment.getTeam().getRoster();
 		myInventory = gameEnvironment.getTeam().getInventory();
+
 		athleteButton1.setText(printingName(0, 0));
 		athleteButton2.setText(printingName(0, 1));
 		athleteButton3.setText(printingName(0, 2));
@@ -459,36 +456,22 @@ public class MainScreenGui implements UserInterface{
 		exitButton.setBounds(1512, 971, 117, 30);
 		frmMainWindow.getContentPane().add(exitButton);
 		
-		//switch two selected athletes around and reset all toggle buttons of Athletes 
-		JButton switchButton = new JButton("Switch");
-		switchButton.addActionListener(new ActionListener() {
+		//butto to finish this week
+		JButton takeAByeButton = new JButton("Take a BYE");
+		takeAByeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (athleteSwitchingNum1 == -1 || athleteSwitchingNum2 ==-1){
-					noticeLabel.setText("Select two athlete to switch!");}
-		
-				else if (myRoster[athleteSwitchingNum1] == null || myRoster[athleteSwitchingNum2] == null) {
-					noticeLabel.setText("Select two athlete to switch!");}
-				else {gameEnvironment.swap(athleteSwitchingNum1, athleteSwitchingNum2);}
-				cancelAthleteToggle();
-				refreshScreen();
+
 			}});
-		switchButton.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-		switchButton.setBounds(881, 450, 117, 78);
-		frmMainWindow.getContentPane().add(switchButton);
+		takeAByeButton.setFont(new Font("Lucida Grande", Font.ITALIC, 20));
+		takeAByeButton.setBounds(1033, 501, 149, 59);
+		frmMainWindow.getContentPane().add(takeAByeButton);
 		
 		//make use button to use item to one athlete
 		JButton itemUseButton = new JButton("Use");
 		itemUseButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//check which athlete is selected
-				if (athleteSwitchingNum1 >= 0 && athleteSwitchingNum2 < 0) {
-					if (myRoster[athleteSwitchingNum1] == null || myInventory[usingItemNum] == null) {
-						noticeLabel.setText("You clicked the empty slot!"); 
-						return;}
-					gameEnvironment.useItem(athleteSwitchingNum1, usingItemNum);
-					noticeLabel.setText("Used item! Check the difference!!");
-				}
-				else if (athleteSwitchingNum1 < 0 && athleteSwitchingNum2 >= 0){
+				if (athleteSwitchingNum2 != -1){
 					if (myRoster[athleteSwitchingNum2] == null || myInventory[usingItemNum] == null) {
 						noticeLabel.setText("You clicked the empty slot!"); 
 						return;}
