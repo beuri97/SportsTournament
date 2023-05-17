@@ -34,7 +34,7 @@ public class SetupWindowGui implements UserInterface {
 	private JSlider slider;
 	private JLabel infoLabel;
 	private DifficultyOption level;
-	static GameEnvironment gameEnvironment;
+	private GameEnvironment gameEnvironment;
 
 	/**
 	 * 

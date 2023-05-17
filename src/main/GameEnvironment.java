@@ -1,7 +1,5 @@
 package main;
 
-import javax.swing.SwingUtilities;
-
 import main.gameObject.Opponent;
 import main.gameObject.Product;
 import main.gameObject.Team;
@@ -12,6 +10,8 @@ import main.gamesystem.Exception.EmptySlotException;
 import main.gamesystem.Exception.IllegalInputException;
 import main.gamesystem.Exception.InsufficientAthleteException;
 import main.gamesystem.Exception.NoSpaceException;
+import main.gui.GameOverGui;
+import main.gui.ImprovingAthleteGui;
 import main.gui.MainScreenGui;
 import main.gui.MarketGui;
 import main.gui.SelectOpponentGui;
@@ -292,7 +292,7 @@ public class GameEnvironment {
 		return new int[] {playerWin, totalPlayerPlay};
 	}
 
-	/**
+	/**	 
 	 * reset market status and match list when user take a bye
 	 */
 	public void reset() {
@@ -314,16 +314,22 @@ public class GameEnvironment {
 	 */
 	
 	public void openMainScreen() {
-		MainScreenGui mainWindow = new MainScreenGui(this);
+		ui = new MainScreenGui(this);
 	}
 	public void openMarketScreen() {
-		MarketGui marketWindow = new MarketGui(this);
+		ui = new MarketGui(this);
 	}
 	public void openSelectingOpponent() {
-		SelectOpponentGui selectOpponentWindow = new SelectOpponentGui(this);
+		ui = new SelectOpponentGui(this);
 	}
 	public void openStatiumScreen() {
-		StadiumGui stadiumWindow = new StadiumGui(this);
+		ui = new StadiumGui(this);
+	}
+	public void openGameOverScreen() {
+		ui = new GameOverGui(this);
+	}
+	public void openImprovingScreen() {
+		ui = new ImprovingAthleteGui(this);
 	}
 	/**
 	 *close gui screens for Setup, Main, Market, Selecting Opponents, Stadium 
@@ -343,24 +349,7 @@ public class GameEnvironment {
 	public void closeStatiumScreen(StadiumGui stadiumWindow) {
 		stadiumWindow.closeWindow();
 	}
-	
-	
-	 public static void main(String[] args) {
-	        
-	    	
-	    	UserInterface ui;
-	    	
-	        if(args.length != 0 && args[0].equals("cmd")) {
-	        	
-	        	ui = new CmdLineUi();
-	        }
-	        else {
-	        	
-	        	ui = new SetupWindowGui();
-	        }
-	        
-	        GameEnvironment game = new GameEnvironment(ui);
-	        SwingUtilities.invokeLater(() -> game.start());
-	 }
-	
+	public void closeGameOverScreen(GameOverGui gameOverWindow) {
+		gameOverWindow.closeWindow();
+	}
 }

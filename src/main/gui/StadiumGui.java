@@ -73,6 +73,7 @@ public class StadiumGui implements UserInterface{
 	 * Initialize the contents of the frame.
 	 */
 	public void setup(GameEnvironment gameEnvironment) {
+		this.gameEnvironment = gameEnvironment;
 		setFrame();
 		setMyAthletePanel();
 		setOpponentPanel();
@@ -272,9 +273,11 @@ public class StadiumGui implements UserInterface{
 		fightButton = new JButton("Fight");
 		fightButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				gameEnvironment.battleSequences();
 				aggresiveToggleButton.setEnabled(false);;
 				carefulToggleButton.setEnabled(false);
+				gameEnvironment.battleSequences();
+				aggresiveToggleButton.setEnabled(true);;
+				carefulToggleButton.setEnabled(true);
 			}
 		});
 		fightButton.setFont(new Font("Dialog", Font.BOLD, 30));
