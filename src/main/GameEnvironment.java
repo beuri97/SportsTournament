@@ -165,7 +165,7 @@ public class GameEnvironment {
 				Product sale = stockType[col];
 				this.team.setMoney(sale.getPrice());
 				if(stockType[col] instanceof Athlete) this.team.leaveAthletes(stockType[col]);
-				else this.team.removeItem(col);
+				else this.team.removeItem(sale);
 				break;
 		}
 	}
@@ -181,7 +181,7 @@ public class GameEnvironment {
 		Athlete athlete = this.team.getRoster()[athleteIndex];
 		Item item = this.team.getInventory()[itemIndex];
 		athlete.useItem(item);
-		team.removeItem(itemIndex);
+		team.removeItem(item);
 	}
 
 	/**
@@ -300,12 +300,19 @@ public class GameEnvironment {
 		this.played = false;
 		this.market = new Market();
 		this.setOpponent();
-		Athlete[] roster = this.getTeam().getRoster();
-		for(Athlete athlete : roster){
+		for(Athlete athlete : this.getTeam().getRoster()){
 
+			if (!setup.event(3.00) && athlete.isInjured()) athlete.setStamina(athlete.getMaxStamina());
+			else team.leaveAthletes(athlete);
+		}
+		for (Athlete athlete : this.getTeam().getRoster()){
 
-			if (setup.isLeave(3.00) && athlete.isInjured()) team.leaveAthletes(athlete);
-			athlete.setStamina(athlete.getMaxStamina());
+			if(setup.event(4.00)) {
+				athlete.setOffenseStat(2);
+				athlete.setDefenseStat(2);
+				athlete.setMaxStamina(7);
+				athlete.setStamina(athlete.getMaxStamina());
+			}
 		}
 		// TODO - Athlete Random events
 	}

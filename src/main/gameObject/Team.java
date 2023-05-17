@@ -129,17 +129,9 @@ public class Team {
      */
     public void recruitAthletes(Product athlete) {
 
-
-        // if there is any null in array swap null to new athlete
-        // else add new athlete at the end if total number of current athletes are less than 7
-        for(int i=0; i<roster.size(); i++){
-            if (roster.get(i) == null) {
-                roster.set(i,(Athlete) athlete);
-                break;
-            }
-        }
+        // add athlete if number of athletes in roster is not exceed constant TOTAL_ATHLETES
         if(roster.size()<=TOTAL_ATHLETE && !roster.contains((Athlete)athlete))
-            roster.add((Athlete)athlete);
+            roster.add(0,(Athlete)athlete);
 
         // This will not run but keep it for this program to run safe
         else throw new NoSpaceException();
@@ -149,12 +141,11 @@ public class Team {
  * Remove an athlete from the roster.
  * This method is for cases where a user sells an athlete
  * or an athlete is injured.
- * @param col target athlete's index that will be removed
+ * @param athlete target athlete's index that will be removed
  */
     public void leaveAthletes(Product athlete) {
 
-        int index = roster.indexOf((Athlete) athlete);
-        roster.set(index, null);
+        roster.remove((Athlete) athlete);
     }
 
     /**
@@ -163,12 +154,7 @@ public class Team {
      */
     public void addItem(Product item) {
 
-        for(int i=0; i<inventory.size(); i++){
-            if (inventory.get(i) == null) {
-                inventory.set(i,(Item) item);
-                break;
-            }
-        }
+
         if(inventory.size() < TOTAL_ITEM && !inventory.contains((Item)item))
             inventory.add((Item) item);
 
@@ -178,10 +164,10 @@ public class Team {
     
     /**
      * Remove an item from inventory if user use or sell the item.
-     * @param col target item's index that will be removed
+     * @param item target item's index that will be removed
      */
-    public void removeItem(int col) {
-        inventory.set(col, null);
+    public void removeItem(Product item) {
+        inventory.remove((Item) item);
     }
 
     public boolean isFull(Product[] products) {

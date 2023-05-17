@@ -49,7 +49,7 @@ public class SetUp {
 
     }
 
-    public boolean isLeave(double percentage) {
+    public boolean event(double percentage) {
 
         Random random = new Random();
         return random.nextDouble(100.00) <= percentage;
