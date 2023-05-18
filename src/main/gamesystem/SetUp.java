@@ -11,6 +11,7 @@ import java.util.Random;
 
 public class SetUp {
 
+    Random random = new Random();
     public void checkRegex(String input, final String REGEX, String message) throws IllegalInputException {
 
         if(!input.matches(REGEX)) {
@@ -51,8 +52,13 @@ public class SetUp {
 
     public boolean event(double percentage) {
 
-        Random random = new Random();
         return random.nextDouble(100.00) <= percentage;
+    }
+
+    public int randomInt(int origin, int bound) {
+
+        if(origin == 0) origin = 1;
+        return random.nextInt(1, bound);
     }
 
 }
