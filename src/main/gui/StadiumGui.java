@@ -25,9 +25,12 @@ public class StadiumGui implements UserInterface{
 
 	private JFrame frmStadium;
 	
-	GameEnvironment gameEnvironment;
-	Athlete[] myRoster;
-	Athlete[] opponentRoster;
+	private GameEnvironment gameEnvironment;
+	private Athlete[] myRoster;
+	private Athlete[] opponentRoster;
+	private int athleteNum;
+	private int setScore = 1;
+	
 	JButton fightButton;
 	
 	JLabel currentStatBuffLabel; 
@@ -37,28 +40,9 @@ public class StadiumGui implements UserInterface{
 	JLabel myScoreLabel;
 	JLabel opponentScoreLabel;
 	
-	JToggleButton aggresiveToggleButton;
-	JToggleButton carefulToggleButton;
-	
-	JLabel myAthleteLabel1;
-	JLabel myAthleteLabel2;
-	JLabel myAthleteLabel3;
-	JLabel myAthleteLabel4;
-	
-	JPanel myAthletePhoto1;
-	JPanel myAthletePhoto2;
-	JPanel myAthletePhoto3;
-	JPanel myAthletePhoto4;
-	
-	JLabel opponentAthleteLabel1;
-	JLabel opponentAthleteLabel2;
-	JLabel opponentAthleteLabel3;
-	JLabel opponentAthleteLabel4;
-	
-	JPanel opponentAthletePhoto1;
-	JPanel opponentAthletePhoto2;
-	JPanel opponentAthletePhoto3;
-	JPanel opponentAthletePhoto4;
+	JToggleButton aggresiveBttn;
+	JToggleButton carefulBttn;
+
 
 	/**
 	 * Create the application.
@@ -104,11 +88,11 @@ public class StadiumGui implements UserInterface{
 		gameResultDescripTextField.setHorizontalAlignment(SwingConstants.CENTER);
 		gameResultDescripTextField.setFont(new Font("Dialog", Font.BOLD, 16));
 		gameResultDescripTextField.setBorder(new LineBorder(UIManager.getColor("Button.foreground")));
-		gameResultDescripTextField.setBounds(631, 704, 410, 158);
+		gameResultDescripTextField.setBounds(477, 701, 700, 200);
 		frmStadium.getContentPane().add(gameResultDescripTextField);
 		
 		battlePhoto = new JPanel();
-		battlePhoto.setBounds(464, 176, 725, 338);
+		battlePhoto.setBounds(464, 176, 700, 338);
 		frmStadium.getContentPane().add(battlePhoto);
 		battlePhoto.setBorder(new LineBorder(UIManager.getColor("Button.foreground")));
 		
@@ -117,6 +101,7 @@ public class StadiumGui implements UserInterface{
 		numberofSetLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		numberofSetLabel.setBounds(731, 12, 213, 46);
 		frmStadium.getContentPane().add(numberofSetLabel);
+		numberofSetLabel.setText("Set Score" + setScore);
 		
 		JLabel doubleDotScoreLabel = new JLabel(":");
 		doubleDotScoreLabel.setFont(new Font("Dialog", Font.BOLD, 28));
@@ -139,6 +124,9 @@ public class StadiumGui implements UserInterface{
 	private void refreshScreen() {
 		myScoreLabel.setText(Integer.toString(gameEnvironment.matchResult()[0]));
 		opponentScoreLabel.setText(Integer.toString(gameEnvironment.matchResult()[1]));
+		aggresiveBttn.setSelected(false);
+		carefulBttn.setSelected(false);
+		numberofSetLabel.setText("Set Score " + setScore);
 	}
 	
 	private void setMyAthletePanel() {
@@ -153,10 +141,10 @@ public class StadiumGui implements UserInterface{
 		myTeamLabel.setBounds(12, 12, 137, 33);
 		myTeamPanel.add(myTeamLabel);
 		
-		myAthleteLabel1 = new JLabel(printing(myRoster[0].getAthleteSummary()));
-		myAthleteLabel2 = new JLabel(printing(myRoster[1].getAthleteSummary()));
-		myAthleteLabel3 = new JLabel(printing(myRoster[2].getAthleteSummary()));
-		myAthleteLabel4 = new JLabel(printing(myRoster[3].getAthleteSummary()));
+		JLabel myAthleteLabel1 = new JLabel(printing(myRoster[0].getAthleteSummary()));
+		JLabel myAthleteLabel2 = new JLabel(printing(myRoster[1].getAthleteSummary()));
+		JLabel myAthleteLabel3 = new JLabel(printing(myRoster[2].getAthleteSummary()));
+		JLabel myAthleteLabel4 = new JLabel(printing(myRoster[3].getAthleteSummary()));
 		
 		myAthleteLabel1.setHorizontalAlignment(SwingConstants.LEFT);
 		myAthleteLabel1.setBounds(162, 57, 132, 95);
@@ -170,16 +158,17 @@ public class StadiumGui implements UserInterface{
 		myAthleteLabel4.setHorizontalAlignment(SwingConstants.LEFT);
 		myAthleteLabel4.setBounds(162, 393, 132, 95);
 		myTeamPanel.add(myAthleteLabel4);
-		myAthletePhoto1 = new JPanel();
+		
+		JPanel myAthletePhoto1 = new JPanel();
+		JPanel myAthletePhoto2 = new JPanel();
+		JPanel myAthletePhoto3 = new JPanel();
+		JPanel myAthletePhoto4 = new JPanel();
 		myAthletePhoto1.setBounds(22, 61, 100, 100);
 		myTeamPanel.add(myAthletePhoto1);
-		myAthletePhoto2 = new JPanel();
 		myAthletePhoto2.setBounds(22, 173, 100, 100);
 		myTeamPanel.add(myAthletePhoto2);
-		myAthletePhoto3 = new JPanel();
 		myAthletePhoto3.setBounds(22, 285, 100, 100);
 		myTeamPanel.add(myAthletePhoto3);
-		myAthletePhoto4 = new JPanel();
 		myAthletePhoto4.setBounds(22, 397, 100, 100);
 		myTeamPanel.add(myAthletePhoto4);
 	}
@@ -196,10 +185,10 @@ public class StadiumGui implements UserInterface{
 		opponentTeamLabel.setBounds(12, 12, 282, 33);
 		opponentPanel.add(opponentTeamLabel);
 		
-		opponentAthleteLabel1 = new JLabel(printing(opponentRoster[0].getAthleteSummary()));
-		opponentAthleteLabel2 = new JLabel(printing(opponentRoster[1].getAthleteSummary()));
-		opponentAthleteLabel3 = new JLabel(printing(opponentRoster[2].getAthleteSummary()));
-		opponentAthleteLabel4 = new JLabel(printing(opponentRoster[3].getAthleteSummary()));
+		JLabel opponentAthleteLabel1 = new JLabel(printing(opponentRoster[0].getAthleteSummary()));
+		JLabel opponentAthleteLabel2 = new JLabel(printing(opponentRoster[1].getAthleteSummary()));
+		JLabel opponentAthleteLabel3 = new JLabel(printing(opponentRoster[2].getAthleteSummary()));
+		JLabel opponentAthleteLabel4 = new JLabel(printing(opponentRoster[3].getAthleteSummary()));
 		
 		opponentAthleteLabel1.setHorizontalAlignment(SwingConstants.LEFT);
 		opponentAthleteLabel1.setBounds(162, 66, 132, 95);
@@ -214,10 +203,10 @@ public class StadiumGui implements UserInterface{
 		opponentAthleteLabel4.setBounds(162, 397, 132, 95);
 		opponentPanel.add(opponentAthleteLabel4);
 		
-		opponentAthletePhoto1 = new JPanel();
-		opponentAthletePhoto2 = new JPanel();
-		opponentAthletePhoto3 = new JPanel();
-		opponentAthletePhoto4 = new JPanel();
+		JPanel opponentAthletePhoto1 = new JPanel();
+		JPanel opponentAthletePhoto2 = new JPanel();
+		JPanel opponentAthletePhoto3 = new JPanel();
+		JPanel opponentAthletePhoto4 = new JPanel();
 		
 		opponentAthletePhoto1.setBounds(22, 61, 100, 100);
 		opponentPanel.add(opponentAthletePhoto1);
@@ -242,36 +231,64 @@ public class StadiumGui implements UserInterface{
 		backToMainButton.setBounds(1483, 951, 155, 40);
 		frmStadium.getContentPane().add(backToMainButton);
 		
-		aggresiveToggleButton = new JToggleButton("Aggressive");
-		aggresiveToggleButton.addActionListener(new ActionListener() {
+		aggresiveBttn = new JToggleButton("Aggressive");
+		aggresiveBttn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				gameEnvironment.buffOffensive();
-				carefulToggleButton.setSelected(false);
+				carefulBttn.setSelected(false);
+				currentStatBuffLabel.setText(printing(myRoster[athleteNum].getAthleteSummary()));
 			}
 		});
-		aggresiveToggleButton.setFont(new Font("Dialog", Font.BOLD, 16));
-		aggresiveToggleButton.setBounds(887, 576, 256, 46);
-		frmStadium.getContentPane().add(aggresiveToggleButton);
+		aggresiveBttn.setFont(new Font("Dialog", Font.BOLD, 16));
+		aggresiveBttn.setBounds(887, 576, 256, 46);
+		frmStadium.getContentPane().add(aggresiveBttn);
 		
-		carefulToggleButton = new JToggleButton("Careful");
-		carefulToggleButton.addActionListener(new ActionListener() {
+		carefulBttn = new JToggleButton("Careful");
+		carefulBttn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				gameEnvironment.buffDefensive();
-				aggresiveToggleButton.setSelected(false);
+				aggresiveBttn.setSelected(false);
+				currentStatBuffLabel.setText(printing(myRoster[athleteNum].getAthleteSummary()));
 			}
 		});
-		carefulToggleButton.setFont(new Font("Dialog", Font.BOLD, 16));
-		carefulToggleButton.setBounds(887, 634, 256, 46);
-		frmStadium.getContentPane().add(carefulToggleButton);
+		carefulBttn.setFont(new Font("Dialog", Font.BOLD, 16));
+		carefulBttn.setBounds(887, 634, 256, 46);
+		frmStadium.getContentPane().add(carefulBttn);
 		
 		fightButton = new JButton("Fight");
 		fightButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				aggresiveToggleButton.setEnabled(false);;
-				carefulToggleButton.setEnabled(false);
+				aggresiveBttn.setEnabled(false);;
+				carefulBttn.setEnabled(false);
 				gameEnvironment.battleSequences();
-				aggresiveToggleButton.setEnabled(true);;
-				carefulToggleButton.setEnabled(true);
+				aggresiveBttn.setEnabled(true);;
+				carefulBttn.setEnabled(true);
+				gameResultDescripTextField.setText(printing(gameEnvironment.getBattleMessage()));
+				refreshScreen();
+				
+				if (gameEnvironment.isSet()) {
+					athleteNum += 1;
+					setScore = 1;
+				}
+				if (gameEnvironment.isGame()) {
+					fightButton.setEnabled(false);
+					aggresiveBttn.setEnabled(false);;
+					carefulBttn.setEnabled(false);
+					int myScore = gameEnvironment.matchResult()[0];
+					int oppoScore = gameEnvironment.matchResult()[1];
+					if (myScore > oppoScore) {
+						gameResultDescripTextField.setText(String.format("<html>Well Done!! <br/>You Won!!<br/> "
+								+ "Total score was %d : %d</html>",myScore,oppoScore) );}
+					else if(myScore == oppoScore) {
+						gameResultDescripTextField.setText(String.format("<html>That was very close!! <br/>"
+								+ "Next time you can win!!<br/> Total score was %d : %d</html>",myScore,oppoScore) );}
+					else {
+						gameResultDescripTextField.setText(String.format("<html>You lost!! <br/>"
+								+ "Train your athletes harder!!<br/> Total score was %d : %d</html>",myScore,oppoScore) );}
+					
+					setScore += 1;
+				
+				}	
 			}
 		});
 		fightButton.setFont(new Font("Dialog", Font.BOLD, 30));
@@ -285,15 +302,19 @@ public class StadiumGui implements UserInterface{
 	private void backToMain() {
 		Object[] options1 = { "Back to Main", "Cancel" };
 	    JPanel backToMainPanel = new JPanel();
-	    backToMainPanel.add(new JLabel("Are you sure? The match hasn't finished yet!"));
-	  
-	    int result = JOptionPane.showOptionDialog(null, backToMainPanel, "Back to Main",
-	        JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null,
-	        options1, null);
-	    if (result == JOptionPane.YES_OPTION) {
+	    if(gameEnvironment.isGame()) {
 	    	finishedWindow();
 			gameEnvironment.openMainScreen();
 	    }
+	    else {
+		    	backToMainPanel.add(new JLabel("Are you sure? The match hasn't finished yet!"));
+		    int result = JOptionPane.showOptionDialog(null, backToMainPanel, "Back to Main",
+		        JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+		        options1, null);
+		    if (result == JOptionPane.YES_OPTION) {
+		    	finishedWindow();
+				gameEnvironment.openMainScreen();
+	    }}
 	    
 	}
 	public void closeWindow() {
@@ -301,6 +322,6 @@ public class StadiumGui implements UserInterface{
 	}
 	
 	public void finishedWindow() {
-		gameEnvironment.closeStatiumScreen(this);
+		gameEnvironment.closeStatiumWindow(this);
 	}
 }

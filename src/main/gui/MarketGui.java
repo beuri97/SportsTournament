@@ -761,6 +761,6 @@ public class MarketGui implements UserInterface{
 		frmMarket.dispose();
 	}
 	public void finishedWindow() {
-		gameEnvironment.closeMarketScreen(this);
+		gameEnvironment.closeMarketWindow(this);
 	}
 }
