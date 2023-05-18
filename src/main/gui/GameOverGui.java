@@ -72,6 +72,6 @@ public class GameOverGui implements UserInterface{
 	}
 	
 	public void finishedWindow() {
-		gameEnvironment.closeGameOverScreen(this);
+		gameEnvironment.closeGameOverWindow(this);
 	}
 }

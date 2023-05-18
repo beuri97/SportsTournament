@@ -56,6 +56,7 @@ public class ImprovingAthleteGui implements UserInterface{
 		frmImproving.setSize(1650,1080);
 		frmImproving.setLocation((1925 - frmImproving.getWidth()) / 2, (1080 - frmImproving.getHeight()) / 2);
 		frmImproving.getContentPane().setLayout(null);
+		frmImproving.setVisible(true);
 		
 		JButton improveButton = new JButton("Improve!");
 		improveButton.addActionListener(new ActionListener() {
@@ -150,7 +151,7 @@ public class ImprovingAthleteGui implements UserInterface{
 	}
 	
 	public void finishedWindow() {
-		gameEnvironment.closeImprovingScreen(this);
+		gameEnvironment.closeImprovingWindow(this);
 	}
 	
 }

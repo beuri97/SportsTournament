@@ -335,7 +335,7 @@ public class GameEnvironment {
 	public void openGameOverScreen() {
 		ui = new GameOverGui(this);
 	}
-	public void openImprovingScreen() {
+	public void openImprovingWindow() {
 		ui = new ImprovingAthleteGui(this);
 	}
 	/**
@@ -344,22 +344,22 @@ public class GameEnvironment {
 	public void closeSetupWindow(SetupWindowGui setupWindow) {
 		setupWindow.closeWindow();
 	}
-	public void closeMainScreen(MainScreenGui mainWindow) {
+	public void closeMainWindow(MainScreenGui mainWindow) {
 		mainWindow.closeWindow();
 	}
-	public void closeMarketScreen(MarketGui marketWindow) {
+	public void closeMarketWindow(MarketGui marketWindow) {
 		marketWindow.closeWindow();
 	}
 	public void closeSelectingOpponent(SelectOpponentGui selectOpponentWindow) {
 		selectOpponentWindow.closeWindow();
 	}
-	public void closeStatiumScreen(StadiumGui stadiumWindow) {
+	public void closeStatiumWindow(StadiumGui stadiumWindow) {
 		stadiumWindow.closeWindow();
 	}
-	public void closeGameOverScreen(GameOverGui gameOverWindow) {
+	public void closeGameOverWindow(GameOverGui gameOverWindow) {
 		gameOverWindow.closeWindow();
 	}
-	public void closeImprovingScreen(ImprovingAthleteGui ImprovingWindow) {
+	public void closeImprovingWindow(ImprovingAthleteGui ImprovingWindow) {
 		ImprovingWindow.closeWindow();
 	}
 }
