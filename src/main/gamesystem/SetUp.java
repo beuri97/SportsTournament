@@ -45,7 +45,7 @@ public class SetUp {
 //        }
 //    }
 
-    public void createOpponent(Team[] opponent) {
+    public void reducedStamina(Athlete athlete) {
 
 
     }

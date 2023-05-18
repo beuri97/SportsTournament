@@ -170,15 +170,10 @@ public class Team {
         inventory.remove((Item) item);
     }
 
-    public boolean isFull(Product[] products) {
+    public boolean isFull() {
 
         //array has fixed length so if at least one null in this array this mean becomes array is not full
-        for (Product product : products) {
-            if (product == null) {
-                return false;
-            }
-        }
-        return true;
+        return this.roster.size() == TOTAL_ATHLETE;
     }
 
     public void swapAthletes(int athlete1, int athlete2) {

@@ -75,7 +75,7 @@ public class GameEnvironment {
 	 * Boolean set true if player play game at least once
 	 */
 	private boolean played;
-	
+
 	/**
 	 * Start new game by setting up Team name, number of weeks for season and difficulty of game
 	 */
@@ -150,7 +150,7 @@ public class GameEnvironment {
 			case "buy":
 				Product[] properties = (stockType instanceof Athlete[]) ? this.team.getRoster() : this.team.getInventory();
 				if(stockType[col] == null) throw new EmptySlotException();
-				if(this.team.isFull(properties)) throw new NoSpaceException();
+				if(this.team.isFull()) throw new NoSpaceException();
 				this.team.setMoney(- stockType[col].getPrice());
 				Product product = this.market.purchase(stockType, col);
 				if (product instanceof Athlete) {
@@ -268,7 +268,7 @@ public class GameEnvironment {
 	}
 
 	public void battleSequences() {
-		//TODO - check if athlete is injured
+
 		this.gameManager.battle();
 
 	}
@@ -292,7 +292,8 @@ public class GameEnvironment {
 		return new int[] {playerWin, totalPlayerPlay};
 	}
 
-	/**	 
+
+	/**
 	 * reset market status and match list when user take a bye
 	 */
 	public void reset() {
@@ -314,51 +315,67 @@ public class GameEnvironment {
 				athlete.setStamina(athlete.getMaxStamina());
 			}
 		}
-		// TODO - Athlete Random events
+		if (setup.event(3.50) && !this.getTeam().isFull()) {
+
+			this.team.recruitAthletes(market.athleteBuilder());
+		}
 	}
+
 	/**
-	 *open gui screens for Setup, Main, Market, Selecting Opponents, Stadium 
+	 *open gui screens for Setup, Main, Market, Selecting Opponents, Stadium
 	 */
-	
+
 	public void openMainScreen() {
 		ui = new MainScreenGui(this);
 	}
+
 	public void openMarketScreen() {
 		ui = new MarketGui(this);
 	}
+
 	public void openSelectingOpponent() {
 		ui = new SelectOpponentGui(this);
 	}
+
 	public void openStatiumScreen() {
 		ui = new StadiumGui(this);
 	}
+
 	public void openGameOverScreen() {
 		ui = new GameOverGui(this);
 	}
+
 	public void openImprovingWindow() {
 		ui = new ImprovingAthleteGui(this);
 	}
+
 	/**
-	 *close gui screens for Setup, Main, Market, Selecting Opponents, Stadium 
+	 *close gui screens for Setup, Main, Market, Selecting Opponents, Stadium
 	 */
 	public void closeSetupWindow(SetupWindowGui setupWindow) {
 		setupWindow.closeWindow();
 	}
+
 	public void closeMainWindow(MainScreenGui mainWindow) {
 		mainWindow.closeWindow();
 	}
+
 	public void closeMarketWindow(MarketGui marketWindow) {
 		marketWindow.closeWindow();
 	}
+
 	public void closeSelectingOpponent(SelectOpponentGui selectOpponentWindow) {
 		selectOpponentWindow.closeWindow();
 	}
+
 	public void closeStatiumWindow(StadiumGui stadiumWindow) {
 		stadiumWindow.closeWindow();
 	}
+
 	public void closeGameOverWindow(GameOverGui gameOverWindow) {
 		gameOverWindow.closeWindow();
 	}
+
 	public void closeImprovingWindow(ImprovingAthleteGui ImprovingWindow) {
 		ImprovingWindow.closeWindow();
 	}

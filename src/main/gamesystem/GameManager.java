@@ -15,7 +15,7 @@ import java.util.Random;
 public class GameManager{
 
     /**
-     *  TODO - How do I explain this??
+     *  Random Class to use for {@link GameManager}
      */
     private final Random random = new Random();
 

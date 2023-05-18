@@ -316,7 +316,7 @@ public class CmdLineUi implements UserInterface {
 					gameEnvironment.tradingProcess(str[0], stocks, col);
 				}
 				// provide sell sequence to player
-				else if(input.matches("sell (-a [1-7]|-i ([1-9]|1[0-4]))")) {
+				else if(input.matches("sell (-a [1-7]|-i ([1-9]|10))")) {
 					int col = Integer.parseInt(str[2]) - 1;
 					Product[] stocks = (str[1].equals("-a")) ? player.getRoster() : player.getInventory();
 					gameEnvironment.tradingProcess(str[0], stocks, col);
@@ -356,7 +356,7 @@ public class CmdLineUi implements UserInterface {
 					this.listing(player.getInventory());
 				}
 				// command for use item to athlete
-				else if (input.matches("^use ([1-9]|1[0-4])")) {
+				else if (input.matches("^use ([1-9]|10)")) {
 
 					int itemIndex = Integer.parseInt(input.split(" ")[1]) -1;
 					System.out.println("\n Select athlete to apply. Input \"cancel\" to cancel process.");
@@ -404,7 +404,10 @@ public class CmdLineUi implements UserInterface {
 		}
 	}
 
-
+	/**
+	 * Actual match sequence method in CLI.
+	 * @param index index of gameEnvironment.opponents array to get specific opponent
+	 */
 	private void actualGame(int index) {
 
 		gameEnvironment.gameStart(index);
@@ -440,7 +443,8 @@ public class CmdLineUi implements UserInterface {
 
 					System.out.println("Battle Start!");
 					gameEnvironment.battleSequences();
-					System.out.println(gameEnvironment.getBattleMessage());
+					String message = gameEnvironment.getBattleMessage();
+					System.out.println(message);
 				} catch (IllegalInputException e) {
 					System.out.println(e.getMessage());
 				}
@@ -456,7 +460,7 @@ public class CmdLineUi implements UserInterface {
 			System.out.println("See you next week!");
 			this.gameEnvironment.reset();
 		}else {
-			System.out.println("You are not played at least one game in this week");
+			System.out.println("You did not have any match in this week");
 			System.out.println("Are you sure you want to finish this season?(Y|n)");
 			String input = scan.nextLine();
 			try{
@@ -525,6 +529,7 @@ public class CmdLineUi implements UserInterface {
 			message = "YOU WIN\n";
 			money = gameEnvironment.getDifficulty().getMoneyGain() * 1.5;
 			message += String.format("MONEY GAIN: %.2f", money);
+
 		}
 		else if (playerScore < opponentScore) {
 			message = "YOU LOSE\n";
