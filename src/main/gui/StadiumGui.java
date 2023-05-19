@@ -1,12 +1,10 @@
 package main.gui;
 
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 
 import main.GameEnvironment;
 import main.UserInterface;
-import main.gameObject.Team;
 import main.gameObject.athletes.Athlete;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
@@ -101,7 +99,7 @@ public class StadiumGui implements UserInterface{
 		numberofSetLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		numberofSetLabel.setBounds(731, 12, 213, 46);
 		frmStadium.getContentPane().add(numberofSetLabel);
-		numberofSetLabel.setText("Set Score" + setScore);
+		numberofSetLabel.setText("Set Score" + gameEnvironment.getGameSetNumber());
 		
 		JLabel doubleDotScoreLabel = new JLabel(":");
 		doubleDotScoreLabel.setFont(new Font("Dialog", Font.BOLD, 28));
@@ -127,7 +125,7 @@ public class StadiumGui implements UserInterface{
 		currentStatBuffLabel.setText(printing(myRoster[athleteNum].getAthleteSummary()));
 		aggresiveBttn.setSelected(false);
 		carefulBttn.setSelected(false);
-		numberofSetLabel.setText("Set Score " + setScore);
+		numberofSetLabel.setText("Set Score " + gameEnvironment.getGameSetNumber());
 	}
 	
 	private void setMyAthletePanel() {
@@ -242,7 +240,6 @@ public class StadiumGui implements UserInterface{
 				
 				if (gameEnvironment.isSet()) {
 					athleteNum += 1;
-					setScore = 1;
 				}
 				if (gameEnvironment.isGame()) {
 					fightButton.setEnabled(false);
