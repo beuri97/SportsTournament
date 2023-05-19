@@ -227,7 +227,7 @@ public class GameManager{
         this.playerScored = false;
         this.opponentScored = false;
         this.opponentBuff = setOpponentAdjustStat();
-        
+
         // use random numerical value from revised stats that is revised with nerf and buff stat
         double playerAttackStat = random.nextDouble(this.nerfOffensive, this.buffOffensive);
         double playerDefenseStat = random.nextDouble(this.nerfDefensive, this.buffDefensive);
@@ -262,10 +262,10 @@ public class GameManager{
 
         String message = "Batte Result: " + String.format("%s attacked %s%n", this.playerAthlete.getName(),
                 (this.playerScored) ? "and Success!" : "but failed") +
-                ((this.playerScored) ? String.format("%s get score.%n", playerAthlete) : "") +
+                ((this.playerScored) ? String.format("%s get score.%n", playerAthlete.getName()) : "") +
                 String.format("%s attacked %s%n", opponentAthlete.getName(),
                         (opponentScored) ? "and Success!" : "but failed") +
-                ((playerScored) ? String.format("%s get score.%n", opponentAthlete) : "");
+                ((playerScored) ? String.format("%s get score.%n", opponentAthlete.getName()) : "");
 
         return message;
     }
