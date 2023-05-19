@@ -84,6 +84,12 @@ public class GameEnvironment {
 		this.ui = userInterface;
 	}
 
+	/**
+	 * method for initial setup at the beginning of this program to play
+	 * @param name player's Team name
+	 * @param week total week that player wants to play
+	 * @param difficulty difficulty of this program(game) that player wants to play
+	 */
 	public void set(String name, int week, DifficultyOption difficulty){
 		this.totalSeason = week;
 		this.currentSeason = 1;
@@ -106,24 +112,37 @@ public class GameEnvironment {
 		return this.team;
 	}
 
-
+	/**
+	 * get entire market system / information
+	 * @return market data of each week
+	 */
 	public Market getMarket() {
 
 		return this.market;
 	}
 
+	/**
+	 * get player's difficulty data/information
+	 * @return entire difficulty data as enum class
+	 */
 	public DifficultyOption getDifficulty() {
 
 		return this.difficulty;
 	}
 
-
+	/**
+	 * get week info that player is currently on
+	 * @return integer value about players current week
+	 */
 	public int getCurrentSeason() {
 
 		return this.currentSeason;
 	}
 
-
+	/**
+	 * get total week of season player select at the beginning setup
+	 * @return int value about players total week of season
+	 */
 	public int getTotalSeason() {
 
 		return this.totalSeason;
@@ -137,7 +156,7 @@ public class GameEnvironment {
 	}
 
 	/**
-	 *
+	 * processing method about trading method
 	 * @param type String value indicating whether it is a buy or sell status
 	 * @param stockType A value indicating whether the product players want to buy is an athlete or an item.
 	 * @param col the stock's index in Market Team Roster or Team inventory.
@@ -196,15 +215,22 @@ public class GameEnvironment {
 		this.setup.checkRegex(input, REGEX, message);
 	}
 
+	/**
+	 * method that lead to swapAthletes method in class Team to swap two athletes
+	 * @param athlete1 athlete's index user wants to swap
+	 * @param athlete2 athlete's index user wants to swap
+	 */
 	public void swap(int athlete1, int athlete2) {
 
 		team.swapAthletes(athlete1, athlete2);
 	}
 
-
+	/**
+	 * Create opponents and add the opponent to opponents array.
+	 */
 	public void setOpponent() {
 
-		Athlete[] temp = new Athlete[7];
+		Athlete[] temp = new Athlete[4];
 		for(int i=0; i<this.opponents.length;i++) {
 			this.market.setAthleteProduct(temp);
 			this.opponents[i] = new Opponent(temp);
@@ -219,7 +245,6 @@ public class GameEnvironment {
 
 	/**
 	 * main Game start from here
-	 *
 	 * @param index opponent index of this.opponents,
 	 */
 	public void gameStart(int index) {
@@ -230,54 +255,104 @@ public class GameEnvironment {
 		this.gameManager = new GameManager(this, opponent, difficulty);
 	}
 
+	/**
+	 * method to get result about the match is all done by its condition
+	 * @return boolean value about match is game
+	 */
 	public boolean isGame() {
 
 		return gameManager.isGame();
 	}
 
+	/**
+	 * method to get result about each set of match is finish
+	 * @return boolean value about the game is set
+	 */
 	public boolean isSet() {
 
 		return gameManager.isSet();
 	}
 
+	/**
+	 * check player's team is qualify to have match
+	 * @throws InsufficientAthleteException occurs when injured athlete is in regular position or team does not have
+	 * enough athletes to play
+	 */
 	public void isPlayable() throws InsufficientAthleteException {
 
 		this.getTeam().isQualify();
 	}
 
+	/**
+	 * method to check if player played at least once per each week
+	 * @return boolean value and value is true if player played match at lest once
+	 */
 	public boolean isPlayed() {
 
 		return this.played;
 	}
 
+	/**
+	 * get opponent team information from {@link GameManager}
+	 * @return opponent team that player play against with
+	 */
 	public Team getOpponent() {
 
 		return gameManager.getOpponent();
 	}
 
-
+	/**
+	 * method to lead system to adjusting athletes stats range during game
+	 * this method will introduce how athletes' offense stats will be buffed
+	 * and how athlete's defense stats will be nerfed
+	 */
 	public void buffOffensive() {
 		this.gameManager.setOffensiveAdjust(0);
 		this.gameManager.setDefensiveAdjust(1);
 	}
 
+	/**
+	 * method to lead system to adjusting athletes stats range during game
+	 * this method will introduce how athletes' defense stats will be buffed
+	 * and how athlete's offense stats will be nerfed
+	 */
 	public void buffDefensive() {
 
 		this.gameManager.setDefensiveAdjust(0);
 		this.gameManager.setOffensiveAdjust(1);
 	}
 
+	/**
+	 *  call actual bettle sequence
+	 */
 	public void battleSequences() {
 
 		this.gameManager.battle();
 
 	}
 
+	/**
+	 * get message about each fight result
+	 * @return String value about fighting result about each fight
+	 */
 	public String getBattleMessage() {
 
 		return gameManager.battleMessage();
 	}
 
+	/**
+	 * get match set number
+	 * @return integer value about current set of the match
+	 */
+	public int getGameSetNumber() {
+
+		return gameManager.getSetNumber();
+	}
+
+	/**
+	 *get player's and opponent's game score from gameManager
+	 * @return integer values about player's game score and opponents' game score in integer array
+	 */
 	public int[] matchResult() {
 
 		int playerScore = gameManager.getPlayerGameScore();
@@ -285,6 +360,10 @@ public class GameEnvironment {
 		return new int[] {playerScore, opponentScore};
 	}
 
+	/**
+	 * give information that is about match result to UserInterface
+	 * @return integer values about player's number of win and player's total played in integer array
+	 */
 	public int[] getPlayerOverall() {
 
 		int playerWin = team.getGameWin();
@@ -293,10 +372,10 @@ public class GameEnvironment {
 	}
 
 	/**
-	 *
-	 * @param lose
+	 * reduce athlete stamina
+	 * @param lose value should be true if player lose the game.
 	 */
-	public void setAthletesStamina(boolean lose) {
+	public void reduceStamina(boolean lose) {
 
 		setup.reducedStamina(getTeam().getRoster(), lose);
 	}

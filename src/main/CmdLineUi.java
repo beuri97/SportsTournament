@@ -541,7 +541,7 @@ public class CmdLineUi implements UserInterface {
 		}
 		boolean phase = message.contains("YOU LOSE");
 		System.out.println(message);
-		gameEnvironment.setAthletesStamina(phase);
+		gameEnvironment.reduceStamina(phase);
 	}
 
 	/**

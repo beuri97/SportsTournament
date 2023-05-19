@@ -100,6 +100,7 @@ public class GameManager{
 
     }
 
+
     /**
      * get opponent detail
      * @return Opponent team as Team Class
@@ -125,6 +126,11 @@ public class GameManager{
     public int getOpponentGameScore() {
 
         return this.opponentGameScore;
+    }
+
+    public int getSetNumber() {
+
+        return setNumber;
     }
 
     /**
