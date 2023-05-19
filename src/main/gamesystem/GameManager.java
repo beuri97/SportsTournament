@@ -100,6 +100,7 @@ public class GameManager{
 
     }
 
+
     /**
      * get opponent detail
      * @return Opponent team as Team Class
@@ -125,6 +126,11 @@ public class GameManager{
     public int getOpponentGameScore() {
 
         return this.opponentGameScore;
+    }
+
+    public int getSetNumber() {
+
+        return setNumber;
     }
 
     /**
@@ -217,33 +223,30 @@ public class GameManager{
         int opponentOffense = opponentAthlete.getOffenseStat();
         int opponentDefense = opponentAthlete.getDefenseStat();
 
-        do {
-            this.playerScored = false;
-            this.opponentScored = false;
-            this.opponentBuff = setOpponentAdjustStat();
-            // use random numerical value from revised stats that is revised with nerf and buff stat
-            double playerAttackStat = random.nextDouble(this.nerfOffensive, this.buffOffensive);
-            double playerDefenseStat = random.nextDouble(this.nerfDefensive, this.buffDefensive);
+        // reset flag
+        this.playerScored = false;
+        this.opponentScored = false;
+        this.opponentBuff = setOpponentAdjustStat();
 
-            // use random numerical value from revised stats that is revised with nerf and buff stat
-            double opponentAttackStat =  random.nextDouble(opponentOffense - 10, opponentOffense + opponentBuff);
+        // use random numerical value from revised stats that is revised with nerf and buff stat
+        double playerAttackStat = random.nextDouble(this.nerfOffensive, this.buffOffensive);
+        double playerDefenseStat = random.nextDouble(this.nerfDefensive, this.buffDefensive);
 
-            double opponentDefenseStat = random.nextDouble(opponentDefense - 5, opponentDefense + opponentBuff);
-            // analyze outcome of the battle
-            if (playerAttackStat > opponentDefenseStat) {
-                this.playerScored = true;
-                this.playerSetScore++;
-                this.playerGameScore++;
-            }
-            if (opponentAttackStat > playerDefenseStat) {
-                this.opponentScored = true;
-                this.opponentSetScore++;
-                this.opponentGameScore++;
-            }
+        // use random numerical value from revised stats that is revised with nerf and buff stat
+        double opponentAttackStat =  random.nextDouble(opponentOffense - 10, opponentOffense + opponentBuff);
 
-        } while (!this.playerScored && !this.opponentScored);
-
-        //reset flag when while loop is terminated
+        double opponentDefenseStat = random.nextDouble(opponentDefense - 5, opponentDefense + opponentBuff);
+        // analyze outcome of the battle
+        if (playerAttackStat > opponentDefenseStat) {
+            this.playerScored = true;
+            this.playerSetScore++;
+            this.playerGameScore++;
+        }
+        if (opponentAttackStat > playerDefenseStat) {
+            this.opponentScored = true;
+            this.opponentSetScore++;
+            this.opponentGameScore++;
+        }
     }
 
     /**
@@ -259,10 +262,10 @@ public class GameManager{
 
         String message = "Batte Result: " + String.format("%s attacked %s%n", this.playerAthlete.getName(),
                 (this.playerScored) ? "and Success!" : "but failed") +
-                ((this.playerScored) ? String.format("%s get score.%n", playerAthlete) : "") +
+                ((this.playerScored) ? String.format("%s get score.%n", playerAthlete.getName()) : "") +
                 String.format("%s attacked %s%n", opponentAthlete.getName(),
                         (opponentScored) ? "and Success!" : "but failed") +
-                ((playerScored) ? String.format("%s get score.%n", opponentAthlete) : "");
+                ((playerScored) ? String.format("%s get score.%n", opponentAthlete.getName()) : "");
 
         return message;
     }
