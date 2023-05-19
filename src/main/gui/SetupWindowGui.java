@@ -159,7 +159,7 @@ public class SetupWindowGui implements UserInterface {
 					gameEnvironment.check(teamNameField.getText(), NAME_REGEX, NAME_CHAR_REQUIREMENT);
 					gameEnvironment.set(teamNameField.getText(), slider.getValue(), level);	
 					finishedWindow();
-					gameEnvironment.openMainScreen();
+					gameEnvironment.openMainWindow();
 				}
 				catch(IllegalInputException a) {
 					infoLabel.setText(a.getMessage());	

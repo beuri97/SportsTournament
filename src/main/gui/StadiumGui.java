@@ -27,7 +27,6 @@ public class StadiumGui implements UserInterface{
 	private Athlete[] myRoster;
 	private Athlete[] opponentRoster;
 	private int athleteNum;
-	private int setScore = 1;
 	
 	JButton fightButton;
 	
@@ -257,7 +256,6 @@ public class StadiumGui implements UserInterface{
 						gameResultLabel.setText(String.format("<html>You lost!! <br/>"
 								+ "Train your athletes harder!!<br/> Total score was %d : %d</html>",myScore,oppoScore) );}
 					
-					setScore += 1;
 				
 				}	
 			}
@@ -275,7 +273,7 @@ public class StadiumGui implements UserInterface{
 	    JPanel backToMainPanel = new JPanel();
 	    if(gameEnvironment.isGame()) {
 	    	finishedWindow();
-			gameEnvironment.openMainScreen();
+			gameEnvironment.openMainWindow();
 	    }
 	    else {
 		    	backToMainPanel.add(new JLabel("Are you sure? The match hasn't finished yet!"));
@@ -284,7 +282,7 @@ public class StadiumGui implements UserInterface{
 		        options1, null);
 		    if (result == JOptionPane.YES_OPTION) {
 		    	finishedWindow();
-				gameEnvironment.openMainScreen();
+				gameEnvironment.openMainWindow();
 	    }}
 	    
 	}

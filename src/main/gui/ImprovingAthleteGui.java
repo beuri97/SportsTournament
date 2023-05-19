@@ -74,7 +74,7 @@ public class ImprovingAthleteGui implements UserInterface{
 			public void actionPerformed(ActionEvent e) {
 				gameEnvironment.reset();
 				finishedWindow();
-				gameEnvironment.openMainScreen();
+				gameEnvironment.openMainWindow();
 			}
 		});	
 		
