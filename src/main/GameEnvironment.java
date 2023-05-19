@@ -292,6 +292,15 @@ public class GameEnvironment {
 		return new int[] {playerWin, totalPlayerPlay};
 	}
 
+	/**
+	 *
+	 * @param lose
+	 */
+	public void setAthletesStamina(boolean lose) {
+
+		setup.reducedStamina(getTeam().getRoster(), lose);
+	}
+
 
 	/**
 	 * reset market status and match list when user take a bye

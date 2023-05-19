@@ -243,7 +243,6 @@ public class CmdLineUi implements UserInterface {
 					case "market" -> marketSystem();
 					case "info" -> getInfo();
 					case "team" -> teamInfoSystem();
-					//TODO - create methods and call them here
 					case "stadium" -> stadium();
 					case "bye" -> takeBye();
 					default -> throw new IllegalInputException();
@@ -524,7 +523,6 @@ public class CmdLineUi implements UserInterface {
 		double money;
 		System.out.printf("Your Score: %d%nOpponent Score: %s%n", playerScore, opponentScore);
 
-		//TODO - Reduce athletes stamina
 		if (playerScore > opponentScore) {
 			message = "YOU WIN\n";
 			money = gameEnvironment.getDifficulty().getMoneyGain() * 1.5;
@@ -541,7 +539,9 @@ public class CmdLineUi implements UserInterface {
 			money = gameEnvironment.getDifficulty().getMoneyGain();
 			message += String.format("MONEY GAIN: %.2f", money);
 		}
+		boolean phase = message.contains("YOU LOSE");
 		System.out.println(message);
+		gameEnvironment.setAthletesStamina(phase);
 	}
 
 	/**

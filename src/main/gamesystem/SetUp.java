@@ -45,8 +45,20 @@ public class SetUp {
 //        }
 //    }
 
-    public void reducedStamina(Athlete athlete) {
+    public void reducedStamina(Athlete[] athletes, boolean lose) {
+        final int CORRECTION = (!lose) ? 1 : 2;
+        for (Athlete athlete : athletes) {
 
+            athlete.setStamina(-30*CORRECTION);
+        }
+    }
+
+    public void refillStamina(Athlete[] athletes) {
+
+        for (Athlete athlete : athletes) {
+
+            athlete.setStamina(athlete.getMaxStamina());
+        }
 
     }
 
