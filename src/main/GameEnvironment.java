@@ -386,10 +386,12 @@ public class GameEnvironment {
 
 	/**
 	 * reduce athlete stamina
+	 * @param money money that player earned after match
 	 * @param lose value should be true if player lose the game.
 	 */
-	public void reduceStamina(boolean lose) {
+	public void closingGame(double money, boolean lose) {
 
+		team.setMoney(money);
 		setup.reducedStamina(getTeam().getRoster(), lose);
 	}
 
@@ -404,18 +406,18 @@ public class GameEnvironment {
 		for(Athlete athlete : this.getTeam().getRoster()){
 
 			//although Team getRoster method returns array it still works since the type is actually arraylist.
-			if (athlete == null) {break;}
+			if (athlete == null) { break; }
 
 			else if (!setup.event(3.00) && athlete.isInjured()) athlete.setStamina(athlete.getMaxStamina());
-			
+
 			else team.leaveAthletes(athlete);
 		}
 		for (Athlete athlete : this.getTeam().getRoster()){
 
-			if(setup.event(4.00)) {
-				athlete.setOffenseStat(2);
-				athlete.setDefenseStat(2);
-				athlete.setMaxStamina(7);
+			if(setup.event(4.00) && athlete != null) {
+				athlete.setOffenseStat(SetUp.randomInt(3));
+				athlete.setDefenseStat(SetUp.randomInt(3));
+				athlete.setMaxStamina(SetUp.randomInt(8));
 				athlete.setStamina(athlete.getMaxStamina());
 			}
 		}
@@ -423,7 +425,6 @@ public class GameEnvironment {
 
 			this.team.recruitAthletes(market.athleteBuilder());
 		}
-
 		currentSeason++;
 	}
 

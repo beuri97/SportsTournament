@@ -49,7 +49,8 @@ public class SetUp {
         final int CORRECTION = (!lose) ? 1 : 2;
         for (Athlete athlete : athletes) {
 
-            athlete.setStamina(-30*CORRECTION);
+            if(athlete != null)
+                athlete.setStamina(-30*CORRECTION);
         }
     }
 
