@@ -140,8 +140,7 @@ public class GameManager{
      */
     public int[][] getAdjustedStat() {
 
-        return new int[][] {{playerAthlete.getOffenseStat()-nerfOffensive, playerAthlete.getOffenseStat()+buffOffensive},
-                            {playerAthlete.getDefenseStat()-nerfDefensive, playerAthlete.getDefenseStat()+buffDefensive}};
+        return new int[][] {{nerfOffensive, buffOffensive}, {nerfDefensive, buffDefensive}};
     }
 
     /**
