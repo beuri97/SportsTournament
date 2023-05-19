@@ -1,12 +1,10 @@
 package main.gui;
 
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 
 import main.GameEnvironment;
 import main.UserInterface;
-import main.gameObject.Team;
 import main.gameObject.athletes.Athlete;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
@@ -29,7 +27,6 @@ public class StadiumGui implements UserInterface{
 	private Athlete[] myRoster;
 	private Athlete[] opponentRoster;
 	private int athleteNum;
-	private int setScore = 1;
 	
 	JButton fightButton;
 	
@@ -101,7 +98,7 @@ public class StadiumGui implements UserInterface{
 		numberofSetLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		numberofSetLabel.setBounds(731, 12, 213, 46);
 		frmStadium.getContentPane().add(numberofSetLabel);
-		numberofSetLabel.setText("Set Score" + setScore);
+		numberofSetLabel.setText("Set Score" + gameEnvironment.getGameSetNumber());
 		
 		JLabel doubleDotScoreLabel = new JLabel(":");
 		doubleDotScoreLabel.setFont(new Font("Dialog", Font.BOLD, 28));
@@ -127,7 +124,7 @@ public class StadiumGui implements UserInterface{
 		currentStatBuffLabel.setText(printing(myRoster[athleteNum].getAthleteSummary()));
 		aggresiveBttn.setSelected(false);
 		carefulBttn.setSelected(false);
-		numberofSetLabel.setText("Set Score " + setScore);
+		numberofSetLabel.setText("Set Score " + gameEnvironment.getGameSetNumber());
 	}
 	
 	private void setMyAthletePanel() {
@@ -242,7 +239,6 @@ public class StadiumGui implements UserInterface{
 				
 				if (gameEnvironment.isSet()) {
 					athleteNum += 1;
-					setScore = 1;
 				}
 				if (gameEnvironment.isGame()) {
 					fightButton.setEnabled(false);
@@ -260,7 +256,6 @@ public class StadiumGui implements UserInterface{
 						gameResultLabel.setText(String.format("<html>You lost!! <br/>"
 								+ "Train your athletes harder!!<br/> Total score was %d : %d</html>",myScore,oppoScore) );}
 					
-					setScore += 1;
 				
 				}	
 			}
@@ -278,7 +273,7 @@ public class StadiumGui implements UserInterface{
 	    JPanel backToMainPanel = new JPanel();
 	    if(gameEnvironment.isGame()) {
 	    	finishedWindow();
-			gameEnvironment.openMainScreen();
+			gameEnvironment.openMainWindow();
 	    }
 	    else {
 		    	backToMainPanel.add(new JLabel("Are you sure? The match hasn't finished yet!"));
@@ -287,7 +282,7 @@ public class StadiumGui implements UserInterface{
 		        options1, null);
 		    if (result == JOptionPane.YES_OPTION) {
 		    	finishedWindow();
-				gameEnvironment.openMainScreen();
+				gameEnvironment.openMainWindow();
 	    }}
 	    
 	}

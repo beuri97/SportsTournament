@@ -684,7 +684,7 @@ public class MarketGui implements UserInterface{
 		backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				finishedWindow();
-				gameEnvironment.openMainScreen();
+				gameEnvironment.openMainWindow();
 			}
 		});
 		backButton.setFont(new Font("Lucida Grande", Font.BOLD, 23));

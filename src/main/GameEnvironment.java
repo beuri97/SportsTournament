@@ -412,60 +412,81 @@ public class GameEnvironment {
 	}
 
 	/**
-	 *open gui screens for Setup, Main, Market, Selecting Opponents, Stadium
+	 *open GUI Main Window
 	 */
-
-	public void openMainScreen() {
+	public void openMainWindow() {
 		ui = new MainScreenGui(this);
 	}
-
-	public void openMarketScreen() {
+	/**
+	 *open GUI Makrket Window
+	 */
+	public void openMarketWindow() {
 		ui = new MarketGui(this);
 	}
-
+	/**
+	 *open GUI Opponent selecting Window
+	 */
 	public void openSelectingOpponent() {
 		ui = new SelectOpponentGui(this);
 	}
-
-	public void openStatiumScreen() {
+	/**
+	 *open GUI Stadium Window
+	 */
+	public void openStatiumWindow() {
 		ui = new StadiumGui(this);
 	}
-
-	public void openGameOverScreen() {
+	/**
+	 *open GUI GameOver Window
+	 */
+	public void openGameOverWindow() {
 		ui = new GameOverGui(this);
 	}
-
+	/**
+	 *open GUI Improving Athlete Window
+	 */
 	public void openImprovingWindow() {
 		ui = new ImprovingAthleteGui(this);
 	}
 
 	/**
-	 *close gui screens for Setup, Main, Market, Selecting Opponents, Stadium
+	 *close GUI Setup Window
 	 */
 	public void closeSetupWindow(SetupWindowGui setupWindow) {
 		setupWindow.closeWindow();
 	}
-
+	/**
+	 *close GUI Main Window
+	 */
 	public void closeMainWindow(MainScreenGui mainWindow) {
 		mainWindow.closeWindow();
 	}
-
+	/**
+	 *close GUI Market Window
+	 */
 	public void closeMarketWindow(MarketGui marketWindow) {
 		marketWindow.closeWindow();
 	}
-
+	/**
+	 *close GUI Opponent selecting Window
+	 */
 	public void closeSelectingOpponent(SelectOpponentGui selectOpponentWindow) {
 		selectOpponentWindow.closeWindow();
 	}
-
+	/**
+	 *close GUI Stadium Window
+	 */
 	public void closeStatiumWindow(StadiumGui stadiumWindow) {
 		stadiumWindow.closeWindow();
 	}
-
+	/**
+	 *close GUI GameOver Window
+	 */
 	public void closeGameOverWindow(GameOverGui gameOverWindow) {
 		gameOverWindow.closeWindow();
 	}
-
+	/**
+	 *close GUI Improving Athlete Window
+	 */
 	public void closeImprovingWindow(ImprovingAthleteGui ImprovingWindow) {
 		ImprovingWindow.closeWindow();
 	}

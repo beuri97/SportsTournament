@@ -111,7 +111,7 @@ public class SelectOpponentGui implements UserInterface{
 				
 				gameEnvironment.gameStart(selectedOpponentNum);
 				finishedWindow();
-				gameEnvironment.openStatiumScreen();;
+				gameEnvironment.openStatiumWindow();;
 			}
 		});
 		startAMatchButton.setFont(new Font("Gentium", Font.BOLD | Font.ITALIC, 55));
@@ -123,7 +123,7 @@ public class SelectOpponentGui implements UserInterface{
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				finishedWindow();
-				gameEnvironment.openMainScreen();
+				gameEnvironment.openMainWindow();
 			}
 		});
 		cancelButton.setBounds(1454, 948, 137, 47);

@@ -428,7 +428,7 @@ public class MainScreenGui implements UserInterface{
 		marketButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				finishedWindow();
-				gameEnvironment.openMarketScreen();;
+				gameEnvironment.openMarketWindow();;
 			}
 		});
 		marketButton.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
