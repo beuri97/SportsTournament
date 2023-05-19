@@ -81,6 +81,7 @@ public class GameManager{
     private boolean playerScored, opponentScored;
 
     /**
+     *
      * Game Manager Constructor
      * @param gameEnvironment main game environment system
      */
@@ -131,6 +132,16 @@ public class GameManager{
     public int getSetNumber() {
 
         return setNumber;
+    }
+
+    /**
+     * method return athletes' range of offensive and defensive stat corrections
+     * @return integer values about athletes' range of offensive and defensive stat corrections in 2D array
+     */
+    public int[][] getAdjustedStat() {
+
+        return new int[][] {{playerAthlete.getOffenseStat()-nerfOffensive, playerAthlete.getOffenseStat()+buffOffensive},
+                            {playerAthlete.getDefenseStat()-nerfDefensive, playerAthlete.getDefenseStat()+buffDefensive}};
     }
 
     /**

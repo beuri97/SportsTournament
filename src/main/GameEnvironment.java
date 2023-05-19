@@ -191,8 +191,8 @@ public class GameEnvironment {
 
 	/**
 	 * method to lead system to use item to athletes
-	 * @param athleteIndex Player {@link main.gameObject.Team team}'s athletes index in roster
-	 * @param itemIndex Player {@link main.gameObject.Team team}'s item index in inventory
+	 * @param athleteIndex Player {@link main.gameObject.Team team's} athletes index in roster
+	 * @param itemIndex Player {@link main.gameObject.Team team's} item index in inventory
 	 */
 	public void useItem(int athleteIndex, int itemIndex) {
 
@@ -237,7 +237,10 @@ public class GameEnvironment {
 		}
 	}
 
-
+	/**
+	 * get all opponents in array
+	 * @return opponents array is Team array
+	 */
 	public Team[] getAllOpponent() {
 
 		return this.opponents;
@@ -302,6 +305,16 @@ public class GameEnvironment {
 	}
 
 	/**
+	 * A method that connects a player to a method that can return the range of offensive and defensive stat corrections
+	 * that an athlete's can receive during the game.
+	 * @return integer values about athletes' range of offensive and defensive stat corrections in 2D array
+	 */
+	public int[][] getAdjustedStats() {
+
+		return gameManager.getAdjustedStat();
+	}
+
+	/**
 	 * method to lead system to adjusting athletes stats range during game
 	 * this method will introduce how athletes' offense stats will be buffed
 	 * and how athlete's defense stats will be nerfed
@@ -323,7 +336,7 @@ public class GameEnvironment {
 	}
 
 	/**
-	 *  call actual bettle sequence
+	 *  call actual battle sequence
 	 */
 	public void battleSequences() {
 
@@ -380,7 +393,6 @@ public class GameEnvironment {
 		setup.reducedStamina(getTeam().getRoster(), lose);
 	}
 
-
 	/**
 	 * reset market status and match list when user take a bye
 	 */
@@ -391,7 +403,11 @@ public class GameEnvironment {
 		this.setOpponent();
 		for(Athlete athlete : this.getTeam().getRoster()){
 
-			if (!setup.event(3.00) && athlete.isInjured()) athlete.setStamina(athlete.getMaxStamina());
+			//although Team getRoster method returns array it still works since the type is actually arraylist.
+			if (athlete == null) {break;}
+
+			else if (!setup.event(3.00) && athlete.isInjured()) athlete.setStamina(athlete.getMaxStamina());
+			
 			else team.leaveAthletes(athlete);
 		}
 		for (Athlete athlete : this.getTeam().getRoster()){
@@ -418,7 +434,7 @@ public class GameEnvironment {
 		ui = new MainScreenGui(this);
 	}
 	/**
-	 *open GUI Makrket Window
+	 *open GUI Market Window
 	 */
 	public void openMarketWindow() {
 		ui = new MarketGui(this);
@@ -441,6 +457,7 @@ public class GameEnvironment {
 	public void openGameOverWindow() {
 		ui = new GameOverGui(this);
 	}
+
 	/**
 	 *open GUI Improving Athlete Window
 	 */
