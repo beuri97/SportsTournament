@@ -407,6 +407,8 @@ public class GameEnvironment {
 
 			this.team.recruitAthletes(market.athleteBuilder());
 		}
+
+		currentSeason++;
 	}
 
 	/**
