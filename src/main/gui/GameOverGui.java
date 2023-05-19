@@ -79,11 +79,15 @@ public class GameOverGui implements UserInterface{
 
 	}
 
-	
+	/*
+	 * close GameOver window ( it will be called from gameEnvironment)
+	 */
 	public void closeWindow() {
 		frmGameover.dispose();
 	}
-	
+	/*
+	 * close GameOver window
+	 */
 	public void finishedWindow() {
 		gameEnvironment.closeGameOverWindow(this);
 	}

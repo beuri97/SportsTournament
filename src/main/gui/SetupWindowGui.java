@@ -196,12 +196,14 @@ public class SetupWindowGui implements UserInterface {
 
 	}
 	/*
-	 * close setup window.
+	 * close setup window ( it will be called from gameEnvironment)
 	 */
 	public void closeWindow() {
 		frmFencingGame.dispose();
 	}
-	
+	/*
+	 * close setup window
+	 */
 	public void finishedWindow() {
 		gameEnvironment.closeSetupWindow(this);
 	}
