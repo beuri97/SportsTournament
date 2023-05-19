@@ -70,7 +70,7 @@ public class SetUp {
     public int randomInt(int origin, int bound) {
 
         if(origin == 0) origin = 1;
-        return random.nextInt(1, bound);
+        return random.nextInt(origin, bound);
     }
 
 }

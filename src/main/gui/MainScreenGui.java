@@ -44,7 +44,7 @@ public class MainScreenGui implements UserInterface{
 	int athleteSwitchingNum1 = -1;
 	int athleteSwitchingNum2 = -1;
 	int usingItemNum = -1;
-	int flag;
+
 	
 	private JToggleButton athleteButton1;
 	private JToggleButton athleteButton2;
@@ -164,18 +164,7 @@ public class MainScreenGui implements UserInterface{
 		noticeLabel.setBounds(300, 566, 594, 30);
 		frmMainWindow.getContentPane().add(noticeLabel);
 	}
-	private String printingName(int flag, int indexNum) {
-		if(flag == 0) {return (myRoster[indexNum] == null) ? "EMPTY" : printing(myRoster[indexNum].getName());}
-		else {return(myInventory[indexNum] == null) ? "EMPTY" : printing(myInventory[indexNum].getName());}			
-	}
-	
-	private void resetCurretWeek() {
-		currentWeek = gameEnvironment.getCurrentSeason();
-		if (currentWeek == 1) {weekNumLabel.setText("1st week");}
-		else if((currentWeek == 2)){weekNumLabel.setText("2nd week");}
-		else {weekNumLabel.setText(gameEnvironment.getCurrentSeason() + "rd week");}
-	}
-	
+
 	/**
 	 * Panel for Athlete lists on main screen
 	 */
@@ -197,13 +186,13 @@ public class MainScreenGui implements UserInterface{
 		
 		//Create toggle buttons for All the athletes that the player owns.
 		// 1~4 are Active, 5~7 are Reserves
-		athleteButton1 = new JToggleButton(printingName(0, 0));
-		athleteButton2 = new JToggleButton(printingName(0, 1));
-		athleteButton3 = new JToggleButton(printingName(0, 2));
-		athleteButton4 = new JToggleButton(printingName(0, 3));
-		athleteButton5 = new JToggleButton(printingName(0, 4));
-		athleteButton6 = new JToggleButton(printingName(0, 5));
-		athleteButton7 = new JToggleButton(printingName(0, 6));
+		athleteButton1 = new JToggleButton(printingName(myRoster[0]));
+		athleteButton2 = new JToggleButton(printingName(myRoster[1]));
+		athleteButton3 = new JToggleButton(printingName(myRoster[2]));
+		athleteButton4 = new JToggleButton(printingName(myRoster[3]));
+		athleteButton5 = new JToggleButton(printingName(myRoster[4]));
+		athleteButton6 = new JToggleButton(printingName(myRoster[5]));
+		athleteButton7 = new JToggleButton(printingName(myRoster[6]));
 		
 		athleteButton1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -264,16 +253,16 @@ public class MainScreenGui implements UserInterface{
 	frmMainWindow.getContentPane().add(setItemPanel);
 	setItemPanel.setLayout(new GridLayout(2, 7, 0, 0));
 	
-	itemButton1 = new JToggleButton(printingName(1, 0));
-	itemButton2 = new JToggleButton(printingName(1, 1));
-	itemButton3 = new JToggleButton(printingName(1, 2));
-	itemButton4 = new JToggleButton(printingName(1, 3));
-	itemButton5 = new JToggleButton(printingName(1, 4));
-	itemButton6 = new JToggleButton(printingName(1, 5));
-	itemButton7 = new JToggleButton(printingName(1, 6));
-	itemButton8 = new JToggleButton(printingName(1, 7));
-	itemButton9 = new JToggleButton(printingName(1, 8));
-	itemButton10 = new JToggleButton(printingName(1, 9));
+	itemButton1 = new JToggleButton(printingName(myInventory[0]));
+	itemButton2 = new JToggleButton(printingName(myInventory[1]));
+	itemButton3 = new JToggleButton(printingName(myInventory[2]));
+	itemButton4 = new JToggleButton(printingName(myInventory[3]));
+	itemButton5 = new JToggleButton(printingName(myInventory[4]));
+	itemButton6 = new JToggleButton(printingName(myInventory[5]));
+	itemButton7 = new JToggleButton(printingName(myInventory[6]));
+	itemButton8 = new JToggleButton(printingName(myInventory[7]));
+	itemButton9 = new JToggleButton(printingName(myInventory[8]));
+	itemButton10 = new JToggleButton(printingName(myInventory[9]));
 	
 	itemButton1.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
@@ -336,6 +325,16 @@ public class MainScreenGui implements UserInterface{
 	setItemPanel.add(itemButton10);	
 	}
 	/*
+	 * update number of week on main screen.
+	 */
+	private void resetCurretWeek() {
+		currentWeek = gameEnvironment.getCurrentSeason();
+		if (currentWeek == 1) {weekNumLabel.setText("1st week");}
+		else if((currentWeek == 2)){weekNumLabel.setText("2nd week");}
+		else {weekNumLabel.setText(gameEnvironment.getCurrentSeason() + "rd week");}
+	}
+	
+	/*
 	 * this is help function to swap two athletes when player click two athletes and refresh screen to show changes and cancel clicked toggle buttons
 	 */
 	private void swapAthleteSlots(int slotNum) {
@@ -369,24 +368,24 @@ public class MainScreenGui implements UserInterface{
 		myInventory = gameEnvironment.getTeam().getInventory();
 		resetCurretWeek();
 
-		athleteButton1.setText(printingName(0, 0));
-		athleteButton2.setText(printingName(0, 1));
-		athleteButton3.setText(printingName(0, 2));
-		athleteButton4.setText(printingName(0, 3));
-		athleteButton5.setText(printingName(0, 4));
-		athleteButton6.setText(printingName(0, 5));
-		athleteButton7.setText(printingName(0, 6));
+		athleteButton1.setText(printingName(myRoster[0]));
+		athleteButton2.setText(printingName(myRoster[1]));
+		athleteButton3.setText(printingName(myRoster[2]));
+		athleteButton4.setText(printingName(myRoster[3]));
+		athleteButton5.setText(printingName(myRoster[4]));
+		athleteButton6.setText(printingName(myRoster[5]));
+		athleteButton7.setText(printingName(myRoster[6]));
 		
-		itemButton1.setText(printingName(1, 0));
-		itemButton2.setText(printingName(1, 1));
-		itemButton3.setText(printingName(1, 2));
-		itemButton4.setText(printingName(1, 3));
-		itemButton5.setText(printingName(1, 4));
-		itemButton6.setText(printingName(1, 5));
-		itemButton7.setText(printingName(1, 6));
-		itemButton8.setText(printingName(1, 7));
-		itemButton9.setText(printingName(1, 8));
-		itemButton10.setText(printingName(1, 9));
+		itemButton1.setText(printingName(myInventory[0]));
+		itemButton2.setText(printingName(myInventory[1]));
+		itemButton3.setText(printingName(myInventory[2]));
+		itemButton4.setText(printingName(myInventory[3]));
+		itemButton5.setText(printingName(myInventory[4]));
+		itemButton6.setText(printingName(myInventory[5]));
+		itemButton7.setText(printingName(myInventory[6]));
+		itemButton8.setText(printingName(myInventory[7]));
+		itemButton9.setText(printingName(myInventory[8]));
+		itemButton10.setText(printingName(myInventory[9]));
 	}
 	
 	/*
@@ -466,13 +465,12 @@ public class MainScreenGui implements UserInterface{
 		exitButton.setBounds(1512, 971, 117, 30);
 		frmMainWindow.getContentPane().add(exitButton);
 		
-		//butto to finish this week
+		//button to finish this week
+		//show pop-up window to ask if the player really wants to finish this week
 		JButton takeAByeButton = new JButton("Take a BYE");
 		takeAByeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 					checkingTakeABye();
-				
-				
 			}});
 		takeAByeButton.setFont(new Font("Lucida Grande", Font.ITALIC, 20));
 		takeAByeButton.setBounds(1033, 501, 149, 59);
@@ -544,15 +542,15 @@ public class MainScreenGui implements UserInterface{
 	}
 	
 	/*
-	 * 
+	 * create an option panel to ask whether the player really wants to move to next week.
 	 */
 	private void checkingTakeABye() {
 		Object[] options1 = { "Start Next week!", "Not yet!" };
 	    JPanel panel = new JPanel(); 
 	    if(gameEnvironment.isPlayed()) {panel.add(new JLabel("Are you sure you want to finish this week???"));}
-	    else {panel.add(new JLabel("<html>You didn't have a match for this week,<br/> Are you sure you want to finish this week???</html>"));}
+	    else {panel.add(new JLabel("<html>You didn't have a match for this week,<br/> Are you sure you really want to finish this week???</html>"));}
 	    int result = JOptionPane.showOptionDialog(null, panel, "Stay this week? or Start next week?",
-	        JOptionPane.DEFAULT_OPTION, JOptionPane.OK_OPTION, null,
+	        JOptionPane.DEFAULT_OPTION, JOptionPane.YES_NO_OPTION, null,
 	        options1, null);
     	if (result == JOptionPane.YES_OPTION) {
 			//gameEnvironment.reset();
@@ -562,7 +560,7 @@ public class MainScreenGui implements UserInterface{
 	}
 	
 	/*
-	 * create option panel to ask whether the player really wants to quit the game or not
+	 * create an option panel to ask whether the player really wants to quit the game or not
 	 */
 	private void exitBox() {
 		Object[] options1 = { "Quit", "Cancel" };
