@@ -24,9 +24,9 @@ public interface UserInterface {
 	
 	void setup(GameEnvironment gameEnvironment);
 	
-	default String printing(String message) {
+	default String printingName(Product product) {
 
-		return (message == null) ? "EMPTY" : String.format("<html>%s</html>", message.replace("\n", "<br/>"));
+		return (product == null) ? "EMPTY" : String.format("<html>%s</html>", product.getName());
 	}
 
 	default String printing(Object product) {

@@ -37,7 +37,6 @@ public class MarketGui implements UserInterface{
 	private Product[] itemList;
 	private Athlete[] myRoster;
 	private Item[] myInventory;
-	int flag;
 
 	private JToggleButton buyAthleteBttn1;
 	private JToggleButton buyAthleteBttn2;
@@ -163,12 +162,12 @@ public class MarketGui implements UserInterface{
 		aThletePanelTitle.setBounds(38, 22, 311, 45);
 		setBuyAthletePanel.add(aThletePanelTitle);
 		
-		buyAthleteBttn1 = new JToggleButton(printingName(3, 0));
-		buyAthleteBttn2 = new JToggleButton(printingName(3, 1));
-		buyAthleteBttn3 = new JToggleButton(printingName(3, 2));
-		buyAthleteBttn4 = new JToggleButton(printingName(3, 3));
-		buyAthleteBttn5 = new JToggleButton(printingName(3, 4));
-		buyAthleteBttn6 = new JToggleButton(printingName(3, 5));
+		buyAthleteBttn1 = new JToggleButton(printingName(athleteList[0]));
+		buyAthleteBttn2 = new JToggleButton(printingName(athleteList[1]));
+		buyAthleteBttn3 = new JToggleButton(printingName(athleteList[2]));
+		buyAthleteBttn4 = new JToggleButton(printingName(athleteList[3]));
+		buyAthleteBttn5 = new JToggleButton(printingName(athleteList[4]));
+		buyAthleteBttn6 = new JToggleButton(printingName(athleteList[5]));
 		
 		buyAthleteBttn1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -242,21 +241,21 @@ public class MarketGui implements UserInterface{
 		availableItemLabel.setBounds(15, 12, 281, 45);
 		setBuyItemsPanel.add(availableItemLabel);
 		
-		buyItemButton1 = new JToggleButton(printingName(4, 0));
+		buyItemButton1 = new JToggleButton(printingName(itemList[0]));
 		buyItemButton1.setFont(new Font("Dialog", Font.BOLD, 14));
-		buyItemButton2 = new JToggleButton(printingName(4, 1));
+		buyItemButton2 = new JToggleButton(printingName(itemList[1]));
 		buyItemButton2.setFont(new Font("Dialog", Font.BOLD, 14));
-		buyItemButton3 = new JToggleButton(printingName(4, 2));
+		buyItemButton3 = new JToggleButton(printingName(itemList[2]));
 		buyItemButton3.setFont(new Font("Dialog", Font.BOLD, 14));
-		buyItemButton4 = new JToggleButton(printingName(4, 3));
+		buyItemButton4 = new JToggleButton(printingName(itemList[3]));
 		buyItemButton4.setFont(new Font("Dialog", Font.BOLD, 14));
-		buyItemButton5 = new JToggleButton(printingName(4, 4));
+		buyItemButton5 = new JToggleButton(printingName(itemList[4]));
 		buyItemButton5.setFont(new Font("Dialog", Font.BOLD, 14));
-		buyItemButton6 = new JToggleButton(printingName(4, 5));
+		buyItemButton6 = new JToggleButton(printingName(itemList[5]));
 		buyItemButton6.setFont(new Font("Dialog", Font.BOLD, 14));
-		buyItemButton7 = new JToggleButton(printingName(4, 6));
+		buyItemButton7 = new JToggleButton(printingName(itemList[6]));
 		buyItemButton7.setFont(new Font("Dialog", Font.BOLD, 14));
-		buyItemButton8 = new JToggleButton(printingName(4, 7));
+		buyItemButton8 = new JToggleButton(printingName(itemList[7]));
 		buyItemButton8.setFont(new Font("Dialog", Font.BOLD, 14));
 		
 		buyItemButton1.addActionListener(new ActionListener() {
@@ -432,40 +431,40 @@ public class MarketGui implements UserInterface{
 		myInventory = gameEnvironment.getTeam().getInventory();
 		myRoster = gameEnvironment.getTeam().getRoster();
 	
-		sellAthleteButton1.setText(printingName(1, 0));
-		sellAthleteButton2.setText(printingName(1, 1));
-		sellAthleteButton3.setText(printingName(1, 2));
-		sellAthleteButton4.setText(printingName(1, 3));
-		sellAthleteButton5.setText(printingName(1, 4));
-		sellAthleteButton6.setText(printingName(1, 5));
-		sellAthleteButton7.setText(printingName(1, 6));
+		sellAthleteButton1.setText(printingName(myRoster[0]));
+		sellAthleteButton2.setText(printingName(myRoster[1]));
+		sellAthleteButton3.setText(printingName(myRoster[2]));
+		sellAthleteButton4.setText(printingName(myRoster[3]));
+		sellAthleteButton5.setText(printingName(myRoster[4]));
+		sellAthleteButton6.setText(printingName(myRoster[5]));
+		sellAthleteButton7.setText(printingName(myRoster[6]));
 		
-		sellitemButton1.setText(printingName(2, 0));
-		sellitemButton2.setText(printingName(2, 1));
-		sellitemButton3.setText(printingName(2, 2));
-		sellitemButton4.setText(printingName(2, 3));
-		sellitemButton5.setText(printingName(2, 4));
-		sellitemButton6.setText(printingName(2, 5));
-		sellitemButton7.setText(printingName(2, 6));
-		sellitemButton8.setText(printingName(2, 7));
-		sellitemButton9.setText(printingName(2, 8));
-		sellitemButton10.setText(printingName(2, 9));
+		sellitemButton1.setText(printingName(myInventory[0]));
+		sellitemButton2.setText(printingName(myInventory[1]));
+		sellitemButton3.setText(printingName(myInventory[2]));
+		sellitemButton4.setText(printingName(myInventory[3]));
+		sellitemButton5.setText(printingName(myInventory[4]));
+		sellitemButton6.setText(printingName(myInventory[5]));
+		sellitemButton7.setText(printingName(myInventory[6]));
+		sellitemButton8.setText(printingName(myInventory[7]));
+		sellitemButton9.setText(printingName(myInventory[8]));
+		sellitemButton10.setText(printingName(myInventory[9]));
 		
-		buyAthleteBttn1.setText(printingName(3, 0));
-		buyAthleteBttn2.setText(printingName(3, 1));
-		buyAthleteBttn3.setText(printingName(3, 2));
-		buyAthleteBttn4.setText(printingName(3, 3));
-		buyAthleteBttn5.setText(printingName(3, 4));
-		buyAthleteBttn6.setText(printingName(3, 5));
+		buyAthleteBttn1.setText(printingName(athleteList[0]));
+		buyAthleteBttn2.setText(printingName(athleteList[1]));
+		buyAthleteBttn3.setText(printingName(athleteList[2]));
+		buyAthleteBttn4.setText(printingName(athleteList[3]));
+		buyAthleteBttn5.setText(printingName(athleteList[4]));
+		buyAthleteBttn6.setText(printingName(athleteList[5]));
 		
-		buyItemButton1.setText(printingName(4, 0));
-		buyItemButton2.setText(printingName(4, 1));
-		buyItemButton3.setText(printingName(4, 2));
-		buyItemButton4.setText(printingName(4, 3));
-		buyItemButton5.setText(printingName(4, 4));
-		buyItemButton6.setText(printingName(4, 5));
-		buyItemButton7.setText(printingName(4, 6));
-		buyItemButton8.setText(printingName(4, 7));
+		buyItemButton1.setText(printingName(itemList[0]));
+		buyItemButton2.setText(printingName(itemList[1]));
+		buyItemButton3.setText(printingName(itemList[2]));
+		buyItemButton4.setText(printingName(itemList[3]));
+		buyItemButton5.setText(printingName(itemList[4]));
+		buyItemButton6.setText(printingName(itemList[5]));
+		buyItemButton7.setText(printingName(itemList[6]));
+		buyItemButton8.setText(printingName(itemList[7]));
 	}
 	/*
 	 * show the current athletes and items that the player has
@@ -485,13 +484,13 @@ public class MarketGui implements UserInterface{
 		setSellItemPanel.setLayout(new GridLayout(2, 5, 0, 0));
 			
 		//set sell athlete buttons
-		sellAthleteButton1 = new JToggleButton(printingName(1, 0));
-		sellAthleteButton2 = new JToggleButton(printingName(1, 1));
-		sellAthleteButton3 = new JToggleButton(printingName(1, 2));
-		sellAthleteButton4 = new JToggleButton(printingName(1, 3));
-		sellAthleteButton5 = new JToggleButton(printingName(1, 4));
-		sellAthleteButton6 = new JToggleButton(printingName(1, 5));
-		sellAthleteButton7 = new JToggleButton(printingName(1, 6));
+		sellAthleteButton1 = new JToggleButton(printingName(myRoster[0]));
+		sellAthleteButton2 = new JToggleButton(printingName(myRoster[1]));
+		sellAthleteButton3 = new JToggleButton(printingName(myRoster[2]));
+		sellAthleteButton4 = new JToggleButton(printingName(myRoster[3]));
+		sellAthleteButton5 = new JToggleButton(printingName(myRoster[4]));
+		sellAthleteButton6 = new JToggleButton(printingName(myRoster[5]));
+		sellAthleteButton7 = new JToggleButton(printingName(myRoster[6]));
 		
 		setSellAthletePanel.add(sellAthleteButton1);
 		sellAthleteButton1.addActionListener(new ActionListener() {
@@ -535,16 +534,16 @@ public class MarketGui implements UserInterface{
 				helpFuncSellAthlete(6);
 				sellAthleteButton7.setSelected(true);}});
 		//set the sell item buttons
-		sellitemButton1 = new JToggleButton(printingName(2, 0));
-		sellitemButton2 = new JToggleButton(printingName(2, 1));
-		sellitemButton3 = new JToggleButton(printingName(2, 2));
-		sellitemButton4 = new JToggleButton(printingName(2, 3));
-		sellitemButton5 = new JToggleButton(printingName(2, 4));
-		sellitemButton6 = new JToggleButton(printingName(2, 5));
-		sellitemButton7 = new JToggleButton(printingName(2, 6));
-		sellitemButton8 = new JToggleButton(printingName(2, 7));
-		sellitemButton9 = new JToggleButton(printingName(2, 8));
-		sellitemButton10 = new JToggleButton(printingName(2, 9));
+		sellitemButton1 = new JToggleButton(printingName(myInventory[0]));
+		sellitemButton2 = new JToggleButton(printingName(myInventory[1]));
+		sellitemButton3 = new JToggleButton(printingName(myInventory[2]));
+		sellitemButton4 = new JToggleButton(printingName(myInventory[3]));
+		sellitemButton5 = new JToggleButton(printingName(myInventory[4]));
+		sellitemButton6 = new JToggleButton(printingName(myInventory[5]));
+		sellitemButton7 = new JToggleButton(printingName(myInventory[6]));
+		sellitemButton8 = new JToggleButton(printingName(myInventory[7]));
+		sellitemButton9 = new JToggleButton(printingName(myInventory[8]));
+		sellitemButton10 = new JToggleButton(printingName(myInventory[9]));
 
 		sellitemButton1.setFont(new Font("Dialog", Font.BOLD, 10));
 		sellitemButton2.setFont(new Font("Dialog", Font.BOLD, 10));
@@ -691,17 +690,6 @@ public class MarketGui implements UserInterface{
 		backButton.setFont(new Font("Lucida Grande", Font.BOLD, 23));
 		backButton.setBounds(30, 982, 97, 31);
 		frmMarket.getContentPane().add(backButton);
-	}
-	/*
-	 * print name for Athletes & items on the button
-	 * if flag is 0, print athlete namefrom my roster
-	 */
-	private String printingName(int flag, int indexNum) {
-		if(flag == 1) {return (myRoster[indexNum] == null) ? "EMPTY" : printing(myRoster[indexNum].getName());}
-		else if(flag ==2){return(myInventory[indexNum] == null) ? "EMPTY" : printing(myInventory[indexNum].getName());}		
-		else if(flag == 3) {return(athleteList[indexNum] == null) ? "EMPTY" : printing(athleteList[indexNum].getName());}	
-		else {return(itemList[indexNum] == null) ? "EMPTY" : printing(itemList[indexNum].getName());}		
-	
 	}
 	/*
 	 * make a panel to show the information of athletes and items when the player click

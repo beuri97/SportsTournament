@@ -34,7 +34,7 @@ public class StadiumGui implements UserInterface{
 	JButton fightButton;
 	
 	JLabel currentStatBuffLabel; 
-	JLabel gameResultDescripTextField;
+	JLabel gameResultLabel;
 	JPanel battlePhoto;
 	JLabel numberofSetLabel;
 	JLabel myScoreLabel;
@@ -74,22 +74,22 @@ public class StadiumGui implements UserInterface{
 		JLabel statBuffLabel = new JLabel("My Athlete Stat with Buff");
 		statBuffLabel.setFont(new Font("Dialog", Font.BOLD, 16));
 		statBuffLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		statBuffLabel.setBounds(485, 526, 298, 38);
+		statBuffLabel.setBounds(501, 526, 298, 38);
 		frmStadium.getContentPane().add(statBuffLabel);
 
 		currentStatBuffLabel = new JLabel("my current stat with buff");
 		currentStatBuffLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		currentStatBuffLabel.setFont(new Font("Dialog", Font.BOLD, 16));
-		currentStatBuffLabel.setBounds(477, 576, 306, 106);
+		currentStatBuffLabel.setFont(new Font("Dialog", Font.BOLD, 14));
+		currentStatBuffLabel.setBounds(484, 576, 315, 258);
 		frmStadium.getContentPane().add(currentStatBuffLabel);
 		currentStatBuffLabel.setBorder(new LineBorder(UIManager.getColor("Button.foreground")));
 
-		gameResultDescripTextField = new JLabel("Game Result description");
-		gameResultDescripTextField.setHorizontalAlignment(SwingConstants.CENTER);
-		gameResultDescripTextField.setFont(new Font("Dialog", Font.BOLD, 16));
-		gameResultDescripTextField.setBorder(new LineBorder(UIManager.getColor("Button.foreground")));
-		gameResultDescripTextField.setBounds(477, 701, 700, 200);
-		frmStadium.getContentPane().add(gameResultDescripTextField);
+		gameResultLabel = new JLabel("Game Result description");
+		gameResultLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		gameResultLabel.setFont(new Font("Dialog", Font.BOLD, 16));
+		gameResultLabel.setBorder(new LineBorder(UIManager.getColor("Button.foreground")));
+		gameResultLabel.setBounds(859, 526, 306, 366);
+		frmStadium.getContentPane().add(gameResultLabel);
 		
 		battlePhoto = new JPanel();
 		battlePhoto.setBounds(464, 176, 700, 338);
@@ -124,6 +124,7 @@ public class StadiumGui implements UserInterface{
 	private void refreshScreen() {
 		myScoreLabel.setText(Integer.toString(gameEnvironment.matchResult()[0]));
 		opponentScoreLabel.setText(Integer.toString(gameEnvironment.matchResult()[1]));
+		currentStatBuffLabel.setText(printing(myRoster[athleteNum].getAthleteSummary()));
 		aggresiveBttn.setSelected(false);
 		carefulBttn.setSelected(false);
 		numberofSetLabel.setText("Set Score " + setScore);
@@ -138,7 +139,7 @@ public class StadiumGui implements UserInterface{
 		
 		JLabel myTeamLabel = new JLabel(gameEnvironment.getTeam().getName());
 		myTeamLabel.setFont(new Font("Dialog", Font.BOLD, 23));
-		myTeamLabel.setBounds(12, 12, 137, 33);
+		myTeamLabel.setBounds(12, 12, 171, 33);
 		myTeamPanel.add(myTeamLabel);
 		
 		JLabel myAthleteLabel1 = new JLabel(printing(myRoster[0].getAthleteSummary()));
@@ -147,30 +148,17 @@ public class StadiumGui implements UserInterface{
 		JLabel myAthleteLabel4 = new JLabel(printing(myRoster[3].getAthleteSummary()));
 		
 		myAthleteLabel1.setHorizontalAlignment(SwingConstants.LEFT);
-		myAthleteLabel1.setBounds(162, 57, 132, 95);
+		myAthleteLabel1.setBounds(97, 57, 197, 95);
 		myTeamPanel.add(myAthleteLabel1);
 		myAthleteLabel2.setHorizontalAlignment(SwingConstants.LEFT);
-		myAthleteLabel2.setBounds(162, 174, 132, 95);
+		myAthleteLabel2.setBounds(97, 174, 197, 95);
 		myTeamPanel.add(myAthleteLabel2);
 		myAthleteLabel3.setHorizontalAlignment(SwingConstants.LEFT);
-		myAthleteLabel3.setBounds(162, 281, 132, 95);
+		myAthleteLabel3.setBounds(97, 281, 197, 95);
 		myTeamPanel.add(myAthleteLabel3);
 		myAthleteLabel4.setHorizontalAlignment(SwingConstants.LEFT);
-		myAthleteLabel4.setBounds(162, 393, 132, 95);
+		myAthleteLabel4.setBounds(97, 393, 197, 95);
 		myTeamPanel.add(myAthleteLabel4);
-		
-		JPanel myAthletePhoto1 = new JPanel();
-		JPanel myAthletePhoto2 = new JPanel();
-		JPanel myAthletePhoto3 = new JPanel();
-		JPanel myAthletePhoto4 = new JPanel();
-		myAthletePhoto1.setBounds(22, 61, 100, 100);
-		myTeamPanel.add(myAthletePhoto1);
-		myAthletePhoto2.setBounds(22, 173, 100, 100);
-		myTeamPanel.add(myAthletePhoto2);
-		myAthletePhoto3.setBounds(22, 285, 100, 100);
-		myTeamPanel.add(myAthletePhoto3);
-		myAthletePhoto4.setBounds(22, 397, 100, 100);
-		myTeamPanel.add(myAthletePhoto4);
 	}
 	private void setOpponentPanel() {
 		JPanel opponentPanel = new JPanel();
@@ -191,31 +179,17 @@ public class StadiumGui implements UserInterface{
 		JLabel opponentAthleteLabel4 = new JLabel(printing(opponentRoster[3].getAthleteSummary()));
 		
 		opponentAthleteLabel1.setHorizontalAlignment(SwingConstants.LEFT);
-		opponentAthleteLabel1.setBounds(162, 66, 132, 95);
+		opponentAthleteLabel1.setBounds(97, 66, 197, 95);
 		opponentPanel.add(opponentAthleteLabel1);	
 		opponentAthleteLabel2.setHorizontalAlignment(SwingConstants.LEFT);
-		opponentAthleteLabel2.setBounds(162, 173, 132, 95);
+		opponentAthleteLabel2.setBounds(97, 173, 197, 95);
 		opponentPanel.add(opponentAthleteLabel2);		
 		opponentAthleteLabel3.setHorizontalAlignment(SwingConstants.LEFT);
-		opponentAthleteLabel3.setBounds(162, 290, 132, 95);
+		opponentAthleteLabel3.setBounds(97, 280, 197, 95);
 		opponentPanel.add(opponentAthleteLabel3);	
 		opponentAthleteLabel4.setHorizontalAlignment(SwingConstants.LEFT);
-		opponentAthleteLabel4.setBounds(162, 397, 132, 95);
+		opponentAthleteLabel4.setBounds(97, 397, 197, 95);
 		opponentPanel.add(opponentAthleteLabel4);
-		
-		JPanel opponentAthletePhoto1 = new JPanel();
-		JPanel opponentAthletePhoto2 = new JPanel();
-		JPanel opponentAthletePhoto3 = new JPanel();
-		JPanel opponentAthletePhoto4 = new JPanel();
-		
-		opponentAthletePhoto1.setBounds(22, 61, 100, 100);
-		opponentPanel.add(opponentAthletePhoto1);
-		opponentAthletePhoto2.setBounds(22, 173, 100, 100);
-		opponentPanel.add(opponentAthletePhoto2);
-		opponentAthletePhoto3.setBounds(22, 285, 100, 100);
-		opponentPanel.add(opponentAthletePhoto3);
-		opponentAthletePhoto4.setBounds(22, 397, 100, 100);
-		opponentPanel.add(opponentAthletePhoto4);
 
 	}
 	
@@ -240,7 +214,7 @@ public class StadiumGui implements UserInterface{
 			}
 		});
 		aggresiveBttn.setFont(new Font("Dialog", Font.BOLD, 16));
-		aggresiveBttn.setBounds(887, 576, 256, 46);
+		aggresiveBttn.setBounds(663, 846, 136, 46);
 		frmStadium.getContentPane().add(aggresiveBttn);
 		
 		carefulBttn = new JToggleButton("Careful");
@@ -252,7 +226,7 @@ public class StadiumGui implements UserInterface{
 			}
 		});
 		carefulBttn.setFont(new Font("Dialog", Font.BOLD, 16));
-		carefulBttn.setBounds(887, 634, 256, 46);
+		carefulBttn.setBounds(484, 846, 136, 46);
 		frmStadium.getContentPane().add(carefulBttn);
 		
 		fightButton = new JButton("Fight");
@@ -263,7 +237,7 @@ public class StadiumGui implements UserInterface{
 				gameEnvironment.battleSequences();
 				aggresiveBttn.setEnabled(true);;
 				carefulBttn.setEnabled(true);
-				gameResultDescripTextField.setText(printing(gameEnvironment.getBattleMessage()));
+				gameResultLabel.setText(printing(gameEnvironment.getBattleMessage()));
 				refreshScreen();
 				
 				if (gameEnvironment.isSet()) {
@@ -277,13 +251,13 @@ public class StadiumGui implements UserInterface{
 					int myScore = gameEnvironment.matchResult()[0];
 					int oppoScore = gameEnvironment.matchResult()[1];
 					if (myScore > oppoScore) {
-						gameResultDescripTextField.setText(String.format("<html>Well Done!! <br/>You Won!!<br/> "
+						gameResultLabel.setText(String.format("<html>Well Done!! <br/>You Won!!<br/> "
 								+ "Total score was %d : %d</html>",myScore,oppoScore) );}
 					else if(myScore == oppoScore) {
-						gameResultDescripTextField.setText(String.format("<html>That was very close!! <br/>"
+						gameResultLabel.setText(String.format("<html>That was very close!! <br/>"
 								+ "Next time you can win!!<br/> Total score was %d : %d</html>",myScore,oppoScore) );}
 					else {
-						gameResultDescripTextField.setText(String.format("<html>You lost!! <br/>"
+						gameResultLabel.setText(String.format("<html>You lost!! <br/>"
 								+ "Train your athletes harder!!<br/> Total score was %d : %d</html>",myScore,oppoScore) );}
 					
 					setScore += 1;
