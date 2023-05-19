@@ -1,6 +1,5 @@
 package main.gui;
 
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JButton;
@@ -13,7 +12,6 @@ import javax.swing.border.LineBorder;
 import main.GameEnvironment;
 import main.UserInterface;
 import main.gameObject.athletes.Athlete;
-import main.gamesystem.SetUp;
 
 import java.awt.Color;
 import javax.swing.JLabel;
@@ -55,10 +53,15 @@ public class ImprovingAthleteGui implements UserInterface{
 //				myRoster[improvNum].setOffenseStat(setup.randomInt(2, 7));///////////////////////////////////////////////////////////////////////////////////////
 //				myRoster[improvNum].setOffenseStat(setup.randomInt(2, 7));///////////////////////////////////////////////////////////////////////////////////////
 //				myRoster[improvNum].setOffenseStat(setup.randomInt(2, 7));
-				if (improvNum != 0) {athleteInfo.setText(printing(myRoster[improvNum-1]));}
-				else {athleteInfo.setText("Choose the athlete!!");}
-				improveButton.setEnabled(false);
-				improveButton.setText("Improved!!");
+				if (improvNum != 0) {
+					athleteInfo.setText(printing(myRoster[improvNum-1]));
+					improveButton.setEnabled(false);
+					improveButton.setText("Improved!!");
+				}
+				else {
+					athleteInfo.setText("Choose the athlete!!");
+				}
+				
 			}
 		});
 		
@@ -177,14 +180,23 @@ public class ImprovingAthleteGui implements UserInterface{
 		athleteInfo.setBounds(22, 118, 366, 418);
 		setAthleteInfoPanel.add(athleteInfo);
 	}
-	
-	private boolean isEmpty(Athlete roster) {
-		if (roster == null) { return false;}
+	/*
+	 * check if the athlete from team is null.
+	 */
+	private boolean isEmpty(Athlete athlete) {
+		if (athlete == null) { return false;}
 		else {return true;}
 	}
+	
+	/*
+	 * close Improving athlete window ( it will be called from gameEnvironment).
+	 */
 	public void closeWindow() {
 		frmImproving.dispose();
 	}
+	/*
+	 * close Improving athlete window
+	 */
 	
 	public void finishedWindow() {
 		gameEnvironment.closeImprovingWindow(this);

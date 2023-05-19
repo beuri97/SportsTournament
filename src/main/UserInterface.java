@@ -32,7 +32,7 @@ public interface UserInterface {
 	default String printing(Object product) {
 
 		return (product == null) ? "EMPTY" : String.format("<html>%s</html>",
-									product.toString().replace("\n", "<br/><br/>"));
+									product.toString().replace("\n", "<br/>"));
 	}
 }
 
