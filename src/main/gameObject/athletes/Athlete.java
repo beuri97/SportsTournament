@@ -154,6 +154,7 @@ public class Athlete implements Product{
 
         //if stamina exceed maximum stamina then change it to maximum stamina
         if (this.stamina > this.maxStamina) this.stamina = this.maxStamina;
+        if (this.stamina < 0) this.stamina = 0;
     }
 
     public void setMaxStamina(int changedStamina) {

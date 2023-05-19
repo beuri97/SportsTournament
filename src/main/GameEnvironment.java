@@ -408,7 +408,7 @@ public class GameEnvironment {
 			//although Team getRoster method returns array it still works since the type is actually arraylist.
 			if (athlete == null) { break; }
 
-			else if (!setup.event(3.00) && athlete.isInjured()) athlete.setStamina(athlete.getMaxStamina());
+			else if (!setup.event(3.00) && !athlete.isInjured()) athlete.setStamina(athlete.getMaxStamina());
 
 			else team.leaveAthletes(athlete);
 		}

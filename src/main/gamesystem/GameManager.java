@@ -12,7 +12,7 @@ import java.util.Random;
  * Class is received command from a user interface via gameEnvironment and execute relevant methods
  * @author H Yang
  */
-public class GameManager{
+public class GameManager {
 
     /**
      *  Random Class to use for {@link GameManager}

@@ -130,8 +130,10 @@ public class Team {
     public void recruitAthletes(Product athlete) {
 
         // add athlete if number of athletes in roster is not exceed constant TOTAL_ATHLETES
-        if(roster.size()<=TOTAL_ATHLETE && !roster.contains((Athlete)athlete))
-            roster.add(0,(Athlete)athlete);
+        if(roster.size()<=TOTAL_ATHLETE && !roster.contains((Athlete)athlete)) {
+            roster.add(0, (Athlete) athlete);
+            athlete.setSellPrice();
+        }
 
         // This will not run but keep it for this program to run safe
         else throw new NoSpaceException();
@@ -155,8 +157,10 @@ public class Team {
     public void addItem(Product item) {
 
 
-        if(inventory.size() < TOTAL_ITEM && !inventory.contains((Item)item))
+        if(inventory.size() < TOTAL_ITEM && !inventory.contains((Item)item)) {
             inventory.add((Item) item);
+            item.setSellPrice();
+        }
 
         // This will not run but keep it for this program to run safe
         else throw new NoSpaceException();
