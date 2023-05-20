@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import java.awt.*;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.border.CompoundBorder;
@@ -31,7 +32,7 @@ public class MainScreenGui implements UserInterface{
 	private JFrame frmMainWindow;
 	private JToggleButton[] athleteBttns = new JToggleButton[7];
 	private JToggleButton[] itemBttns = new JToggleButton[10];
-	private JLabel[] injuredAthleteLabel = new JLabel[7];
+	private JLabel[] athleteLabel = new JLabel[7];
 	private JLabel noticeLabel;
 	private JLabel athleteDescriptionLabel;
 	private JLabel itemDescriptionLabel;
@@ -51,6 +52,12 @@ public class MainScreenGui implements UserInterface{
 	private int athleteSwitchingNum2 = -1;
 	private int usingItemNum = -1;
 	
+	
+	private ImageIcon angelina = new ImageIcon(getClass().getResource("/Images/AngelinaF.jpg"));
+	private ImageIcon dwayne = new ImageIcon(getClass().getResource("/Images/DwayneF.jpg"));;
+	private ImageIcon prodo = new ImageIcon(getClass().getResource("/Images/ProdoF.jpg"));;
+	private ImageIcon thorin = new ImageIcon(getClass().getResource("/Images/ThorinF.jpg"));;
+	
 	/**
 	 * Create the application.
 	 */
@@ -60,6 +67,7 @@ public class MainScreenGui implements UserInterface{
 		this.myInventory = gameEnvironment.getTeam().getInventory();
 		setup(gameEnvironment);
 	}
+
 
 	/**
 	 * Initialize the contents of the frame.
@@ -139,14 +147,10 @@ public class MainScreenGui implements UserInterface{
 		
 		noticeLabel = new JLabel("");
 		noticeLabel.setForeground(new Color(255, 11, 3));
-		noticeLabel.setBounds(300, 566, 594, 30);
+		noticeLabel.setBounds(300, 616, 594, 30);
 		frmMainWindow.getContentPane().add(noticeLabel);
 	}
 
-	
-	
-	
-	
 	/**
 	 * Panel for Athlete lists on main screen
 	 */
@@ -155,7 +159,7 @@ public class MainScreenGui implements UserInterface{
 		//Create the panel for Active Athletes
 		JPanel setAthletePanel = new JPanel();
 		setAthletePanel.setBorder(new CompoundBorder(new LineBorder(new Color(0, 0, 0)), null));
-		setAthletePanel.setBounds(300, 100, 699, 211);
+		setAthletePanel.setBounds(300, 100, 699, 240);
 		frmMainWindow.getContentPane().add(setAthletePanel);
 		setAthletePanel.setLayout(null);
 		
@@ -163,13 +167,14 @@ public class MainScreenGui implements UserInterface{
 		JPanel setReservePanel = new JPanel();
 		setReservePanel.setLayout(null);
 		setReservePanel.setBorder(new CompoundBorder(new LineBorder(new Color(0, 0, 0)), null));
-		setReservePanel.setBounds(300, 338, 535, 211);
+		setReservePanel.setBounds(300, 370, 535, 240);
 		frmMainWindow.getContentPane().add(setReservePanel);
 
 		//Create toggle buttons for All the athletes that the player owns.
 		
-		for (int i = 0; i<myRoster.length; i++) {
+		for (int i = 0; i < myRoster.length; i++) {
 			athleteBttns[i] = new JToggleButton(printingName(myRoster[i]));
+			setPhoto(athleteBttns[i], i);
 			if (i < 4) {setAthletePanel.add(athleteBttns[i]);}
 			else {setReservePanel.add(athleteBttns[i]);}
 			}
@@ -200,19 +205,18 @@ public class MainScreenGui implements UserInterface{
 		//make the labels for injured Athletes
 		//it will show under the button
 		for (int i = 0; i<myRoster.length; i++) {
-			injuredAthleteLabel[i] = new JLabel("");
-			injuredAthleteLabel[i].setForeground(new Color(255, 0, 0));
-			if (i < 4) {setAthletePanel.add(injuredAthleteLabel[i]);}
-			else {setReservePanel.add(injuredAthleteLabel[i]);}
+			athleteLabel[i] = new JLabel(printingName(myRoster[i]));
+			if (i < 4) {setAthletePanel.add(athleteLabel[i]);}
+			else {setReservePanel.add(athleteLabel[i]);}
 			}
 		
-		injuredAthleteLabel[0].setBounds(40, 189, 61, 16);
-		injuredAthleteLabel[1].setBounds(214, 189, 61, 16);
-		injuredAthleteLabel[2].setBounds(408, 189, 61, 16);
-		injuredAthleteLabel[3].setBounds(574, 189, 61, 16);
-		injuredAthleteLabel[4].setBounds(36, 189, 61, 16);
-		injuredAthleteLabel[5].setBounds(235, 189, 61, 16);
-		injuredAthleteLabel[6].setBounds(409, 189, 61, 16);
+		athleteLabel[0].setBounds(40, 189, 80, 25);
+		athleteLabel[1].setBounds(214, 189, 80, 25);
+		athleteLabel[2].setBounds(408, 189, 80, 25);
+		athleteLabel[3].setBounds(574, 189, 80, 25);
+		athleteLabel[4].setBounds(36, 189, 80, 25);
+		athleteLabel[5].setBounds(235, 189, 80, 25);
+		athleteLabel[6].setBounds(409, 189, 80, 25);
 		
 		checkInjured();
 	}
@@ -273,6 +277,19 @@ public class MainScreenGui implements UserInterface{
 			selectingResetItemSlots(9);
 			itemBttns[9].setSelected(true);}});
 	}
+	
+
+	private void setPhoto(JToggleButton button, int num) {
+
+		String athleteName = printingName(myRoster[num]);
+		
+		if (athleteName.contains("Angelina")) {button.setIcon(angelina);}
+		else if (athleteName.contains("Dwayne")) {button.setIcon(dwayne);}
+		else if (athleteName.contains("Prodo")) {button.setIcon(prodo);}
+		else if (athleteName.contains("Thorin")){button.setIcon(thorin);}
+		else {button.setIcon(null);}
+	}
+	
 	/*
 	 * update number of week on main screen.
 	 */
@@ -308,13 +325,19 @@ public class MainScreenGui implements UserInterface{
 			itemDescriptionLabel.setText(printing(myInventory[slotNum]));
 	}
 	
+	
+	/**
+	 * check if the athlete is injured, if it is, show with red text
+	 */
 	private void checkInjured() {
 		for (int i = 0; i<myRoster.length; i++) {
 			if (myRoster[i] != null && myRoster[i].isInjured()) {
-				injuredAthleteLabel[i].setText("Injured");
+				athleteLabel[i].setText("Injured");
+				athleteLabel[i].setForeground(new Color(255, 0, 0));
 			}
-			else{injuredAthleteLabel[i].setText("");}}}
-	
+			else{athleteLabel[i].setText(printingName(myRoster[i]));
+				athleteLabel[i].setForeground(new Color(0, 0, 0));
+			}}}
 	
 	
 
@@ -330,6 +353,7 @@ public class MainScreenGui implements UserInterface{
 		
 		for (int i = 0; i<myRoster.length; i++) {
 			athleteBttns[i].setText(printingName(myRoster[i]));
+			setPhoto(athleteBttns[i], i);
 			}
 		
 		for (int i = 0; i<myInventory.length; i++) {
@@ -422,7 +446,8 @@ public class MainScreenGui implements UserInterface{
 						noticeLabel.setText("You clicked the empty slot!"); 
 						return;}
 					gameEnvironment.useItem(athleteSwitchingNum2, usingItemNum);
-					noticeLabel.setText("Used item! Check the difference!!");
+					athleteDescriptionLabel.setText(printing(myRoster[athleteSwitchingNum2]));
+					itemDescriptionLabel.setText("Item is used! Check the difference!!");
 				}
 				else {
 					noticeLabel.setText("Select One Item and Athlete for each!");

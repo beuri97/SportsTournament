@@ -6,7 +6,7 @@ public class Thorin extends Athlete {
 
     public Thorin (){
     	
-    	super("Thorin II \"Oakenshield\" ~", "This is not my kingdom!!!");
+    	super("Thorin II \"Oakenshield\"~", "This is not my kingdom!!!");
         
     	switch(super.rarity.string) {
         

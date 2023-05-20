@@ -27,7 +27,6 @@ import main.gamesystem.Exception.EmptySlotException;
 import main.gamesystem.Exception.LackOfMoneyException;
 import main.gamesystem.Exception.NoSpaceException;
 
-import java.awt.*;
 import javax.swing.*;
 
 public class MarketGui implements UserInterface{
@@ -398,6 +397,7 @@ public class MarketGui implements UserInterface{
 					athleteBuyNum = -1;
 					cancelBuyAhtleteToggle();
 					refreshScreen();
+					athletePhoto.setIcon(null);
 					athleteDiscriptionLabel.setText("Recruited!!");
 				}
 				catch(EmptySlotException a){warningLabel.setText(a.getMessage());}		
