@@ -31,6 +31,7 @@ public class MainScreenGui implements UserInterface{
 	private JFrame frmMainWindow;
 	private JToggleButton[] athleteBttns = new JToggleButton[7];
 	private JToggleButton[] itemBttns = new JToggleButton[10];
+	private JLabel[] injuredAthleteLabel = new JLabel[7];
 	private JLabel noticeLabel;
 	private JLabel athleteDescriptionLabel;
 	private JLabel itemDescriptionLabel;
@@ -142,6 +143,10 @@ public class MainScreenGui implements UserInterface{
 		frmMainWindow.getContentPane().add(noticeLabel);
 	}
 
+	
+	
+	
+	
 	/**
 	 * Panel for Athlete lists on main screen
 	 */
@@ -150,7 +155,7 @@ public class MainScreenGui implements UserInterface{
 		//Create the panel for Active Athletes
 		JPanel setAthletePanel = new JPanel();
 		setAthletePanel.setBorder(new CompoundBorder(new LineBorder(new Color(0, 0, 0)), null));
-		setAthletePanel.setBounds(300, 100, 698, 190);
+		setAthletePanel.setBounds(300, 100, 699, 211);
 		frmMainWindow.getContentPane().add(setAthletePanel);
 		setAthletePanel.setLayout(null);
 		
@@ -158,11 +163,9 @@ public class MainScreenGui implements UserInterface{
 		JPanel setReservePanel = new JPanel();
 		setReservePanel.setLayout(null);
 		setReservePanel.setBorder(new CompoundBorder(new LineBorder(new Color(0, 0, 0)), null));
-		setReservePanel.setBounds(300, 338, 535, 190);
+		setReservePanel.setBounds(300, 338, 535, 211);
 		frmMainWindow.getContentPane().add(setReservePanel);
-		
-		
-		
+
 		//Create toggle buttons for All the athletes that the player owns.
 		
 		for (int i = 0; i<myRoster.length; i++) {
@@ -193,6 +196,25 @@ public class MainScreenGui implements UserInterface{
 		athleteBttns[6].addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {swapAthleteSlots(6);}});
 	
+		
+		//make the labels for injured Athletes
+		//it will show under the button
+		for (int i = 0; i<myRoster.length; i++) {
+			injuredAthleteLabel[i] = new JLabel("");
+			injuredAthleteLabel[i].setForeground(new Color(255, 0, 0));
+			if (i < 4) {setAthletePanel.add(injuredAthleteLabel[i]);}
+			else {setReservePanel.add(injuredAthleteLabel[i]);}
+			}
+		
+		injuredAthleteLabel[0].setBounds(40, 189, 61, 16);
+		injuredAthleteLabel[1].setBounds(214, 189, 61, 16);
+		injuredAthleteLabel[2].setBounds(408, 189, 61, 16);
+		injuredAthleteLabel[3].setBounds(574, 189, 61, 16);
+		injuredAthleteLabel[4].setBounds(36, 189, 61, 16);
+		injuredAthleteLabel[5].setBounds(235, 189, 61, 16);
+		injuredAthleteLabel[6].setBounds(409, 189, 61, 16);
+		
+		checkInjured();
 	}
 	/*
 	 * Create the panel for item in player's inventory
@@ -285,6 +307,16 @@ public class MainScreenGui implements UserInterface{
 			usingItemNum = slotNum;
 			itemDescriptionLabel.setText(printing(myInventory[slotNum]));
 	}
+	
+	private void checkInjured() {
+		for (int i = 0; i<myRoster.length; i++) {
+			if (myRoster[i] != null && myRoster[i].isInjured()) {
+				injuredAthleteLabel[i].setText("Injured");
+			}
+			else{injuredAthleteLabel[i].setText("");}}}
+	
+	
+	
 
 	/*
 	 * update screen with the latest information.
@@ -294,6 +326,7 @@ public class MainScreenGui implements UserInterface{
 		myRoster = gameEnvironment.getTeam().getRoster();
 		myInventory = gameEnvironment.getTeam().getInventory();
 		resetCurretWeek();
+		checkInjured();
 		
 		for (int i = 0; i<myRoster.length; i++) {
 			athleteBttns[i].setText(printingName(myRoster[i]));
@@ -353,13 +386,6 @@ public class MainScreenGui implements UserInterface{
 		stadiumButton.setBounds(421, 895, 237, 78);
 		frmMainWindow.getContentPane().add(stadiumButton);
 		
-		
-//		if (gameEnvironment.isPlayed()) {
-//			stadiumButton.setEnabled(false);
-//			stadiumButton.setText("<html>Played already!</html>");
-//			stadiumButton.setForeground(new Color(255, 0, 0));
-//		}
-		
 		// button to exit from the game. Small window will pop up and ask if the player really wants to exit.
 		JButton exitButton = new JButton("Exit");
 		exitButton.addActionListener(new ActionListener() {
@@ -376,7 +402,11 @@ public class MainScreenGui implements UserInterface{
 		JButton takeAByeButton = new JButton("Take a BYE");
 		takeAByeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-					checkingTakeABye();
+				 if(gameEnvironment.isPlayed()) {
+					checkingTakeABye();}
+				 else {
+					 checkingGameOver();
+				 }
 			}});
 		takeAByeButton.setFont(new Font("Lucida Grande", Font.ITALIC, 20));
 		takeAByeButton.setBounds(1033, 501, 149, 59);
@@ -447,23 +477,38 @@ public class MainScreenGui implements UserInterface{
 		setItemInfoPanel.add(itemDescriptionLabel);
 	}
 	
+	
+	
 	/*
 	 * create an option panel to ask whether the player really wants to move to next week.
+	 * if the player can't do more game or weeks are finished or just wants to quit, show game over window
 	 */
 	private void checkingTakeABye() {
-		Object[] options1 = { "Start Next week!", "Not yet!" };
-	    JPanel panel = new JPanel(); 
-	    if(gameEnvironment.isPlayed()) {panel.add(new JLabel("Are you sure you want to finish this week???"));}
-	    else {panel.add(new JLabel("<html>You didn't have a match for this week,<br/> Are you sure you really want to finish this week???</html>"));}
-	    int result = JOptionPane.showOptionDialog(null, panel, "Stay this week? or Start next week?",
-	        JOptionPane.DEFAULT_OPTION, JOptionPane.YES_NO_OPTION, null,
-	        options1, null);
-    	if (result == JOptionPane.YES_NO_OPTION) {	
-			
-			finishedWindow();
-			gameEnvironment.openImprovingWindow();
-	    }
+	    	Object[] options1 = { "Start Next week!", "Not yet!" };
+	    	JPanel panel = new JPanel(); 
+	    	panel.add(new JLabel("Are you sure you want to finish this week???"));
+	    	int result1 = JOptionPane.showOptionDialog(null, panel, "Stay this week? or Start next week?",
+	    	        JOptionPane.DEFAULT_OPTION, JOptionPane.YES_NO_OPTION, null,
+	    	        options1, null);
+	        	if (result1 == JOptionPane.YES_NO_OPTION) {	
+	    			finishedWindow();
+	    			gameEnvironment.openImprovingWindow();
+	    	}
 	}
+	private void checkingGameOver() {
+	    	Object[] options2 = { "Finish this game", "Try bit more!" };
+	    	JPanel panel2 = new JPanel(); 
+	    	panel2.add(new JLabel("<html>You didn't have a match for this week,<br/> Are you sure you really want to finish this game???</html>"));
+	    	int result2 = JOptionPane.showOptionDialog(null, panel2, "Can you not play more??",
+	    	        JOptionPane.DEFAULT_OPTION, JOptionPane.YES_NO_OPTION, null,
+	    	        options2, null);
+	        	if (result2 == JOptionPane.YES_NO_OPTION) {	
+	    			finishedWindow();
+	    			gameEnvironment.openGameOverWindow();
+	    	
+	    	}
+	    
+	    }
 	
 	/*
 	 * create an option panel to ask whether the player really wants to quit the game or not

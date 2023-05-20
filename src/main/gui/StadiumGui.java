@@ -277,20 +277,22 @@ public class StadiumGui implements UserInterface{
 					double money;
 					if (myScore > oppoScore) {
 						money = gameEnvironment.getDifficulty().getMoneyGain() * 1.5;
+						gameEnvironment.closingGame(money, true);
 						gameResultLabel.setText(String.format("<html>Well Done!! <br/>You Won!!<br/> "
 								+ "Total score was %d : %d<br/>"
 								+ "MONEY GAIN: %.2f</html>",myScore,oppoScore,money) );}
 					else if(myScore == oppoScore) {
 						money = gameEnvironment.getDifficulty().getMoneyGain() * 0.7;
+						gameEnvironment.closingGame(money, true);
 						gameResultLabel.setText(String.format("<html>That was very close!! <br/>"
 								+ "Next time you can win!!<br/> Total score was %d : %d<br/>"
 								+ "MONEY GAIN: %.2f</html>",myScore,oppoScore,money) );}
 					else {
 						money = gameEnvironment.getDifficulty().getMoneyGain();
+						gameEnvironment.closingGame(money, false);
 						gameResultLabel.setText(String.format("<html>You lost!! <br/>"
 								+ "Train your athletes harder!!<br/> Total score was %d : %d<br/>"
 								+ "MONEY GAIN: %.2f</html>",myScore,oppoScore,money) );}
-					
 				
 				}	
 			}

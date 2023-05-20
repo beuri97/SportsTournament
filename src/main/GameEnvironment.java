@@ -499,12 +499,7 @@ public class GameEnvironment {
 	public void closeStatiumWindow(StadiumGui stadiumWindow) {
 		stadiumWindow.closeWindow();
 	}
-	/**
-	 *close GUI GameOver Window
-	 */
-	public void closeGameOverWindow(GameOverGui gameOverWindow) {
-		gameOverWindow.closeWindow();
-	}
+
 	/**
 	 *close GUI Improving Athlete Window
 	 */
