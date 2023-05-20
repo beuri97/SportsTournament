@@ -41,12 +41,13 @@ public class StadiumGui implements UserInterface{
 	private JToggleButton carefulBttn;
 	
 	private JLabel battlePhoto;
-	private ImageIcon bothAtct;
-	private ImageIcon draw;
-	private ImageIcon leftWon;
-	private ImageIcon rightWon;
-	private ImageIcon standby;
 	
+	private final ImageIcon bothAtct = new ImageIcon(getClass().getResource("/Images/BothAtct.jpg"));
+	private final ImageIcon draw = new ImageIcon(getClass().getResource("/Images/Draw.jpg"));
+	private final ImageIcon leftWon = new ImageIcon(getClass().getResource("/Images/LeftWon.jpg"));
+	private final ImageIcon rightWon = new ImageIcon(getClass().getResource("/Images/RightWon.jpg"));
+	private final ImageIcon standby = new ImageIcon(getClass().getResource("/Images/Standby.jpg"));
+
 	
 
 
@@ -70,7 +71,6 @@ public class StadiumGui implements UserInterface{
 		setFrame();
 		setAthletePanel();
 		setButton();
-		addPhotos();
 	}
 
 	/**
@@ -221,16 +221,6 @@ public class StadiumGui implements UserInterface{
 		athleteLabel[1][athlete].setForeground(new Color(0, 0, 204));
 	}
 
-	/**
-	 * Add battle photos
-	 */
-	public void addPhotos() {
-		bothAtct = new ImageIcon(getClass().getResource("/Images/BothAtct.jpg"));
-		draw = new ImageIcon(getClass().getResource("/Images/Draw.jpg"));
-		leftWon = new ImageIcon(getClass().getResource("/Images/LeftWon.jpg"));
-		rightWon = new ImageIcon(getClass().getResource("/Images/RightWon.jpg"));
-		standby = new ImageIcon(getClass().getResource("/Images/Standby.jpg"));
-	}
 
 	/**
 	 * when the player click the buff button
@@ -374,6 +364,7 @@ public class StadiumGui implements UserInterface{
 	
 	/*
 	 * create the panel to let the player know that he can't go back to main until he finishes his game.
+	 * if the player has finished the match, go back to main
 	 */
 	private void backToMain() {
 	    JPanel backToMainPanel = new JPanel();
@@ -383,11 +374,8 @@ public class StadiumGui implements UserInterface{
 	    }
 	    else {
 		    backToMainPanel.add(new JLabel("<html>You haven't finished this match!!<br/> Let's finish and go back to main!!</html>"));
-		    int result = JOptionPane.showOptionDialog(null, backToMainPanel, "Can't go back!",
-		        JOptionPane.DEFAULT_OPTION, JOptionPane.OK_OPTION, null,
-		        null, null);
-	    }
-	    
+		    JOptionPane.showOptionDialog(null, backToMainPanel, "Can't go back!", JOptionPane.DEFAULT_OPTION, JOptionPane.OK_OPTION, null, null, null);
+	    }   
 	}
 	/*
 	 * close Stadium window ( it will be called from gameEnvironment)

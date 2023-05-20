@@ -22,6 +22,7 @@ import main.gameObject.item.Item;
 import main.gamesystem.Exception.InsufficientAthleteException;
 
 import javax.swing.SwingConstants;
+import javax.swing.JCheckBox;
 
 /**
  * class for Setup window when start the game
@@ -33,6 +34,7 @@ public class MainScreenGui implements UserInterface{
 	private JToggleButton[] athleteBttns = new JToggleButton[7];
 	private JToggleButton[] itemBttns = new JToggleButton[10];
 	private JLabel[] athleteLabel = new JLabel[7];
+	
 	private JLabel noticeLabel;
 	private JLabel athleteDescriptionLabel;
 	private JLabel itemDescriptionLabel;
@@ -42,7 +44,7 @@ public class MainScreenGui implements UserInterface{
 	private GameEnvironment gameEnvironment;
 	private Athlete[] myRoster;
 	private Item[] myInventory;
-	private int currentWeek;
+	private JCheckBox swapOn;
 
 	//  Next three ints indicate the Athlete buttons and the item button are clicked
 	//	when int is -1, button is not clicked
@@ -125,14 +127,18 @@ public class MainScreenGui implements UserInterface{
 		
 		weekNumLabel = new JLabel("NUM HERE");
 		weekNumLabel.setHorizontalAlignment(SwingConstants.TRAILING);
-		weekNumLabel.setFont(new Font("Lucida Grande", Font.BOLD, 20));
-		weekNumLabel.setBounds(632, 36, 141, 30);
+		weekNumLabel.setFont(new Font("Lucida Grande", Font.BOLD, 29));
+		weekNumLabel.setBounds(519, 14, 202, 50);
 		frmMainWindow.getContentPane().add(weekNumLabel);
-		resetCurretWeek();
-		
+		//set the current week 
+		int currentWeek = gameEnvironment.getCurrentSeason();
+		if (currentWeek == 1) {weekNumLabel.setText("1st week");}
+		else if((currentWeek == 2)){weekNumLabel.setText("2nd week");}
+		else {weekNumLabel.setText(gameEnvironment.getCurrentSeason() + "rd week");}
+			
 		JLabel totalweekLabel = new JLabel(" / Total "+ gameEnvironment.getTotalSeason() + "weeks");
 		totalweekLabel.setFont(new Font("Dialog", Font.BOLD, 15));
-		totalweekLabel.setBounds(785, 38, 243, 30);
+		totalweekLabel.setBounds(733, 36, 243, 30);
 		frmMainWindow.getContentPane().add(totalweekLabel);
 		
 		JLabel selectedDifficultyLabel = new JLabel(gameEnvironment.getDifficulty().toString());
@@ -186,10 +192,18 @@ public class MainScreenGui implements UserInterface{
 		athleteBttns[5].setBounds(190, 20, 150, 150);
 		athleteBttns[6].setBounds(360, 20, 150, 150);
 		
+		swapOn = new JCheckBox("Swap ON");
+		swapOn.setBounds(847, 370, 128, 23);
+		frmMainWindow.getContentPane().add(swapOn);
+		
 		athleteBttns[0].addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {swapAthleteSlots(0);}});
+			public void actionPerformed(ActionEvent e) {
+				swapAthleteSlots(0);
+				}});
 		athleteBttns[1].addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {swapAthleteSlots(1);}});
+			public void actionPerformed(ActionEvent e) {
+				swapAthleteSlots(1);
+				}});
 		athleteBttns[2].addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {swapAthleteSlots(2);}});
 		athleteBttns[3].addActionListener(new ActionListener() {
@@ -199,8 +213,7 @@ public class MainScreenGui implements UserInterface{
 		athleteBttns[5].addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {swapAthleteSlots(5);}});	
 		athleteBttns[6].addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {swapAthleteSlots(6);}});
-	
+			public void actionPerformed(ActionEvent e) {swapAthleteSlots(6);}});	
 		
 		//make the labels for injured Athletes
 		//it will show under the button
@@ -224,60 +237,59 @@ public class MainScreenGui implements UserInterface{
 	 * Create the panel for item in player's inventory
 	 */
 	private void setItemPanel(){
-	JPanel setItemPanel = new JPanel();
-	setItemPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
-	setItemPanel.setBounds(180, 710, 784, 138);
-	frmMainWindow.getContentPane().add(setItemPanel);
-	setItemPanel.setLayout(new GridLayout(2, 7, 0, 0));
+		JPanel setItemPanel = new JPanel();
+		setItemPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
+		setItemPanel.setBounds(180, 710, 784, 138);
+		frmMainWindow.getContentPane().add(setItemPanel);
+		setItemPanel.setLayout(new GridLayout(2, 7, 0, 0));
+		
+		//Create toggle buttons for All the items that the player owns.
+		
+		for (int i = 0; i < myInventory.length; i++) {
+			itemBttns[i] = new JToggleButton(printingName(myInventory[i]));
+			setItemPanel.add(itemBttns[i]);}
 	
-	//Create toggle buttons for All the items that the player owns.
-	
-	for (int i = 0; i < myInventory.length; i++) {
-		itemBttns[i] = new JToggleButton(printingName(myInventory[i]));
-		setItemPanel.add(itemBttns[i]);}
-
-	itemBttns[0].addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-			selectingResetItemSlots(0);
-			itemBttns[0].setSelected(true);}});
-	itemBttns[1].addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-			selectingResetItemSlots(1);
-			itemBttns[1].setSelected(true);}});
-	itemBttns[2].addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-			selectingResetItemSlots(2);
-			itemBttns[2].setSelected(true);}});
-	itemBttns[3].addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-			selectingResetItemSlots(3);			
-			itemBttns[3].setSelected(true);}});
-	itemBttns[4].addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-			selectingResetItemSlots(4);
-			itemBttns[4].setSelected(true);}});
-	itemBttns[5].addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-			selectingResetItemSlots(5);
-			itemBttns[5].setSelected(true);}});
-	itemBttns[6].addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-			selectingResetItemSlots(6);
-			itemBttns[6].setSelected(true);}});
-	itemBttns[7].addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-			selectingResetItemSlots(7);
-			itemBttns[7].setSelected(true);}});
-	itemBttns[8].addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-			selectingResetItemSlots(8);
-			itemBttns[8].setSelected(true);}});
-	itemBttns[9].addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-			selectingResetItemSlots(9);
-			itemBttns[9].setSelected(true);}});
-	}
-	
+		itemBttns[0].addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				selectingResetItemSlots(0);
+				itemBttns[0].setSelected(true);}});
+		itemBttns[1].addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				selectingResetItemSlots(1);
+				itemBttns[1].setSelected(true);}});
+		itemBttns[2].addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				selectingResetItemSlots(2);
+				itemBttns[2].setSelected(true);}});
+		itemBttns[3].addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				selectingResetItemSlots(3);			
+				itemBttns[3].setSelected(true);}});
+		itemBttns[4].addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				selectingResetItemSlots(4);
+				itemBttns[4].setSelected(true);}});
+		itemBttns[5].addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				selectingResetItemSlots(5);
+				itemBttns[5].setSelected(true);}});
+		itemBttns[6].addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				selectingResetItemSlots(6);
+				itemBttns[6].setSelected(true);}});
+		itemBttns[7].addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				selectingResetItemSlots(7);
+				itemBttns[7].setSelected(true);}});
+		itemBttns[8].addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				selectingResetItemSlots(8);
+				itemBttns[8].setSelected(true);}});
+		itemBttns[9].addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				selectingResetItemSlots(9);
+				itemBttns[9].setSelected(true);}});
+		}
 
 	private void setPhoto(JToggleButton button, int num) {
 
@@ -291,30 +303,29 @@ public class MainScreenGui implements UserInterface{
 	}
 	
 	/*
-	 * update number of week on main screen.
-	 */
-	private void resetCurretWeek() {
-		currentWeek = gameEnvironment.getCurrentSeason();
-		if (currentWeek == 1) {weekNumLabel.setText("1st week");}
-		else if((currentWeek == 2)){weekNumLabel.setText("2nd week");}
-		else {weekNumLabel.setText(gameEnvironment.getCurrentSeason() + "rd week");}
-	}
-	
-	/*
-	 * this is help function to swap two athletes when player click two athletes and refresh screen to show changes and cancel clicked toggle buttons
+	 * when the swapOn switch is ON, swap two athletes when player click two athletes and refresh screen to show changes and cancel clicked toggle buttons
+	 * if swapOn switch is off, just show the clicked athlete's information
 	 */
 	private void swapAthleteSlots(int slotNum) {
-		athleteSwitchingNum1 = athleteSwitchingNum2;
-		athleteSwitchingNum2 = slotNum;
-		athleteDescriptionLabel.setText(printing(myRoster[slotNum]));
-		if (athleteSwitchingNum1 != -1 && athleteSwitchingNum2 != -1) {
-			if (myRoster[athleteSwitchingNum1] == null || myRoster[athleteSwitchingNum2] == null) {
-				noticeLabel.setText("Select two athlete to switch!");}
-			else {gameEnvironment.swap(athleteSwitchingNum1, athleteSwitchingNum2);}
+		if (swapOn.isSelected()) {
+			athleteSwitchingNum1 = athleteSwitchingNum2;
+			athleteSwitchingNum2 = slotNum;
+			athleteDescriptionLabel.setText(printing(myRoster[slotNum]));
+			if (athleteSwitchingNum1 != -1 && athleteSwitchingNum2 != -1) {
+				if (myRoster[athleteSwitchingNum1] == null || myRoster[athleteSwitchingNum2] == null) {
+					noticeLabel.setText("Select two athlete to switch!");}
+				else {
+					gameEnvironment.swap(athleteSwitchingNum1, athleteSwitchingNum2);
+					cancelAthleteToggle();
+					refreshWindow();
+				}}}
+		else {
+			athleteSwitchingNum2 = slotNum;
+			athleteDescriptionLabel.setText(printing(myRoster[slotNum]));
 			cancelAthleteToggle();
 			refreshWindow();
 		}
-			
+	
 	}
 	/*
 	 * this is help function to implement cancelItemToggle() method and assign slot number that player clicked
@@ -324,7 +335,6 @@ public class MainScreenGui implements UserInterface{
 			usingItemNum = slotNum;
 			itemDescriptionLabel.setText(printing(myInventory[slotNum]));
 	}
-	
 	
 	/**
 	 * check if the athlete is injured, if it is, show with red text
@@ -348,7 +358,6 @@ public class MainScreenGui implements UserInterface{
 		moneyLabel.setText("$ " + gameEnvironment.getTeam().getMoney());
 		myRoster = gameEnvironment.getTeam().getRoster();
 		myInventory = gameEnvironment.getTeam().getInventory();
-		resetCurretWeek();
 		checkInjured();
 		
 		for (int i = 0; i<myRoster.length; i++) {
@@ -462,6 +471,27 @@ public class MainScreenGui implements UserInterface{
 		itemUseButton.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		itemUseButton.setBounds(984, 766, 117, 78);
 		frmMainWindow.getContentPane().add(itemUseButton);
+		
+		
+		
+		//check if the season it over the total season,
+		//show the button to end the game
+		if (gameEnvironment.getCurrentSeason() == gameEnvironment.getTotalSeason()) {
+			takeAByeButton.setEnabled(false);
+			weekNumLabel.setText("Final week");
+			
+			JButton endGameBttn = new JButton("End Game");
+			endGameBttn.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					finishedWindow();
+	    			gameEnvironment.openGameOverWindow();
+					}});
+			
+			endGameBttn.setFont(new Font("Lucida Grande", Font.BOLD | Font.ITALIC, 49));
+			endGameBttn.setBounds(847, 568, 359, 129);
+			frmMainWindow.getContentPane().add(endGameBttn);
+		}
+		
 	}
 	
 	/*
@@ -520,6 +550,9 @@ public class MainScreenGui implements UserInterface{
 	    			gameEnvironment.openImprovingWindow();
 	    	}
 	}
+	/**
+	 *check if the player really wants to quit this game without finishing.
+	 */
 	private void checkingGameOver() {
 	    	Object[] options2 = { "Finish this game", "Try bit more!" };
 	    	JPanel panel2 = new JPanel(); 
@@ -530,9 +563,7 @@ public class MainScreenGui implements UserInterface{
 	        	if (result2 == JOptionPane.YES_NO_OPTION) {	
 	    			finishedWindow();
 	    			gameEnvironment.openGameOverWindow();
-	    	
 	    	}
-	    
 	    }
 	
 	/*

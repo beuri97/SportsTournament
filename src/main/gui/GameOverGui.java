@@ -1,7 +1,5 @@
 package main.gui;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -18,7 +16,6 @@ import java.awt.event.ActionEvent;
 public class GameOverGui implements UserInterface{
 
 	private JFrame frmGameover;
-	private GameEnvironment gameEnvironment;
 
 	/**
 	 * Create the application.
