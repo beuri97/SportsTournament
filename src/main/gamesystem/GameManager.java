@@ -51,16 +51,6 @@ public class GameManager {
     private int opponentBuff;
 
     /**
-     * Define total number of set of each game
-     */
-    private final int TOTAL_SET = 4;
-
-    /**
-     * Define total number of set score of each set
-     */
-    private final int SET_SCORE = 3;
-
-    /**
      * value of player and Opponent set score
      */
     private int playerSetScore, opponentSetScore;
@@ -96,9 +86,6 @@ public class GameManager {
         this.nerfOffensive = playerAthlete.getOffenseStat() + 10;
         this.buffDefensive = playerAthlete.getDefenseStat() + 15;
         this.nerfDefensive = playerAthlete.getDefenseStat() + 5;
-        // this.opponentBuff = setOpponentAdjustStat();
-        // this.opponentNerf = setOpponentAdjustStat();
-
     }
 
 
@@ -150,6 +137,11 @@ public class GameManager {
     public boolean isSet() {
 
         boolean result = false;
+        /**
+         * Define total number of set score of each set
+         */
+        final int SET_SCORE = 3;
+
         if (this.playerSetScore == SET_SCORE || this.opponentSetScore == SET_SCORE) {
             result = true;
             this.playerSetScore = 0;
@@ -167,7 +159,12 @@ public class GameManager {
      */
     public boolean isGame() {
 
-        return this.setNumber > this.TOTAL_SET;
+        /**
+         * Define total number of set of each game
+         */
+        final int TOTAL_SET = 4;
+
+        return this.setNumber > TOTAL_SET;
     }
 
     /**
@@ -275,7 +272,7 @@ public class GameManager {
                 ((this.playerScored) ? String.format("%s get score.%n", playerAthlete.getName()) : "") +
                 String.format("%s attacked %s%n", opponentAthlete.getName(),
                         (opponentScored) ? "and Success!" : "but failed") +
-                ((playerScored) ? String.format("%s get score.%n", opponentAthlete.getName()) : "");
+                ((opponentScored) ? String.format("%s get score.%n", opponentAthlete.getName()) : "");
 
         return message;
     }

@@ -255,6 +255,7 @@ public class GameEnvironment {
 		Team opponent = this.opponents[index];
 		this.opponents[index] = null;
 		this.played = true;
+		this.team.setTotalGamePlay();
 		this.gameManager = new GameManager(this, opponent, difficulty);
 	}
 
@@ -370,6 +371,7 @@ public class GameEnvironment {
 
 		int playerScore = gameManager.getPlayerGameScore();
 		int opponentScore = gameManager.getOpponentGameScore();
+		if(playerScore > opponentScore) this.team.setGameWin();
 		return new int[] {playerScore, opponentScore};
 	}
 
