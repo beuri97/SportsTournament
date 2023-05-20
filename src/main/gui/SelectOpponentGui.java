@@ -33,7 +33,7 @@ public class SelectOpponentGui implements UserInterface{
 	}
 
 	private String printTitle() {
-		return String.format("%s vs Opponent Team No.%d",gameEnvironment.getTeam().getName(), selectedOpponentNum+1);
+		return String.format("%s vs Opponent Team No.%d",gameEnvironment.getTeam().getName(), selectedOpponentNum);
 	}
 	/**
 	 * Initialize the contents of the frame.
@@ -60,28 +60,28 @@ public class SelectOpponentGui implements UserInterface{
 		
 		teamSelect[0].addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				selectedOpponentNum = 0;
+				selectedOpponentNum = 1;
 				chooseOpponentLabel.setText(printTitle());}});
 	
 		
 		teamSelect[1].addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				selectedOpponentNum = 1;
+				selectedOpponentNum = 2;
 				chooseOpponentLabel.setText(printTitle());}});
 		
 		teamSelect[2].addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				selectedOpponentNum = 2;
+				selectedOpponentNum = 3;
 				chooseOpponentLabel.setText(printTitle());}});
 
 		teamSelect[3].addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				selectedOpponentNum = 3;
+				selectedOpponentNum = 4;
 				chooseOpponentLabel.setText(printTitle());}});
 		
 		teamSelect[4].addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				selectedOpponentNum = 4;
+				selectedOpponentNum = 5;
 				chooseOpponentLabel.setText(printTitle());}});	
 		
 		teamSelect[0].setBounds(489, 375, 120, 292);
@@ -101,10 +101,15 @@ public class SelectOpponentGui implements UserInterface{
 		JButton startAMatchButton = new JButton("Start a match!!");
 		startAMatchButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				gameEnvironment.gameStart(selectedOpponentNum);
-				finishedWindow();
-				gameEnvironment.openStatiumWindow();;
+				if (selectedOpponentNum == 0) {
+					chooseOpponentLabel.setText("Choose your Opponent!!!");
+				}
+				else {
+					gameEnvironment.gameStart(selectedOpponentNum-1);
+					finishedWindow();
+					gameEnvironment.openStatiumWindow();;
+				}
+
 			}
 		});
 		startAMatchButton.setFont(new Font("Gentium", Font.BOLD | Font.ITALIC, 55));

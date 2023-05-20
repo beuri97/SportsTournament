@@ -12,6 +12,7 @@ import javax.swing.border.LineBorder;
 import main.GameEnvironment;
 import main.UserInterface;
 import main.gameObject.athletes.Athlete;
+import main.gamesystem.SetUp;
 
 import java.awt.Color;
 import javax.swing.JLabel;
@@ -50,13 +51,15 @@ public class ImprovingAthleteGui implements UserInterface{
 		JButton improveButton = new JButton("Improve!");
 		improveButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-//				myRoster[improvNum].setOffenseStat(setup.randomInt(2, 7));///////////////////////////////////////////////////////////////////////////////////////
-//				myRoster[improvNum].setOffenseStat(setup.randomInt(2, 7));///////////////////////////////////////////////////////////////////////////////////////
-//				myRoster[improvNum].setOffenseStat(setup.randomInt(2, 7));
+
 				if (improvNum != 0) {
+					myRoster[improvNum-1].setOffenseStat(SetUp.randomInt(2, 7));
+					myRoster[improvNum-1].setDefenseStat(SetUp.randomInt(2, 7));
+					myRoster[improvNum-1].setMaxStamina(SetUp.randomInt(2, 7));
 					athleteInfo.setText(printing(myRoster[improvNum-1]));
 					improveButton.setEnabled(false);
 					improveButton.setText("Improved!!");
+					
 				}
 				else {
 					athleteInfo.setText("Choose the athlete!!");

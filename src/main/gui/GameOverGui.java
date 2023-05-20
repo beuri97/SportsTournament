@@ -68,27 +68,15 @@ public class GameOverGui implements UserInterface{
 		int lastSeason = gameEnvironment.getCurrentSeason();
 		int totalSeason = gameEnvironment.getTotalSeason();
 		int[] playerOverall = gameEnvironment.getPlayerOverall();
+		float rate = (playerOverall[1] != 0) ? (float)(playerOverall[0]/playerOverall[1])*100 : 0;
 		finalResultLabel.setText(String.format("<html> You played %d week(s) out of %d weeks%n <br/><br/> "
 								+ "Your game Summary: <br/>"
 								+ "Your game difficulty was %s%n <br/> "
 								+ "You Played %d you won %d%n <br/>"
 								+ "Your percentage of victory is %.2f%n <br/>"
 								+ "Thank You For Playing!!!</html>",lastSeason, totalSeason, gameEnvironment.getDifficulty()
-								,playerOverall[1], playerOverall[0], (float)(playerOverall[0]/playerOverall[1])*100));
+								,playerOverall[1], playerOverall[0], rate));
 		
 
-	}
-
-	/*
-	 * close GameOver window ( it will be called from gameEnvironment)
-	 */
-	public void closeWindow() {
-		frmGameover.dispose();
-	}
-	/*
-	 * close GameOver window
-	 */
-	public void finishedWindow() {
-		gameEnvironment.closeGameOverWindow(this);
 	}
 }

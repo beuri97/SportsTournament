@@ -27,7 +27,6 @@ import main.gamesystem.Exception.EmptySlotException;
 import main.gamesystem.Exception.LackOfMoneyException;
 import main.gamesystem.Exception.NoSpaceException;
 
-import java.awt.*;
 import javax.swing.*;
 
 public class MarketGui implements UserInterface{
@@ -44,10 +43,7 @@ public class MarketGui implements UserInterface{
 	private Athlete[] myRoster;
 	private Item[] myInventory;
 	
-	private ImageIcon angelina = new ImageIcon(getClass().getResource("/Images/Angelina.jpg"));
-	private ImageIcon dwayne = new ImageIcon(getClass().getResource("/Images/Dwayne.jpg"));;
-	private ImageIcon prodo = new ImageIcon(getClass().getResource("/Images/Prodo.jpg"));;
-	private ImageIcon thorin = new ImageIcon(getClass().getResource("/Images/Thorin.jpg"));;
+	
 
 	
 	// next four ints indicate Athlete buttons and item button are clicked, 
@@ -65,6 +61,12 @@ public class MarketGui implements UserInterface{
 	private JLabel itemDiscriptionLabel;
 	private JLabel moneyLabel;
 	private JLabel sellDescriptionLabel;
+	
+	private ImageIcon angelina = new ImageIcon(getClass().getResource("/Images/Angelina.jpg"));
+	private ImageIcon dwayne = new ImageIcon(getClass().getResource("/Images/Dwayne.jpg"));;
+	private ImageIcon prodo = new ImageIcon(getClass().getResource("/Images/Prodo.jpg"));;
+	private ImageIcon thorin = new ImageIcon(getClass().getResource("/Images/Thorin.jpg"));;
+	
 	
 	/**
 	 * Create the application.
@@ -86,6 +88,19 @@ public class MarketGui implements UserInterface{
 		setSellAthleteItemPanel();
 		setButton();
 	}
+	
+	private void setPhoto(int num) {
+
+		String athleteName = printingName(athleteList[num]);
+		
+		if (athleteName.contains("Angelina")) {athletePhoto.setIcon(angelina);}
+		else if (athleteName.contains("Dwayne")) {athletePhoto.setIcon(dwayne);}
+		else if (athleteName.contains("Prodo")) {athletePhoto.setIcon(prodo);}
+		else if (athleteName.contains("Thorin")){athletePhoto.setIcon(thorin);}
+		else {athletePhoto.setIcon(null);}
+	}
+	
+	
 	/*
 	 * set the frame with labels
 	 */
@@ -118,10 +133,10 @@ public class MarketGui implements UserInterface{
 		warningLabel.setBounds(568, 682, 425, 20);
 		warningLabel.setForeground(Color.RED);
 		frmMarket.getContentPane().add(warningLabel);
-		//////////////////////////////////////////////////////////////////////////////////In testing/////////////////////////
 		
-		JLabel athletePhoto = new JLabel(angelina);
-		athletePhoto.setBounds(702, 135, 287, 460);
+		athletePhoto = new JLabel("");
+		athletePhoto.setHorizontalAlignment(SwingConstants.CENTER);
+		athletePhoto.setBounds(706, 135, 287, 460);
 		frmMarket.getContentPane().add(athletePhoto);
 
 	}
@@ -167,6 +182,7 @@ public class MarketGui implements UserInterface{
 			public void actionPerformed(ActionEvent e) {buyAthlete(4);}});
 		buyAthleteBttns[5].addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {buyAthlete(5);}});
+		
 	}
 	/*
 	 * set the panel to show available items in market
@@ -247,6 +263,7 @@ public class MarketGui implements UserInterface{
 	 */
 	private void buyAthlete(int slotNum) {
 		cancelBuyAhtleteToggle();
+		setPhoto(slotNum);
 		athleteBuyNum = slotNum;
 		athleteDiscriptionLabel.setText(printing(athleteList[slotNum]));
 		buyAthleteBttns[slotNum].setSelected(true);
@@ -380,6 +397,7 @@ public class MarketGui implements UserInterface{
 					athleteBuyNum = -1;
 					cancelBuyAhtleteToggle();
 					refreshScreen();
+					athletePhoto.setIcon(null);
 					athleteDiscriptionLabel.setText("Recruited!!");
 				}
 				catch(EmptySlotException a){warningLabel.setText(a.getMessage());}		
@@ -449,6 +467,8 @@ public class MarketGui implements UserInterface{
 		backButton.setFont(new Font("Lucida Grande", Font.BOLD, 23));
 		backButton.setBounds(30, 982, 97, 31);
 		frmMarket.getContentPane().add(backButton);
+		
+
 
 	}
 	/*
