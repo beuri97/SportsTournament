@@ -19,32 +19,6 @@ public class SetUp {
         }
     }
 
-//    public void tradingManager(Team team, Market market, String type, Product[] stock, int col) {
-//
-//        switch(type) {
-//            case "buy":
-//                Product[] properties = (stock instanceof Athlete[]) ? team.getRoster() : team.getInventory();
-//                if(stock[col] == null) throw new EmptySlotException();
-//                if(team.isFull(properties)) throw new NoSpaceException();
-//                team.setMoney(- stock[col].getPrice());
-//                Product product = market.purchase(stock, col);
-//                if (product instanceof Athlete) {
-//                    team.recruitAthletes(product);
-//                } else {
-//                    team.addItem(product);
-//                }
-//                break;
-//
-//            case "sell":
-//                if(stock[col] == null) throw new EmptySlotException();
-//                Product sale = stock[col];
-//                team.setMoney(sale.getPrice());
-//                if(stock[col] instanceof Athlete) team.leaveAthletes(col);
-//                else team.removeItem(col);
-//                break;
-//        }
-//    }
-
     public void reducedStamina(Athlete[] athletes, boolean lose) {
         final int CORRECTION = (!lose) ? 1 : 2;
         for (Athlete athlete : athletes) {

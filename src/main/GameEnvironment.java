@@ -21,6 +21,9 @@ import main.gamesystem.GameManager;
 import main.gamesystem.Market;
 import main.gamesystem.SetUp;
 
+import java.awt.image.AreaAveragingScaleFilter;
+import java.util.ArrayList;
+
 /**
  * Game Environment which is the core of this program
  * @author H Yang, J Kim
@@ -405,6 +408,17 @@ public class GameEnvironment {
 		this.played = false;
 		this.market = new Market();
 		this.setOpponent();
+		currentSeason++;
+	}
+
+	/**
+	 * random event method for athletes leave event if athlete is injured
+	 * @return arraylist with added players where the event occurred
+	 */
+	public ArrayList<Athlete> randomLeaveEvent() {
+
+		ArrayList<Athlete> result = new ArrayList<>();
+
 		for(Athlete athlete : this.getTeam().getRoster()){
 
 			//although Team getRoster method returns array it still works since the type is actually arraylist.
@@ -412,22 +426,55 @@ public class GameEnvironment {
 
 			else if (!setup.event(3.00) && !athlete.isInjured()) athlete.setStamina(athlete.getMaxStamina());
 
-			else team.leaveAthletes(athlete);
+			else {
+				result.add(athlete);
+				team.leaveAthletes(athlete);
+			}
 		}
+
+		//return null if no events occurs
+		if(result.size() == 0) result = null;
+		return result;
+	}
+
+	/**
+	 * Random event method for upgrade athletes stats
+	 * @return arraylist with added players where the event occurred
+	 */
+	public ArrayList<Athlete> randomUpgradeEvent() {
+
+		ArrayList<Athlete> result = new ArrayList<>();
+
 		for (Athlete athlete : this.getTeam().getRoster()){
 
 			if(setup.event(4.00) && athlete != null) {
+				// add event occurred athletes to report
+				result.add(athlete);
 				athlete.setOffenseStat(SetUp.randomInt(3));
 				athlete.setDefenseStat(SetUp.randomInt(3));
 				athlete.setMaxStamina(SetUp.randomInt(8));
 				athlete.setStamina(athlete.getMaxStamina());
 			}
 		}
+
+		if (result.size() == 0) result = null;
+		return result;
+	}
+
+	/**
+	 * Random Event method for join an athlete randomly
+	 * @return true if a new athlete is joined to players team
+	 */
+	public boolean randomNewAthlete() {
+
+		boolean result = false;
 		if (setup.event(3.50) && !this.getTeam().isFull()) {
 
 			this.team.recruitAthletes(market.athleteBuilder());
+			result = true;
 		}
-		currentSeason++;
+
+		return result;
 	}
 
 	/**
