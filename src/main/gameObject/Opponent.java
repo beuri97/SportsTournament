@@ -8,6 +8,10 @@ import main.gameObject.athletes.Athlete;
  */
 public class Opponent extends Team{
 
+    /**
+     * constructor class to create Opponent as Team
+     * @param athletes opponents athletes to be used
+     */
     public Opponent(Athlete[] athletes) {
 
         for(Athlete athlete : athletes) recruitAthletes(athlete);

@@ -23,8 +23,11 @@ public enum Rarity {
 	Rarity(String string) {
 		this.string = string;
 	}
-		
-		
+
+	/**
+	 * random trigger to get athlete's rarity
+	 * @return literal value about athlete's rarity
+	 */
 	public static Rarity setRarity() {
 
 		double rarity = new Random().nextDouble(100.00);
