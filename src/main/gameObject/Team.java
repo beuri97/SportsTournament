@@ -9,13 +9,22 @@ import main.gamesystem.Exception.NoSpaceException;
 import java.util.*;
 
 /**
- * Class Team for user and opponents.
+ * Represent an object Team for user and opponents This class will give basic information about player Team.
+ * This class will use team roster only when this class use as opponent team.
  * @author Yang
  */
 public class Team {
 
+    /**
+     * Total number of athlete that team can have
+     */
     protected final int TOTAL_ATHLETE = 7;
+
+    /**
+     * Total number of item that team can have
+     */
     protected final int TOTAL_ITEM = 10;
+
     /**
      * Team name
      */
@@ -35,12 +44,18 @@ public class Team {
      */
     ArrayList<Item> inventory = new ArrayList<>();
 
+    /**
+     * Number of game this team win
+     */
     int gameWin;
-    int totalGamePlay;
-
 
     /**
-     * set Team Name
+     * Number of game this team played
+     */
+    int totalGamePlay;
+
+    /**
+     * Set Team Name
      * @param name Team name (3 - 15) characters without any special characters
      */
     public void setName(String name) {
@@ -48,11 +63,17 @@ public class Team {
         this.name = name;
     }
 
+    /**
+     * Method for adding the number of games won
+     */
     public void setGameWin(){
 
         gameWin++;
     }
 
+    /**
+     * Method for adding the number of games played
+     */
     public void setTotalGamePlay() {
 
         totalGamePlay++;
@@ -67,11 +88,19 @@ public class Team {
         return name;
     }
 
+    /**
+     * Get number of game this team played
+     * @return integer value about team's total matches played
+     */
     public int getGameWin() {
 
         return gameWin;
     }
 
+    /**
+     * Get number of game this team won
+     * @return integer value about team's win on matches
+     */
     public int getTotalGamePlay() {
 
         return totalGamePlay;
@@ -97,7 +126,7 @@ public class Team {
     }
 
     /**
-     * get total amount of money player has
+     * get total amount of money this team has.
      * @return player's money in type double
      */
     public double getMoney() {
@@ -105,13 +134,20 @@ public class Team {
         return money;
     }
 
-
+    /**
+     * Team's money control method. This method will add and subtract money that user earn or spend.
+     * @param price total price user earn or spend
+     * @throws RuntimeException (optional) throws LackOfMoneyException if team does not have enough money.
+     */
     public void setMoney(double price) throws RuntimeException {
 
         if(money + price < 0) throw new LackOfMoneyException();
         money += price;
     }
 
+    /**
+     * Check method to check if this team meets the requirement to have match.
+     */
     public void isQualify(){
         int count = 0;
 
@@ -180,6 +216,11 @@ public class Team {
         return this.roster.size() == TOTAL_ATHLETE;
     }
 
+    /**
+     * Swap the position or order of athletes
+     * @param athlete1 athlete to be swapped with athlete2
+     * @param athlete2 athlete to be swapped with athlete1
+     */
     public void swapAthletes(int athlete1, int athlete2) {
 
         Collections.swap(roster, athlete1, athlete2);

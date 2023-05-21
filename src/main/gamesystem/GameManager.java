@@ -39,6 +39,9 @@ public class GameManager {
      */
     private Athlete opponentAthlete;
 
+    /**
+     * Game Difficulty
+     */
     private DifficultyOption difficulty;
 
     /**
@@ -212,6 +215,10 @@ public class GameManager {
         }
     }
 
+    /**
+     * Opponent offense and defense stat adjustment method
+     * @return int value about adjusting opponentBuff
+     */
     private int setOpponentAdjustStat(){
 
         return (difficulty.toString().equals("Easy")) ? random.nextInt(10, 30) +1 :
@@ -265,6 +272,10 @@ public class GameManager {
         this.opponentAthlete = this.opponent.getRoster()[this.setNumber -1];
     }
 
+    /**
+     * give feedback and result about each fight between player's athlete and opponent's athlete
+     * @return String value about each fight result
+     */
     public String battleMessage(){
 
         String message = "Batte Result: " + String.format("%s attacked %s%n", this.playerAthlete.getName(),
