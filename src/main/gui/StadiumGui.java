@@ -387,6 +387,6 @@ public class StadiumGui implements UserInterface{
 	 * close Stadium window
 	 */
 	public void finishedWindow() {
-		gameEnvironment.closeStatiumWindow(this);
+		gameEnvironment.closeStadiumWindow(this);
 	}
 }

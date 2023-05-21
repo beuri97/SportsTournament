@@ -21,7 +21,6 @@ import main.gamesystem.GameManager;
 import main.gamesystem.Market;
 import main.gamesystem.SetUp;
 
-import java.awt.image.AreaAveragingScaleFilter;
 import java.util.ArrayList;
 
 /**
@@ -408,6 +407,7 @@ public class GameEnvironment {
 		this.played = false;
 		this.market = new Market();
 		this.setOpponent();
+		setup.refillStamina(this.team.getRoster());
 		currentSeason++;
 	}
 
@@ -419,16 +419,27 @@ public class GameEnvironment {
 
 		ArrayList<Athlete> result = new ArrayList<>();
 
+		float percentage = 5.0f;
+		float percentageInjured = 7.85f;
+
 		for(Athlete athlete : this.getTeam().getRoster()){
 
 			//although Team getRoster method returns array it still works since the type is actually arraylist.
 			if (athlete == null) { break; }
 
-			else if (!setup.event(3.00) && !athlete.isInjured()) athlete.setStamina(athlete.getMaxStamina());
+			else if (!athlete.isInjured()) {
+				// normal case of leaving team
+				if(setup.event(percentage)) {
+					result.add(athlete);
+					team.leaveAthletes(athlete);
+				}
+			}
 
 			else {
-				result.add(athlete);
-				team.leaveAthletes(athlete);
+				if(setup.event(percentageInjured)) {
+					result.add(athlete);
+					team.leaveAthletes(athlete);
+				}
 			}
 		}
 
@@ -445,15 +456,17 @@ public class GameEnvironment {
 
 		ArrayList<Athlete> result = new ArrayList<>();
 
+		// event trigger
+		float percentage = 6.55f;
 		for (Athlete athlete : this.getTeam().getRoster()){
 
-			if(setup.event(70.00) && athlete != null) {
+
+			if(setup.event(percentage) && athlete != null) {
 				// add event occurred athletes to report
 				result.add(athlete);
 				athlete.setOffenseStat(SetUp.randomInt(3));
 				athlete.setDefenseStat(SetUp.randomInt(3));
 				athlete.setMaxStamina(SetUp.randomInt(8));
-				athlete.setStamina(athlete.getMaxStamina());
 			}
 		}
 
@@ -468,7 +481,10 @@ public class GameEnvironment {
 	public boolean randomNewAthlete() {
 
 		boolean result = false;
-		if (setup.event(70.50) && !this.getTeam().isFull()) {
+
+		// event trigger
+		float percentage = 6.53f;
+		if (setup.event(percentage) && !this.getTeam().isFull()) {
 
 			this.team.recruitAthletes(market.athleteBuilder());
 			result = true;
@@ -542,7 +558,7 @@ public class GameEnvironment {
 	/**
 	 *close GUI Stadium Window
 	 */
-	public void closeStatiumWindow(StadiumGui stadiumWindow) {
+	public void closeStadiumWindow(StadiumGui stadiumWindow) {
 		stadiumWindow.closeWindow();
 	}
 
