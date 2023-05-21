@@ -303,7 +303,7 @@ public class MarketGui implements UserInterface{
 	/*
 	 * update screen with the latest information.
 	 */
-	private void refreshScreen() {
+	private void refreshWindow() {
 		moneyLabel.setText("$ " + gameEnvironment.getTeam().getMoney());
 		athleteList = gameEnvironment.getMarket().getAthleteProduct();
 		itemList = gameEnvironment.getMarket().getItemProduct();
@@ -396,7 +396,7 @@ public class MarketGui implements UserInterface{
 					gameEnvironment.tradingProcess("buy", athleteList ,athleteBuyNum);
 					athleteBuyNum = -1;
 					cancelBuyAhtleteToggle();
-					refreshScreen();
+					refreshWindow();
 					athletePhoto.setIcon(null);
 					athleteDiscriptionLabel.setText("Recruited!!");
 				}
@@ -417,7 +417,7 @@ public class MarketGui implements UserInterface{
 					gameEnvironment.tradingProcess("buy", itemList ,itemBuyNum);
 					itemBuyNum = -1;
 					cancelBuyItemToggle();
-					refreshScreen();
+					refreshWindow();
 					itemDiscriptionLabel.setText("Purchased!!");
 				}
 				catch(EmptySlotException a) {warningLabel.setText(a.getMessage());}
@@ -437,7 +437,7 @@ public class MarketGui implements UserInterface{
 						gameEnvironment.tradingProcess("sell", myRoster ,athleteSellNum);
 						athleteSellNum = -1;
 						cancelSellAthleteItemToggle();
-						refreshScreen();
+						refreshWindow();
 						sellDescriptionLabel.setText("Sold your athlete!!");
 					}
 					catch(EmptySlotException a){warningLabel.setText(a.getMessage());}}
@@ -447,7 +447,7 @@ public class MarketGui implements UserInterface{
 						gameEnvironment.tradingProcess("sell", myInventory ,itemSellNum);
 						itemSellNum = -1;
 						cancelSellAthleteItemToggle();
-						refreshScreen();
+						refreshWindow();
 						sellDescriptionLabel.setText("Sold your item!!");}
 					
 					catch(EmptySlotException a) {warningLabel.setText(a.getMessage());}}}});

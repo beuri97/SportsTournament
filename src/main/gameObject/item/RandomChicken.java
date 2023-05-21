@@ -1,6 +1,11 @@
 package main.gameObject.item;
 
 import java.util.*;
+
+/**
+ * class for item, RandomChicken which will increase random stat
+ * @author J Kim
+ */
 public class RandomChicken extends Item{
 
 	private static ArrayList<String> statList = new ArrayList<String>();

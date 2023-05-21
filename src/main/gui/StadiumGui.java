@@ -28,11 +28,11 @@ public class StadiumGui implements UserInterface{
 	private int prevMyScore;
 	private int prevOppoScore;
 	
-	private JButton fightButton;
+	private JButton fightBttn;
 	private JButton readyBttn;
 	private JLabel currentStatBuffLabel; 
 	private JLabel gameResultLabel;
-	private JLabel numberofSetLabel;
+	private JLabel numberOfSetLabel;
 	private JLabel myScoreLabel;
 	private JLabel opponentScoreLabel;
 	
@@ -103,12 +103,12 @@ public class StadiumGui implements UserInterface{
 		gameResultLabel.setBounds(859, 526, 306, 366);
 		frmStadium.getContentPane().add(gameResultLabel);
 		
-		numberofSetLabel = new JLabel("Number of Set");
-		numberofSetLabel.setFont(new Font("Dialog", Font.BOLD, 24));
-		numberofSetLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		numberofSetLabel.setBounds(731, 12, 213, 46);
-		frmStadium.getContentPane().add(numberofSetLabel);
-		numberofSetLabel.setText("Set Score" + setNum);
+		numberOfSetLabel = new JLabel("Number of Set");
+		numberOfSetLabel.setFont(new Font("Dialog", Font.BOLD, 24));
+		numberOfSetLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		numberOfSetLabel.setBounds(731, 12, 213, 46);
+		frmStadium.getContentPane().add(numberOfSetLabel);
+		numberOfSetLabel.setText("Set Score" + setNum);
 		
 		JLabel doubleDotScoreLabel = new JLabel(":");
 		doubleDotScoreLabel.setFont(new Font("Dialog", Font.BOLD, 28));
@@ -203,8 +203,8 @@ public class StadiumGui implements UserInterface{
 		aggresiveBttn.setSelected(false);
 		carefulBttn.setEnabled(true);
 		aggresiveBttn.setEnabled(true);
-		fightButton.setEnabled(false);
-		numberofSetLabel.setText("Set Score " + setNum);
+		fightBttn.setEnabled(false);
+		numberOfSetLabel.setText("Set Score " + setNum);
 		showActive(setNum-1);
 	}
 	/*
@@ -308,7 +308,7 @@ public class StadiumGui implements UserInterface{
 			public void actionPerformed(ActionEvent e) {
 				carefulBttn.setEnabled(false);
 				aggresiveBttn.setEnabled(false);
-				fightButton.setEnabled(true);
+				fightBttn.setEnabled(true);
 				battlePhoto.setIcon(standby);
 				}
 		});
@@ -316,8 +316,8 @@ public class StadiumGui implements UserInterface{
 		readyBttn.setBounds(326, 904, 206, 56);
 		frmStadium.getContentPane().add(readyBttn);
 		
-		fightButton = new JButton("Fight");
-		fightButton.addActionListener(new ActionListener() {
+		fightBttn = new JButton("Fight");
+		fightBttn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				gameEnvironment.battleSequences();
 				gameResultLabel.setText(printing(gameEnvironment.getBattleMessage()));
@@ -327,7 +327,7 @@ public class StadiumGui implements UserInterface{
 				showBattlePhoto();
 
 				if (gameEnvironment.isGame()) {
-					fightButton.setEnabled(false);
+					fightBttn.setEnabled(false);
 					aggresiveBttn.setEnabled(false);;
 					carefulBttn.setEnabled(false);
 					readyBttn.setEnabled(false);
@@ -356,10 +356,10 @@ public class StadiumGui implements UserInterface{
 				}	
 			}
 		});
-		fightButton.setFont(new Font("Dialog", Font.BOLD, 30));
-		fightButton.setBounds(681, 904, 206, 69);
-		frmStadium.getContentPane().add(fightButton);
-		fightButton.setEnabled(false);
+		fightBttn.setFont(new Font("Dialog", Font.BOLD, 30));
+		fightBttn.setBounds(681, 904, 206, 69);
+		frmStadium.getContentPane().add(fightBttn);
+		fightBttn.setEnabled(false);
 	}
 	
 	/*
