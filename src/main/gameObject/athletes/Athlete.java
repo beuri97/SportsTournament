@@ -130,6 +130,10 @@ public class Athlete implements Product{
      */
     public float getPrice() {return this.price;}
 
+    /**
+     *
+     * @return
+     */
     public String getAthleteSummary() {
 
         return String.format("Name: %s%n Offense: %d%n Defense: %s%n Stamina: %d/%d%n Injured: %s%n",
@@ -149,13 +153,13 @@ public class Athlete implements Product{
     }
 
     /**
-     * set offense statistics
+     * Adjusting offense statistics
      * @param changedStat athlete's stat change amount
      */
     public void setOffenseStat(int changedStat) { this.offenseStat += changedStat; }
 
     /**
-     * set defensive statistics
+     * Adjusting defensive statistics
      * @param changedStat athlete's stat change amount
      */
     public void setDefenseStat(int changedStat) { this.defenseStat += changedStat; }
@@ -172,11 +176,19 @@ public class Athlete implements Product{
         if (this.stamina < 0) this.stamina = 0;
     }
 
+    /**
+     * Upgrade athletes max stamina.
+     * @param changedStamina Amount of maximum stamina that will be increased
+     */
     public void setMaxStamina(int changedStamina) {
 
         this.maxStamina += changedStamina;
     }
 
+    /**
+     * Method that athlete interaction with item.
+     * @param item {@link Item} that will be interacted with athlete
+     */
     public void useItem(Item item) {
 
         switch(item.getIncStat()) {
@@ -196,6 +208,9 @@ public class Athlete implements Product{
                 getName(), getRarity(), getOffenseStat(), getDefenseStat(), getStamina(), getMaxStamina(), getPrice(), getDescription());
     }
 
+    /**
+     * redefine price of athlete after be purchased
+     */
     public void setSellPrice() {
        price *= SELL_PRICE_PENALTY;
     }
