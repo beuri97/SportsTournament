@@ -17,10 +17,19 @@ import java.util.Scanner;
  */
 public class CmdLineUi implements UserInterface {
 
+	/**
+	 * scanner to get input from users
+	 */
 	private final Scanner scan;
 
+	/**
+	 * game environment which has all of this game system
+	 */
 	private GameEnvironment gameEnvironment;
 
+	/**
+	 * A class that manages descriptions of commands to be used in the Main System
+	 */
 	enum Option {
 
 		INFO("info - Show current game status briefly"),
@@ -28,18 +37,29 @@ public class CmdLineUi implements UserInterface {
 		STADIUM("stadium - Play Game!"),
 		TEAM("team - Manage Team Here"),
 		EXIT("exit - Terminate this game");
+
+		/**
+		 * command description
+		 */
 		final String DESCRIPTION;
 
 		Option(String description) {
 			this.DESCRIPTION = description;
 		}
 
+		/**
+		 * Print command description
+		 * @return string value about command description
+		 */
 		public String toString() {
 
 			return this.DESCRIPTION;
 		}
 	}
 
+	/**
+	 * A class that manages descriptions of commands to be used in the market system
+	 */
 	enum MarketOption {
 		USAGE("""
 				usage
@@ -58,25 +78,38 @@ public class CmdLineUi implements UserInterface {
 				\t\t-i\tshow sellable. items selling process will be proceed if input number is exist and valid"""),
 		EXIT("exit - exit market");
 
+		/**
+		 * command description
+		 */
 		final String DESCRIPTION;
 
+		/**
+		 * Constructor to assign description string to DESCRIPTION
+		 * @param string command description
+		 */
 		MarketOption(String string) {
 
 			this.DESCRIPTION = string;
 		}
 
+		/**
+		 * Print command description
+		 * @return string value about command description
+		 */
 		public String toString() {
 
 			return this.DESCRIPTION;
 		}
 	}
 
-
+	/**
+	 * A class that manages descriptions of commands to be used in the Team Manager System
+	 */
 	enum TeamManageOption {
 		USAGE("""
 				usage
 				\tshow|exit
-				\tuse ([1-9]|1[0-4])
+				\tuse ([1-9]|10)
 				\tswap [1-7] to [1-7]
 				\texit
 				"""),
@@ -98,12 +131,23 @@ public class CmdLineUi implements UserInterface {
 				exit - exit team manager
 				""");
 
+		/**
+		 * command description
+		 */
 		final String DESCRIPTION;
 
+		/**
+		 * Constructor to assign description string to DESCRIPTION
+		 * @param description command description
+		 */
 		TeamManageOption(String description) {
 			this.DESCRIPTION = description;
 		}
 
+		/**
+		 * Print command description
+		 * @return string value about command description
+		 */
 		public String toString() {
 
 			return this.DESCRIPTION;
@@ -327,6 +371,9 @@ public class CmdLineUi implements UserInterface {
 		}
 	}
 
+	/**
+	 * Methods that allow the player to interact with the player's team.
+	 */
 	private void teamInfoSystem() {
 
 		while(true) {
@@ -382,6 +429,9 @@ public class CmdLineUi implements UserInterface {
 	}
 
 
+	/**
+	 * User interface method about beginning of stadium before battle
+	 */
 	private void stadium() {
 
 		final String REGEX = String.format("[1-%d]", gameEnvironment.getAllOpponent().length);
@@ -453,6 +503,9 @@ public class CmdLineUi implements UserInterface {
 	}
 
 
+	/**
+	 * method to take a bye
+	 */
 	private void takeBye() {
 
 		if(this.gameEnvironment.isPlayed()) {
@@ -485,7 +538,9 @@ public class CmdLineUi implements UserInterface {
 		}
 	}
 
-
+	/**
+	 * Method to show game over result to player
+	 */
 	private void declareGameOver() {
 
 		int lastSeason = gameEnvironment.getCurrentSeason();
@@ -516,6 +571,9 @@ public class CmdLineUi implements UserInterface {
 		}
 	}
 
+	/**
+	 * Method shows match result to player
+	 */
 	private void gameResult() {
 		int[] result = gameEnvironment.matchResult();
 		int playerScore = result[0];
