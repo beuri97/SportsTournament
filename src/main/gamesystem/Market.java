@@ -32,6 +32,10 @@ public class Market {
 
 		ANGELINA, DWAYNE, THORIN, PRODO;
 
+		/**
+		 * Choose Athlete kind randomly
+		 * @return Athlete Kind
+		 */
 		public static Athletes generateAthlete() {
 
 			return Athletes.values()[new Random().nextInt(Athletes.values().length)];
@@ -49,6 +53,10 @@ public class Market {
 
 		FATTY_PORK_BELLY, HIGH_DOPING_CANDY, RANDOM_CHICKEN, STAMINA_COOKIE, YUMMY_STAKE, TREAD_MILL;
 
+		/**
+		 * Choose Item kind randomly
+		 * @return Item Kind
+		 */
 		static Items generateItems() {
 
 			return Items.values()[new Random().nextInt(Items.values().length)];
@@ -102,14 +110,22 @@ public class Market {
 
 		for (int i = 0; i < slots.length; i++) {
 
-			switch(Athletes.generateAthlete()) {
-
-				case ANGELINA -> slots[i] = new Angelina();
-				case DWAYNE -> slots[i] = new Dwayne();
-				case THORIN -> slots[i] = new Thorin();
-				case PRODO -> slots[i] = new Prodo();
-			}
+			slots[i] = this.athleteBuilder();
 		}
+	}
+
+	public Product athleteBuilder() {
+
+		Product athlete = null;
+		switch(Athletes.generateAthlete()) {
+
+			case ANGELINA -> athlete = new Angelina();
+			case DWAYNE -> athlete = new Dwayne();
+			case THORIN -> athlete = new Thorin();
+			case PRODO -> athlete = new Prodo();
+		}
+
+		return athlete;
 	}
 
 	/**
@@ -118,9 +134,8 @@ public class Market {
 	 * @param col index of items' or athletes' location that user wish to buy.
 	 * @return purchased item or athlete
 	 */
-	public Product purchase(Product[] product, int col) throws RuntimeException{
+	public Product purchase(Product[] product, int col) {
 
-		if(product[col] == null) throw new EmptySlotException();
 		Product sold = product[col];
 		product[col] = null;
 

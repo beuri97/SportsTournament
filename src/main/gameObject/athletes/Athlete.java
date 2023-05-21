@@ -1,4 +1,6 @@
 package main.gameObject.athletes;
+import javax.swing.ImageIcon;
+
 import main.gameObject.Product;
 import main.gameObject.Rarity;
 import main.gameObject.item.Item;
@@ -54,6 +56,16 @@ public class Athlete implements Product{
      * athletes' injured status will be true if stamina is less than or equal to 0
      */
     protected boolean injured;
+    
+    /**
+     * athletes' image
+     */
+    protected ImageIcon athletePhoto;
+    
+    /**
+     * athletes' face image
+     */
+    protected ImageIcon athleteFacePhoto;
 
     /**
      * Athlete Constructor to create Athletes
@@ -108,7 +120,10 @@ public class Athlete implements Product{
 
         return maxStamina;
     }
-
+    /**
+     * @return get athlete's face photo
+     */
+    public ImageIcon getAthleteFacePhoto() {return this.athleteFacePhoto;}
     /**
      * show athletes' price
      * @return athletes' price
@@ -154,6 +169,7 @@ public class Athlete implements Product{
 
         //if stamina exceed maximum stamina then change it to maximum stamina
         if (this.stamina > this.maxStamina) this.stamina = this.maxStamina;
+        if (this.stamina < 0) this.stamina = 0;
     }
 
     public void setMaxStamina(int changedStamina) {

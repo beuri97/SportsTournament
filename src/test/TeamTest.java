@@ -1,5 +1,7 @@
 package test;
 
+
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -97,7 +99,7 @@ class TeamTest {
 		 */
 		if (count != 0) {
 			int leavingAthlete = pickNum.nextInt(0, count);
-			testTeam.leaveAthletes(leavingAthlete);
+			testTeam.leaveAthletes(testTeam.getRoster()[leavingAthlete]);
 			for (Athlete name: testTeam.getRoster()) {
 				if (name != null) {
 				assertNotEquals(testTeam.getRoster()[leavingAthlete], name);
@@ -144,7 +146,7 @@ class TeamTest {
 		if (count != 0) {
 			int removeditem = pickNum.nextInt(0, count);
 			System.out.println(testTeam.getInventory()[removeditem]);
-			testTeam.removeItem(removeditem);
+			testTeam.removeItem(testTeam.getInventory()[removeditem]);
 			for (Item name: testTeam.getInventory()) {
 				if (name != null) {
 					assertNotEquals(testTeam.getInventory()[removeditem], name);

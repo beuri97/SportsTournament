@@ -1,5 +1,7 @@
 package main.gameObject.athletes.type;
 
+import javax.swing.ImageIcon;
+
 import main.gameObject.athletes.Athlete;
 
 public class Angelina extends Athlete {
@@ -39,6 +41,6 @@ public class Angelina extends Athlete {
         	super.price = 4500.00f;
         	break;
         }
-        
+        super.athleteFacePhoto = new ImageIcon(getClass().getResource("/Images/AngelinaF.jpg"));
     }
 }

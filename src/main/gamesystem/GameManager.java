@@ -12,10 +12,10 @@ import java.util.Random;
  * Class is received command from a user interface via gameEnvironment and execute relevant methods
  * @author H Yang
  */
-public class GameManager{
+public class GameManager {
 
     /**
-     *  TODO - How do I explain this??
+     *  Random Class to use for {@link GameManager}
      */
     private final Random random = new Random();
 
@@ -39,6 +39,9 @@ public class GameManager{
      */
     private Athlete opponentAthlete;
 
+    /**
+     * Game Difficulty
+     */
     private DifficultyOption difficulty;
 
     /**
@@ -49,16 +52,6 @@ public class GameManager{
 
 
     private int opponentBuff;
-
-    /**
-     * Define total number of set of each game
-     */
-    private final int TOTAL_SET = 4;
-
-    /**
-     * Define total number of set score of each set
-     */
-    private final int SET_SCORE = 3;
 
     /**
      * value of player and Opponent set score
@@ -81,6 +74,7 @@ public class GameManager{
     private boolean playerScored, opponentScored;
 
     /**
+     *
      * Game Manager Constructor
      * @param gameEnvironment main game environment system
      */
@@ -95,10 +89,8 @@ public class GameManager{
         this.nerfOffensive = playerAthlete.getOffenseStat() + 10;
         this.buffDefensive = playerAthlete.getDefenseStat() + 15;
         this.nerfDefensive = playerAthlete.getDefenseStat() + 5;
-        // this.opponentBuff = setOpponentAdjustStat();
-        // this.opponentNerf = setOpponentAdjustStat();
-
     }
+
 
     /**
      * get opponent detail
@@ -127,6 +119,20 @@ public class GameManager{
         return this.opponentGameScore;
     }
 
+    public int getSetNumber() {
+
+        return setNumber;
+    }
+
+    /**
+     * method return athletes' range of offensive and defensive stat corrections
+     * @return integer values about athletes' range of offensive and defensive stat corrections in 2D array
+     */
+    public int[][] getAdjustedStat() {
+
+        return new int[][] {{nerfOffensive, buffOffensive}, {nerfDefensive, buffDefensive}};
+    }
+
     /**
      * Check whether set is over
      * @return if at least one athlete get 3 score this method returns true
@@ -134,6 +140,11 @@ public class GameManager{
     public boolean isSet() {
 
         boolean result = false;
+        /**
+         * Define total number of set score of each set
+         */
+        final int SET_SCORE = 3;
+
         if (this.playerSetScore == SET_SCORE || this.opponentSetScore == SET_SCORE) {
             result = true;
             this.playerSetScore = 0;
@@ -151,7 +162,12 @@ public class GameManager{
      */
     public boolean isGame() {
 
-        return this.setNumber > this.TOTAL_SET;
+        /**
+         * Define total number of set of each game
+         */
+        final int TOTAL_SET = 4;
+
+        return this.setNumber > TOTAL_SET;
     }
 
     /**
@@ -199,6 +215,10 @@ public class GameManager{
         }
     }
 
+    /**
+     * Opponent offense and defense stat adjustment method
+     * @return int value about adjusting opponentBuff
+     */
     private int setOpponentAdjustStat(){
 
         return (difficulty.toString().equals("Easy")) ? random.nextInt(10, 30) +1 :
@@ -217,33 +237,30 @@ public class GameManager{
         int opponentOffense = opponentAthlete.getOffenseStat();
         int opponentDefense = opponentAthlete.getDefenseStat();
 
-        do {
-            this.playerScored = false;
-            this.opponentScored = false;
-            this.opponentBuff = setOpponentAdjustStat();
-            // use random numerical value from revised stats that is revised with nerf and buff stat
-            double playerAttackStat = random.nextDouble(this.nerfOffensive, this.buffOffensive);
-            double playerDefenseStat = random.nextDouble(this.nerfDefensive, this.buffDefensive);
+        // reset flag
+        this.playerScored = false;
+        this.opponentScored = false;
+        this.opponentBuff = setOpponentAdjustStat();
 
-            // use random numerical value from revised stats that is revised with nerf and buff stat
-            double opponentAttackStat =  random.nextDouble(opponentOffense - 10, opponentOffense + opponentBuff);
+        // use random numerical value from revised stats that is revised with nerf and buff stat
+        double playerAttackStat = random.nextDouble(this.nerfOffensive, this.buffOffensive);
+        double playerDefenseStat = random.nextDouble(this.nerfDefensive, this.buffDefensive);
 
-            double opponentDefenseStat = random.nextDouble(opponentDefense - 5, opponentDefense + opponentBuff);
-            // analyze outcome of the battle
-            if (playerAttackStat > opponentDefenseStat) {
-                this.playerScored = true;
-                this.playerSetScore++;
-                this.playerGameScore++;
-            }
-            if (opponentAttackStat > playerDefenseStat) {
-                this.opponentScored = true;
-                this.opponentSetScore++;
-                this.opponentGameScore++;
-            }
+        // use random numerical value from revised stats that is revised with nerf and buff stat
+        double opponentAttackStat =  random.nextDouble(opponentOffense - 10, opponentOffense + opponentBuff);
 
-        } while (!this.playerScored && !this.opponentScored);
-
-        //reset flag when while loop is terminated
+        double opponentDefenseStat = random.nextDouble(opponentDefense - 5, opponentDefense + opponentBuff);
+        // analyze outcome of the battle
+        if (playerAttackStat > opponentDefenseStat) {
+            this.playerScored = true;
+            this.playerSetScore++;
+            this.playerGameScore++;
+        }
+        if (opponentAttackStat > playerDefenseStat) {
+            this.opponentScored = true;
+            this.opponentSetScore++;
+            this.opponentGameScore++;
+        }
     }
 
     /**
@@ -255,14 +272,18 @@ public class GameManager{
         this.opponentAthlete = this.opponent.getRoster()[this.setNumber -1];
     }
 
+    /**
+     * give feedback and result about each fight between player's athlete and opponent's athlete
+     * @return String value about each fight result
+     */
     public String battleMessage(){
 
         String message = "Batte Result: " + String.format("%s attacked %s%n", this.playerAthlete.getName(),
                 (this.playerScored) ? "and Success!" : "but failed") +
-                ((this.playerScored) ? String.format("%s get score.%n", playerAthlete) : "") +
+                ((this.playerScored) ? String.format("%s get score.%n", playerAthlete.getName()) : "") +
                 String.format("%s attacked %s%n", opponentAthlete.getName(),
                         (opponentScored) ? "and Success!" : "but failed") +
-                ((playerScored) ? String.format("%s get score.%n", opponentAthlete) : "");
+                ((opponentScored) ? String.format("%s get score.%n", opponentAthlete.getName()) : "");
 
         return message;
     }

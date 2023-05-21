@@ -18,13 +18,16 @@ public class Main {
         if(args.length != 0 && args[0].equals("cmd")) {
         	
         	ui = new CmdLineUi();
+            GameEnvironment game = new GameEnvironment(ui);
+            game.start();
         }
         else {
         	
         	ui = new SetupWindowGui();
+            GameEnvironment game = new GameEnvironment(ui);
+            SwingUtilities.invokeLater(() -> game.start());
         }
         
-        GameEnvironment game = new GameEnvironment(ui);
-        SwingUtilities.invokeLater(() -> game.start());
+
     }
 }

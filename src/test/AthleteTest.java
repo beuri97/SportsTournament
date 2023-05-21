@@ -32,10 +32,15 @@ public class AthleteTest {
 	
 	}
 	
-	//@RepeatedTest(value = 1000)
-//	void testSellPrice() {
-//		assertEquals(testAthlete.getPrice()*0.7f, testAthlete.setSellPrice() );
-//	}
+	@RepeatedTest(value = 1000)
+	void testSellPrice() {
+		double before = testAthlete.getPrice();
+		System.out.println(before);
+		testAthlete.setSellPrice();
+		double after = testAthlete.getPrice();
+		System.out.println(after);
+		assertEquals(before*0.7, after);
+	}
 
 	@AfterEach
 	void testInjuredStatus() {

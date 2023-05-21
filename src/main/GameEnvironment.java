@@ -21,6 +21,8 @@ import main.gamesystem.GameManager;
 import main.gamesystem.Market;
 import main.gamesystem.SetUp;
 
+import java.util.ArrayList;
+
 /**
  * Game Environment which is the core of this program
  * @author H Yang, J Kim
@@ -75,7 +77,7 @@ public class GameEnvironment {
 	 * Boolean set true if player play game at least once
 	 */
 	private boolean played;
-	
+
 	/**
 	 * Start new game by setting up Team name, number of weeks for season and difficulty of game
 	 */
@@ -84,6 +86,12 @@ public class GameEnvironment {
 		this.ui = userInterface;
 	}
 
+	/**
+	 * method for initial setup at the beginning of this program to play
+	 * @param name player's Team name
+	 * @param week total week that player wants to play
+	 * @param difficulty difficulty of this program(game) that player wants to play
+	 */
 	public void set(String name, int week, DifficultyOption difficulty){
 		this.totalSeason = week;
 		this.currentSeason = 1;
@@ -106,24 +114,37 @@ public class GameEnvironment {
 		return this.team;
 	}
 
-
+	/**
+	 * get entire market system / information
+	 * @return market data of each week
+	 */
 	public Market getMarket() {
 
 		return this.market;
 	}
 
+	/**
+	 * get player's difficulty data/information
+	 * @return entire difficulty data as enum class
+	 */
 	public DifficultyOption getDifficulty() {
 
 		return this.difficulty;
 	}
 
-
+	/**
+	 * get week info that player is currently on
+	 * @return integer value about players current week
+	 */
 	public int getCurrentSeason() {
 
 		return this.currentSeason;
 	}
 
-
+	/**
+	 * get total week of season player select at the beginning setup
+	 * @return int value about players total week of season
+	 */
 	public int getTotalSeason() {
 
 		return this.totalSeason;
@@ -137,7 +158,7 @@ public class GameEnvironment {
 	}
 
 	/**
-	 *
+	 * processing method about trading method
 	 * @param type String value indicating whether it is a buy or sell status
 	 * @param stockType A value indicating whether the product players want to buy is an athlete or an item.
 	 * @param col the stock's index in Market Team Roster or Team inventory.
@@ -150,7 +171,7 @@ public class GameEnvironment {
 			case "buy":
 				Product[] properties = (stockType instanceof Athlete[]) ? this.team.getRoster() : this.team.getInventory();
 				if(stockType[col] == null) throw new EmptySlotException();
-				if(this.team.isFull(properties)) throw new NoSpaceException();
+				if(this.team.isFull()) throw new NoSpaceException();
 				this.team.setMoney(- stockType[col].getPrice());
 				Product product = this.market.purchase(stockType, col);
 				if (product instanceof Athlete) {
@@ -165,15 +186,15 @@ public class GameEnvironment {
 				Product sale = stockType[col];
 				this.team.setMoney(sale.getPrice());
 				if(stockType[col] instanceof Athlete) this.team.leaveAthletes(stockType[col]);
-				else this.team.removeItem(col);
+				else this.team.removeItem(sale);
 				break;
 		}
 	}
 
 	/**
 	 * method to lead system to use item to athletes
-	 * @param athleteIndex Player {@link main.gameObject.Team team}'s athletes index in roster
-	 * @param itemIndex Player {@link main.gameObject.Team team}'s item index in inventory
+	 * @param athleteIndex Player {@link main.gameObject.Team team's} athletes index in roster
+	 * @param itemIndex Player {@link main.gameObject.Team team's} item index in inventory
 	 */
 	public void useItem(int athleteIndex, int itemIndex) {
 
@@ -181,7 +202,7 @@ public class GameEnvironment {
 		Athlete athlete = this.team.getRoster()[athleteIndex];
 		Item item = this.team.getInventory()[itemIndex];
 		athlete.useItem(item);
-		team.removeItem(itemIndex);
+		team.removeItem(item);
 	}
 
 	/**
@@ -196,22 +217,32 @@ public class GameEnvironment {
 		this.setup.checkRegex(input, REGEX, message);
 	}
 
+	/**
+	 * method that lead to swapAthletes method in class Team to swap two athletes
+	 * @param athlete1 athlete's index user wants to swap
+	 * @param athlete2 athlete's index user wants to swap
+	 */
 	public void swap(int athlete1, int athlete2) {
 
 		team.swapAthletes(athlete1, athlete2);
 	}
 
-
+	/**
+	 * Create opponents and add the opponent to opponents array.
+	 */
 	public void setOpponent() {
 
-		Athlete[] temp = new Athlete[7];
+		Athlete[] temp = new Athlete[4];
 		for(int i=0; i<this.opponents.length;i++) {
 			this.market.setAthleteProduct(temp);
 			this.opponents[i] = new Opponent(temp);
 		}
 	}
 
-
+	/**
+	 * get all opponents in array
+	 * @return opponents array is Team array
+	 */
 	public Team[] getAllOpponent() {
 
 		return this.opponents;
@@ -219,7 +250,6 @@ public class GameEnvironment {
 
 	/**
 	 * main Game start from here
-	 *
 	 * @param index opponent index of this.opponents,
 	 */
 	public void gameStart(int index) {
@@ -227,64 +257,130 @@ public class GameEnvironment {
 		Team opponent = this.opponents[index];
 		this.opponents[index] = null;
 		this.played = true;
+		this.team.setTotalGamePlay();
 		this.gameManager = new GameManager(this, opponent, difficulty);
 	}
 
+	/**
+	 * method to get result about the match is all done by its condition
+	 * @return boolean value about match is game
+	 */
 	public boolean isGame() {
 
 		return gameManager.isGame();
 	}
 
+	/**
+	 * method to get result about each set of match is finish
+	 * @return boolean value about the game is set
+	 */
 	public boolean isSet() {
 
 		return gameManager.isSet();
 	}
 
+	/**
+	 * check player's team is qualify to have match
+	 * @throws InsufficientAthleteException occurs when injured athlete is in regular position or team does not have
+	 * enough athletes to play
+	 */
 	public void isPlayable() throws InsufficientAthleteException {
 
 		this.getTeam().isQualify();
 	}
 
+	/**
+	 * method to check if player played at least once per each week
+	 * @return boolean value and value is true if player played match at lest once
+	 */
 	public boolean isPlayed() {
 
 		return this.played;
 	}
 
+	/**
+	 * get opponent team information from {@link GameManager}
+	 * @return opponent team that player play against with
+	 */
 	public Team getOpponent() {
 
 		return gameManager.getOpponent();
 	}
 
+	/**
+	 * A method that connects a player to a method that can return the range of offensive and defensive stat corrections
+	 * that an athlete's can receive during the game.
+	 * @return integer values about athletes' range of offensive and defensive stat corrections in 2D array
+	 */
+	public int[][] getAdjustedStats() {
 
+		return gameManager.getAdjustedStat();
+	}
+
+	/**
+	 * method to lead system to adjusting athletes stats range during game
+	 * this method will introduce how athletes' offense stats will be buffed
+	 * and how athlete's defense stats will be nerfed
+	 */
 	public void buffOffensive() {
 		this.gameManager.setOffensiveAdjust(0);
 		this.gameManager.setDefensiveAdjust(1);
 	}
 
+	/**
+	 * method to lead system to adjusting athletes stats range during game
+	 * this method will introduce how athletes' defense stats will be buffed
+	 * and how athlete's offense stats will be nerfed
+	 */
 	public void buffDefensive() {
 
 		this.gameManager.setDefensiveAdjust(0);
 		this.gameManager.setOffensiveAdjust(1);
 	}
 
+	/**
+	 *  call actual battle sequence
+	 */
 	public void battleSequences() {
-		//TODO - check if athlete is injured
+
 		this.gameManager.battle();
 
 	}
 
+	/**
+	 * get message about each fight result
+	 * @return String value about fighting result about each fight
+	 */
 	public String getBattleMessage() {
 
 		return gameManager.battleMessage();
 	}
 
+	/**
+	 * get match set number
+	 * @return integer value about current set of the match
+	 */
+	public int getGameSetNumber() {
+
+		return gameManager.getSetNumber();
+	}
+
+	/**
+	 *get player's and opponent's game score from gameManager
+	 * @return integer values about player's game score and opponents' game score in integer array
+	 */
 	public int[] matchResult() {
 
 		int playerScore = gameManager.getPlayerGameScore();
 		int opponentScore = gameManager.getOpponentGameScore();
+		if(playerScore > opponentScore) this.team.setGameWin();
 		return new int[] {playerScore, opponentScore};
 	}
 
+	/**
+	 * give information that is about match result to UserInterface
+	 * @return integer values about player's number of win and player's total played in integer array
+	 */
 	public int[] getPlayerOverall() {
 
 		int playerWin = team.getGameWin();
@@ -292,7 +388,18 @@ public class GameEnvironment {
 		return new int[] {playerWin, totalPlayerPlay};
 	}
 
-	/**	 
+	/**
+	 * reduce athlete stamina
+	 * @param money money that player earned after match
+	 * @param lose value should be true if player lose the game.
+	 */
+	public void closingGame(double money, boolean lose) {
+
+		team.setMoney(money);
+		setup.reducedStamina(getTeam().getRoster(), lose);
+	}
+
+	/**
 	 * reset market status and match list when user take a bye
 	 */
 	public void reset() {
@@ -300,59 +407,165 @@ public class GameEnvironment {
 		this.played = false;
 		this.market = new Market();
 		this.setOpponent();
-		Athlete[] roster = this.getTeam().getRoster();
-		for(Athlete athlete : roster){
-
-
-			if (setup.isLeave(3.00) && athlete.isInjured()) team.leaveAthletes(athlete);
-			athlete.setStamina(athlete.getMaxStamina());
-		}
-		// TODO - Athlete Random events
+		setup.refillStamina(this.team.getRoster());
+		currentSeason++;
 	}
+
 	/**
-	 *open gui screens for Setup, Main, Market, Selecting Opponents, Stadium 
+	 * random event method for athletes leave event if athlete is injured
+	 * @return arraylist with added players where the event occurred
 	 */
-	
-	public void openMainScreen() {
+	public ArrayList<Athlete> randomLeaveEvent() {
+
+		ArrayList<Athlete> result = new ArrayList<>();
+
+		float percentage = 3.0f;
+		float percentageInjured = 7.85f;
+
+		for(Athlete athlete : this.getTeam().getRoster()){
+
+			//although Team getRoster method returns array it still works since the type is actually arraylist.
+			if (athlete == null) { break; }
+
+			else if (!athlete.isInjured()) {
+				// normal case of leaving team
+				if(setup.event(percentage)) {
+					result.add(athlete);
+					team.leaveAthletes(athlete);
+				}
+			}
+
+			else {
+				if(setup.event(percentageInjured)) {
+					result.add(athlete);
+					team.leaveAthletes(athlete);
+				}
+			}
+		}
+
+		//return null if no events occurs
+		if(result.size() == 0) result = null;
+		return result;
+	}
+
+	/**
+	 * Random event method for upgrade athletes stats
+	 * @return arraylist with added players where the event occurred
+	 */
+	public ArrayList<Athlete> randomUpgradeEvent() {
+
+		ArrayList<Athlete> result = new ArrayList<>();
+
+		// event trigger
+		float percentage = 6.55f;
+		for (Athlete athlete : this.getTeam().getRoster()){
+
+
+			if(setup.event(percentage) && athlete != null) {
+				// add event occurred athletes to report
+				result.add(athlete);
+				athlete.setOffenseStat(SetUp.randomInt(3));
+				athlete.setDefenseStat(SetUp.randomInt(3));
+				athlete.setMaxStamina(SetUp.randomInt(8));
+			}
+		}
+
+		if (result.size() == 0) result = null;
+		return result;
+	}
+
+	/**
+	 * Random Event method for join an athlete randomly
+	 * @return true if a new athlete is joined to players team
+	 */
+	public boolean randomNewAthlete() {
+
+		boolean result = false;
+
+		// event trigger
+		float percentage = 6.53f;
+		if (setup.event(percentage) && !this.getTeam().isFull()) {
+
+			this.team.recruitAthletes(market.athleteBuilder());
+			result = true;
+		}
+
+		return result;
+	}
+
+	/**
+	 *open GUI Main Window
+	 */
+	public void openMainWindow() {
 		ui = new MainScreenGui(this);
 	}
-	public void openMarketScreen() {
+	/**
+	 *open GUI Market Window
+	 */
+	public void openMarketWindow() {
 		ui = new MarketGui(this);
 	}
+	/**
+	 *open GUI Opponent selecting Window
+	 */
 	public void openSelectingOpponent() {
 		ui = new SelectOpponentGui(this);
 	}
-	public void openStatiumScreen() {
+	/**
+	 *open GUI Stadium Window
+	 */
+	public void openStatiumWindow() {
 		ui = new StadiumGui(this);
 	}
-	public void openGameOverScreen() {
+	/**
+	 *open GUI GameOver Window
+	 */
+	public void openGameOverWindow() {
 		ui = new GameOverGui(this);
 	}
-	public void openImprovingScreen() {
+
+	/**
+	 *open GUI Improving Athlete Window
+	 */
+	public void openImprovingWindow() {
 		ui = new ImprovingAthleteGui(this);
 	}
+
 	/**
-	 *close gui screens for Setup, Main, Market, Selecting Opponents, Stadium 
+	 *close GUI Setup Window
 	 */
 	public void closeSetupWindow(SetupWindowGui setupWindow) {
 		setupWindow.closeWindow();
 	}
-	public void closeMainScreen(MainScreenGui mainWindow) {
+	/**
+	 *close GUI Main Window
+	 */
+	public void closeMainWindow(MainScreenGui mainWindow) {
 		mainWindow.closeWindow();
 	}
-	public void closeMarketScreen(MarketGui marketWindow) {
+	/**
+	 *close GUI Market Window
+	 */
+	public void closeMarketWindow(MarketGui marketWindow) {
 		marketWindow.closeWindow();
 	}
+	/**
+	 *close GUI Opponent selecting Window
+	 */
 	public void closeSelectingOpponent(SelectOpponentGui selectOpponentWindow) {
 		selectOpponentWindow.closeWindow();
 	}
-	public void closeStatiumScreen(StadiumGui stadiumWindow) {
+	/**
+	 *close GUI Stadium Window
+	 */
+	public void closeStadiumWindow(StadiumGui stadiumWindow) {
 		stadiumWindow.closeWindow();
 	}
-	public void closeGameOverScreen(GameOverGui gameOverWindow) {
-		gameOverWindow.closeWindow();
-	}
-	public void closeImprovingScreen(ImprovingAthleteGui ImprovingWindow) {
+
+	/**
+	 *close GUI Improving Athlete Window
+	 */
+	public void closeImprovingWindow(ImprovingAthleteGui ImprovingWindow) {
 		ImprovingWindow.closeWindow();
 	}
 }

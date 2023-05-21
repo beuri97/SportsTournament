@@ -9,13 +9,22 @@ import main.gamesystem.Exception.NoSpaceException;
 import java.util.*;
 
 /**
- * Class Team for user and opponents.
+ * Represent an object Team for user and opponents This class will give basic information about player Team.
+ * This class will use team roster only when this class use as opponent team.
  * @author Yang
  */
 public class Team {
 
+    /**
+     * Total number of athlete that team can have
+     */
     protected final int TOTAL_ATHLETE = 7;
+
+    /**
+     * Total number of item that team can have
+     */
     protected final int TOTAL_ITEM = 10;
+
     /**
      * Team name
      */
@@ -35,12 +44,18 @@ public class Team {
      */
     ArrayList<Item> inventory = new ArrayList<>();
 
+    /**
+     * Number of game this team win
+     */
     int gameWin;
-    int totalGamePlay;
-
 
     /**
-     * set Team Name
+     * Number of game this team played
+     */
+    int totalGamePlay;
+
+    /**
+     * Set Team Name
      * @param name Team name (3 - 15) characters without any special characters
      */
     public void setName(String name) {
@@ -48,11 +63,17 @@ public class Team {
         this.name = name;
     }
 
+    /**
+     * Method for adding the number of games won
+     */
     public void setGameWin(){
 
         gameWin++;
     }
 
+    /**
+     * Method for adding the number of games played
+     */
     public void setTotalGamePlay() {
 
         totalGamePlay++;
@@ -67,11 +88,19 @@ public class Team {
         return name;
     }
 
+    /**
+     * Get number of game this team played
+     * @return integer value about team's total matches played
+     */
     public int getGameWin() {
 
         return gameWin;
     }
 
+    /**
+     * Get number of game this team won
+     * @return integer value about team's win on matches
+     */
     public int getTotalGamePlay() {
 
         return totalGamePlay;
@@ -97,7 +126,7 @@ public class Team {
     }
 
     /**
-     * get total amount of money player has
+     * get total amount of money this team has.
      * @return player's money in type double
      */
     public double getMoney() {
@@ -105,13 +134,20 @@ public class Team {
         return money;
     }
 
-
+    /**
+     * Team's money control method. This method will add and subtract money that user earn or spend.
+     * @param price total price user earn or spend
+     * @throws RuntimeException (optional) throws LackOfMoneyException if team does not have enough money.
+     */
     public void setMoney(double price) throws RuntimeException {
 
         if(money + price < 0) throw new LackOfMoneyException();
         money += price;
     }
 
+    /**
+     * Check method to check if this team meets the requirement to have match.
+     */
     public void isQualify(){
         int count = 0;
 
@@ -129,17 +165,11 @@ public class Team {
      */
     public void recruitAthletes(Product athlete) {
 
-
-        // if there is any null in array swap null to new athlete
-        // else add new athlete at the end if total number of current athletes are less than 7
-        for(int i=0; i<roster.size(); i++){
-            if (roster.get(i) == null) {
-                roster.set(i,(Athlete) athlete);
-                break;
-            }
+        // add athlete if number of athletes in roster is not exceed constant TOTAL_ATHLETES
+        if(roster.size()<=TOTAL_ATHLETE && !roster.contains((Athlete)athlete)) {
+            roster.add(0, (Athlete) athlete);
+            athlete.setSellPrice();
         }
-        if(roster.size()<=TOTAL_ATHLETE && !roster.contains((Athlete)athlete))
-            roster.add((Athlete)athlete);
 
         // This will not run but keep it for this program to run safe
         else throw new NoSpaceException();
@@ -149,12 +179,11 @@ public class Team {
  * Remove an athlete from the roster.
  * This method is for cases where a user sells an athlete
  * or an athlete is injured.
- * @param col target athlete's index that will be removed
+ * @param athlete target athlete's index that will be removed
  */
     public void leaveAthletes(Product athlete) {
 
-        int index = roster.indexOf((Athlete) athlete);
-        roster.set(index, null);
+        roster.remove((Athlete) athlete);
     }
 
     /**
@@ -163,14 +192,11 @@ public class Team {
      */
     public void addItem(Product item) {
 
-        for(int i=0; i<inventory.size(); i++){
-            if (inventory.get(i) == null) {
-                inventory.set(i,(Item) item);
-                break;
-            }
-        }
-        if(inventory.size() < TOTAL_ITEM && !inventory.contains((Item)item))
+
+        if(inventory.size() < TOTAL_ITEM && !inventory.contains((Item)item)) {
             inventory.add((Item) item);
+            item.setSellPrice();
+        }
 
         // This will not run but keep it for this program to run safe
         else throw new NoSpaceException();
@@ -178,23 +204,23 @@ public class Team {
     
     /**
      * Remove an item from inventory if user use or sell the item.
-     * @param col target item's index that will be removed
+     * @param item target item's index that will be removed
      */
-    public void removeItem(int col) {
-        inventory.set(col, null);
+    public void removeItem(Product item) {
+        inventory.remove((Item) item);
     }
 
-    public boolean isFull(Product[] products) {
+    public boolean isFull() {
 
         //array has fixed length so if at least one null in this array this mean becomes array is not full
-        for (Product product : products) {
-            if (product == null) {
-                return false;
-            }
-        }
-        return true;
+        return this.roster.size() == TOTAL_ATHLETE;
     }
 
+    /**
+     * Swap the position or order of athletes
+     * @param athlete1 athlete to be swapped with athlete2
+     * @param athlete2 athlete to be swapped with athlete1
+     */
     public void swapAthletes(int athlete1, int athlete2) {
 
         Collections.swap(roster, athlete1, athlete2);
