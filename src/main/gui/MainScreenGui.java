@@ -102,6 +102,9 @@ public class MainScreenGui implements UserInterface{
 	 */
 	private boolean isRandomUpgrade;
 	
+	private int testInt;
+	
+	
 	/**
 	 * MainScreen constructor to create main window
 	 */
@@ -111,7 +114,6 @@ public class MainScreenGui implements UserInterface{
 		this.myInventory = gameEnvironment.getTeam().getInventory();
 		setup(gameEnvironment);
 	}
-
 
 	/**
 	 * setup the main window
@@ -224,6 +226,7 @@ public class MainScreenGui implements UserInterface{
 		for (int i = 0; i < myRoster.length; i++) {
 			athleteBttns[i] = new JToggleButton(printingName(myRoster[i]));
 			athleteBttns[i].setIcon(printingFacePhoto(myRoster[i]));
+			if(myRoster[i]==null) {athleteBttns[i].setEnabled(false);}
 			if (i < 4) {setAthletePanel.add(athleteBttns[i]);}
 			else {setReservePanel.add(athleteBttns[i]);}
 			}
@@ -235,18 +238,12 @@ public class MainScreenGui implements UserInterface{
 		athleteBttns[5].setBounds(190, 20, 150, 150);
 		athleteBttns[6].setBounds(360, 20, 150, 150);
 		
-		swapOn = new JCheckBox("Swap ON");
-		swapOn.setBounds(847, 370, 128, 23);
-		frmMainWindow.getContentPane().add(swapOn);
+		
 		
 		athleteBttns[0].addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				swapAthleteSlots(0);
-				}});
+			public void actionPerformed(ActionEvent e) {swapAthleteSlots(0);}});
 		athleteBttns[1].addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				swapAthleteSlots(1);
-				}});
+			public void actionPerformed(ActionEvent e) {swapAthleteSlots(1);}});
 		athleteBttns[2].addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {swapAthleteSlots(2);}});
 		athleteBttns[3].addActionListener(new ActionListener() {
@@ -258,6 +255,13 @@ public class MainScreenGui implements UserInterface{
 		athleteBttns[6].addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {swapAthleteSlots(6);}});	
 		
+		
+		swapOn = new JCheckBox("Swap ON");
+		swapOn.setBounds(847, 370, 128, 23);
+		frmMainWindow.getContentPane().add(swapOn);
+		swapOn.addActionListener(event -> {
+			refreshWindow();
+		});
 		/**
 		 * make the labels for Athletes' name
 		 * if the athlete is injured, show it in read.
@@ -292,6 +296,7 @@ public class MainScreenGui implements UserInterface{
 		
 		for (int i = 0; i < myInventory.length; i++) {
 			itemBttns[i] = new JToggleButton(printingName(myInventory[i]));
+			if(myInventory[i]==null) {itemBttns[i].setEnabled(false);}
 			setItemPanel.add(itemBttns[i]);}
 	
 		itemBttns[0].addActionListener(new ActionListener() {
@@ -345,12 +350,12 @@ public class MainScreenGui implements UserInterface{
 					refreshWindow();
 				}}}
 		else {
-			athleteSwitchingNum2 = slotNum;
 			athleteDescriptionLabel.setText(printing(myRoster[slotNum]));
 			cancelAthleteToggle();
 			refreshWindow();
 			athleteBttns[slotNum].setSelected(true);
 			athleteLabel[slotNum].setForeground(new Color(0, 0, 255));
+			athleteSwitchingNum2 = slotNum;
 		}
 	
 	}
@@ -391,10 +396,14 @@ public class MainScreenGui implements UserInterface{
 		//refresh my roster buttons
 		for (int i = 0; i<myRoster.length; i++) {
 			athleteBttns[i].setText(printingName(myRoster[i]));
-			athleteBttns[i].setIcon(printingFacePhoto(myRoster[i]));}
+			athleteBttns[i].setIcon(printingFacePhoto(myRoster[i]));
+			if (myRoster[i]==null) {athleteBttns[i].setEnabled(false);}
+			else {athleteBttns[i].setEnabled(true);}}
 		//refresh my invetory buttons
 		for (int i = 0; i<myInventory.length; i++) {
-			itemBttns[i].setText(printingName(myInventory[i]));}
+			itemBttns[i].setText(printingName(myInventory[i]));
+			if (myInventory[i]==null) {itemBttns[i].setEnabled(false);}
+			else {itemBttns[i].setEnabled(true);}}
 		isRandomEvent();
 	}
 	
@@ -482,18 +491,11 @@ public class MainScreenGui implements UserInterface{
 		itemUseButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//check swap function is on, item will be used onto last clicked athlete
-				if (athleteSwitchingNum2 != -1){
-					if (myRoster[athleteSwitchingNum2] == null || myInventory[usingItemNum] == null) {
-						noticeLabel.setText("You clicked the empty slot!"); 
-						return;}
+				if (athleteSwitchingNum2 != -1) {
 					gameEnvironment.useItem(athleteSwitchingNum2, usingItemNum);
 					athleteDescriptionLabel.setText(printing(myRoster[athleteSwitchingNum2]));
-					itemDescriptionLabel.setText("Item is used! Check the difference!!");
-				}
-				else {
-					noticeLabel.setText("Select One Item and Athlete for each!");
-					return;
-				}
+					itemDescriptionLabel.setText("Item is used! Check the difference!!");}
+				
 				refreshWindow();
 				cancelAthleteToggle();
 				cancelItemToggle();	
@@ -563,10 +565,7 @@ public class MainScreenGui implements UserInterface{
 		itemDescriptionLabel.setBounds(25, 101, 247, 90);
 		setItemInfoPanel.add(itemDescriptionLabel);
 	}
-	
-	
-	
-	
+
 	/*
 	 * create an option panel to ask whether the player really wants to move to next week.
 	 * if the player can't do more game or weeks are finished or just wants to quit, show game over window
