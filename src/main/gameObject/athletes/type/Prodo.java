@@ -41,7 +41,6 @@ public class Prodo extends Athlete {
         	super.price = 4390.00f;
         	break;
         }
-        super.athletePhoto = new ImageIcon(getClass().getResource("/Images/Prodo.jpg"));
         super.athleteFacePhoto = new ImageIcon(getClass().getResource("/Images/ProdoF.jpg"));
     }
 

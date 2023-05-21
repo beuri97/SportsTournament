@@ -38,10 +38,9 @@ public interface UserInterface {
 									product.toString().replace("\n", "<br/>"));
 	}
 	
-	default ImageIcon printingFacePhoto(Athlete athlete) {
+	default ImageIcon printingFacePhoto(Product athlete) {
 		if (athlete == null) {return null;}
 		else {return athlete.getAthleteFacePhoto();}
 	}
-
 }
 

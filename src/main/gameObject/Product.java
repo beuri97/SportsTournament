@@ -1,5 +1,7 @@
 package main.gameObject;
 
+import javax.swing.ImageIcon;
+
 /**
  * Interface for purchasable objects such as {@link main.gameObject.athletes.Athlete Athlete} 
  * and {@link main.gameObject.item.Item Item}.
@@ -28,6 +30,9 @@ public interface Product {
 	void setSellPrice();
 
 	String getName();
-
+	
+	default ImageIcon getAthleteFacePhoto() {
+		return null;	
+	}
 
 }

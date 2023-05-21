@@ -41,7 +41,6 @@ public class Dwayne extends Athlete {
         	super.price = 4500.00f;
         	break;
         }
-        super.athletePhoto = new ImageIcon(getClass().getResource("/Images/Dwayne.jpg"));
         super.athleteFacePhoto = new ImageIcon(getClass().getResource("/Images/DwayneF.jpg"));
     }
 }

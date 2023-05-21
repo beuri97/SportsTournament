@@ -121,10 +121,6 @@ public class Athlete implements Product{
         return maxStamina;
     }
     /**
-     * @return get athlete's photo
-     */
-    public ImageIcon getAthletePhoto() {return this.athletePhoto;}
-    /**
      * @return get athlete's face photo
      */
     public ImageIcon getAthleteFacePhoto() {return this.athleteFacePhoto;}

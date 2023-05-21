@@ -13,18 +13,36 @@ import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-
+/**
+ * class for Market window in the game
+ * @author J Kim
+ */
 public class SelectOpponentGui implements UserInterface{
-
-	private JFrame frmSelectingOpponent;
-	private JLabel chooseOpponentLabel;
-	private Team[] teamAllOpponent;
-	private JButton[] teamSelect = new JButton[5];
+	
 	private GameEnvironment gameEnvironment;
+	/**
+	 * frame for selecting opponent window
+	 */
+	private JFrame frmSelectingOpponent;
+	/**
+	 * label for the title of selecting opponent window
+	 */
+	private JLabel chooseOpponentLabel;
+	/**
+	 * arrayList that contains all the list of random opponent teams ( total 5 )
+	 */
+	private Team[] teamAllOpponent;
+	/**
+	 * arrayList that contains JButtons which indicate each opponent of 5 teams
+	 */
+	private JButton[] teamSelect = new JButton[5];
+	/**
+	 * index number of the opponent team that the player selected
+	 */
 	private int selectedOpponentNum;
 
 	/**
-	 * Create the application.
+	 * Selecting opponent window constructor
 	 */
 	public SelectOpponentGui(GameEnvironment gameEnvironment) {
 		this.gameEnvironment = gameEnvironment;
@@ -32,9 +50,6 @@ public class SelectOpponentGui implements UserInterface{
 		setup(gameEnvironment);
 	}
 
-	private String printTitle() {
-		return String.format("%s vs Opponent Team No.%d",gameEnvironment.getTeam().getName(), selectedOpponentNum);
-	}
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -63,7 +78,6 @@ public class SelectOpponentGui implements UserInterface{
 				selectedOpponentNum = 1;
 				chooseOpponentLabel.setText(printTitle());}});
 	
-		
 		teamSelect[1].addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				selectedOpponentNum = 2;
@@ -90,14 +104,15 @@ public class SelectOpponentGui implements UserInterface{
 		teamSelect[3].setBounds(925, 375, 120, 292);
 		teamSelect[4].setBounds(1075, 375, 120, 292);
 		
-		
+		/**
+		 * if the player had a match with the specific team in the week, that team cannot be selected
+		 */
 		for (int i = 0 ; i < teamAllOpponent.length; i++) {
 			if (teamAllOpponent[i] == null) {
-				teamSelect[i].setEnabled(false);
-				
-			}
-		}
-		
+				teamSelect[i].setEnabled(false);}}
+		/**
+		 * button to start the match with the opponent team selected
+		 */
 		JButton startAMatchButton = new JButton("Start a match!!");
 		startAMatchButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -115,7 +130,9 @@ public class SelectOpponentGui implements UserInterface{
 		startAMatchButton.setFont(new Font("Gentium", Font.BOLD | Font.ITALIC, 55));
 		startAMatchButton.setBounds(488, 690, 707, 171);
 		frmSelectingOpponent.getContentPane().add(startAMatchButton);
-		
+		/**
+		 * go back to main Window
+		 */
 		JButton cancelButton = new JButton("Cancel");
 		cancelButton.setFont(new Font("Dialog", Font.BOLD, 25));
 		cancelButton.addActionListener(new ActionListener() {
@@ -126,6 +143,12 @@ public class SelectOpponentGui implements UserInterface{
 		});
 		cancelButton.setBounds(1454, 948, 137, 47);
 		frmSelectingOpponent.getContentPane().add(cancelButton);
+	}
+	/*
+	 * show which opponent team is selected on the top of the window
+	 */
+	private String printTitle() {
+		return String.format("%s vs Opponent Team No.%d",gameEnvironment.getTeam().getName(), selectedOpponentNum);
 	}
 	
 	/*

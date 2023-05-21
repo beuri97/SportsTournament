@@ -7,7 +7,6 @@ import javax.swing.JFrame;
 import java.awt.*;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.border.CompoundBorder;
@@ -25,44 +24,86 @@ import javax.swing.SwingConstants;
 import javax.swing.JCheckBox;
 
 /**
- * class for Setup window when start the game
+ * class for Main window after setup
  * @author J Kim
  */
 public class MainScreenGui implements UserInterface{
-
-	private JFrame frmMainWindow;
-	private JToggleButton[] athleteBttns = new JToggleButton[7];
-	private JToggleButton[] itemBttns = new JToggleButton[10];
-	private JLabel[] athleteLabel = new JLabel[7];
-	
-	private JLabel noticeLabel;
-	private JLabel athleteDescriptionLabel;
-	private JLabel itemDescriptionLabel;
-	private JLabel moneyLabel;
-	private JLabel weekNumLabel;
 	
 	private GameEnvironment gameEnvironment;
+	/**
+	 * frame for the main window
+	 */
+	private JFrame frmMainWindow;
+	/**
+	 * arrayList for JToggleButton contains all the athletes that the player has
+	 */
+	private JToggleButton[] athleteBttns = new JToggleButton[7];
+	/**
+	 * arrayList for JToggleButton contains all the items that the player has
+	 */
+	private JToggleButton[] itemBttns = new JToggleButton[10];
+	/**
+	 * arrayList for JLabel contains player's athlete Labels
+	 */
+	private JLabel[] athleteLabel = new JLabel[7];
+	/**
+	 * label to show notice
+	 */
+	private JLabel noticeLabel;
+	/**
+	 * label to show the description of athlete
+	 */
+	private JLabel athleteDescriptionLabel;
+	/**
+	 * label to show the description of item
+	 */
+	private JLabel itemDescriptionLabel;
+	/**
+	 * label to show money that the player currently has
+	 */
+	private JLabel moneyLabel;
+	/**
+	 * label to show current week
+	 */
+	private JLabel weekNumLabel;
+	/**
+	 * arrayList contains athletes that the player has
+	 */
 	private Athlete[] myRoster;
+	/**
+	 * arrayList contains items that the player has
+	 */
 	private Item[] myInventory;
+	/**
+	 * checkbox to activate swap function
+	 */
 	private JCheckBox swapOn;
 
-	//  Next three ints indicate the Athlete buttons and the item button are clicked
-	//	when int is -1, button is not clicked
-	//	when int is greater than 0(inclusive), it is clicked
-	//	this number will be used as index to call or swap athletes and use an item. 
+	/**
+	 *  Next three ints indicate the Athlete buttons and the item button are clicked
+	 *  when int is -1, button is not clicked
+	 *  when int is greater than 0(inclusive), it is clicked
+	 *  this number will be used as index number to call or swap athletes and use an item. 
+	 */
 	private int athleteSwitchingNum1 = -1;
 	private int athleteSwitchingNum2 = -1;
 	private int usingItemNum = -1;
-	private boolean isRandomLeave;
-	private boolean isRandomJoin;
-	private boolean isRandomUpgrade;
-	
-//	private ImageIcon dwayne = new ImageIcon(getClass().getResource("/Images/DwayneF.jpg"));;
-//	private ImageIcon prodo = new ImageIcon(getClass().getResource("/Images/ProdoF.jpg"));;
-//	private ImageIcon thorin = new ImageIcon(getClass().getResource("/Images/ThorinF.jpg"));;
 	
 	/**
-	 * Create the application.
+	 * boolean value that shows if there was random athlete leave event
+	 */
+	private boolean isRandomLeave;
+	/**
+	 * boolean value that shows if there was random athlete join event
+	 */
+	private boolean isRandomJoin;
+	/**
+	 * boolean value that shows if there was random athlete upgrade event
+	 */
+	private boolean isRandomUpgrade;
+	
+	/**
+	 * MainScreen constructor to create main window
 	 */
 	public  MainScreenGui(GameEnvironment gameEnvironment) {
 		this.gameEnvironment = gameEnvironment;
@@ -73,7 +114,7 @@ public class MainScreenGui implements UserInterface{
 
 
 	/**
-	 * Initialize the contents of the frame.
+	 * setup the main window
 	 */
 	public void setup(GameEnvironment gameEnvironment) {
 		
@@ -131,6 +172,7 @@ public class MainScreenGui implements UserInterface{
 		weekNumLabel.setFont(new Font("Lucida Grande", Font.BOLD, 29));
 		weekNumLabel.setBounds(519, 14, 202, 50);
 		frmMainWindow.getContentPane().add(weekNumLabel);
+		
 		//set the current week 
 		int currentWeek = gameEnvironment.getCurrentSeason();
 		if (currentWeek == 1) {weekNumLabel.setText("1st week");}
@@ -216,13 +258,15 @@ public class MainScreenGui implements UserInterface{
 		athleteBttns[6].addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {swapAthleteSlots(6);}});	
 		
-		//make the labels for injured Athletes
-		//it will show under the button
+		/**
+		 * make the labels for Athletes' name
+		 * if the athlete is injured, show it in read.
+		 * 
+		*/
 		for (int i = 0; i<myRoster.length; i++) {
 			athleteLabel[i] = new JLabel(printingName(myRoster[i]));
 			if (i < 4) {setAthletePanel.add(athleteLabel[i]);}
-			else {setReservePanel.add(athleteLabel[i]);}
-			}
+			else {setReservePanel.add(athleteLabel[i]);}}
 		
 		athleteLabel[0].setBounds(40, 189, 80, 25);
 		athleteLabel[1].setBounds(214, 189, 80, 25);
@@ -231,7 +275,6 @@ public class MainScreenGui implements UserInterface{
 		athleteLabel[4].setBounds(36, 189, 80, 25);
 		athleteLabel[5].setBounds(235, 189, 80, 25);
 		athleteLabel[6].setBounds(409, 189, 80, 25);
-		
 		checkInjured();
 	
 	}
@@ -291,6 +334,7 @@ public class MainScreenGui implements UserInterface{
 		if (swapOn.isSelected()) {
 			athleteSwitchingNum1 = athleteSwitchingNum2;
 			athleteSwitchingNum2 = slotNum;
+			athleteLabel[slotNum].setForeground(new Color(0, 0, 255));
 			athleteDescriptionLabel.setText(printing(myRoster[slotNum]));
 			if (athleteSwitchingNum1 != -1 && athleteSwitchingNum2 != -1) {
 				if (myRoster[athleteSwitchingNum1] == null || myRoster[athleteSwitchingNum2] == null) {
@@ -306,6 +350,7 @@ public class MainScreenGui implements UserInterface{
 			cancelAthleteToggle();
 			refreshWindow();
 			athleteBttns[slotNum].setSelected(true);
+			athleteLabel[slotNum].setForeground(new Color(0, 0, 255));
 		}
 	
 	}
