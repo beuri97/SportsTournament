@@ -191,7 +191,8 @@ public class MarketGui implements UserInterface{
 
 		for (int i = 0; i < athleteList.length; i++) {
 			buyAthleteBttns[i] = new JToggleButton(printingName(athleteList[i]));
-			setBuyAthletePanel.add(buyAthleteBttns[i]);}
+			setBuyAthletePanel.add(buyAthleteBttns[i]);
+			if(athleteList[i]==null) {buyAthleteBttns[i].setEnabled(false);}}
 
 		buyAthleteBttns[0].setBounds(28, 79, 150, 150);
 		buyAthleteBttns[1].setBounds(198, 79, 150, 150);
@@ -235,6 +236,7 @@ public class MarketGui implements UserInterface{
 			buyItemBttns[i] = new JToggleButton(printingName(itemList[i]));
 			setBuyItemsPanel.add(buyItemBttns[i]);
 			buyItemBttns[i].setFont(new Font("Dialog", Font.BOLD, 14));
+			if(itemList[i]==null) {buyItemBttns[i].setEnabled(false);}
 		}
 		
 		buyItemBttns[0].setBounds(49, 69, 200, 40);
@@ -345,8 +347,15 @@ public class MarketGui implements UserInterface{
 		for (int i = 0; i < itemList.length; i++) {
 			buyItemBttns[i].setText(printingName(itemList[i]));
 			if(itemList[i]==null) {buyItemBttns[i].setEnabled(false);}}
-		for (int i = 0; i<myRoster.length; i++) {myRosterBttns[i].setText(printingName(myRoster[i]));}
-		for (int i = 0; i<myInventoryBttns.length; i++) {myInventoryBttns[i].setText(printingName(myInventory[i]));}	
+		for (int i = 0; i<myRoster.length; i++) {
+			myRosterBttns[i].setText(printingName(myRoster[i]));
+			if(myRoster[i]==null) {myRosterBttns[i].setEnabled(false);}
+			else {myRosterBttns[i].setEnabled(true);}}
+		for (int i = 0; i<myInventoryBttns.length; i++) {
+			myInventoryBttns[i].setText(printingName(myInventory[i]));
+			if(myInventory[i]==null) {myInventoryBttns[i].setEnabled(false);}
+			else{myInventoryBttns[i].setEnabled(true);}
+			}	
 	}
 	/*
 	 * show the current athletes and items that the player has
@@ -369,7 +378,8 @@ public class MarketGui implements UserInterface{
 		//set sell athlete buttons
 		for (int i = 0; i<myRoster.length; i++) {
 			myRosterBttns[i] = new JToggleButton(printingName(myRoster[i]));
-			setSellAthletePanel.add(myRosterBttns[i]);}
+			setSellAthletePanel.add(myRosterBttns[i]);
+			if(myRoster[i]==null) {myRosterBttns[i].setEnabled(false);}}
 		
 		myRosterBttns[0].addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {sellAthlete(0);}});
@@ -393,6 +403,7 @@ public class MarketGui implements UserInterface{
 			myInventoryBttns[i] = new JToggleButton(printingName(myInventory[i]));
 			setSellItemPanel.add(myInventoryBttns[i]);
 			myInventoryBttns[i].setFont(new Font("Dialog", Font.BOLD, 10));
+			if(myInventory[i]==null) {myInventoryBttns[i].setEnabled(false);}
 			}
 		
 		myInventoryBttns[0].addActionListener(new ActionListener() {
