@@ -13,40 +13,102 @@ import javax.swing.border.LineBorder;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.*;
-
+/**
+ * Class to create Stadium window in the game
+ * @author Joshua K
+ */
 public class StadiumGui implements UserInterface{
-
-	private JFrame frmStadium;
-	private JLabel[][] athleteLabel = new JLabel[2][4];
 	
 	private GameEnvironment gameEnvironment;
+	/**
+	 * Frame for stadium window
+	 */
+	private JFrame frmStadium;
+	/**
+	 * ArrayList contains JLabel which indicates athletes of my team, opponents
+	 */
+	private JLabel[][] athleteLabel = new JLabel[2][4];
+	/**
+	 * arrayList of athlete that the player has
+	 */
 	private Athlete[] myRoster;
+	/**
+	 * arrayList of Opponent Athletes
+	 */
 	private Athlete[] opponentRoster;
+	/**
+	 * number of current set
+	 */
 	private int setNum;
+	/**
+	 * the player's score
+	 */
 	private int myScore;
+	/**
+	 * the opponent score
+	 */
 	private int oppoScore;
+	/**
+	 * the player's previous score
+	 */
 	private int prevMyScore;
+	/**
+	 * the opponentprevious score
+	 */
 	private int prevOppoScore;
-	
+	/**
+	 * button to start fight
+	 */
 	private JButton fightBttn;
-	private JButton readyBttn;
+	/**
+	 * label to show current stats with buff
+	 */
 	private JLabel currentStatBuffLabel; 
+	/**
+	 * label to show game result
+	 */
 	private JLabel gameResultLabel;
+	/**
+	 * label to show current set number
+	 */
 	private JLabel numberOfSetLabel;
+	/**
+	 * label to show the player's score
+	 */
 	private JLabel myScoreLabel;
+	/**
+	 * label to show the opponent score
+	 */
 	private JLabel opponentScoreLabel;
-	
-	
+	/**
+	 * toggle button to make athlete aggressive
+	 */
 	private JToggleButton aggresiveBttn;
+	/**
+	 * toggle button to make athlete careful
+	 */
 	private JToggleButton carefulBttn;
-	
+	/**
+	 * label to show the battle photo
+	 */
 	private JLabel battlePhoto;
 	
+	/**
+	 * the battle photo for both athletes attacked successfully
+	 */
 	private final ImageIcon bothAtct = new ImageIcon(getClass().getResource("/Images/BothAtct.jpg"));
+	/**
+	 * the battle photo for both athletes attacked and failed
+	 */
 	private final ImageIcon draw = new ImageIcon(getClass().getResource("/Images/Draw.jpg"));
+	/**
+	 * the battle photo for only the player's athlete won
+	 */
 	private final ImageIcon leftWon = new ImageIcon(getClass().getResource("/Images/LeftWon.jpg"));
+	/**
+	 * the battle photo for only the opponent athlete won
+	 */
 	private final ImageIcon rightWon = new ImageIcon(getClass().getResource("/Images/RightWon.jpg"));
-	private final ImageIcon standby = new ImageIcon(getClass().getResource("/Images/Standby.jpg"));
 
 	
 
@@ -91,16 +153,16 @@ public class StadiumGui implements UserInterface{
 
 		currentStatBuffLabel = new JLabel("my current stat with buff");
 		currentStatBuffLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		currentStatBuffLabel.setFont(new Font("Dialog", Font.BOLD, 14));
+		currentStatBuffLabel.setFont(new Font("Dialog", Font.BOLD, 16));
 		currentStatBuffLabel.setBounds(484, 576, 315, 258);
 		frmStadium.getContentPane().add(currentStatBuffLabel);
 		currentStatBuffLabel.setBorder(new LineBorder(UIManager.getColor("Button.foreground")));
 
 		gameResultLabel = new JLabel("Game Result description");
 		gameResultLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		gameResultLabel.setFont(new Font("Dialog", Font.BOLD, 16));
+		gameResultLabel.setFont(new Font("Dialog", Font.BOLD, 18));
 		gameResultLabel.setBorder(new LineBorder(UIManager.getColor("Button.foreground")));
-		gameResultLabel.setBounds(859, 526, 306, 366);
+		gameResultLabel.setBounds(859, 576, 306, 258);
 		frmStadium.getContentPane().add(gameResultLabel);
 		
 		numberOfSetLabel = new JLabel("Number of Set");
@@ -203,7 +265,6 @@ public class StadiumGui implements UserInterface{
 		aggresiveBttn.setSelected(false);
 		carefulBttn.setEnabled(true);
 		aggresiveBttn.setEnabled(true);
-		fightBttn.setEnabled(false);
 		numberOfSetLabel.setText("Set Score " + setNum);
 		showActive(setNum-1);
 	}
@@ -244,7 +305,9 @@ public class StadiumGui implements UserInterface{
 	}
 	
 	
-	
+	/**
+	 * show the battle photo that matches the result of game
+	 */
 	private void showBattlePhoto() {
 
 		if(prevMyScore < myScore && prevOppoScore < oppoScore) {
@@ -261,14 +324,15 @@ public class StadiumGui implements UserInterface{
 		}
 		prevMyScore = myScore;
 		prevOppoScore = oppoScore;
-		
-//		else {battlePhoto.setIcon(standby);}
 	}
 	
 	/**
 	 * create all the buttons on stadium window
 	 */
 	private void setButton() {
+		/**
+		 * button to go back to main window
+		 */
 		JButton backToMainButton = new JButton("Back to Main");
 		backToMainButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -277,60 +341,52 @@ public class StadiumGui implements UserInterface{
 		backToMainButton.setFont(new Font("Dialog", Font.BOLD, 17));
 		backToMainButton.setBounds(1483, 951, 155, 40);
 		frmStadium.getContentPane().add(backToMainButton);
-		
+		/**
+		 * button to make athlete aggressive
+		 */
 		aggresiveBttn = new JToggleButton("Aggressive");
 		aggresiveBttn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				gameEnvironment.buffOffensive();
-				carefulBttn.setSelected(false);
+				carefulBttn.setEnabled(false);
+				aggresiveBttn.setEnabled(false);
 				getBuffStat();
 			}
 		});
-		aggresiveBttn.setFont(new Font("Dialog", Font.BOLD, 16));
+		aggresiveBttn.setFont(new Font("Dialog", Font.BOLD, 14));
 		aggresiveBttn.setBounds(663, 846, 136, 46);
 		frmStadium.getContentPane().add(aggresiveBttn);
-		
+		/**
+		 * button to make athlete careful
+		 */
 		carefulBttn = new JToggleButton("Careful");
 		carefulBttn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				gameEnvironment.buffDefensive();
-				aggresiveBttn.setSelected(false);
+				aggresiveBttn.setEnabled(false);
+				carefulBttn.setEnabled(false);
 				getBuffStat();		
 				}
 		});
-		carefulBttn.setFont(new Font("Dialog", Font.BOLD, 16));
+		carefulBttn.setFont(new Font("Dialog", Font.BOLD, 14));
 		carefulBttn.setBounds(484, 846, 136, 46);
 		frmStadium.getContentPane().add(carefulBttn);
 		
-		
-		readyBttn = new JButton("Get Ready!");
-		readyBttn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				carefulBttn.setEnabled(false);
-				aggresiveBttn.setEnabled(false);
-				fightBttn.setEnabled(true);
-				battlePhoto.setIcon(standby);
-				}
-		});
-		readyBttn.setFont(new Font("Lucida Grande", Font.PLAIN, 30));
-		readyBttn.setBounds(326, 904, 206, 56);
-		frmStadium.getContentPane().add(readyBttn);
-		
+		//button to start match
 		fightBttn = new JButton("Fight");
 		fightBttn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				gameEnvironment.battleSequences();
 				gameResultLabel.setText(printing(gameEnvironment.getBattleMessage()));
-				refreshWindow();
-				
+				refreshWindow();	
 				gameEnvironment.isSet();
 				showBattlePhoto();
-
+				
+				//if the game is finished, disable the gaming buttons and show the result of game on description label
 				if (gameEnvironment.isGame()) {
 					fightBttn.setEnabled(false);
 					aggresiveBttn.setEnabled(false);;
 					carefulBttn.setEnabled(false);
-					readyBttn.setEnabled(false);
 					int myScore = gameEnvironment.matchResult()[0];
 					int oppoScore = gameEnvironment.matchResult()[1];
 					double money;
@@ -356,10 +412,9 @@ public class StadiumGui implements UserInterface{
 				}	
 			}
 		});
-		fightBttn.setFont(new Font("Dialog", Font.BOLD, 30));
-		fightBttn.setBounds(681, 904, 206, 69);
+		fightBttn.setFont(new Font("Dialog", Font.BOLD, 37));
+		fightBttn.setBounds(501, 904, 653, 87);
 		frmStadium.getContentPane().add(fightBttn);
-		fightBttn.setEnabled(false);
 	}
 	
 	/*

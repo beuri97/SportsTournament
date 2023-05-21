@@ -1,6 +1,9 @@
 package main;
 
+import javax.swing.ImageIcon;
+
 import main.gameObject.Product;
+import main.gameObject.athletes.Athlete;
 
 /**
  * Interface that is used in CmdLineUi, GameEnvironment.
@@ -33,6 +36,11 @@ public interface UserInterface {
 
 		return (product == null) ? "EMPTY" : String.format("<html>%s</html>",
 									product.toString().replace("\n", "<br/>"));
+	}
+	
+	default ImageIcon printingFacePhoto(Product athlete) {
+		if (athlete == null) {return null;}
+		else {return athlete.getAthleteFacePhoto();}
 	}
 }
 

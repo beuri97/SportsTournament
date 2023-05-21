@@ -29,47 +29,90 @@ import main.gamesystem.Exception.NoSpaceException;
 
 import javax.swing.*;
 
+/**
+ * class for Market window in the game
+ * @author J Kim
+ */
 public class MarketGui implements UserInterface{
-
-	private JFrame frmMarket;
-	private JToggleButton[] buyAthleteBttns = new JToggleButton[6];
-	private JToggleButton[] buyItemBttns = new JToggleButton[8];
-	private JToggleButton[] myRosterBttns = new JToggleButton[7];
-	private JToggleButton[] myInventoryBttns = new JToggleButton[10];
 	
 	private GameEnvironment gameEnvironment;
+	/**
+	 * frame for the market window
+	 */
+	private JFrame frmMarket;
+	/**
+	 * arrayList for JToggleButton that indicates athletes buttons to buy
+	 */
+	private JToggleButton[] buyAthleteBttns = new JToggleButton[6];
+	/**
+	 * arrayList for JToggleButton that indicates items buttons to buy
+	 */
+	private JToggleButton[] buyItemBttns = new JToggleButton[8];
+	/**
+	 * arrayList for JToggleButton that indicates athletes buttons to sell
+	 */
+	private JToggleButton[] myRosterBttns = new JToggleButton[7];
+	/**
+	 * arrayList for JToggleButton that indicates items buttons to sell
+	 */
+	private JToggleButton[] myInventoryBttns = new JToggleButton[10];
+	/**
+	 * arrayList for the athletes from market
+	 */
 	private Product[] athleteList;
+	/**
+	 * arrayList for the items from market
+	 */
 	private Product[] itemList;
+	/**
+	 * arrayList for athletes that the player has
+	 */
 	private Athlete[] myRoster;
+	/**
+	 * arrayList for items that the player has
+	 */
 	private Item[] myInventory;
 	
 	
-
-	
-	// next four ints indicate Athlete buttons and item button are clicked, 
-		//	when int is -1, button is not clicked
-		//	when int is greater than 0(inclusive), it is clicked
-		//	this number will be used as index to call athletes and item from the lists. 
+	/**
+	 * next four ints indicate Athlete buttons and item button are clicked, 
+	 * when int is -1, button is not clicked
+	 * when int is greater than 0(inclusive), it is clicked
+	 * this number will be used as index to call athletes and item from the lists. 
+	 */
 	int athleteBuyNum = -1;
 	int athleteSellNum = -1;
 	int itemBuyNum = -1;
 	int itemSellNum = -1;
 
+	/**
+	 * label to show the athlete photo
+	 */
 	private JLabel athletePhoto;
+	/**
+	 * label to show warning when the player does not perform correctly
+	 */
 	private JLabel warningLabel;
-	private JLabel athleteDiscriptionLabel;
-	private JLabel itemDiscriptionLabel;
+	/**
+	 * label to show the description item
+	 */
+	private JLabel athleteDescriptionLabel;
+	/**
+	 * label to show the description of item
+	 */
+	private JLabel itemDescriptionLabel;
+	/**
+	 * label to show money player has 
+	 */
 	private JLabel moneyLabel;
+	/**
+	 * label to show the description of athlete/item to sell
+	 */
 	private JLabel sellDescriptionLabel;
-	
-	private ImageIcon angelina = new ImageIcon(getClass().getResource("/Images/Angelina.jpg"));
-	private ImageIcon dwayne = new ImageIcon(getClass().getResource("/Images/Dwayne.jpg"));;
-	private ImageIcon prodo = new ImageIcon(getClass().getResource("/Images/Prodo.jpg"));;
-	private ImageIcon thorin = new ImageIcon(getClass().getResource("/Images/Thorin.jpg"));;
 	
 	
 	/**
-	 * Create the application.
+	 * marketGui constructor to create Market window
 	 */
 	public MarketGui(GameEnvironment gameEnvironment) {
 		this.gameEnvironment = gameEnvironment;
@@ -79,7 +122,9 @@ public class MarketGui implements UserInterface{
 		this.myInventory = gameEnvironment.getTeam().getInventory();
 		setup(gameEnvironment);
 	}
-	
+	/**
+	 * create market window
+	 */
 	public void setup(GameEnvironment gameEnvironment) {
 		setFrameLabel();
 		setBuyAthletePanel();
@@ -88,19 +133,7 @@ public class MarketGui implements UserInterface{
 		setSellAthleteItemPanel();
 		setButton();
 	}
-	
-	private void setPhoto(int num) {
 
-		String athleteName = printingName(athleteList[num]);
-		
-		if (athleteName.contains("Angelina")) {athletePhoto.setIcon(angelina);}
-		else if (athleteName.contains("Dwayne")) {athletePhoto.setIcon(dwayne);}
-		else if (athleteName.contains("Prodo")) {athletePhoto.setIcon(prodo);}
-		else if (athleteName.contains("Thorin")){athletePhoto.setIcon(thorin);}
-		else {athletePhoto.setIcon(null);}
-	}
-	
-	
 	/*
 	 * set the frame with labels
 	 */
@@ -126,7 +159,6 @@ public class MarketGui implements UserInterface{
 		moneyLabel.setBounds(1480, 45, 145, 49);
 		frmMarket.getContentPane().add(moneyLabel);
 		moneyLabel.setText("$ " + gameEnvironment.getTeam().getMoney());
-		
 		
 		warningLabel = new JLabel("");
 		warningLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -156,9 +188,7 @@ public class MarketGui implements UserInterface{
 		aThletePanelTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		aThletePanelTitle.setBounds(38, 22, 311, 45);
 		setBuyAthletePanel.add(aThletePanelTitle);
-		
-		
-		
+
 		for (int i = 0; i < athleteList.length; i++) {
 			buyAthleteBttns[i] = new JToggleButton(printingName(athleteList[i]));
 			setBuyAthletePanel.add(buyAthleteBttns[i]);}
@@ -200,7 +230,6 @@ public class MarketGui implements UserInterface{
 		availableItemLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		availableItemLabel.setBounds(15, 12, 281, 45);
 		setBuyItemsPanel.add(availableItemLabel);
-		
 		
 		for (int i = 0; i < itemList.length; i++) {
 			buyItemBttns[i] = new JToggleButton(printingName(itemList[i]));
@@ -263,9 +292,9 @@ public class MarketGui implements UserInterface{
 	 */
 	private void buyAthlete(int slotNum) {
 		cancelBuyAhtleteToggle();
-		setPhoto(slotNum);
+		athletePhoto.setIcon(athleteList[slotNum].getAthleteFacePhoto());
 		athleteBuyNum = slotNum;
-		athleteDiscriptionLabel.setText(printing(athleteList[slotNum]));
+		athleteDescriptionLabel.setText(printing(athleteList[slotNum]));
 		buyAthleteBttns[slotNum].setSelected(true);
 	}
 	/* 
@@ -275,7 +304,7 @@ public class MarketGui implements UserInterface{
 	private void buyItem(int slotNum) {
 		cancelBuyItemToggle();
 		itemBuyNum = slotNum;
-		itemDiscriptionLabel.setText(printing(itemList[slotNum]));
+		itemDescriptionLabel.setText(printing(itemList[slotNum]));
 		buyItemBttns[slotNum].setSelected(true);
 	}
 	/*
@@ -310,8 +339,12 @@ public class MarketGui implements UserInterface{
 		myInventory = gameEnvironment.getTeam().getInventory();
 		myRoster = gameEnvironment.getTeam().getRoster();
 	
-		for (int i = 0; i < athleteList.length; i++) {buyAthleteBttns[i].setText(printingName(athleteList[i]));;}
-		for (int i = 0; i < itemList.length; i++) {buyItemBttns[i].setText(printingName(itemList[i]));}
+		for (int i = 0; i < athleteList.length; i++) {
+			buyAthleteBttns[i].setText(printingName(athleteList[i]));
+			if(athleteList[i]==null) {buyAthleteBttns[i].setEnabled(false);}}
+		for (int i = 0; i < itemList.length; i++) {
+			buyItemBttns[i].setText(printingName(itemList[i]));
+			if(itemList[i]==null) {buyItemBttns[i].setEnabled(false);}}
 		for (int i = 0; i<myRoster.length; i++) {myRosterBttns[i].setText(printingName(myRoster[i]));}
 		for (int i = 0; i<myInventoryBttns.length; i++) {myInventoryBttns[i].setText(printingName(myInventory[i]));}	
 	}
@@ -391,14 +424,14 @@ public class MarketGui implements UserInterface{
 		JButton recruitButton = new JButton("RECRUIT");
 		recruitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (athleteBuyNum == -1) {athleteDiscriptionLabel.setText("Choose Athlete!");return;}
+				if (athleteBuyNum == -1) {athleteDescriptionLabel.setText("Choose Athlete!");return;}
 				try {
 					gameEnvironment.tradingProcess("buy", athleteList ,athleteBuyNum);
 					athleteBuyNum = -1;
 					cancelBuyAhtleteToggle();
 					refreshWindow();
 					athletePhoto.setIcon(null);
-					athleteDiscriptionLabel.setText("Recruited!!");
+					athleteDescriptionLabel.setText("Recruited!!");
 				}
 				catch(EmptySlotException a){warningLabel.setText(a.getMessage());}		
 				catch(NoSpaceException a) {warningLabel.setText(a.getMessage());}
@@ -412,13 +445,13 @@ public class MarketGui implements UserInterface{
 		JButton purchaseButton = new JButton("PURCHASE");
 		purchaseButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (itemBuyNum == -1) {athleteDiscriptionLabel.setText("Choose an item!");return;}
+				if (itemBuyNum == -1) {athleteDescriptionLabel.setText("Choose an item!");return;}
 				try {
 					gameEnvironment.tradingProcess("buy", itemList ,itemBuyNum);
 					itemBuyNum = -1;
 					cancelBuyItemToggle();
 					refreshWindow();
-					itemDiscriptionLabel.setText("Purchased!!");
+					itemDescriptionLabel.setText("Purchased!!");
 				}
 				catch(EmptySlotException a) {warningLabel.setText(a.getMessage());}
 				catch(NoSpaceException a) {warningLabel.setText(a.getMessage());}
@@ -509,15 +542,15 @@ public class MarketGui implements UserInterface{
 		sellAthleteItemInfoLabel.setBounds(24, 12, 212, 20);
 		setSellAthleteItemInfoPanel.add(sellAthleteItemInfoLabel);
 		
-		athleteDiscriptionLabel = new JLabel();
-		athleteDiscriptionLabel.setBounds(25, 63, 199, 369);
-		setBuyAthleteInfoPanel.add(athleteDiscriptionLabel);
-		athleteDiscriptionLabel.setFont(new Font("Dialog", Font.PLAIN, 18));
+		athleteDescriptionLabel = new JLabel();
+		athleteDescriptionLabel.setBounds(25, 63, 199, 369);
+		setBuyAthleteInfoPanel.add(athleteDescriptionLabel);
+		athleteDescriptionLabel.setFont(new Font("Dialog", Font.PLAIN, 18));
 
-		itemDiscriptionLabel = new JLabel();
-		itemDiscriptionLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
-		itemDiscriptionLabel.setBounds(22, 66, 142, 382);
-		setBuyItemInfoPanel.add(itemDiscriptionLabel);
+		itemDescriptionLabel = new JLabel();
+		itemDescriptionLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
+		itemDescriptionLabel.setBounds(22, 66, 142, 382);
+		setBuyItemInfoPanel.add(itemDescriptionLabel);
 		
 		sellDescriptionLabel = new JLabel();
 		sellDescriptionLabel.setFont(new Font("Dialog", Font.PLAIN, 14));

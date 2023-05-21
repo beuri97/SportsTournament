@@ -1,5 +1,7 @@
 package main.gameObject.athletes.type;
 
+import javax.swing.ImageIcon;
+
 import main.gameObject.athletes.Athlete;
 
 public class Prodo extends Athlete {
@@ -39,7 +41,7 @@ public class Prodo extends Athlete {
         	super.price = 4390.00f;
         	break;
         }
-      
+        super.athleteFacePhoto = new ImageIcon(getClass().getResource("/Images/ProdoF.jpg"));
     }
 
 }

@@ -20,13 +20,31 @@ import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+/**
+ * class for Improving Athlete window when start the game
+ * @author J Kim
+ */
 public class ImprovingAthleteGui implements UserInterface{
-
-	private JFrame frmImproving;
-	private JLabel athleteInfo;
 	private GameEnvironment gameEnvironment;
+	/**
+	 * Frame for Improving Athlete window
+	 */
+	private JFrame frmImproving;
+	/**
+	 * label for athletes description that the player choose
+	 */
+	private JLabel athleteInfo;
+	/**
+	 * arrayList of the player's athletes
+	 */
 	private Athlete[] myRoster;
-	
+	/**
+	 * arrayList of JButton contains athlete buttons
+	 */
+	private JButton[] athleteBttn = new JButton[7];
+	/*
+	 * index number of athlete that the player choose
+	 */
 	private int improvNum;
 
 	/**
@@ -41,7 +59,7 @@ public class ImprovingAthleteGui implements UserInterface{
 	}
 
 	/**
-	 * Setup Frame, Buttons, Labels to show Athlete and information to make the player to select.
+	 * Setup Frame to show Athlete and information to make the player to select.
 	 */
 	public void setup(GameEnvironment gameEnvironment) {
 		frmImproving = new JFrame();
@@ -50,6 +68,10 @@ public class ImprovingAthleteGui implements UserInterface{
 		frmImproving.getContentPane().setLayout(null);
 		frmImproving.setVisible(true);
 		
+		/**
+		 * improve athlete that the player selected
+		 * it improves randomly all the stats
+		 */
 		JButton improveButton = new JButton("Improve!");
 		improveButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -60,7 +82,8 @@ public class ImprovingAthleteGui implements UserInterface{
 					athleteInfo.setText(printing(myRoster[improvNum-1]));
 					improveButton.setEnabled(false);
 					improveButton.setText("Improved!!");
-					
+					//after improving athlete, disable all the buttons
+					for (JButton btn : athleteBttn) {btn.setEnabled(false);}		
 				}
 				else {
 					athleteInfo.setText("Choose the athlete!!");
@@ -70,6 +93,9 @@ public class ImprovingAthleteGui implements UserInterface{
 		improveButton.setBounds(885, 716, 412, 127);
 		frmImproving.getContentPane().add(improveButton);
 		
+		/**
+		 * button to start next week
+		 */
 		JButton startNxtWkBttn = new JButton("Start Next Week!!");
 		startNxtWkBttn.setFont(new Font("Dialog", Font.BOLD, 20));
 		startNxtWkBttn.setBounds(1280, 943, 261, 57);
@@ -81,89 +107,62 @@ public class ImprovingAthleteGui implements UserInterface{
 				gameEnvironment.openMainWindow();
 			}
 		});	
+		/**
+		 * button to select the athlete that the player will choose
+		 */
+		JPanel bttnPanel = new JPanel();
+		bttnPanel.setBounds(301, 122, 457, 721);
+		frmImproving.getContentPane().add(bttnPanel);
+		bttnPanel.setLayout(new GridLayout(7, 1, 0, 0));
 		
-		JPanel panel = new JPanel();
-		panel.setBounds(301, 122, 457, 721);
-		frmImproving.getContentPane().add(panel);
-		panel.setLayout(new GridLayout(7, 1, 0, 0));
 		
-		JButton athlete1 = new JButton(printingName(myRoster[0]));
-		athlete1.setEnabled(isEmpty(myRoster[0]));
-		athlete1.setFont(new Font("Dialog", Font.BOLD, 22));
-		athlete1.addActionListener(new ActionListener() {
+		for (int i=0; i<myRoster.length; i++) {
+			athleteBttn[i] = new JButton(printingName(myRoster[i]));
+			athleteBttn[i].setEnabled(isEmpty(myRoster[0]));
+			bttnPanel.add(athleteBttn[i]);}
+		
+		athleteBttn[0].setFont(new Font("Dialog", Font.BOLD, 22));
+		athleteBttn[0].addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				athleteInfo.setText(printing(myRoster[0]));
-				improvNum = 1;
-			}
-		});
-		panel.add(athlete1);
+				improvNum = 1;}});
 		
-		JButton athlete2 = new JButton(printingName(myRoster[1]));
-		athlete2.setEnabled(isEmpty(myRoster[1]));
-		athlete2.setFont(new Font("Dialog", Font.BOLD, 22));
-		athlete2.addActionListener(new ActionListener() {
+		athleteBttn[1].setFont(new Font("Dialog", Font.BOLD, 22));
+		athleteBttn[1].addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				athleteInfo.setText(printing(myRoster[1]));
-				improvNum = 2;
-			}
-		});
-		panel.add(athlete2);
-		
-		JButton athlete3 = new JButton(printingName(myRoster[2]));
-		athlete3.setEnabled(isEmpty(myRoster[2]));
-		athlete3.setFont(new Font("Dialog", Font.BOLD, 22));
-		athlete3.addActionListener(new ActionListener() {
+				improvNum = 2;}});
+
+		athleteBttn[2].setFont(new Font("Dialog", Font.BOLD, 22));
+		athleteBttn[2].addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				athleteInfo.setText(printing(myRoster[2]));
-				improvNum = 3;
-			}
-		});
-		panel.add(athlete3);
+				improvNum = 3;}});
 		
-		JButton athlete4 = new JButton(printingName(myRoster[3]));
-		athlete4.setEnabled(isEmpty(myRoster[3]));
-		athlete4.setFont(new Font("Dialog", Font.BOLD, 22));
-		athlete4.addActionListener(new ActionListener() {
+		athleteBttn[3].setFont(new Font("Dialog", Font.BOLD, 22));
+		athleteBttn[3].addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				athleteInfo.setText(printing(myRoster[3]));
-				improvNum = 4;
-			}
-		});
-		panel.add(athlete4);
+				improvNum = 4;}});
 		
-		JButton athlete5 = new JButton(printingName(myRoster[4]));
-		athlete5.setEnabled(isEmpty(myRoster[4]));
-		athlete5.setFont(new Font("Dialog", Font.BOLD, 22));
-		athlete5.addActionListener(new ActionListener() {
+		athleteBttn[4].setFont(new Font("Dialog", Font.BOLD, 22));
+		athleteBttn[4].addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				athleteInfo.setText(printing(myRoster[4]));
-				improvNum = 5;
-			}
-		});
-		panel.add(athlete5);
-		
-		JButton athlete6 = new JButton(printingName(myRoster[5]));
-		athlete6.setEnabled(isEmpty(myRoster[5]));
-		athlete6.setFont(new Font("Dialog", Font.BOLD, 22));
-		athlete6.addActionListener(new ActionListener() {
+				improvNum = 5;}});
+
+		athleteBttn[5].setFont(new Font("Dialog", Font.BOLD, 22));
+		athleteBttn[5].addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				athleteInfo.setText(printing(myRoster[5]));
-				improvNum = 6;
-			}
-		});
-		panel.add(athlete6);
+				improvNum = 6;}});
 		
-		JButton athlete7 = new JButton(printingName(myRoster[6]));
-		athlete7.setEnabled(isEmpty(myRoster[6]));
-		athlete7.setFont(new Font("Dialog", Font.BOLD, 22));
-		athlete7.addActionListener(new ActionListener() {
+		athleteBttn[6].setFont(new Font("Dialog", Font.BOLD, 22));
+		athleteBttn[6].addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				athleteInfo.setText(printing(myRoster[7]));
-				improvNum = 7;
-			}
-		});
-		panel.add(athlete7);
-		
+				athleteInfo.setText(printing(myRoster[6]));
+				improvNum = 7;}});
+
 		JPanel setAthleteInfoPanel = new JPanel();
 		setAthleteInfoPanel.setLayout(null);
 		setAthleteInfoPanel.setBorder(new LineBorder(new Color(0, 0, 0)));

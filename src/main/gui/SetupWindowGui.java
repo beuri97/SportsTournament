@@ -26,16 +26,36 @@ import javax.swing.SwingConstants;
  */
 public class SetupWindowGui implements UserInterface {
 
+	/**
+	 * Frame for setup Window
+	 */
 	private JFrame frmSetup;
+	/**
+	 * TextField for the team name that the player will type in
+	 */
 	private JTextField teamNameField;
+	/**
+	 * title label for number of week
+	 */
 	private JLabel numWeekLabel;
+	/**
+	 * Slider to choose number of weeks
+	 */
 	private JSlider slider;
+	/**
+	 * show notice if the name doesn't meet the requirement
+	 */
 	private JLabel infoLabel;
-	private DifficultyOption level;
+	/**
+	 * difficulty level that the player will choose
+	 * default difficulty level is Easy.
+	 */
+	private DifficultyOption level = DifficultyOption.EASY;
+	
 	private GameEnvironment gameEnvironment;
 
 	/**
-	 * 
+	 * setup Window constructor
 	 */
 	public SetupWindowGui() {}
 	/**
