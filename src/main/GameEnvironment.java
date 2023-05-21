@@ -419,7 +419,7 @@ public class GameEnvironment {
 
 		ArrayList<Athlete> result = new ArrayList<>();
 
-		float percentage = 5.0f;
+		float percentage = 3.0f;
 		float percentageInjured = 7.85f;
 
 		for(Athlete athlete : this.getTeam().getRoster()){

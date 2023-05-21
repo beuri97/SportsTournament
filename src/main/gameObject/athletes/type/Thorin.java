@@ -1,5 +1,7 @@
 package main.gameObject.athletes.type;
 
+import javax.swing.ImageIcon;
+
 import main.gameObject.athletes.Athlete;
 
 public class Thorin extends Athlete {
@@ -39,5 +41,7 @@ public class Thorin extends Athlete {
         	super.price = 4700.00f;
         	break;
         }
+        super.athletePhoto = new ImageIcon(getClass().getResource("/Images/Thorin.jpg"));
+        super.athleteFacePhoto = new ImageIcon(getClass().getResource("/Images/ThorinF.jpg"));
     }
 }

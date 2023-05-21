@@ -2,7 +2,6 @@ package main.gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import java.awt.*;
@@ -56,12 +55,11 @@ public class MainScreenGui implements UserInterface{
 	private int usingItemNum = -1;
 	private boolean isRandomLeave;
 	private boolean isRandomJoin;
+	private boolean isRandomUpgrade;
 	
-	
-	private ImageIcon angelina = new ImageIcon(getClass().getResource("/Images/AngelinaF.jpg"));
-	private ImageIcon dwayne = new ImageIcon(getClass().getResource("/Images/DwayneF.jpg"));;
-	private ImageIcon prodo = new ImageIcon(getClass().getResource("/Images/ProdoF.jpg"));;
-	private ImageIcon thorin = new ImageIcon(getClass().getResource("/Images/ThorinF.jpg"));;
+//	private ImageIcon dwayne = new ImageIcon(getClass().getResource("/Images/DwayneF.jpg"));;
+//	private ImageIcon prodo = new ImageIcon(getClass().getResource("/Images/ProdoF.jpg"));;
+//	private ImageIcon thorin = new ImageIcon(getClass().getResource("/Images/ThorinF.jpg"));;
 	
 	/**
 	 * Create the application.
@@ -183,7 +181,7 @@ public class MainScreenGui implements UserInterface{
 		
 		for (int i = 0; i < myRoster.length; i++) {
 			athleteBttns[i] = new JToggleButton(printingName(myRoster[i]));
-			setPhoto(athleteBttns[i], i);
+			athleteBttns[i].setIcon(printingFacePhoto(myRoster[i]));
 			if (i < 4) {setAthletePanel.add(athleteBttns[i]);}
 			else {setReservePanel.add(athleteBttns[i]);}
 			}
@@ -285,17 +283,6 @@ public class MainScreenGui implements UserInterface{
 				selectingResetItemSlots(9);}});
 		}
 
-	private void setPhoto(JToggleButton button, int num) {
-
-		String athleteName = printingName(myRoster[num]);
-		
-		if (athleteName.contains("Angelina")) {button.setIcon(angelina);}
-		else if (athleteName.contains("Dwayne")) {button.setIcon(dwayne);}
-		else if (athleteName.contains("Prodo")) {button.setIcon(prodo);}
-		else if (athleteName.contains("Thorin")){button.setIcon(thorin);}
-		else {button.setIcon(null);}
-	}
-	
 	/*
 	 * when the swapOn switch is ON, swap two athletes when player click two athletes and refresh screen to show changes and cancel clicked toggle buttons
 	 * if swapOn switch is off, just show the clicked athlete's information
@@ -356,16 +343,13 @@ public class MainScreenGui implements UserInterface{
 		myRoster = gameEnvironment.getTeam().getRoster();
 		myInventory = gameEnvironment.getTeam().getInventory();
 		checkInjured();
-		
-		
+		//refresh my roster buttons
 		for (int i = 0; i<myRoster.length; i++) {
 			athleteBttns[i].setText(printingName(myRoster[i]));
-			setPhoto(athleteBttns[i], i);
-			}
-		
+			athleteBttns[i].setIcon(printingFacePhoto(myRoster[i]));}
+		//refresh my invetory buttons
 		for (int i = 0; i<myInventory.length; i++) {
-			itemBttns[i].setText(printingName(myInventory[i]));
-			}
+			itemBttns[i].setText(printingName(myInventory[i]));}
 		isRandomEvent();
 	}
 	
@@ -452,7 +436,7 @@ public class MainScreenGui implements UserInterface{
 		JButton itemUseButton = new JButton("Use");
 		itemUseButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//check which athlete is selected
+				//check swap function is on, item will be used onto last clicked athlete
 				if (athleteSwitchingNum2 != -1){
 					if (myRoster[athleteSwitchingNum2] == null || myInventory[usingItemNum] == null) {
 						noticeLabel.setText("You clicked the empty slot!"); 
@@ -482,7 +466,6 @@ public class MainScreenGui implements UserInterface{
 		if (gameEnvironment.getCurrentSeason() == gameEnvironment.getTotalSeason()) {
 			takeAByeButton.setEnabled(false);
 			weekNumLabel.setText("Final week");
-			
 			JButton endGameBttn = new JButton("End Game");
 			endGameBttn.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -491,8 +474,9 @@ public class MainScreenGui implements UserInterface{
 					}});
 			
 			endGameBttn.setFont(new Font("Lucida Grande", Font.BOLD | Font.ITALIC, 49));
-			endGameBttn.setBounds(847, 568, 359, 129);
+			endGameBttn.setBounds(1141, 872, 359, 129);
 			frmMainWindow.getContentPane().add(endGameBttn);
+			
 		}
 		
 	}
@@ -534,6 +518,7 @@ public class MainScreenGui implements UserInterface{
 		itemDescriptionLabel.setBounds(25, 101, 247, 90);
 		setItemInfoPanel.add(itemDescriptionLabel);
 	}
+	
 	
 	
 	
@@ -579,11 +564,17 @@ public class MainScreenGui implements UserInterface{
 			isRandomLeave = true;
 			refreshWindow();
 		}
-		else if(!isRandomJoin && gameEnvironment.randomNewAthlete()) {
+		if(!isRandomJoin && gameEnvironment.randomNewAthlete()) {
 			athleteRandomJoin();
 			isRandomJoin = true;
 			refreshWindow();
 		}
+		if(!isRandomUpgrade && gameEnvironment.randomUpgradeEvent() != null) {
+			athleteRandomUpgrade();
+			isRandomUpgrade = true;
+			refreshWindow();
+		}
+		
 		return happened;
 	}
 	
@@ -601,6 +592,8 @@ public class MainScreenGui implements UserInterface{
 	    	System.exit(0);
 	    }
 	}
+
+	
 	/*
 	 * create panel to notify the player that some athlete has left. This is random occasion.
 	 */
@@ -611,7 +604,6 @@ public class MainScreenGui implements UserInterface{
 	        JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null,
 	        null, null);
 	}
-	
 	/*
 	 * create panel to notify the player that some athlete joined the team. This is random occasion.
 	 */
@@ -622,7 +614,16 @@ public class MainScreenGui implements UserInterface{
 	        JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null,
 	        null, null);
 	}
-	
+	/*
+	 * create panel to notify the player that some athlete has left. This is random occasion.
+	 */
+	private void athleteRandomUpgrade() {
+	    JPanel athleteUpgrade = new JPanel();
+	    athleteUpgrade.add(new JLabel("<html>Good news!!!<br/> Some athlete(s)'s stats are improved!!<br/> Check who got improved!!!  </html>"));
+	    JOptionPane.showOptionDialog(null, athleteUpgrade, "Such a tragic!",
+	        JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null,
+	        null, null);
+	}
 	/*
 	 * close Main window ( it will be called from gameEnvironment)
 	 */
