@@ -18,14 +18,15 @@ public class GameOverGui implements UserInterface{
 	private JFrame frmGameover;
 
 	/**
-	 * Create the application.
+	 * Start game over window.
 	 */
 	public GameOverGui(GameEnvironment gameEnvironment) {
 		setup(gameEnvironment);
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * setup the frame, Labels, a button for GameOver Window
+	 * it shows the description about the player's play record.
 	 */
 	public void setup(GameEnvironment gameEnvironment) {
 		frmGameover = new JFrame();

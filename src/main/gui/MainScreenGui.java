@@ -2,6 +2,7 @@ package main.gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import java.awt.*;
@@ -53,6 +54,8 @@ public class MainScreenGui implements UserInterface{
 	private int athleteSwitchingNum1 = -1;
 	private int athleteSwitchingNum2 = -1;
 	private int usingItemNum = -1;
+	private boolean isRandomLeave;
+	private boolean isRandomJoin;
 	
 	
 	private ImageIcon angelina = new ImageIcon(getClass().getResource("/Images/AngelinaF.jpg"));
@@ -232,6 +235,7 @@ public class MainScreenGui implements UserInterface{
 		athleteLabel[6].setBounds(409, 189, 80, 25);
 		
 		checkInjured();
+	
 	}
 	/*
 	 * Create the panel for item in player's inventory
@@ -251,44 +255,34 @@ public class MainScreenGui implements UserInterface{
 	
 		itemBttns[0].addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				selectingResetItemSlots(0);
-				itemBttns[0].setSelected(true);}});
+				selectingResetItemSlots(0);}});
 		itemBttns[1].addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				selectingResetItemSlots(1);
-				itemBttns[1].setSelected(true);}});
+				selectingResetItemSlots(1);}});
 		itemBttns[2].addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				selectingResetItemSlots(2);
-				itemBttns[2].setSelected(true);}});
+				selectingResetItemSlots(2);}});
 		itemBttns[3].addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				selectingResetItemSlots(3);			
-				itemBttns[3].setSelected(true);}});
+				selectingResetItemSlots(3);}});
 		itemBttns[4].addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				selectingResetItemSlots(4);
-				itemBttns[4].setSelected(true);}});
+				selectingResetItemSlots(4);}});
 		itemBttns[5].addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				selectingResetItemSlots(5);
-				itemBttns[5].setSelected(true);}});
+				selectingResetItemSlots(5);}});
 		itemBttns[6].addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				selectingResetItemSlots(6);
-				itemBttns[6].setSelected(true);}});
+				selectingResetItemSlots(6);}});
 		itemBttns[7].addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				selectingResetItemSlots(7);
-				itemBttns[7].setSelected(true);}});
+				selectingResetItemSlots(7);}});
 		itemBttns[8].addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				selectingResetItemSlots(8);
-				itemBttns[8].setSelected(true);}});
+				selectingResetItemSlots(8);}});
 		itemBttns[9].addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				selectingResetItemSlots(9);
-				itemBttns[9].setSelected(true);}});
+				selectingResetItemSlots(9);}});
 		}
 
 	private void setPhoto(JToggleButton button, int num) {
@@ -324,6 +318,7 @@ public class MainScreenGui implements UserInterface{
 			athleteDescriptionLabel.setText(printing(myRoster[slotNum]));
 			cancelAthleteToggle();
 			refreshWindow();
+			athleteBttns[slotNum].setSelected(true);
 		}
 	
 	}
@@ -334,6 +329,7 @@ public class MainScreenGui implements UserInterface{
 			cancelItemToggle();
 			usingItemNum = slotNum;
 			itemDescriptionLabel.setText(printing(myInventory[slotNum]));
+			itemBttns[slotNum].setSelected(true);
 	}
 	
 	/**
@@ -353,12 +349,14 @@ public class MainScreenGui implements UserInterface{
 
 	/*
 	 * update screen with the latest information.
+	 * there is a chance to have random event
 	 */
 	private void refreshWindow() {
 		moneyLabel.setText("$ " + gameEnvironment.getTeam().getMoney());
 		myRoster = gameEnvironment.getTeam().getRoster();
 		myInventory = gameEnvironment.getTeam().getInventory();
 		checkInjured();
+		
 		
 		for (int i = 0; i<myRoster.length; i++) {
 			athleteBttns[i].setText(printingName(myRoster[i]));
@@ -368,6 +366,7 @@ public class MainScreenGui implements UserInterface{
 		for (int i = 0; i<myInventory.length; i++) {
 			itemBttns[i].setText(printingName(myInventory[i]));
 			}
+		isRandomEvent();
 	}
 	
 	/*
@@ -432,15 +431,19 @@ public class MainScreenGui implements UserInterface{
 		
 		//button to finish this week
 		//show pop-up window to ask if the player really wants to finish this week
+		//there is a chance to have random events
 		JButton takeAByeButton = new JButton("Take a BYE");
 		takeAByeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				 if(gameEnvironment.isPlayed()) {
-					checkingTakeABye();}
-				 else {
-					 checkingGameOver();
-				 }
+				if (isRandomEvent()) {}
+				else {
+					if(gameEnvironment.isPlayed()) {
+						checkingTakeABye();}
+					else {
+						checkingGameOver();
+				 }}
 			}});
+		
 		takeAByeButton.setFont(new Font("Lucida Grande", Font.ITALIC, 20));
 		takeAByeButton.setBounds(1033, 501, 149, 59);
 		frmMainWindow.getContentPane().add(takeAByeButton);
@@ -565,6 +568,24 @@ public class MainScreenGui implements UserInterface{
 	    			gameEnvironment.openGameOverWindow();
 	    	}
 	    }
+	/**
+	 * check if the randome event has occured.
+	 * if it hasn't occured, make athlete randomly leave from the player's team.
+	 */
+	private boolean isRandomEvent() {
+		boolean happened =false;
+		if(!isRandomLeave && gameEnvironment.randomLeaveEvent() != null) {	
+			athleteRandomLeft();
+			isRandomLeave = true;
+			refreshWindow();
+		}
+		else if(!isRandomJoin && gameEnvironment.randomNewAthlete()) {
+			athleteRandomJoin();
+			isRandomJoin = true;
+			refreshWindow();
+		}
+		return happened;
+	}
 	
 	/*
 	 * create an option panel to ask whether the player really wants to quit the game or not
@@ -581,15 +602,27 @@ public class MainScreenGui implements UserInterface{
 	    }
 	}
 	/*
-	 * create panel to notify the player that one athlete has left. This is random occasion.
+	 * create panel to notify the player that some athlete has left. This is random occasion.
 	 */
-	private void athleteLeft() {
+	private void athleteRandomLeft() {
 	    JPanel athleteLeft = new JPanel();
-	    athleteLeft.add(new JLabel("<html>Oh Noooooo!!!!!!!!!!!!!!!!!<br/> All of sudden, one of your athlete ran away!!<br/> Check who left your team!  </html>"));
+	    athleteLeft.add(new JLabel("<html>Oh Noooooo!!!!!!!!!!!!!!!!!<br/> All of sudden, some athlete(s) ran away!!<br/> Check who left your team!  </html>"));
 	    JOptionPane.showOptionDialog(null, athleteLeft, "Such a tragic!",
 	        JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null,
 	        null, null);
 	}
+	
+	/*
+	 * create panel to notify the player that some athlete joined the team. This is random occasion.
+	 */
+	private void athleteRandomJoin() {
+	    JPanel athleteJoin = new JPanel();
+	    athleteJoin.add(new JLabel("<html>!!!!!!!!!!!!!!WOW!!!!!!!!!!!!!!<br/> Congratulation!!, one athlete joined your team!!<br/> Check who joined and look after!  </html>"));
+	    JOptionPane.showOptionDialog(null, athleteJoin, "Good News!!",
+	        JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null,
+	        null, null);
+	}
+	
 	/*
 	 * close Main window ( it will be called from gameEnvironment)
 	 */

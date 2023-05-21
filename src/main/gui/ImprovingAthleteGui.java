@@ -30,7 +30,9 @@ public class ImprovingAthleteGui implements UserInterface{
 	private int improvNum;
 
 	/**
-	 * Create the application.
+	 * setup information for Improving Athlete window
+	 * when the player take a bye and go to next week, the system will ask the player choose a player to improve stats.
+	 * 
 	 */
 	public ImprovingAthleteGui(GameEnvironment gameEnvironment) {
 		this.gameEnvironment = gameEnvironment;
@@ -39,7 +41,7 @@ public class ImprovingAthleteGui implements UserInterface{
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Setup Frame, Buttons, Labels to show Athlete and information to make the player to select.
 	 */
 	public void setup(GameEnvironment gameEnvironment) {
 		frmImproving = new JFrame();
@@ -51,7 +53,6 @@ public class ImprovingAthleteGui implements UserInterface{
 		JButton improveButton = new JButton("Improve!");
 		improveButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
 				if (improvNum != 0) {
 					myRoster[improvNum-1].setOffenseStat(SetUp.randomInt(2, 7));
 					myRoster[improvNum-1].setDefenseStat(SetUp.randomInt(2, 7));
@@ -63,10 +64,7 @@ public class ImprovingAthleteGui implements UserInterface{
 				}
 				else {
 					athleteInfo.setText("Choose the athlete!!");
-				}
-				
-			}
-		});
+				}}});
 		
 		improveButton.setFont(new Font("Dialog", Font.BOLD, 36));
 		improveButton.setBounds(885, 716, 412, 127);

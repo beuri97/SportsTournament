@@ -26,9 +26,9 @@ import javax.swing.SwingConstants;
  */
 public class SetupWindowGui implements UserInterface {
 
-	private JFrame frmFencingGame;
+	private JFrame frmSetup;
 	private JTextField teamNameField;
-	private JLabel NumWeekLabel;
+	private JLabel numWeekLabel;
 	private JSlider slider;
 	private JLabel infoLabel;
 	private DifficultyOption level;
@@ -48,46 +48,44 @@ public class SetupWindowGui implements UserInterface {
 		setTextField();
 		setJSlider();
 		setJbutton();			
-		
-		
 	}
 	/*
 	 * set the frame of setup window
 	 */
 	private void setFrame() {
-		frmFencingGame = new JFrame();
-		frmFencingGame.setSize(1650,1080);
-		frmFencingGame.setLocation((1925 - frmFencingGame.getWidth()) / 2, (1080 - frmFencingGame.getHeight()) / 2);
-		frmFencingGame.setVisible(true);
+		frmSetup = new JFrame();
+		frmSetup.setSize(1650,1080);
+		frmSetup.setLocation((1925 - frmSetup.getWidth()) / 2, (1080 - frmSetup.getHeight()) / 2);
+		frmSetup.setVisible(true);
 	}
 	/**
 	 * show the labels on window
 	 */
 	private void setLabel() {
-		frmFencingGame.getContentPane().setLayout(null);
+		frmSetup.getContentPane().setLayout(null);
 		JLabel welcoming = new JLabel("Welcome to FencingTournament");
 		welcoming.setBounds(669, 378, 403, 25);
 		welcoming.setFont(new Font("Dialog", Font.PLAIN, 24));
-		frmFencingGame.getContentPane().add(welcoming);
+		frmSetup.getContentPane().add(welcoming);
 		JLabel teamname = new JLabel("Team Name : ");
 		teamname.setBounds(558, 505, 115, 21);
-		frmFencingGame.getContentPane().add(teamname);
+		frmSetup.getContentPane().add(teamname);
 		
-		NumWeekLabel = new JLabel("Number of weeks for one season :");
-		NumWeekLabel.setBounds(496, 589, 263, 16);
-		NumWeekLabel.setToolTipText("");
-		frmFencingGame.getContentPane().add(NumWeekLabel);
+		numWeekLabel = new JLabel("Number of weeks for one season :");
+		numWeekLabel.setBounds(496, 589, 263, 16);
+		numWeekLabel.setToolTipText("");
+		frmSetup.getContentPane().add(numWeekLabel);
 		
 		infoLabel = new JLabel("");
 		infoLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		infoLabel.setBounds(558, 531, 783, 14);
 		infoLabel.setForeground(new Color(255, 0, 0));
 		infoLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
-		frmFencingGame.getContentPane().add(infoLabel);
+		frmSetup.getContentPane().add(infoLabel);
 		
 		JLabel diffcultyLabel = new JLabel("Difficulty :");
 		diffcultyLabel.setBounds(568, 664, 96, 16);
-		frmFencingGame.getContentPane().add(diffcultyLabel);
+		frmSetup.getContentPane().add(diffcultyLabel);
 	
 	}
 	/**
@@ -98,8 +96,8 @@ public class SetupWindowGui implements UserInterface {
 		slider.setBounds(828, 571, 190, 52);
 		JLabel status = new JLabel("Slide the slider!!");
 		status.setBounds(1023, 589, 156, 16);
-		frmFencingGame.getContentPane().add(status);
-		frmFencingGame.getContentPane().add(slider);
+		frmSetup.getContentPane().add(status);
+		frmSetup.getContentPane().add(slider);
 		slider.setPaintTrack(true);
 		slider.setPaintTicks(true);
 		slider.setPaintLabels(true);
@@ -118,7 +116,7 @@ public class SetupWindowGui implements UserInterface {
 		
 		teamNameField = new JTextField();
 		teamNameField.setBounds(759, 500, 370, 26);
-		frmFencingGame.getContentPane().add(teamNameField);	
+		frmSetup.getContentPane().add(teamNameField);	
 		teamNameField.setColumns(30);
 	}
 	/**
@@ -136,7 +134,7 @@ public class SetupWindowGui implements UserInterface {
 			}
 		});
 		easyButton.setBounds(841, 659, 75, 29);
-		frmFencingGame.getContentPane().add(easyButton);
+		frmSetup.getContentPane().add(easyButton);
 		
 		diffButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -145,7 +143,7 @@ public class SetupWindowGui implements UserInterface {
 			}
 		});
 		diffButton.setBounds(928, 659, 96, 29);
-		frmFencingGame.getContentPane().add(diffButton);
+		frmSetup.getContentPane().add(diffButton);
 		
 		// when click 'Start game' button, it will check the regex of what the player entered, if it fails, show the requirement for team name, otherwise
 		// save team name, number of weeks per season and difficulty. And then, close the current window and show main Screen to play.
@@ -165,7 +163,7 @@ public class SetupWindowGui implements UserInterface {
 			}
 		});	
 		startBttn.setBounds(1153, 718, 146, 29);
-		frmFencingGame.getContentPane().add(startBttn);
+		frmSetup.getContentPane().add(startBttn);
 		
 		// button to exit from the game. Small window will pop up and ask if the player really wants to eixt.
 		JButton exitButton = new JButton("Exit");
@@ -175,7 +173,7 @@ public class SetupWindowGui implements UserInterface {
 			}
 		});
 		exitButton.setBounds(1344, 718, 146, 29);
-		frmFencingGame.getContentPane().add(exitButton);
+		frmSetup.getContentPane().add(exitButton);
 	}
 	/*
 	 * create option panel to ask whether the player really wants to quit the game or not
@@ -197,7 +195,7 @@ public class SetupWindowGui implements UserInterface {
 	 * close setup window ( it will be called from gameEnvironment)
 	 */
 	public void closeWindow() {
-		frmFencingGame.dispose();
+		frmSetup.dispose();
 	}
 	/*
 	 * close setup window

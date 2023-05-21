@@ -447,7 +447,7 @@ public class GameEnvironment {
 
 		for (Athlete athlete : this.getTeam().getRoster()){
 
-			if(setup.event(4.00) && athlete != null) {
+			if(setup.event(70.00) && athlete != null) {
 				// add event occurred athletes to report
 				result.add(athlete);
 				athlete.setOffenseStat(SetUp.randomInt(3));
@@ -468,7 +468,7 @@ public class GameEnvironment {
 	public boolean randomNewAthlete() {
 
 		boolean result = false;
-		if (setup.event(3.50) && !this.getTeam().isFull()) {
+		if (setup.event(70.50) && !this.getTeam().isFull()) {
 
 			this.team.recruitAthletes(market.athleteBuilder());
 			result = true;

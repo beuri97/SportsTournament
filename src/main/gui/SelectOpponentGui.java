@@ -17,11 +17,11 @@ import java.awt.event.ActionEvent;
 public class SelectOpponentGui implements UserInterface{
 
 	private JFrame frmSelectingOpponent;
-	private GameEnvironment gameEnvironment;
 	private JLabel chooseOpponentLabel;
-	private int selectedOpponentNum;
 	private Team[] teamAllOpponent;
 	private JButton[] teamSelect = new JButton[5];
+	private GameEnvironment gameEnvironment;
+	private int selectedOpponentNum;
 
 	/**
 	 * Create the application.
