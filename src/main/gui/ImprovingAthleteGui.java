@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
 import main.GameEnvironment;
+import main.Gui;
 import main.UserInterface;
 import main.gameObject.athletes.Athlete;
 import main.gamesystem.SetUp;
@@ -24,11 +25,8 @@ import java.awt.event.ActionEvent;
  * class for Improving Athlete window when start the game
  * @author J Kim
  */
-public class ImprovingAthleteGui implements UserInterface{
-	/**
-	 * game environment which has all of this game system
-	 */
-	private GameEnvironment gameEnvironment;
+public class ImprovingAthleteGui extends Gui {
+
 	/**
 	 * Frame for Improving Athlete window
 	 */
@@ -56,8 +54,6 @@ public class ImprovingAthleteGui implements UserInterface{
 	 * @param gameEnvironment game environment which is core of this program
 	 */
 	public ImprovingAthleteGui(GameEnvironment gameEnvironment) {
-		this.gameEnvironment = gameEnvironment;
-		this.myRoster = gameEnvironment.getTeam().getRoster();
 		setup(gameEnvironment);
 	}
 
@@ -66,6 +62,8 @@ public class ImprovingAthleteGui implements UserInterface{
 	 * @param gameEnvironment game environment which is core of this program
 	 */
 	public void setup(GameEnvironment gameEnvironment) {
+		super.gameEnvironment = gameEnvironment;
+		this.myRoster = super.gameEnvironment.getTeam().getRoster();
 		frmImproving = new JFrame();
 		frmImproving.setSize(1650,1080);
 		frmImproving.setLocation((1925 - frmImproving.getWidth()) / 2, (1080 - frmImproving.getHeight()) / 2);

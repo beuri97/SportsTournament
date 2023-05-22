@@ -24,7 +24,7 @@ import javax.swing.SwingConstants;
  * class for Setup window when start the game
  * @author J Kim
  */
-public class SetupWindowGui implements UserInterface {
+public class SetupWindowGui extends Gui {
 
 	/**
 	 * Frame for setup Window
@@ -51,10 +51,6 @@ public class SetupWindowGui implements UserInterface {
 	 * default difficulty level is Easy.
 	 */
 	private DifficultyOption level = DifficultyOption.EASY;
-	/**
-	 * game environment which has all of this game system
-	 */
-	private GameEnvironment gameEnvironment;
 
 	/**
 	 * setup Window constructor
@@ -65,7 +61,7 @@ public class SetupWindowGui implements UserInterface {
 	 * @param gameEnvironment game environment which is core of this program
 	 */
 	public void setup(GameEnvironment gameEnvironment) {
-		this.gameEnvironment = gameEnvironment;
+		super.gameEnvironment = gameEnvironment;
 		setFrame();
 		setLabel();
 		setTextField();

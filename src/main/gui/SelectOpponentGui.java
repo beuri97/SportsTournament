@@ -6,6 +6,7 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 import main.GameEnvironment;
+import main.Gui;
 import main.UserInterface;
 import main.gameObject.Team;
 
@@ -17,12 +18,7 @@ import java.awt.event.ActionEvent;
  * class for Market window in the game
  * @author J Kim
  */
-public class SelectOpponentGui implements UserInterface{
-
-	/**
-	 * game environment which has all of this game system
-	 */
-	private GameEnvironment gameEnvironment;
+public class SelectOpponentGui extends Gui {
 
 	/**
 	 * frame for selecting opponent window
@@ -54,8 +50,6 @@ public class SelectOpponentGui implements UserInterface{
 	 * @param gameEnvironment game environment which is core of this program
 	 */
 	public SelectOpponentGui(GameEnvironment gameEnvironment) {
-		this.gameEnvironment = gameEnvironment;
-		this.teamAllOpponent = gameEnvironment.getAllOpponent();
 		setup(gameEnvironment);
 	}
 
@@ -64,6 +58,8 @@ public class SelectOpponentGui implements UserInterface{
 	 * @param gameEnvironment game environment which is core of this program
 	 */
 	public void setup(GameEnvironment gameEnvironment) {
+		super.gameEnvironment = gameEnvironment;
+		teamAllOpponent = gameEnvironment.getAllOpponent();
 		frmSelectingOpponent = new JFrame();
 		frmSelectingOpponent.setSize(1650,1080);
 		frmSelectingOpponent.getContentPane().setLayout(null);

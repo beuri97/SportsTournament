@@ -2,6 +2,7 @@ package main.gui;
 
 
 import main.GameEnvironment;
+import main.Gui;
 import main.UserInterface;
 import main.gameObject.athletes.Athlete;
 
@@ -18,12 +19,7 @@ import java.util.Date;
  * Class to create Stadium window in the game
  * @author J Kim
  */
-public class StadiumGui implements UserInterface{
-
-	/**
-	 * game environment which controls all of this game system
-	 */
-	private GameEnvironment gameEnvironment;
+public class StadiumGui extends Gui {
 
 	/**
 	 * Frame for stadium window
@@ -146,12 +142,7 @@ public class StadiumGui implements UserInterface{
 	 * @param gameEnvironment game environment which is core of this program
 	 */
 	public StadiumGui(GameEnvironment gameEnvironment) {
-		this.gameEnvironment = gameEnvironment;
-		this.myRoster = gameEnvironment.getTeam().getRoster();
-		this.opponentRoster = gameEnvironment.getOpponent().getRoster();
-		this.myScore = gameEnvironment.matchResult()[0];
-		this.oppoScore = gameEnvironment.matchResult()[1];
-		this.setNum = gameEnvironment.getGameSetNumber();
+
 		setup(gameEnvironment);
 	}
 
@@ -160,6 +151,12 @@ public class StadiumGui implements UserInterface{
 	 * @param gameEnvironment game environment which is core of this program
 	 */
 	public void setup(GameEnvironment gameEnvironment) {
+		super.gameEnvironment = gameEnvironment;
+		this.myRoster = gameEnvironment.getTeam().getRoster();
+		this.opponentRoster = gameEnvironment.getOpponent().getRoster();
+		this.myScore = gameEnvironment.matchResult()[0];
+		this.oppoScore = gameEnvironment.matchResult()[1];
+		this.setNum = gameEnvironment.getGameSetNumber();
 		setFrame();
 		setAthletePanel();
 		setButton();
