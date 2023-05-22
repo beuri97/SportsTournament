@@ -29,8 +29,17 @@ public interface Product {
 	 */
 	void setSellPrice();
 
+	/**
+	 * get Product's name
+	 * @return String value about product's name
+	 */
 	String getName();
-	
+
+	/**
+	 * method to return athlete's photo.
+	 * Defined as default method because there is no plan to implement this method to Class Item.
+	 * @return ImageIcon value about each athlete's photo
+	 */
 	default ImageIcon getAthleteFacePhoto() {
 		return null;	
 	}
