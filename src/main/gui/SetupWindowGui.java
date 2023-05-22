@@ -72,7 +72,8 @@ public class SetupWindowGui implements UserInterface {
 		setJSlider();
 		setJbutton();			
 	}
-	/*
+
+	/**
 	 * set the frame of setup window
 	 */
 	private void setFrame() {
@@ -142,6 +143,7 @@ public class SetupWindowGui implements UserInterface {
 		frmSetup.getContentPane().add(teamNameField);	
 		teamNameField.setColumns(30);
 	}
+
 	/**
 	 * show difficulty option with label and buttons to choose.
 	 */
@@ -198,7 +200,8 @@ public class SetupWindowGui implements UserInterface {
 		exitButton.setBounds(1344, 718, 146, 29);
 		frmSetup.getContentPane().add(exitButton);
 	}
-	/*
+
+	/**
 	 * create option panel to ask whether the player really wants to quit the game or not
 	 */
 	private void exitBox() {
@@ -214,13 +217,15 @@ public class SetupWindowGui implements UserInterface {
 	    }
 
 	}
-	/*
+
+	/**
 	 * close setup window ( it will be called from gameEnvironment)
 	 */
 	public void closeWindow() {
 		frmSetup.dispose();
 	}
-	/*
+
+	/**
 	 * close setup window
 	 */
 	public void finishedWindow() {

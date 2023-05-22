@@ -188,7 +188,7 @@ public class Team {
 
     /**
      * Add item into inventory after user purchase item.
-     * @param item item that user purchased
+     * @param item {@link Item} that user purchased
      */
     public void addItem(Product item) {
 
@@ -210,10 +210,21 @@ public class Team {
         inventory.remove((Item) item);
     }
 
-    public boolean isFull() {
+    /**
+     * Check if roster and inventory is full
+     * @param product types of product user wants to purchase
+     * @return true if size of roster or inventory ArrayList exceed size limits defined as TOTAL_ATHLETE and TOTAL_ITEM
+     */
+    public boolean isFull(Product product) {
 
-        //array has fixed length so if at least one null in this array this mean becomes array is not full
-        return this.roster.size() == TOTAL_ATHLETE;
+        // ArrayList does not have a fixed length and thus needs to control
+        boolean result;
+        if(product instanceof Athlete)
+            result = roster.size() == TOTAL_ATHLETE;
+        else
+            result = inventory.size() == TOTAL_ITEM;
+
+        return result;
     }
 
     /**

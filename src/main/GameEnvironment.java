@@ -80,6 +80,7 @@ public class GameEnvironment {
 
 	/**
 	 * Start new game by setting up Team name, number of weeks for season and difficulty of game
+	 * @param userInterface userInterface that player currently use to interact with this system
 	 */
 	public GameEnvironment(UserInterface userInterface) {
 		this.setup = new SetUp();
@@ -171,7 +172,7 @@ public class GameEnvironment {
 			case "buy":
 				Product[] properties = (stockType instanceof Athlete[]) ? this.team.getRoster() : this.team.getInventory();
 				if(stockType[col] == null) throw new EmptySlotException();
-				if(this.team.isFull()) throw new NoSpaceException();
+				if(this.team.isFull(stockType[col])) throw new NoSpaceException();
 				this.team.setMoney(- stockType[col].getPrice());
 				Product product = this.market.purchase(stockType, col);
 				if (product instanceof Athlete) {
@@ -472,11 +473,9 @@ public class GameEnvironment {
 	public boolean randomNewAthlete() {
 
 		boolean result = false;
-
 		// event trigger
 		float percentage = 1.33f;
 		if (setup.event(percentage) && !this.getTeam().isFull()) {
-
 			this.team.recruitAthletes(market.athleteBuilder());
 			result = true;
 		}
@@ -524,30 +523,35 @@ public class GameEnvironment {
 
 	/**
 	 *close GUI Setup Window
+	 * @param setupWindow setup window to be closed
 	 */
 	public void closeSetupWindow(SetupWindowGui setupWindow) {
 		setupWindow.closeWindow();
 	}
 	/**
 	 *close GUI Main Window
+	 * @param mainWindow main window to be closed
 	 */
 	public void closeMainWindow(MainScreenGui mainWindow) {
 		mainWindow.closeWindow();
 	}
 	/**
 	 *close GUI Market Window
+	 * @param marketWindow Market Window to be closed
 	 */
 	public void closeMarketWindow(MarketGui marketWindow) {
 		marketWindow.closeWindow();
 	}
 	/**
 	 *close GUI Opponent selecting Window
+	 * @param selectOpponentWindow Opponent Selection window to be closed
 	 */
 	public void closeSelectingOpponent(SelectOpponentGui selectOpponentWindow) {
 		selectOpponentWindow.closeWindow();
 	}
 	/**
 	 *close GUI Stadium Window
+	 * @param stadiumWindow window to be closed
 	 */
 	public void closeStadiumWindow(StadiumGui stadiumWindow) {
 		stadiumWindow.closeWindow();
@@ -555,6 +559,7 @@ public class GameEnvironment {
 
 	/**
 	 *close GUI Improving Athlete Window
+	 * @param ImprovingWindow window to be closed
 	 */
 	public void closeImprovingWindow(ImprovingAthleteGui ImprovingWindow) {
 		ImprovingWindow.closeWindow();

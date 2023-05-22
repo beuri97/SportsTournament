@@ -16,7 +16,7 @@ import javax.swing.*;
 import java.util.Date;
 /**
  * Class to create Stadium window in the game
- * @author Joshua K
+ * @author J Kim
  */
 public class StadiumGui implements UserInterface{
 
@@ -24,74 +24,92 @@ public class StadiumGui implements UserInterface{
 	 * game environment which controls all of this game system
 	 */
 	private GameEnvironment gameEnvironment;
+
 	/**
 	 * Frame for stadium window
 	 */
 	private JFrame frmStadium;
+
 	/**
 	 * ArrayList contains JLabel which indicates athletes of my team, opponents
 	 */
 	private JLabel[][] athleteLabel = new JLabel[2][4];
+
 	/**
 	 * arrayList of athlete that the player has
 	 */
 	private Athlete[] myRoster;
+
 	/**
 	 * arrayList of Opponent Athletes
 	 */
 	private Athlete[] opponentRoster;
+
 	/**
 	 * number of current set
 	 */
 	private int setNum;
+
 	/**
 	 * the player's score
 	 */
 	private int myScore;
+
 	/**
 	 * the opponent score
 	 */
 	private int oppoScore;
+
 	/**
 	 * the player's previous score
 	 */
 	private int prevMyScore;
+
 	/**
-	 * the opponentprevious score
+	 * the opponent previous score
 	 */
 	private int prevOppoScore;
+
 	/**
 	 * button to start fight
 	 */
 	private JButton fightBttn;
+
 	/**
 	 * label to show current stats with buff
 	 */
 	private JLabel currentStatBuffLabel; 
+
 	/**
 	 * label to show game result
 	 */
 	private JLabel gameResultLabel;
+
 	/**
 	 * label to show current set number
 	 */
 	private JLabel numberOfSetLabel;
+
 	/**
 	 * label to show the player's score
 	 */
 	private JLabel myScoreLabel;
+
 	/**
 	 * label to show the opponent score
 	 */
 	private JLabel opponentScoreLabel;
+
 	/**
 	 * toggle button to make athlete aggressive
 	 */
 	private JToggleButton aggresiveBttn;
+
 	/**
 	 * toggle button to make athlete careful
 	 */
 	private JToggleButton carefulBttn;
+
 	/**
 	 * label to show the battle photo
 	 */
@@ -101,18 +119,22 @@ public class StadiumGui implements UserInterface{
 	 * the battle photo for both athletes attacked successfully
 	 */
 	private final ImageIcon bothAtct = new ImageIcon(getClass().getResource("/Images/BothAtct.jpg"));
+
 	/**
 	 * the battle photo for both athletes attacked and failed
 	 */
 	private final ImageIcon draw = new ImageIcon(getClass().getResource("/Images/Draw.jpg"));
+
 	/**
 	 * the battle photo for only the player's athlete won
 	 */
 	private final ImageIcon leftWon = new ImageIcon(getClass().getResource("/Images/LeftWon.jpg"));
+
 	/**
 	 * the battle photo for only the opponent athlete won
 	 */
 	private final ImageIcon rightWon = new ImageIcon(getClass().getResource("/Images/RightWon.jpg"));
+
 	/**
 	 * the stanby photo when the player is waiting for the result
 	 */
@@ -204,7 +226,8 @@ public class StadiumGui implements UserInterface{
 		frmStadium.getContentPane().add(battlePhoto);
 		battlePhoto.setIcon(standby);
 	}
-	/*
+
+	/**
 	 * set player's athlete and opponent's athlete panels with recent information
 	 */
 	private void setAthletePanel() {
@@ -259,7 +282,8 @@ public class StadiumGui implements UserInterface{
 		//show active athletes with blue color labels.
 		showActive(setNum-1);
 	}
-	/*
+
+	/**
 	 * update all the information on the screen and reset all the buttons
 	 */
 	private void refreshWindow() {
@@ -276,9 +300,9 @@ public class StadiumGui implements UserInterface{
 		numberOfSetLabel.setText("Set Score " + setNum);
 		showActive(setNum-1);
 	}
-	/*
+	/**
 	 * change the font color of athlete's information if he is on the match.
-	 * @param the type of int which indicates the slot number of arrayList.
+	 * @param athlete the type of int which indicates the slot number of arrayList.
 	 */
 	private void showActive(int athlete) {
 		//change back to black font color after match
@@ -341,9 +365,8 @@ public class StadiumGui implements UserInterface{
 	 * create all the buttons on stadium window
 	 */
 	private void setButton() {
-		/**
-		 * button to go back to main window
-		 */
+
+		// button to go back to main window
 		JButton backToMainButton = new JButton("Back to Main");
 		backToMainButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -438,7 +461,7 @@ public class StadiumGui implements UserInterface{
 		frmStadium.getContentPane().add(fightBttn);
 	}
 	
-	/*
+	/**
 	 * create the panel to let the player know that he can't go back to main until he finishes his game.
 	 * if the player has finished the match, go back to main
 	 */
@@ -454,13 +477,14 @@ public class StadiumGui implements UserInterface{
 	    }   
 	}
 
-	/*
+	/**
 	 * close Stadium window ( it will be called from gameEnvironment)
 	 */
 	public void closeWindow() {
 		frmStadium.dispose();
 	}
-	/*
+
+	/**
 	 * close Stadium window
 	 */
 	public void finishedWindow() {

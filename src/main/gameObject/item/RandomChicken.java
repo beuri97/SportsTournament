@@ -8,25 +8,33 @@ import java.util.*;
  */
 public class RandomChicken extends Item{
 
+	/**
+	 * arrayList that options of stat which athletes has, will be added
+	 */
 	private static ArrayList<String> statList = new ArrayList<String>();
-	
+
+	/**
+	 * Constructor to give specification of Item {@link RandomChicken} to super class {@link Item}
+	 */
 	public RandomChicken() {
 		super("RandomChicken", 100, getRandomAmount(), getRandomStat());
 
 	}
-	/*
+	/**
 	 * RandomChicken provides the random amount to increase the random stat.
-	 * Amount will be randomly selected between 30  to  100.
+	 * Amount will be randomly selected between 5  to  35.
+	 * @return int value about the amount of incremental statistics
 	 */
 	private static int getRandomAmount() {
-		int upperBound = 100;
-		int lowerBound = 30;
+		int upperBound = 35;
+		int lowerBound = 5;
 		Random result = new Random();
 		return result.nextInt(lowerBound, upperBound);
 		
 	}
-	/*
+	/**
 	 * Random stat will be selected between "Offence", "Defence" and "Stamina".
+	 * @return String value about types of statistics
 	 */
 	private static String getRandomStat() {
 		statList.add("Offense");
@@ -38,8 +46,4 @@ public class RandomChicken extends Item{
 		
 		
 	}
-	
-	
-	
-	
 }

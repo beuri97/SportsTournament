@@ -192,10 +192,10 @@ public class Athlete implements Product{
      */
     public void useItem(Item item) {
 
-        switch(item.getIncStat()) {
-            case "Defense" -> setDefenseStat(item.getIncAmount());
-            case "Offense" -> setOffenseStat(item.getIncAmount());
-            case "Stamina" -> setStamina(item.getIncAmount());
+        switch(item.getIncreaseStat()) {
+            case "Defense" -> setDefenseStat(item.getIncreaseAmount());
+            case "Offense" -> setOffenseStat(item.getIncreaseAmount());
+            case "Stamina" -> setStamina(item.getIncreaseAmount());
         }
     }
     
@@ -213,6 +213,6 @@ public class Athlete implements Product{
      * redefine price of athlete after be purchased
      */
     public void setSellPrice() {
-       price *= SELL_PRICE_PENALTY;
+        price = ((price * SELL_PRICE_PENALTY) * 100) / 100;
     }
 }

@@ -5,7 +5,10 @@ package main.gameObject.item;
  * @author J Kim
  */
 public class HighDopingCandy extends Item{
-	
+
+	/**
+	 * Constructor to give specification of Item {@link HighDopingCandy} to super class {@link Item}
+	 */
 	public HighDopingCandy() {
 		super("HighDopingCandy", 30, 20, "Offense");
 	}

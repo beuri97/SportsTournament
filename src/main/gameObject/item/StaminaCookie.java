@@ -6,7 +6,10 @@ package main.gameObject.item;
  * @author J Kim
  */
 public class StaminaCookie extends Item{
-	
+
+	/**
+	 * Constructor to give specification of Item {@link StaminaCookie} to super class {@link Item}
+	 */
 	public StaminaCookie() {
 		super("StaminaCookie", 30, 20, "Stamina");
 

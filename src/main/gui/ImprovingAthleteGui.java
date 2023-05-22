@@ -45,7 +45,7 @@ public class ImprovingAthleteGui implements UserInterface{
 	 * arrayList of JButton contains athlete buttons
 	 */
 	private JButton[] athleteBttn = new JButton[7];
-	/*
+	/**
 	 * index number of athlete that the player choose
 	 */
 	private int improvNum;
@@ -72,10 +72,9 @@ public class ImprovingAthleteGui implements UserInterface{
 		frmImproving.getContentPane().setLayout(null);
 		frmImproving.setVisible(true);
 		
-		/**
-		 * improve athlete that the player selected
-		 * it improves randomly all the stats
-		 */
+
+		// improve athlete that the player selected
+		// it improves randomly all the stats
 		JButton improveButton = new JButton("Improve!");
 		improveButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -97,9 +96,7 @@ public class ImprovingAthleteGui implements UserInterface{
 		improveButton.setBounds(885, 716, 412, 127);
 		frmImproving.getContentPane().add(improveButton);
 		
-		/**
-		 * button to start next week
-		 */
+		//button to start next week
 		JButton startNxtWkBttn = new JButton("Start Next Week!!");
 		startNxtWkBttn.setFont(new Font("Dialog", Font.BOLD, 20));
 		startNxtWkBttn.setBounds(1280, 943, 261, 57);
@@ -111,9 +108,8 @@ public class ImprovingAthleteGui implements UserInterface{
 				gameEnvironment.openMainWindow();
 			}
 		});	
-		/**
-		 * button to select the athlete that the player will choose
-		 */
+
+		// button to select the athlete that the player will choose
 		JPanel bttnPanel = new JPanel();
 		bttnPanel.setBounds(301, 122, 457, 721);
 		frmImproving.getContentPane().add(bttnPanel);
@@ -184,25 +180,27 @@ public class ImprovingAthleteGui implements UserInterface{
 		athleteInfo.setBounds(22, 118, 366, 418);
 		setAthleteInfoPanel.add(athleteInfo);
 	}
-	/*
+
+	/**
 	 * check if the athlete from team is null.
-	 * @param type of Athlete which indicates the athlete in the arrayList
+	 * @param athlete type of Athlete which indicates the athlete in the arrayList.
+	 * @return true if the slot is empty
 	 */
 	private boolean isEmpty(Athlete athlete) {
 		if (athlete == null) { return false;}
 		else {return true;}
 	}
 	
-	/*
+	/**
 	 * close Improving athlete window ( it will be called from gameEnvironment).
 	 */
 	public void closeWindow() {
 		frmImproving.dispose();
 	}
-	/*
+
+	/**
 	 * close Improving athlete window
 	 */
-	
 	public void finishedWindow() {
 		gameEnvironment.closeImprovingWindow(this);
 	}

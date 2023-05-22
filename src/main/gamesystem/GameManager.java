@@ -50,16 +50,19 @@ public class GameManager {
      */
     private int buffOffensive, nerfOffensive, buffDefensive, nerfDefensive;
 
-
+    /**
+     * adjust opponents' athletes' offensive and defensive statistics for game play
+     * add this statistics to opponents stats to get pseudorandom number to fight
+     */
     private int opponentBuff;
 
     /**
-     * value of player and Opponent set score
+     * Represent set score
      */
     private int playerSetScore, opponentSetScore;
 
     /**
-     * value of player's and opponent's total game score
+     * Represent game score
      */
     private int playerGameScore, opponentGameScore;
 
@@ -75,7 +78,7 @@ public class GameManager {
 
     /**
      * Game Manager Constructor
-     * @param gameEnvironment Game Environment which will be interected with this class
+     * @param gameEnvironment Game Environment which will be interacted with this class
      * @param opponent Opponent team that player to play with
      * @param difficulty difficulty option to control match difficulty
      */
