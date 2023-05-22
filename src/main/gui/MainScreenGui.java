@@ -82,13 +82,27 @@ public class MainScreenGui implements UserInterface{
 	private JCheckBox swapOn;
 
 	/**
-	 *  Next three ints indicate the Athlete buttons and the item button are clicked
+	 *  Next three ints indicate the Athlete buttons is clicked
 	 *  when int is -1, button is not clicked
 	 *  when int is greater than 0(inclusive), it is clicked
-	 *  this number will be used as index number to call or swap athletes and use an item. 
+	 *  this number will be used as index number to call or swap athletes.
 	 */
 	private int athleteSwitchingNum1 = -1;
+
+	/**
+	 *  Next three ints indicate the Athlete buttons is clicked
+	 *  when int is -1, button is not clicked
+	 *  when int is greater than 0(inclusive), it is clicked
+	 *  this number will be used as index number to call or swap athletes.
+	 */
 	private int athleteSwitchingNum2 = -1;
+
+	/**
+	 *  Indicate the item button is clicked
+	 *  when int is -1, button is not clicked
+	 *  when int is greater than 0(inclusive), it is clicked
+	 *  this number will be used as index number to use an item.
+	 */
 	private int usingItemNum = -1;
 	
 	/**
@@ -128,7 +142,7 @@ public class MainScreenGui implements UserInterface{
 		setButton();
 	}
 
-	/*
+	/**
 	 * set the main frame and all the labels on main window
 	 */
 	private void setFrameLabels() {
@@ -285,7 +299,7 @@ public class MainScreenGui implements UserInterface{
 		checkInjured();
 	
 	}
-	/*
+	/**
 	 * Create the panel for item in player's inventory
 	 */
 	private void setItemPanel(){
@@ -334,9 +348,10 @@ public class MainScreenGui implements UserInterface{
 				selectingResetItemSlots(9);}});
 		}
 
-	/*
+	/**
 	 * when the swapOn switch is ON, swap two athletes when player click two athletes and refresh screen to show changes and cancel clicked toggle buttons
 	 * if swapOn switch is off, just show the clicked athlete's information
+	 * @param slotNum type of integer which indicate slot number of ArrayList
 	 */
 	private void swapAthleteSlots(int slotNum) {
 		if (swapOn.isSelected()) {
@@ -362,9 +377,9 @@ public class MainScreenGui implements UserInterface{
 		}
 	
 	}
-	/*
+	/**
 	 * this is help function to implement cancelItemToggle() method and assign slot number that player clicked
-	 * @param the type of int that indicate slot number of arrayList
+	 * @param slotNum the type of int that indicate slot number of arrayList
 	 */
 	private void selectingResetItemSlots(int slotNum) {
 			cancelItemToggle();
@@ -388,7 +403,7 @@ public class MainScreenGui implements UserInterface{
 	
 	
 
-	/*
+	/**
 	 * update screen with the latest information.
 	 * there is a chance to have random event
 	 */
@@ -411,7 +426,7 @@ public class MainScreenGui implements UserInterface{
 		isRandomEvent();
 	}
 	
-	/*
+	/**
 	 * this is help fuction to cancel all the athlete toggle buttons and reset athlete index number
 	 */
 	private void cancelAthleteToggle() {
@@ -420,7 +435,7 @@ public class MainScreenGui implements UserInterface{
 		athleteSwitchingNum1 = -1;
 		athleteSwitchingNum2 = -1;
 	}
-	/*
+	/**
 	 * this is help fuction to cancel all the item toggle buttons and reset item index number
 	 */
 	private void cancelItemToggle() {
@@ -430,7 +445,7 @@ public class MainScreenGui implements UserInterface{
 		usingItemNum = -1;
 	}
 
-	/*
+	/**
 	 * set buttons on main screen
 	 */
 	private void setButton() {
@@ -531,7 +546,7 @@ public class MainScreenGui implements UserInterface{
 		
 	}
 	
-	/*
+	/**
 	 * set the information panel for athlete and item on main screen
 	 */
 	private void setAthleteItemInfoPanel() {
@@ -569,7 +584,7 @@ public class MainScreenGui implements UserInterface{
 		setItemInfoPanel.add(itemDescriptionLabel);
 	}
 
-	/*
+	/**
 	 * create an option panel to ask whether the player really wants to move to next week.
 	 * if the player can't do more game or weeks are finished or just wants to quit, show game over window
 	 */
@@ -589,20 +604,22 @@ public class MainScreenGui implements UserInterface{
 	 *check if the player really wants to quit this game without finishing.
 	 */
 	private void checkingGameOver() {
-	    	Object[] options2 = { "Finish this game", "Try bit more!" };
-	    	JPanel panel2 = new JPanel(); 
-	    	panel2.add(new JLabel("<html>You didn't have a match for this week,<br/> Are you sure you really want to finish this game???</html>"));
-	    	int result2 = JOptionPane.showOptionDialog(null, panel2, "Can you not play more??",
-	    	        JOptionPane.DEFAULT_OPTION, JOptionPane.YES_NO_OPTION, null,
-	    	        options2, null);
-	        	if (result2 == JOptionPane.YES_NO_OPTION) {	
-	    			finishedWindow();
-	    			gameEnvironment.openGameOverWindow();
-	    	}
-	    }
+		Object[] options2 = { "Finish this game", "Try bit more!" };
+		JPanel panel2 = new JPanel();
+		panel2.add(new JLabel("<html>You didn't have a match for this week,<br/> Are you sure you really want to finish this game???</html>"));
+		int result2 = JOptionPane.showOptionDialog(null, panel2, "Can you not play more??",
+				JOptionPane.DEFAULT_OPTION, JOptionPane.YES_NO_OPTION, null,
+				options2, null);
+		if (result2 == JOptionPane.YES_NO_OPTION) {
+			finishedWindow();
+			gameEnvironment.openGameOverWindow();
+		}
+	}
+
 	/**
 	 * check if the randome event has occured.
 	 * if it hasn't occured, make athlete randomly leave from the player's team.
+	 * @return true if event is occurred
 	 */
 	private boolean isRandomEvent() {
 		boolean happened =false;
@@ -625,7 +642,7 @@ public class MainScreenGui implements UserInterface{
 		return happened;
 	}
 	
-	/*
+	/**
 	 * create an option panel to ask whether the player really wants to quit the game or not
 	 */
 	private void exitBox() {
@@ -641,7 +658,7 @@ public class MainScreenGui implements UserInterface{
 	}
 
 	
-	/*
+	/**
 	 * create panel to notify the player that some athlete has left. This is random occasion.
 	 */
 	private void athleteRandomLeft() {
@@ -651,7 +668,7 @@ public class MainScreenGui implements UserInterface{
 	        JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null,
 	        null, null);
 	}
-	/*
+	/**
 	 * create panel to notify the player that some athlete joined the team. This is random occasion.
 	 */
 	private void athleteRandomJoin() {
@@ -661,7 +678,8 @@ public class MainScreenGui implements UserInterface{
 	        JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null,
 	        null, null);
 	}
-	/*
+
+	/**
 	 * create panel to notify the player that some athlete has left. This is random occasion.
 	 */
 	private void athleteRandomUpgrade() {
@@ -671,13 +689,15 @@ public class MainScreenGui implements UserInterface{
 	        JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null,
 	        null, null);
 	}
-	/*
+
+	/**
 	 * close Main window ( it will be called from gameEnvironment)
 	 */
 	public void closeWindow() {
 		frmMainWindow.dispose();
 	}
-	/*
+
+	/**
 	 * close Main window
 	 */
 	public void finishedWindow() {

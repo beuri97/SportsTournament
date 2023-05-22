@@ -63,7 +63,6 @@ public class Market {
 	 * Represent kinds of {@link main.gameObject.item.Item Items}.
 	 * This will be used to generate items randomly.
 	 * @author H Yang
-	 *
 	 */
 	enum Items {
 
@@ -132,12 +131,13 @@ public class Market {
 
 	/**
 	 * get Athlete stocks
-	 * @return athletes
+	 * @return athletes array
 	 */
 	public Product[] getAthleteProduct() {
 
 		return this.products[0];
 	}
+
 	/**
 	 * get Item stocks
 	 * @return Items
@@ -149,6 +149,7 @@ public class Market {
 
 	/**
 	 * set Athlete stocks
+	 * @param slots An array to fill in the players
 	 */
 	public void setAthleteProduct(Product[] slots) {
 

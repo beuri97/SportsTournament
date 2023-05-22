@@ -7,68 +7,90 @@ import main.gameObject.Product;
  * @author J Kim
  */
 public class Item implements Product{
+
+	/**
+	 * Name Of Item
+	 */
 	private String name;
+
+	/**
+	 * price of the item
+	 */
 	private float buyPrice;
-	private int incAmount;
-	private String incStat;
+
+	/**
+	 * amount of incremental stats
+	 */
+	private int increaseAmount;
+
+	/**
+	 * types of incremented stats
+	 */
+	private String increaseStat;
 	
 	/**
-	 * 
-	 * @param name  - name of Item
-	 * @param buyPrice - price to buy
-	 * @param incAmount - the amount increasing specific stat by item
-	 * @param incStat - the stat which will be increased by item
+	 * Item constructor to construct various kind of items.
+	 * @param name name of Item
+	 * @param buyPrice price to buy
+	 * @param incAmount the amount increasing specific stat by item
+	 * @param increaseStat the stat which will be increased by item
 	 */
-	public Item(String name, float buyPrice, int incAmount, String incStat) {
+	public Item(String name, float buyPrice, int incAmount, String increaseStat) {
 		this.name = name;
 		this.buyPrice = buyPrice;
-		this.incAmount = incAmount;
-		this.incStat = incStat;
+		this.increaseAmount = incAmount;
+		this.increaseStat = increaseStat;
 		
 	}
 	
 	/**
-	 * @return the name of item
+	 * return name of this item
+	 * @return String value about the name of item
 	 */
 	public String getName() {
 		
 		return name;
 	}
 	/**
-	 * @return the price of item to buy
+	 * return price of this product
+	 * @return float value about the price of item to buy or sell
 	 */
 	public float getPrice() {
 	
 		return buyPrice;
 	}
 	/**
-     *
+     * convert to selling price after purchase
      */
 	public void setSellPrice() {
 		buyPrice *= SELL_PRICE_PENALTY;
 	}
+
 	/**
-	 * @return the amount increasing specific stat by item
+	 * return incremental amount information of the item
+	 * @return integer value about amount of increasing specific stat by item
 	 */
-	public int getIncAmount() {
+	public int getIncreaseAmount() {
 		
-		return incAmount;
+		return increaseAmount;
 	}
 	/**
-	 * @return the stat which will be increased by item
+	 * return incremental stat information of the item
+	 * @return String value about the stat which will be increased by item
 	 */
-	public String getIncStat() {
+	public String getIncreaseStat() {
 		
-		return incStat;
+		return increaseStat;
 	}
 
 	/**
+	 * Return full spec information about item
 	 * @return description of item
 	 */
 	public String toString() {
 		
 		return String.format("item: %s%nEffect: %s +%d%nprice: %.2f%n%n", 
-				this.name, this.incStat, this.incAmount, this.buyPrice);
+				this.name, this.increaseStat, this.increaseAmount, this.buyPrice);
 	}
 	
 }
