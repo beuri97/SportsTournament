@@ -100,10 +100,7 @@ public class MainScreenGui implements UserInterface{
 	/**
 	 * boolean value that shows if there was random athlete upgrade event
 	 */
-	private boolean isRandomUpgrade;
-	
-	private int testInt;
-	
+	private boolean isRandomUpgrade;	
 	
 	/**
 	 * MainScreen constructor to create main window
@@ -255,12 +252,14 @@ public class MainScreenGui implements UserInterface{
 		athleteBttns[6].addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {swapAthleteSlots(6);}});	
 		
-		
+		//when clicking swapOn button, it refresh the buttons clicked.
 		swapOn = new JCheckBox("Swap ON");
 		swapOn.setBounds(847, 370, 128, 23);
 		frmMainWindow.getContentPane().add(swapOn);
 		swapOn.addActionListener(event -> {
 			refreshWindow();
+			athleteSwitchingNum1 = -1;
+			athleteSwitchingNum2 = -1;
 		});
 		/**
 		 * make the labels for Athletes' name
@@ -495,11 +494,10 @@ public class MainScreenGui implements UserInterface{
 					gameEnvironment.useItem(athleteSwitchingNum2, usingItemNum);
 					athleteDescriptionLabel.setText(printing(myRoster[athleteSwitchingNum2]));
 					itemDescriptionLabel.setText("Item is used! Check the difference!!");}
-				
+				else {noticeLabel.setText("Please Click one athlete and one item for each ");}
 				refreshWindow();
 				cancelAthleteToggle();
 				cancelItemToggle();	
-				usingItemNum = -1;	
 			}
 		});
 		itemUseButton.setFont(new Font("Lucida Grande", Font.PLAIN, 20));

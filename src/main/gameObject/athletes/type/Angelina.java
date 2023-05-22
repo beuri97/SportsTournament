@@ -41,6 +41,6 @@ public class Angelina extends Athlete {
         	super.price = 4500.00f;
         	break;
         }
-        super.athleteFacePhoto = new ImageIcon(getClass().getResource("/Images/AngelinaF.jpg"));
+        super.athleteFacePhoto = new ImageIcon(getClass().getResource("/Images/Angelina.jpg"));
     }
 }

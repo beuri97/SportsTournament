@@ -13,6 +13,7 @@ import javax.swing.border.LineBorder;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.*;
+import java.util.Date;
 /**
  * Class to create Stadium window in the game
  * @author Joshua K
@@ -109,8 +110,10 @@ public class StadiumGui implements UserInterface{
 	 * the battle photo for only the opponent athlete won
 	 */
 	private final ImageIcon rightWon = new ImageIcon(getClass().getResource("/Images/RightWon.jpg"));
-
-	
+	/**
+	 * the stanby photo when the player is waiting for the result
+	 */
+	private final ImageIcon standby = new ImageIcon(getClass().getResource("/Images/Standby.jpg"));
 
 
 	/**
@@ -194,7 +197,7 @@ public class StadiumGui implements UserInterface{
 		battlePhoto.setHorizontalAlignment(SwingConstants.CENTER);
 		battlePhoto.setBounds(465, 176, 700, 338);
 		frmStadium.getContentPane().add(battlePhoto);
-		
+		battlePhoto.setIcon(standby);
 	}
 	/*
 	 * set player's athlete and opponent's athlete panels with recent information
@@ -289,6 +292,8 @@ public class StadiumGui implements UserInterface{
 	 */
 	
 	private void getBuffStat() {
+		battlePhoto.setIcon(standby);
+		gameResultLabel.setText("Athlete is ready!!");
 		Athlete current = myRoster[setNum-1];
 		currentStatBuffLabel.setText(String.format("<html> Name : %s <br/>"
 				+ "Original Offense Stat : %d <br/>"
@@ -376,11 +381,21 @@ public class StadiumGui implements UserInterface{
 		fightBttn = new JButton("Fight");
 		fightBttn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				gameEnvironment.battleSequences();
-				gameResultLabel.setText(printing(gameEnvironment.getBattleMessage()));
-				refreshWindow();	
-				gameEnvironment.isSet();
-				showBattlePhoto();
+
+				try {
+					fightBttn.setEnabled(false);
+					
+					Thread.sleep(400);
+					fightBttn.setEnabled(true);
+					gameEnvironment.battleSequences();
+					gameResultLabel.setText(printing(gameEnvironment.getBattleMessage()));
+					refreshWindow();	
+					gameEnvironment.isSet();
+					showBattlePhoto();
+				}
+				catch(InterruptedException ex) {
+					currentStatBuffLabel.setText(ex.getMessage());
+				}
 				
 				//if the game is finished, disable the gaming buttons and show the result of game on description label
 				if (gameEnvironment.isGame()) {
