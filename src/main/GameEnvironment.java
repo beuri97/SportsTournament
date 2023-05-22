@@ -435,9 +435,10 @@ public class GameEnvironment {
 					temp.add(athlete);}
 		}}
 		if (temp.size() ==0) {return false;}
-		else
+		else {
 			team.leaveAthletes(temp.get(SetUp.randomInt(0, temp.size())));
 			return true;
+		}
 	}
 	
 	/**
@@ -472,10 +473,11 @@ public class GameEnvironment {
 	 */
 	public boolean randomNewAthlete() {
 
+		Product athlete = market.athleteBuilder();
 		boolean result = false;
 		// event trigger
 		float percentage = 1.33f;
-		if (setup.event(percentage) && !this.getTeam().isFull()) {
+		if (setup.event(percentage) && !this.getTeam().isFull(athlete)) {
 			this.team.recruitAthletes(market.athleteBuilder());
 			result = true;
 		}
