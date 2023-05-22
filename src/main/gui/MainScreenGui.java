@@ -13,6 +13,7 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.LineBorder;
 
 import main.GameEnvironment;
+import main.Gui;
 import main.UserInterface;
 
 import javax.swing.JToggleButton;
@@ -27,11 +28,8 @@ import javax.swing.JCheckBox;
  * class for Main window after setup
  * @author J Kim
  */
-public class MainScreenGui implements UserInterface{
-	/**
-	 * game environment which has all of this game system
-	 */
-	private GameEnvironment gameEnvironment;
+public class MainScreenGui extends Gui {
+
 	/**
 	 * frame for the main window
 	 */
@@ -123,7 +121,7 @@ public class MainScreenGui implements UserInterface{
 	 * @param gameEnvironment game environment which is core of this program
 	 */
 	public  MainScreenGui(GameEnvironment gameEnvironment) {
-		this.gameEnvironment = gameEnvironment;
+		super.gameEnvironment = gameEnvironment;
 		this.myRoster = gameEnvironment.getTeam().getRoster();
 		this.myInventory = gameEnvironment.getTeam().getInventory();
 		setup(gameEnvironment);

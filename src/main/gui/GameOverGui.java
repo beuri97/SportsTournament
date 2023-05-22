@@ -7,6 +7,7 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 import main.GameEnvironment;
+import main.Gui;
 import main.UserInterface;
 
 import java.awt.Font;
@@ -17,7 +18,7 @@ import java.awt.event.ActionEvent;
  * @author Joshua K
  *
  */
-public class GameOverGui implements UserInterface{
+public class GameOverGui extends Gui {
 	/**
 	 * Frame for GameOver Window
 	 */
@@ -37,6 +38,7 @@ public class GameOverGui implements UserInterface{
 	 * @param gameEnvironment game environment which is core of this program
 	 */
 	public void setup(GameEnvironment gameEnvironment) {
+		super.gameEnvironment = gameEnvironment;
 		frmGameover = new JFrame();
 		frmGameover.setSize(1650,1080);
 		frmGameover.setLocation((1925 - frmGameover.getWidth()) / 2, (1080 - frmGameover.getHeight()) / 2);
@@ -75,11 +77,11 @@ public class GameOverGui implements UserInterface{
 		resultDescriptionPanel.add(finalResultLabel);
 		
 		//the week that the player stopped
-		int lastSeason = gameEnvironment.getCurrentSeason();
+		int lastSeason = super.gameEnvironment.getCurrentSeason();
 		//the week that the player chosen at the start
-		int totalSeason = gameEnvironment.getTotalSeason();
+		int totalSeason = super.gameEnvironment.getTotalSeason();
 		//the game result as arrayList contains how many matches the player had and how many victories the player had
-		int[] playerOverall = gameEnvironment.getPlayerOverall();
+		int[] playerOverall = super.gameEnvironment.getPlayerOverall();
 		//the percentage of victory
 		float rate = (playerOverall[1] != 0) ? (float)(playerOverall[0]/playerOverall[1])*100 : 0;
 		finalResultLabel.setText(String.format("<html> You played %d week(s) out of %d weeks%n <br/><br/> "
@@ -87,7 +89,7 @@ public class GameOverGui implements UserInterface{
 								+ "Your game difficulty was %s <br/> "
 								+ "You Played %d you won %d <br/>"
 								+ "Your percentage of victory is %.2f <br/>"
-								+ "Thank You For Playing!!!</html>",lastSeason, totalSeason, gameEnvironment.getDifficulty()
+								+ "Thank You For Playing!!!</html>",lastSeason, totalSeason, super.gameEnvironment.getDifficulty()
 								,playerOverall[1], playerOverall[0], rate));
 		
 

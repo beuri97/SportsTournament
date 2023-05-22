@@ -10,6 +10,7 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.LineBorder;
 
 import main.GameEnvironment;
+import main.Gui;
 import main.UserInterface;
 import main.gameObject.Product;
 import main.gameObject.athletes.Athlete;
@@ -33,12 +34,7 @@ import javax.swing.*;
  * class for Market window in the game
  * @author J Kim
  */
-public class MarketGui implements UserInterface{
-
-	/**
-	 * game environment which has all of this game system
-	 */
-	private GameEnvironment gameEnvironment;
+public class MarketGui extends Gui {
 
 	/**
 	 * frame for the market window
@@ -152,7 +148,7 @@ public class MarketGui implements UserInterface{
 	 * @param gameEnvironment game environment which is core of this program
 	 */
 	public MarketGui(GameEnvironment gameEnvironment) {
-		this.gameEnvironment = gameEnvironment;
+		super.gameEnvironment = gameEnvironment;
 		this.athleteList = gameEnvironment.getMarket().getAthleteProduct();
 		this.itemList = gameEnvironment.getMarket().getItemProduct();
 		this.myRoster = gameEnvironment.getTeam().getRoster();
