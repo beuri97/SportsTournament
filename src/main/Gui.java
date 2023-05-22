@@ -1,5 +1,9 @@
 package main;
 
+/**
+ * Super class Gui to inherit subclass gui
+ * @author H Yang
+ */
 public abstract class Gui implements UserInterface{
 
     /**
