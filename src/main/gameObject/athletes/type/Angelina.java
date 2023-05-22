@@ -4,8 +4,15 @@ import javax.swing.ImageIcon;
 
 import main.gameObject.athletes.Athlete;
 
+/**
+ * Class to define specific information/specification about athlete Angelina
+ * @author H Yang
+ */
 public class Angelina extends Athlete {
 
+	/**
+	 * Construct specification about Athlete Angelina.
+	 */
     public Angelina() {
 
         super("Angelina Jolie", "I am pretty much warlike person!");

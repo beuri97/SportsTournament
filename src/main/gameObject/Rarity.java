@@ -11,9 +11,30 @@ import java.util.Random;
  *
  */
 public enum Rarity {
-	
-	NORMAL("N"), RARE("R"), SUPER_RARE("SR"), SUPER_SUPER_RARE("SSR");
-			
+
+	/**
+	 * Represent Normal rarity of Athletes
+	 */
+	NORMAL("N"),
+
+	/**
+	 * Represent Rare rarity of Athletes
+	 */
+	RARE("R"),
+
+	/**
+	 * Represent Super-Rare rarity of Athletes
+	 */
+	SUPER_RARE("SR"),
+
+	/**
+	 * Represent Super-Super-Rare rarity of Athletes
+	 */
+	SUPER_SUPER_RARE("SSR");
+
+	/**
+	 * Initial representation about rarity
+	 */
 	public final String string;
 		
 	/**
