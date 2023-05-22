@@ -25,6 +25,9 @@ import java.awt.event.ActionEvent;
  * @author J Kim
  */
 public class ImprovingAthleteGui implements UserInterface{
+	/**
+	 * game environment which has all of this game system
+	 */
 	private GameEnvironment gameEnvironment;
 	/**
 	 * Frame for Improving Athlete window
@@ -50,7 +53,7 @@ public class ImprovingAthleteGui implements UserInterface{
 	/**
 	 * setup information for Improving Athlete window
 	 * when the player take a bye and go to next week, the system will ask the player choose a player to improve stats.
-	 * 
+	 * @param gameEnvironment game environment which is core of this program
 	 */
 	public ImprovingAthleteGui(GameEnvironment gameEnvironment) {
 		this.gameEnvironment = gameEnvironment;
@@ -60,6 +63,7 @@ public class ImprovingAthleteGui implements UserInterface{
 
 	/**
 	 * Setup Frame to show Athlete and information to make the player to select.
+	 * @param gameEnvironment game environment which is core of this program
 	 */
 	public void setup(GameEnvironment gameEnvironment) {
 		frmImproving = new JFrame();
@@ -182,6 +186,7 @@ public class ImprovingAthleteGui implements UserInterface{
 	}
 	/*
 	 * check if the athlete from team is null.
+	 * @param type of Athlete which indicates the athlete in the arrayList
 	 */
 	private boolean isEmpty(Athlete athlete) {
 		if (athlete == null) { return false;}
