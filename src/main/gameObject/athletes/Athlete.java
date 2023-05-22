@@ -56,12 +56,7 @@ public class Athlete implements Product{
      * athletes' injured status will be true if stamina is less than or equal to 0
      */
     protected boolean injured;
-    
-    /**
-     * athletes' image
-     */
-    protected ImageIcon athletePhoto;
-    
+
     /**
      * athletes' face image
      */
@@ -94,7 +89,7 @@ public class Athlete implements Product{
 
     /**
      * get athlete's rarity in string
-     * return athlete's rarity
+     * @return String value about athlete's rarity
      */
     public String getRarity() { return this.rarity.string; }
 
@@ -111,11 +106,16 @@ public class Athlete implements Product{
     public int getDefenseStat() {return this.defenseStat;}
 
     /**
-     * @return get athletes' stamina
+     * Get method to get athletes' current stamina
+     * @return int value about athletes' current stamina
      */
     public int getStamina() {return this.stamina;}
 
 
+    /**
+     * get method to get athletes' maximum stamina
+     * @return int value about athletes' maximum stamina
+     */
     public int getMaxStamina() {
 
         return maxStamina;
@@ -131,8 +131,9 @@ public class Athlete implements Product{
     public float getPrice() {return this.price;}
 
     /**
-     *
-     * @return
+     * get Athletes' summarized specification. This returns athlete's name, offensive Stat, defensive stat, stamina,
+     * total stamina and String 'Yes' if athlete is injured. 'no' otherwise.
+     * @return String value about summarized specification about athletes.
      */
     public String getAthleteSummary() {
 
