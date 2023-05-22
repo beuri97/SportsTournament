@@ -28,7 +28,9 @@ import javax.swing.JCheckBox;
  * @author J Kim
  */
 public class MainScreenGui implements UserInterface{
-	
+	/**
+	 * game environment which has all of this game system
+	 */
 	private GameEnvironment gameEnvironment;
 	/**
 	 * frame for the main window
@@ -104,6 +106,7 @@ public class MainScreenGui implements UserInterface{
 	
 	/**
 	 * MainScreen constructor to create main window
+	 * @param gameEnvironment game environment which is core of this program
 	 */
 	public  MainScreenGui(GameEnvironment gameEnvironment) {
 		this.gameEnvironment = gameEnvironment;
@@ -114,6 +117,7 @@ public class MainScreenGui implements UserInterface{
 
 	/**
 	 * setup the main window
+	 * @param gameEnvironment game environment which is core of this program
 	 */
 	public void setup(GameEnvironment gameEnvironment) {
 		
@@ -360,6 +364,7 @@ public class MainScreenGui implements UserInterface{
 	}
 	/*
 	 * this is help function to implement cancelItemToggle() method and assign slot number that player clicked
+	 * @param the type of int that indicate slot number of arrayList
 	 */
 	private void selectingResetItemSlots(int slotNum) {
 			cancelItemToggle();

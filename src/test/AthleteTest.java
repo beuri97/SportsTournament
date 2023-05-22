@@ -8,38 +8,58 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.RepeatedTest;
 
 import main.gameObject.athletes.Athlete;
+import main.gameObject.item.Item;
 import main.gamesystem.Market;
+import main.GameEnvironment;
+import main.UserInterface;
 
 import org.junit.jupiter.api.AfterEach;
 
 
 
 /**
- * JUnit Test for classes Athlete 
+ * JUnit Test for classes Market class, Athlete class and Item class
  * @author J Kim
  *
  */
 public class AthleteTest {
+	UserInterface ui;
+	GameEnvironment testEnvironment;
 	Athlete testAthlete;
+	Market testMarket;
+	Item testItem;
 	
 	@BeforeEach
 	void getRadomAthlete() {
-		Market testMarket = new Market();
+		
+		testEnvironment = new GameEnvironment(ui);
+		testMarket = new Market();
 		Random pickNum = new Random();
-		int num = pickNum.nextInt(0, 4);
+		int num = pickNum.nextInt(0, 6);
 		testAthlete = (Athlete) testMarket.purchase(testMarket.getAthleteProduct(),num);
 		System.out.println("testAthlete is : " + testAthlete);
-	
 	}
+	
+	@BeforeEach
+	void getRandomitem() {
+		testMarket = new Market();
+		Random pickNum = new Random();
+		int num = pickNum.nextInt(0, 8);
+		testItem = (Item) testMarket.purchase(testMarket.getItemProduct(), num);
+		System.out.println("testAthlete is : " + testItem);
+	}
+	@BeforeEach
 	
 	@RepeatedTest(value = 1000)
 	void testSellPrice() {
 		double before = testAthlete.getPrice();
-		System.out.println(before);
+		System.out.println(before*0.7);
 		testAthlete.setSellPrice();
 		double after = testAthlete.getPrice();
 		System.out.println(after);
 		assertEquals(before*0.7, after);
+		
+		
 	}
 
 	@AfterEach

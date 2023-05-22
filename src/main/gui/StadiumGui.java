@@ -121,6 +121,7 @@ public class StadiumGui implements UserInterface{
 
 	/**
 	 * Create the application.
+	 * @param gameEnvironment game environment which is core of this program
 	 */
 	public StadiumGui(GameEnvironment gameEnvironment) {
 		this.gameEnvironment = gameEnvironment;
@@ -134,6 +135,7 @@ public class StadiumGui implements UserInterface{
 
 	/**
 	 * Initialize the contents of the frame.
+	 * @param gameEnvironment game environment which is core of this program
 	 */
 	public void setup(GameEnvironment gameEnvironment) {
 		setFrame();
@@ -276,6 +278,7 @@ public class StadiumGui implements UserInterface{
 	}
 	/*
 	 * change the font color of athlete's information if he is on the match.
+	 * @param the type of int which indicates the slot number of arrayList.
 	 */
 	private void showActive(int athlete) {
 		//change back to black font color after match

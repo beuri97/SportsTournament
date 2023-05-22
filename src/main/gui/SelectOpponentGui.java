@@ -18,7 +18,9 @@ import java.awt.event.ActionEvent;
  * @author J Kim
  */
 public class SelectOpponentGui implements UserInterface{
-	
+	/**
+	 * game environment which has all of this game system
+	 */
 	private GameEnvironment gameEnvironment;
 	/**
 	 * frame for selecting opponent window
@@ -43,6 +45,7 @@ public class SelectOpponentGui implements UserInterface{
 
 	/**
 	 * Selecting opponent window constructor
+	 * @param gameEnvironment game environment which is core of this program
 	 */
 	public SelectOpponentGui(GameEnvironment gameEnvironment) {
 		this.gameEnvironment = gameEnvironment;
@@ -52,6 +55,7 @@ public class SelectOpponentGui implements UserInterface{
 
 	/**
 	 * Initialize the contents of the frame.
+	 * @param gameEnvironment game environment which is core of this program
 	 */
 	public void setup(GameEnvironment gameEnvironment) {
 		frmSelectingOpponent = new JFrame();
