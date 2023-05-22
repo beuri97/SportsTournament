@@ -367,14 +367,13 @@ public class GameEnvironment {
 	}
 
 	/**
-	 *get player's and opponent's game score from gameManager
+	 * get player's and opponent's game score retul from gameManager
 	 * @return integer values about player's game score and opponents' game score in integer array
 	 */
 	public int[] matchResult() {
 
 		int playerScore = gameManager.getPlayerGameScore();
 		int opponentScore = gameManager.getOpponentGameScore();
-		if(playerScore > opponentScore) this.team.setGameWin();
 		return new int[] {playerScore, opponentScore};
 	}
 
@@ -390,7 +389,7 @@ public class GameEnvironment {
 	}
 
 	/**
-	 * reduce athlete stamina
+	 * Closing match
 	 * @param money money that player earned after match
 	 * @param lose value should be true if player lose the game.
 	 */
@@ -398,6 +397,9 @@ public class GameEnvironment {
 
 		team.setMoney(money);
 		setup.reducedStamina(getTeam().getRoster(), lose);
+		int playerScore = gameManager.getPlayerGameScore();
+		int opponentScore = gameManager.getOpponentGameScore();
+		if(playerScore > opponentScore) team.setGameWin();
 	}
 
 	/**
