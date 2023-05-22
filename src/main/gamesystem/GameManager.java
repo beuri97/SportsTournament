@@ -57,12 +57,12 @@ public class GameManager {
     private int opponentBuff;
 
     /**
-     * value of player and Opponent set score
+     * Represent set score
      */
     private int playerSetScore, opponentSetScore;
 
     /**
-     * value of player's and opponent's total game score
+     * Represent game score
      */
     private int playerGameScore, opponentGameScore;
 

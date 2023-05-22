@@ -48,7 +48,6 @@ public class AthleteTest {
 		testItem = (Item) testMarket.purchase(testMarket.getItemProduct(), num);
 		System.out.println("testAthlete is : " + testItem);
 	}
-	@BeforeEach
 	
 	@RepeatedTest(value = 1000)
 	void testSellPrice() {

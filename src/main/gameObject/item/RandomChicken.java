@@ -8,8 +8,14 @@ import java.util.*;
  */
 public class RandomChicken extends Item{
 
+	/**
+	 * arrayList that options of stat which athletes has, will be added
+	 */
 	private static ArrayList<String> statList = new ArrayList<String>();
 
+	/**
+	 * Constructor to give specification of Item {@link RandomChicken} to super class {@link Item}
+	 */
 	public RandomChicken() {
 		super("RandomChicken", 100, getRandomAmount(), getRandomStat());
 
