@@ -17,7 +17,8 @@ import main.gameObject.athletes.Athlete;
 
 
 /**
- * JUnit Test for
+ * This JUnit class will be run when AthleteTest class runs.
+ * JUnit Test for Team class
  * @author J Kim
  *
  */
@@ -26,7 +27,6 @@ class TeamTest {
 	
 	UserInterface ui = null;
 	GameEnvironment ge;
-	
 	Team testTeam;
 	Random pickNum = new Random();
 	Market testMarket;
@@ -83,8 +83,8 @@ class TeamTest {
 			}}
 		assertEquals(5, count);
 		//check if the team is full
-//		assertFalse(team.isFull(getRadomAthlete()));
-		assertFalse(team.isFull());
+		assertFalse(team.isFull(getRadomAthlete()));
+
 		
 		team.leaveAthletes(team.getRoster()[4]);
 		
@@ -105,8 +105,7 @@ class TeamTest {
 		Team team = new Team();
 		for (int i = 0; i< 7; i++ ) {team.recruitAthletes(getRadomAthlete());}
 		//check if the team is full
-//		assertTrue(team.isFull(getRadomAthlete()));
-		assertTrue(team.isFull());
+		assertTrue(team.isFull(getRadomAthlete()));
 	}
 
 	/**
@@ -125,8 +124,7 @@ class TeamTest {
 				count +=1;
 			}}
 		assertEquals(5, count);
-//		assertFalse(team.isFull(getRandomItem()));
-		assertFalse(team.isFull());
+		assertFalse(team.isFull(getRandomItem()));
 		team.removeItem(team.getInventory()[4]);
 		
 		int count2=0;
