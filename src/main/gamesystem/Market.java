@@ -6,7 +6,6 @@ import main.gameObject.athletes.type.*;
 import java.util.Random;
 
 import main.gameObject.item.*;
-import main.gamesystem.Exception.EmptySlotException;
 
 /**
  * class for players to interact with Market
@@ -30,7 +29,24 @@ public class Market {
 	 */
 	public enum Athletes {
 
-		ANGELINA, DWAYNE, THORIN, PRODO;
+		/**
+		 * Represent Athlete Angelina. Used to generate Angelina.
+		 */
+		ANGELINA,
+		/**
+		 * Represent Athlete Dwayne. Used to generate Dwayne.
+		 */
+		DWAYNE,
+
+		/**
+		 * Represent Athlete Thorin. Used to generate Thorin.
+		 */
+		THORIN,
+
+		/**
+		 * Represent Athlete Prodo. Used to generate Prodo.
+		 */
+		PRODO;
 
 		/**
 		 * Choose Athlete kind randomly
@@ -51,7 +67,35 @@ public class Market {
 	 */
 	enum Items {
 
-		FATTY_PORK_BELLY, HIGH_DOPING_CANDY, RANDOM_CHICKEN, STAMINA_COOKIE, YUMMY_STAKE, TREAD_MILL;
+		/**
+		 * Represent Item Fatty Pork Belly. Used to generate Fatty Pork Belly
+		 */
+		FATTY_PORK_BELLY,
+
+		/**
+		 * Represent Item High Doping Candy. Used to generate High Doping Candy
+		 */
+		HIGH_DOPING_CANDY,
+
+		/**
+		 * Represent Item Random Chicken. Used to generate Random Chicken.
+		 */
+		RANDOM_CHICKEN,
+
+		/**
+		 * Represent Item Stamina Cookie. Used to generate Stamina Cookie.
+		 */
+		STAMINA_COOKIE,
+
+		/**
+		 * Represent Item Yummy Stake. Used to generate Yummy Stake.
+		 */
+		YUMMY_STAKE,
+
+		/**
+		 * Represent Item Tread Mill. Used to generate Tread Mill.
+		 */
+		TREAD_MILL;
 
 		/**
 		 * Choose Item kind randomly

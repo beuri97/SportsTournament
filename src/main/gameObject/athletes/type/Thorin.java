@@ -4,6 +4,10 @@ import javax.swing.ImageIcon;
 
 import main.gameObject.athletes.Athlete;
 
+/**
+ * Class to define specific information/specification about athlete Thorin
+ * @author H Yang
+ */
 public class Thorin extends Athlete {
 
     public Thorin (){

@@ -217,7 +217,7 @@ public class Team {
     }
 
     /**
-     * Swap the position or order of athletes
+     * Swap the position or order of athletes.
      * @param athlete1 athlete to be swapped with athlete2
      * @param athlete2 athlete to be swapped with athlete1
      */

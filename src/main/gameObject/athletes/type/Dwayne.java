@@ -4,8 +4,15 @@ import javax.swing.ImageIcon;
 
 import main.gameObject.athletes.Athlete;
 
+/**
+ * Class to define specific information/specification about athlete Dwayne
+ * @author H Yang
+ */
 public class Dwayne extends Athlete {
 
+	/**
+	 * Construct specification about Athlete Dwayne.
+	 */
     public Dwayne(){
 
         super("Dwayne Johnson",  "I am the Rock!");
