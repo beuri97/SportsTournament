@@ -111,7 +111,6 @@ public class Athlete implements Product{
      */
     public int getStamina() {return this.stamina;}
 
-
     /**
      * get method to get athletes' maximum stamina
      * @return int value about athletes' maximum stamina
@@ -120,10 +119,12 @@ public class Athlete implements Product{
 
         return maxStamina;
     }
+
     /**
      * @return get athlete's face photo
      */
     public ImageIcon getAthleteFacePhoto() {return this.athleteFacePhoto;}
+
     /**
      * show athletes' price
      * @return athletes' price

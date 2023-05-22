@@ -5,13 +5,15 @@ import javax.swing.ImageIcon;
 import main.gameObject.athletes.Athlete;
 
 /**
- * Class to define specific information/specification about athlete Thorin
+ * Class to define specific information|specification about athlete Thorin
  * @author H Yang
  */
 public class Thorin extends Athlete {
 
+	/**
+	 * Construct specification about Athlete Thorin.
+	 */
     public Thorin (){
-    	
     	super("Thorin II \"Oakenshield\"~", "This is not my kingdom!!!");
         
     	switch(super.rarity.string) {

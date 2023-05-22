@@ -10,7 +10,9 @@ import main.gameObject.athletes.Athlete;
  */
 public class Prodo extends Athlete {
 
-	//Construct specification about Athlete Prodo.
+	/**
+	 * Construct specification about Athlete Prodo.
+	 */
     public Prodo() {
 
         super("Prodo Baggins", "The ring was mine!");

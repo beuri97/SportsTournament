@@ -14,7 +14,7 @@ public class Item implements Product{
 	
 	/**
 	 * 
-	 * @param name 
+	 * @param name  - name of Item
 	 * @param buyPrice - price to buy
 	 * @param incAmount - the amount increasing specific stat by item
 	 * @param incStat - the stat which will be increased by item
