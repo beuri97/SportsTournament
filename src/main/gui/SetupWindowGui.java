@@ -51,7 +51,9 @@ public class SetupWindowGui implements UserInterface {
 	 * default difficulty level is Easy.
 	 */
 	private DifficultyOption level = DifficultyOption.EASY;
-	
+	/**
+	 * game environment which has all of this game system
+	 */
 	private GameEnvironment gameEnvironment;
 
 	/**
@@ -60,6 +62,7 @@ public class SetupWindowGui implements UserInterface {
 	public SetupWindowGui() {}
 	/**
 	 * create the setup window
+	 * @param gameEnvironment game environment which is core of this program
 	 */
 	public void setup(GameEnvironment gameEnvironment) {
 		this.gameEnvironment = gameEnvironment;

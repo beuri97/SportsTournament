@@ -34,7 +34,9 @@ import javax.swing.*;
  * @author J Kim
  */
 public class MarketGui implements UserInterface{
-	
+	/**
+	 * game environment which has all of this game system
+	 */
 	private GameEnvironment gameEnvironment;
 	/**
 	 * frame for the market window
@@ -113,6 +115,7 @@ public class MarketGui implements UserInterface{
 	
 	/**
 	 * marketGui constructor to create Market window
+	 * @param gameEnvironment game environment which is core of this program
 	 */
 	public MarketGui(GameEnvironment gameEnvironment) {
 		this.gameEnvironment = gameEnvironment;
@@ -124,6 +127,7 @@ public class MarketGui implements UserInterface{
 	}
 	/**
 	 * create market window
+	 * @param gameEnvironment game environment which is core of this program
 	 */
 	public void setup(GameEnvironment gameEnvironment) {
 		setFrameLabel();
@@ -291,6 +295,7 @@ public class MarketGui implements UserInterface{
 	/* 
 	 * function to help buying athletes
 	 * assign the athlete slot number and cancel all the toggle buttons clicked
+	 * @type of int that indicate the slot number of arrayList
 	 */
 	private void buyAthlete(int slotNum) {
 		cancelBuyAhtleteToggle();
@@ -302,6 +307,7 @@ public class MarketGui implements UserInterface{
 	/* 
 	 * function to help buying items
 	 * assign the athlete slot number and cancel all the toggle buttons clicked
+	 * @type of int that indicate the slot number of arrayList
 	 */
 	private void buyItem(int slotNum) {
 		cancelBuyItemToggle();
@@ -312,6 +318,7 @@ public class MarketGui implements UserInterface{
 	/*
 	 * Sell button is clicked, cancel all the other sell buttons,
 	 * and assign the index number of athlete list
+	 * @type of int that indicate the slot number of arrayList
 	 */
 	private void sellAthlete(int slotNum) {
 			cancelSellAthleteItemToggle();
@@ -323,6 +330,7 @@ public class MarketGui implements UserInterface{
 	/*
 	 * Sell button is clicked, cancel all the other sell buttons,
 	 * and assign the index number of item list
+	 * @type of int that indicate the slot number of arrayList
 	 */
 	private void sellItem(int slotNum) {
 			cancelSellAthleteItemToggle();

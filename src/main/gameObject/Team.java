@@ -156,7 +156,7 @@ public class Team {
             if (athlete != null && count < 4 && athlete.isInjured()) throw new InsufficientAthleteException("Detected Injured regular athletes.");
             if (athlete == null && count < 4) throw new InsufficientAthleteException();
         }
-
+ 
     }
 
     /**
