@@ -86,14 +86,35 @@ public class MarketGui implements UserInterface{
 	private Item[] myInventory;
 
 	/**
-	 * next four ints indicate Athlete buttons and item button are clicked, 
+	 * Indicate Athlete buttons is clicked,
 	 * when int is -1, button is not clicked
 	 * when int is greater than 0(inclusive), it is clicked
-	 * this number will be used as index to call athletes and item from the lists. 
+	 * this number will be used as index to call athletes from the list.
 	 */
 	int athleteBuyNum = -1;
+
+	/**
+	 * Indicate Athlete buttons is clicked,
+	 * when int is -1, button is not clicked
+	 * when int is greater than 0(inclusive), it is clicked
+	 * this number will be used as index to call athletes from the list.
+	 */
 	int athleteSellNum = -1;
+
+	/**
+	 * Indicate item button is clicked,
+	 * when int is -1, button is not clicked
+	 * when int is greater than 0(inclusive), it is clicked
+	 * this number will be used as index to call item from the list.
+	 */
 	int itemBuyNum = -1;
+
+	/**
+	 * Indicate item button is clicked,
+	 * when int is -1, button is not clicked
+	 * when int is greater than 0(inclusive), it is clicked
+	 * this number will be used as index to call item from the list.
+	 */
 	int itemSellNum = -1;
 
 	/**

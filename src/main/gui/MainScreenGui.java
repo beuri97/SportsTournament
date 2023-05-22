@@ -82,13 +82,27 @@ public class MainScreenGui implements UserInterface{
 	private JCheckBox swapOn;
 
 	/**
-	 *  Next three ints indicate the Athlete buttons and the item button are clicked
+	 *  Next three ints indicate the Athlete buttons is clicked
 	 *  when int is -1, button is not clicked
 	 *  when int is greater than 0(inclusive), it is clicked
-	 *  this number will be used as index number to call or swap athletes and use an item. 
+	 *  this number will be used as index number to call or swap athletes.
 	 */
 	private int athleteSwitchingNum1 = -1;
+
+	/**
+	 *  Next three ints indicate the Athlete buttons is clicked
+	 *  when int is -1, button is not clicked
+	 *  when int is greater than 0(inclusive), it is clicked
+	 *  this number will be used as index number to call or swap athletes.
+	 */
 	private int athleteSwitchingNum2 = -1;
+
+	/**
+	 *  Indicate the item button is clicked
+	 *  when int is -1, button is not clicked
+	 *  when int is greater than 0(inclusive), it is clicked
+	 *  this number will be used as index number to use an item.
+	 */
 	private int usingItemNum = -1;
 	
 	/**
