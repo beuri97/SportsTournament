@@ -41,6 +41,6 @@ public class Thorin extends Athlete {
         	super.price = 4700.00f;
         	break;
         }
-        super.athleteFacePhoto = new ImageIcon(getClass().getResource("/Images/ThorinF.jpg"));
+        super.athleteFacePhoto = new ImageIcon(getClass().getResource("/Images/Thorin.jpg"));
     }
 }
