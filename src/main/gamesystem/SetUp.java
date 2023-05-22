@@ -61,9 +61,10 @@ public class SetUp {
     public void refillStamina(Athlete[] athletes) {
 
         for (Athlete athlete : athletes) {
-
-            athlete.setStamina(athlete.getMaxStamina());
-        }
+        	if(athlete != null) {
+        		athlete.setStamina(athlete.getMaxStamina());
+        	}}
+     
     }
 
     /**

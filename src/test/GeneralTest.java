@@ -2,7 +2,7 @@ package test;
 
 
 
-class MarketTest {
+class GeneralTest {
 	
 
 }
