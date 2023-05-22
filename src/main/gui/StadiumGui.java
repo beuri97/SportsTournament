@@ -19,8 +19,9 @@ import java.util.Date;
  * @author Joshua K
  */
 public class StadiumGui implements UserInterface{
+
 	/**
-	 * game environment which has all of this game system
+	 * game environment which controls all of this game system
 	 */
 	private GameEnvironment gameEnvironment;
 	/**
@@ -452,6 +453,7 @@ public class StadiumGui implements UserInterface{
 		    JOptionPane.showOptionDialog(null, backToMainPanel, "Can't go back!", JOptionPane.DEFAULT_OPTION, JOptionPane.OK_OPTION, null, null, null);
 	    }   
 	}
+
 	/*
 	 * close Stadium window ( it will be called from gameEnvironment)
 	 */

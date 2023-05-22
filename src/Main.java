@@ -7,9 +7,16 @@ import main.GameEnvironment;
 import main.UserInterface;
 import main.gui.SetupWindowGui;
 
+
+/**
+ * Main Class. Whole system starts from here.
+ */
 public class Main {
 
-
+    /**
+     * Main method
+     * @param args one argument is allowed which is 'cmd' for commandline interfaces
+     */
     public static void main(String[] args) {
         
     	

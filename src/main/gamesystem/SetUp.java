@@ -69,7 +69,7 @@ public class SetUp {
     /**
      * event method to trigger random events
      * @param percentage double value representing the upper bound
-     * @return
+     * @return random double value that does not exceed 100
      */
     public boolean event(double percentage) {
 

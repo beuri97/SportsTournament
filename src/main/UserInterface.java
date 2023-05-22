@@ -70,8 +70,9 @@ public interface UserInterface {
 	}
 
 	/**
-	 *
-	 * @param athlete
+	 * Get image from Product and process.
+	 * Defined as default method because there is no image in Class Item.
+	 * @param athlete An athlete needing to return images
 	 * @return athlete face photo, if athlete is null return null
 	 */
 	default ImageIcon printingFacePhoto(Product athlete) {

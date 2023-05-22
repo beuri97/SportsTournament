@@ -23,7 +23,7 @@ public class CmdLineUi implements UserInterface {
 	private final Scanner scan;
 
 	/**
-	 * game environment which has all of this game system
+	 * game environment which controls all of this game system
 	 */
 	private GameEnvironment gameEnvironment;
 

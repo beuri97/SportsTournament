@@ -74,9 +74,10 @@ public class GameManager {
     private boolean playerScored, opponentScored;
 
     /**
-     *
      * Game Manager Constructor
-     * @param gameEnvironment main game environment system
+     * @param gameEnvironment Game Environment which will be interected with this class
+     * @param opponent Opponent team that player to play with
+     * @param difficulty difficulty option to control match difficulty
      */
     public GameManager(GameEnvironment gameEnvironment, Team opponent, DifficultyOption difficulty) {
 
@@ -119,6 +120,10 @@ public class GameManager {
         return this.opponentGameScore;
     }
 
+    /**
+     * get current set of match
+     * @return integer value about current set
+     */
     public int getSetNumber() {
 
         return setNumber;

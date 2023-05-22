@@ -5,7 +5,15 @@ package main.gamesystem;
  * @author J Kim, H Yang
  */
 public enum DifficultyOption {
+
+    /**
+     * Initial settings required when the game difficulty is easy
+     */
     EASY("Easy", 15000.00, 7000.00, 0),
+
+    /**
+     * Initial settings required when the game difficulty is Difficult
+     */
     DIFFICULT("Difficult", 12000.00, 4000.00, 1);
 
     /**
