@@ -80,6 +80,7 @@ public class GameEnvironment {
 
 	/**
 	 * Start new game by setting up Team name, number of weeks for season and difficulty of game
+	 * @param userInterface userInterface that player currently use to interact with this system
 	 */
 	public GameEnvironment(UserInterface userInterface) {
 		this.setup = new SetUp();
@@ -171,7 +172,7 @@ public class GameEnvironment {
 			case "buy":
 				Product[] properties = (stockType instanceof Athlete[]) ? this.team.getRoster() : this.team.getInventory();
 				if(stockType[col] == null) throw new EmptySlotException();
-				if(this.team.isFull()) throw new NoSpaceException();
+				if(this.team.isFull(stockType[col])) throw new NoSpaceException();
 				this.team.setMoney(- stockType[col].getPrice());
 				Product product = this.market.purchase(stockType, col);
 				if (product instanceof Athlete) {
@@ -484,9 +485,9 @@ public class GameEnvironment {
 
 		// event trigger
 		float percentage = 6.53f;
-		if (setup.event(percentage) && !this.getTeam().isFull()) {
-
-			this.team.recruitAthletes(market.athleteBuilder());
+		Product newAthlete = market.athleteBuilder();
+		if (setup.event(percentage) && !this.getTeam().isFull(newAthlete)) {
+			this.team.recruitAthletes(newAthlete);
 			result = true;
 		}
 

@@ -29,13 +29,33 @@ public class CmdLineUi implements UserInterface {
 
 	/**
 	 * A class that manages descriptions of commands to be used in the Main System
+	 * @author H Yang
 	 */
 	enum Option {
 
+		/**
+		 * Explanation about info command
+		 */
 		INFO("info - Show current game status briefly"),
+
+		/**
+		 * Explanation about market command
+		 */
 		MARKET( "market - Market to purchase, sell athletes or items"),
+
+		/**
+		 * Explanation about stadium command
+		 */
 		STADIUM("stadium - Play Game!"),
+
+		/**
+		 * Explanation about team command
+		 */
 		TEAM("team - Manage Team Here"),
+
+		/**
+		 * Explanation about exit command
+		 */
 		EXIT("exit - Terminate this game");
 
 		/**
@@ -43,6 +63,10 @@ public class CmdLineUi implements UserInterface {
 		 */
 		final String DESCRIPTION;
 
+		/**
+		 * Constructor to assign description string to DESCRIPTION
+		 * @param description command description
+		 */
 		Option(String description) {
 			this.DESCRIPTION = description;
 		}
@@ -59,23 +83,39 @@ public class CmdLineUi implements UserInterface {
 
 	/**
 	 * A class that manages descriptions of commands to be used in the market system
+	 * @author H Yang
 	 */
 	enum MarketOption {
+		/**
+		 * Description about how to input command at Market system briefly
+		 */
 		USAGE("""
 				usage
 				\tbuy -a [1-6]|-i [1-8]
 				\tsell -a [1-7]|-i ([1-9]|10)
 				\texit"""),
+
+		/**
+		 * Explanation about buy command
+		 */
 		BUY("""
 				buy - show Market stock to athletes or items
 				\toption
 				\t\t-a\tshow purchasable athlete. purchasing process will be proceed if input number is exist and valid
 				\t\t-i\tshow purchasable items. purchasing process will be proceed if input number is exist and valid"""),
+
+		/**
+		 * Explanation about sell command
+		 */
 		SELL("""
 				sell - show Team Roster and inventory to sell athletes or items
 				\toption
 				\t\t-a\tshow sellable. athlete selling process will be proceed if input number is exist and valid
 				\t\t-i\tshow sellable. items selling process will be proceed if input number is exist and valid"""),
+
+		/**
+		 * Explanation about exit command
+		 */
 		EXIT("exit - exit market");
 
 		/**
@@ -104,8 +144,13 @@ public class CmdLineUi implements UserInterface {
 
 	/**
 	 * A class that manages descriptions of commands to be used in the Team Manager System
+	 * @author H Yang
 	 */
 	enum TeamManageOption {
+
+		/**
+		 * Description about how to input command at Team Management System Briefly
+		 */
 		USAGE("""
 				usage
 				\tshow|exit
@@ -113,20 +158,36 @@ public class CmdLineUi implements UserInterface {
 				\tswap [1-7] to [1-7]
 				\texit
 				"""),
+
+		/**
+		 * Explanation about show command
+		 */
 		SHOW("""
 				show - show athlete roster and item inventory
 				"""),
+
+		/**
+		 * Explanation about use command
+		 */
 		USE("""
 				use - command to use item to athlete
 				\toption
 				\t\tnumber - 1 to 14 which is inventory index number(cardinal)
 				\t\t\t if number is valid athlete roster will be printed and play choose number to select athlete
 				"""),
+
+		/**
+		 * Explanation about swap command
+		 */
 		SWAP("""
 				swap - swap athletes' order
 				\toption
 				\t\t[1-7] to [1-7] - index number represent athletes' order
 				"""),
+
+		/**
+		 * Explanation about exit command
+		 */
 		EXIT("""
 				exit - exit team manager
 				""");
@@ -187,6 +248,7 @@ public class CmdLineUi implements UserInterface {
 	/**
 	 * set up player's team name. only accept the letter lengths between 3 and 15(inclusive)
 	 * doesn't allow to have special characters and.
+	 * @return String value about team name
 	 */
 	public String setTeamName() {
 
@@ -211,6 +273,7 @@ public class CmdLineUi implements UserInterface {
 
 	/**
 	 * set up number of weeks for season of the game between 5 and 15 (inclusive).
+	 * @return integer value about total week of season player chose.
 	 */
 	private int setWeeksForSeason() {
 
@@ -223,10 +286,8 @@ public class CmdLineUi implements UserInterface {
 				gameEnvironment.check(input, SEASON_REGEX, VALID_NUMBER);
 				// give feedback to user
 				System.out.printf("The game season set %s weeks long%n", input);
-
 				// parse input to integer and send input to gameEnvironment
 				return Integer.parseInt(input);
-
 			} catch (IllegalInputException iie) {
 
 				// catch any wrong input requirement
@@ -238,6 +299,7 @@ public class CmdLineUi implements UserInterface {
 
 	/**
 	 * set up the difficulty of the game between easy and difficult
+	 * @return {@link DifficultyOption} value about difficulty option that player chose.
 	 */
 	private DifficultyOption setDifficulty() {
 		//get array of difficulty options before system start
@@ -300,6 +362,9 @@ public class CmdLineUi implements UserInterface {
 
 	}
 
+	/**
+	 * print basic information about player's team
+	 */
 	private void getInfo() {
 		//get Team's(player's) Info
 		Team player = gameEnvironment.getTeam();

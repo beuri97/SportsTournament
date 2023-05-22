@@ -34,48 +34,57 @@ import javax.swing.*;
  * @author J Kim
  */
 public class MarketGui implements UserInterface{
+
 	/**
 	 * game environment which has all of this game system
 	 */
 	private GameEnvironment gameEnvironment;
+
 	/**
 	 * frame for the market window
 	 */
 	private JFrame frmMarket;
+
 	/**
 	 * arrayList for JToggleButton that indicates athletes buttons to buy
 	 */
 	private JToggleButton[] buyAthleteBttns = new JToggleButton[6];
+
 	/**
 	 * arrayList for JToggleButton that indicates items buttons to buy
 	 */
 	private JToggleButton[] buyItemBttns = new JToggleButton[8];
+
 	/**
 	 * arrayList for JToggleButton that indicates athletes buttons to sell
 	 */
 	private JToggleButton[] myRosterBttns = new JToggleButton[7];
+
 	/**
 	 * arrayList for JToggleButton that indicates items buttons to sell
 	 */
 	private JToggleButton[] myInventoryBttns = new JToggleButton[10];
+
 	/**
 	 * arrayList for the athletes from market
 	 */
 	private Product[] athleteList;
+
 	/**
 	 * arrayList for the items from market
 	 */
 	private Product[] itemList;
+
 	/**
 	 * arrayList for athletes that the player has
 	 */
 	private Athlete[] myRoster;
+
 	/**
 	 * arrayList for items that the player has
 	 */
 	private Item[] myInventory;
-	
-	
+
 	/**
 	 * next four ints indicate Athlete buttons and item button are clicked, 
 	 * when int is -1, button is not clicked
@@ -91,28 +100,32 @@ public class MarketGui implements UserInterface{
 	 * label to show the athlete photo
 	 */
 	private JLabel athletePhoto;
+
 	/**
 	 * label to show warning when the player does not perform correctly
 	 */
 	private JLabel warningLabel;
+
 	/**
 	 * label to show the description item
 	 */
 	private JLabel athleteDescriptionLabel;
+
 	/**
 	 * label to show the description of item
 	 */
 	private JLabel itemDescriptionLabel;
+
 	/**
 	 * label to show money player has 
 	 */
 	private JLabel moneyLabel;
+
 	/**
 	 * label to show the description of athlete/item to sell
 	 */
 	private JLabel sellDescriptionLabel;
-	
-	
+
 	/**
 	 * marketGui constructor to create Market window
 	 * @param gameEnvironment game environment which is core of this program
@@ -125,6 +138,7 @@ public class MarketGui implements UserInterface{
 		this.myInventory = gameEnvironment.getTeam().getInventory();
 		setup(gameEnvironment);
 	}
+
 	/**
 	 * create market window
 	 * @param gameEnvironment game environment which is core of this program
@@ -138,7 +152,7 @@ public class MarketGui implements UserInterface{
 		setButton();
 	}
 
-	/*
+	/**
 	 * set the frame with labels
 	 */
 	private void setFrameLabel() {
@@ -176,7 +190,8 @@ public class MarketGui implements UserInterface{
 		frmMarket.getContentPane().add(athletePhoto);
 
 	}
-	/*
+
+	/**
 	 * set the panel to show available athletes in market
 	 */
 	private void setBuyAthletePanel() {
@@ -219,7 +234,8 @@ public class MarketGui implements UserInterface{
 			public void actionPerformed(ActionEvent e) {buyAthlete(5);}});
 		
 	}
-	/*
+
+	/**
 	 * set the panel to show available items in market
 	 */
 	private void setBuyItemsPanel() {
@@ -270,21 +286,23 @@ public class MarketGui implements UserInterface{
 			public void actionPerformed(ActionEvent e) {buyItem(7);}});
 		}
 	
-	/*
+	/**
 	 * cancel all toggle buttons for buying athlete
 	 */
 	private void cancelBuyAhtleteToggle() {
 		for (int i = 0; i < athleteList.length; i++) {buyAthleteBttns[i].setSelected(false);}
 		warningLabel.setText(null);
 	}
-	/*
+
+	/**
 	 * cancel all toggle buttons for buying item
 	 */
 	private void cancelBuyItemToggle() {
 		for (int i = 0; i < itemList.length; i++) {buyItemBttns[i].setSelected(false);}
 		warningLabel.setText(null);
 	}
-	/*
+
+	/**
 	 * cancel all toggle buttons for selling athletes and items
 	 */
 	private void cancelSellAthleteItemToggle() {
@@ -292,10 +310,11 @@ public class MarketGui implements UserInterface{
 		for (int i = 0; i<myInventoryBttns.length; i++) {myInventoryBttns[i].setSelected(false);}	
 		warningLabel.setText(null);
 	}
-	/* 
+
+	/**
 	 * function to help buying athletes
 	 * assign the athlete slot number and cancel all the toggle buttons clicked
-	 * @type of int that indicate the slot number of arrayList
+	 * @param slotNum type of int that indicate the slot number of arrayList
 	 */
 	private void buyAthlete(int slotNum) {
 		cancelBuyAhtleteToggle();
@@ -304,10 +323,11 @@ public class MarketGui implements UserInterface{
 		athleteDescriptionLabel.setText(printing(athleteList[slotNum]));
 		buyAthleteBttns[slotNum].setSelected(true);
 	}
-	/* 
+
+	/**
 	 * function to help buying items
 	 * assign the athlete slot number and cancel all the toggle buttons clicked
-	 * @type of int that indicate the slot number of arrayList
+	 * @param slotNum type of int that indicate the slot number of arrayList
 	 */
 	private void buyItem(int slotNum) {
 		cancelBuyItemToggle();
@@ -315,10 +335,11 @@ public class MarketGui implements UserInterface{
 		itemDescriptionLabel.setText(printing(itemList[slotNum]));
 		buyItemBttns[slotNum].setSelected(true);
 	}
-	/*
+
+	/**
 	 * Sell button is clicked, cancel all the other sell buttons,
 	 * and assign the index number of athlete list
-	 * @type of int that indicate the slot number of arrayList
+	 * @param slotNum type of int that indicate the slot number of arrayList
 	 */
 	private void sellAthlete(int slotNum) {
 			cancelSellAthleteItemToggle();
@@ -327,10 +348,10 @@ public class MarketGui implements UserInterface{
 			sellDescriptionLabel.setText(printing(myRoster[slotNum]));		
 			myRosterBttns[slotNum].setSelected(true);
 	}
-	/*
+	/**
 	 * Sell button is clicked, cancel all the other sell buttons,
 	 * and assign the index number of item list
-	 * @type of int that indicate the slot number of arrayList
+	 * @param slotNum type of int that indicate the slot number of arrayList
 	 */
 	private void sellItem(int slotNum) {
 			cancelSellAthleteItemToggle();
@@ -339,7 +360,7 @@ public class MarketGui implements UserInterface{
 			sellDescriptionLabel.setText(printing(myInventory[slotNum]));
 			myInventoryBttns[slotNum].setSelected(true);
 	}
-	/*
+	/**
 	 * update screen with the latest information.
 	 */
 	private void refreshWindow() {
@@ -365,7 +386,7 @@ public class MarketGui implements UserInterface{
 			else{myInventoryBttns[i].setEnabled(true);}
 			}	
 	}
-	/*
+	/**
 	 * show the current athletes and items that the player has
 	 */
 	private void setSellAthleteItemPanel() {
@@ -435,7 +456,8 @@ public class MarketGui implements UserInterface{
 		myInventoryBttns[9].addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {sellItem(9);}});
 	}
-	/*
+
+	/**
 	 * set all the buttons on window, but not in the panel.
 	 */
 	private void setButton() {
@@ -523,7 +545,8 @@ public class MarketGui implements UserInterface{
 
 
 	}
-	/*
+
+	/**
 	 * make a panel to show the information of athletes and items when the player click
 	 */
 	private void setAthleteItemInfoPanel() {
@@ -577,13 +600,15 @@ public class MarketGui implements UserInterface{
 		setSellAthleteItemInfoPanel.add(sellDescriptionLabel);
 		
 	}
-	/*
+
+	/**
 	 * close Market window ( it will be called from gameEnvironment)
 	 */
 	public void closeWindow() {
 		frmMarket.dispose();
 	}
-	/*
+
+	/**
 	 * close Market window
 	 */
 	public void finishedWindow() {
