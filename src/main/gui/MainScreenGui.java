@@ -606,7 +606,7 @@ public class MainScreenGui implements UserInterface{
 	 */
 	private boolean isRandomEvent() {
 		boolean happened =false;
-		if(!isRandomLeave && gameEnvironment.randomLeaveEvent() != null) {	
+		if(!isRandomLeave && gameEnvironment.randomLeaveEvent()) {	
 			athleteRandomLeft();
 			isRandomLeave = true;
 			refreshWindow();

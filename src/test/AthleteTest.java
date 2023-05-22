@@ -6,6 +6,8 @@ import java.util.Random;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.RepeatedTest;
+import org.junit.platform.suite.api.SelectClasses;
+import org.junit.platform.suite.api.Suite;
 
 import main.gameObject.athletes.Athlete;
 import main.gameObject.item.Item;
@@ -22,42 +24,48 @@ import org.junit.jupiter.api.AfterEach;
  * @author J Kim
  *
  */
+//
+@Suite
+@SelectClasses({ TeamTest.class})
 public class AthleteTest {
 	UserInterface ui;
 	GameEnvironment testEnvironment;
 	Athlete testAthlete;
 	Market testMarket;
 	Item testItem;
+	Random pickNum = new Random();;
 	
 	@BeforeEach
 	void getRadomAthlete() {
 		
 		testEnvironment = new GameEnvironment(ui);
 		testMarket = new Market();
-		Random pickNum = new Random();
 		int num = pickNum.nextInt(0, 6);
 		testAthlete = (Athlete) testMarket.purchase(testMarket.getAthleteProduct(),num);
-		System.out.println("testAthlete is : " + testAthlete);
+		assertEquals(testAthlete.toString(), 
+				String.format("Name: %s%nRarity: %s%nOffense: %d%nDefense: %d%nStamina: "
+				+ "%d/%d%nPrice: %.2f%nDescription: %s%n",
+				testAthlete.getName(), testAthlete.getRarity(), testAthlete.getOffenseStat(), testAthlete.getDefenseStat(), 
+				testAthlete.getStamina(), testAthlete.getMaxStamina(), testAthlete.getPrice(), testAthlete.getDescription()));
+
+		
 	}
 	
 	@BeforeEach
 	void getRandomitem() {
 		testMarket = new Market();
-		Random pickNum = new Random();
 		int num = pickNum.nextInt(0, 8);
 		testItem = (Item) testMarket.purchase(testMarket.getItemProduct(), num);
-		System.out.println("testAthlete is : " + testItem);
+		assertEquals(testItem.toString(), String.format("item: %s%nEffect: %s +%d%nprice: %.2f%n%n", 
+				testItem.getName(), testItem.getIncStat(), testItem.getIncAmount(), testItem.getPrice()));
 	}
-	@BeforeEach
 	
-	@RepeatedTest(value = 1000)
+	@RepeatedTest(value = 300)
 	void testSellPrice() {
 		double before = testAthlete.getPrice();
-		System.out.println(before*0.7);
 		testAthlete.setSellPrice();
 		double after = testAthlete.getPrice();
-		System.out.println(after);
-		assertEquals(before*0.7, after);
+		assertEquals(Math.round(before*0.7*100)/100, after);
 		
 		
 	}

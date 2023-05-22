@@ -415,39 +415,30 @@ public class GameEnvironment {
 	 * random event method for athletes leave event if athlete is injured
 	 * @return arraylist with added players where the event occurred
 	 */
-	public ArrayList<Athlete> randomLeaveEvent() {
-
-		ArrayList<Athlete> result = new ArrayList<>();
-
-		float percentage = 3.0f;
+	public boolean randomLeaveEvent() {
+		
+		ArrayList<Athlete> temp = new ArrayList<>();
+		float percentage = 2.0f;
 		float percentageInjured = 7.85f;
 
-		for(Athlete athlete : this.getTeam().getRoster()){
-
-			//although Team getRoster method returns array it still works since the type is actually arraylist.
-			if (athlete == null) { break; }
-
-			else if (!athlete.isInjured()) {
-				// normal case of leaving team
-				if(setup.event(percentage)) {
-					result.add(athlete);
-					team.leaveAthletes(athlete);
-				}
-			}
-
-			else {
-				if(setup.event(percentageInjured)) {
-					result.add(athlete);
-					team.leaveAthletes(athlete);
-				}
-			}
-		}
-
-		//return null if no events occurs
-		if(result.size() == 0) result = null;
-		return result;
+		if (setup.event(percentage)) {
+			for(Athlete athlete : this.getTeam().getRoster()) {
+				if (athlete == null) { break; }
+				else if(!athlete.isInjured()){
+					temp.add(athlete);}
+		}}
+		else if(setup.event(percentageInjured)) {
+			for(Athlete athlete : this.getTeam().getRoster()) {
+				if (athlete == null) { break; }
+				else if(athlete.isInjured()){
+					temp.add(athlete);}
+		}}
+		if (temp.size() ==0) {return false;}
+		else
+			team.leaveAthletes(temp.get(SetUp.randomInt(0, temp.size())));
+			return true;
 	}
-
+	
 	/**
 	 * Random event method for upgrade athletes stats
 	 * @return arraylist with added players where the event occurred
@@ -457,7 +448,7 @@ public class GameEnvironment {
 		ArrayList<Athlete> result = new ArrayList<>();
 
 		// event trigger
-		float percentage = 6.55f;
+		float percentage = 1.35f;
 		for (Athlete athlete : this.getTeam().getRoster()){
 
 
@@ -483,7 +474,7 @@ public class GameEnvironment {
 		boolean result = false;
 
 		// event trigger
-		float percentage = 6.53f;
+		float percentage = 1.33f;
 		if (setup.event(percentage) && !this.getTeam().isFull()) {
 
 			this.team.recruitAthletes(market.athleteBuilder());
