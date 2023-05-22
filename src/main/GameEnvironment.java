@@ -534,30 +534,35 @@ public class GameEnvironment {
 
 	/**
 	 *close GUI Setup Window
+	 * @param setupWindow setup window to be closed
 	 */
 	public void closeSetupWindow(SetupWindowGui setupWindow) {
 		setupWindow.closeWindow();
 	}
 	/**
 	 *close GUI Main Window
+	 * @param mainWindow main window to be closed
 	 */
 	public void closeMainWindow(MainScreenGui mainWindow) {
 		mainWindow.closeWindow();
 	}
 	/**
 	 *close GUI Market Window
+	 * @param marketWindow Market Window to be closed
 	 */
 	public void closeMarketWindow(MarketGui marketWindow) {
 		marketWindow.closeWindow();
 	}
 	/**
 	 *close GUI Opponent selecting Window
+	 * @param selectOpponentWindow Opponent Selection window to be closed
 	 */
 	public void closeSelectingOpponent(SelectOpponentGui selectOpponentWindow) {
 		selectOpponentWindow.closeWindow();
 	}
 	/**
 	 *close GUI Stadium Window
+	 * @param stadiumWindow window to be closed
 	 */
 	public void closeStadiumWindow(StadiumGui stadiumWindow) {
 		stadiumWindow.closeWindow();
@@ -565,6 +570,7 @@ public class GameEnvironment {
 
 	/**
 	 *close GUI Improving Athlete Window
+	 * @param ImprovingWindow window to be closed
 	 */
 	public void closeImprovingWindow(ImprovingAthleteGui ImprovingWindow) {
 		ImprovingWindow.closeWindow();

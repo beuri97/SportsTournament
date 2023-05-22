@@ -6,6 +6,9 @@ package main.gameObject.item;
  */
 public class FattyPorkBelly extends Item{
 
+	/**
+	 * Constructor to give specification of Item {@link FattyPorkBelly} to super class {@link Item}
+	 */
 	public FattyPorkBelly() {
 		super("FattyPorkBelly", 30, 20, "Defense");
 
