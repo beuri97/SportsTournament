@@ -11,7 +11,6 @@ import javax.swing.border.LineBorder;
 
 import main.GameEnvironment;
 import main.Gui;
-import main.UserInterface;
 import main.gameObject.athletes.Athlete;
 import main.gamesystem.SetUp;
 
@@ -116,7 +115,7 @@ public class ImprovingAthleteGui extends Gui {
 		
 		for (int i=0; i<myRoster.length; i++) {
 			athleteBttn[i] = new JButton(printingName(myRoster[i]));
-			athleteBttn[i].setEnabled(isEmpty(myRoster[0]));
+			if (myRoster[i] == null) {athleteBttn[i].setEnabled(false);}
 			bttnPanel.add(athleteBttn[i]);}
 		
 		athleteBttn[0].setFont(new Font("Dialog", Font.BOLD, 22));
@@ -177,16 +176,6 @@ public class ImprovingAthleteGui extends Gui {
 		athleteInfo.setFont(new Font("Dialog", Font.PLAIN, 18));
 		athleteInfo.setBounds(22, 118, 366, 418);
 		setAthleteInfoPanel.add(athleteInfo);
-	}
-
-	/**
-	 * check if the athlete from team is null.
-	 * @param athlete type of Athlete which indicates the athlete in the arrayList.
-	 * @return true if the slot is empty
-	 */
-	private boolean isEmpty(Athlete athlete) {
-		if (athlete == null) { return false;}
-		else {return true;}
 	}
 	
 	/**

@@ -153,7 +153,9 @@ public class GameManager {
             this.playerSetScore = 0;
             this.opponentSetScore = 0;
             setNumber++;
-            this.playerOnStadium();
+        }
+        if(!isGame()) {
+        	this.playerOnStadium();
         }
 
         return result;
