@@ -83,7 +83,7 @@ public class GameOverGui extends Gui {
 		//the game result as arrayList contains how many matches the player had and how many victories the player had
 		int[] playerOverall = super.gameEnvironment.getPlayerOverall();
 		//the percentage of victory
-		float rate = (playerOverall[1] != 0) ? (float)(playerOverall[0]/playerOverall[1])*100 : 0;
+		double rate = (playerOverall[1] != 0) ? ((double) playerOverall[0] /playerOverall[1])*100 : 0;
 		finalResultLabel.setText(String.format("<html> You played %d week(s) out of %d weeks%n <br/><br/> "
 								+ "Your game Summary: <br/>"
 								+ "Your game difficulty was %s <br/> "

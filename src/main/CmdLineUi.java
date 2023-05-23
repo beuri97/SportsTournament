@@ -611,7 +611,7 @@ public class CmdLineUi implements UserInterface {
 		int lastSeason = gameEnvironment.getCurrentSeason();
 		int totalSeason = gameEnvironment.getTotalSeason();
 		int[] playerOverall = gameEnvironment.getPlayerOverall();
-		float rate = (playerOverall[1] != 0) ? (float)(playerOverall[0]/playerOverall[1])*100 : 0;
+		double rate = (playerOverall[1] != 0) ? ((double) playerOverall[0] /playerOverall[1])*100 : 0;
 
 		System.out.println("GAME OVER");
 		System.out.printf("You played %d week(s) out of %d seeks%n", lastSeason, totalSeason);
