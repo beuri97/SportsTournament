@@ -89,10 +89,6 @@ public class GameManager {
         this.difficulty = difficulty;
         this.setNumber = 1;
         this.playerOnStadium();
-        this.buffOffensive = playerAthlete.getOffenseStat() +30;
-        this.nerfOffensive = playerAthlete.getOffenseStat() + 10;
-        this.buffDefensive = playerAthlete.getDefenseStat() + 15;
-        this.nerfDefensive = playerAthlete.getDefenseStat() + 5;
     }
 
 
