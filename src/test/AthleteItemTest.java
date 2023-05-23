@@ -9,8 +9,12 @@ import org.junit.jupiter.api.RepeatedTest;
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
 
+import main.GameEnvironment;
+import main.UserInterface;
+import main.gameObject.Product;
 import main.gameObject.athletes.Athlete;
 import main.gameObject.item.Item;
+import main.gamesystem.DifficultyOption;
 import main.gamesystem.Market;
 
 
@@ -19,19 +23,32 @@ import org.junit.jupiter.api.AfterEach;
 
 
 /**
- * JUnit Test for Athlete class, but it will run Team Test together.
- * These test will cover Item class, Market class, Athlete class and Team class.
+ * JUnit Test for Athlete class and Item class,, but it will cover Market class and Team class partially.
  * @author J Kim
- *
  */
-//
-@Suite
-@SelectClasses({ TeamTest.class})
-public class AthleteTest {
+public class AthleteItemTest {
+	/**
+	 * create temporary UserInterface for JUnit test
+	 */
+	UserInterface ui = null;
+	/**
+	 * the core of this game
+	 */
+	GameEnvironment ge;
+	/**
+	 * create variable for the type of Athlete to test Athlete class
+	 */
 	Athlete testAthlete;
+	/**
+	 * create variable for the type of Market to trade athlete and items
+	 */
 	Market testMarket;
-	Item testItem;
+	/**
+	 * create variable of Random type to make random numbers in the test
+	 */
 	Random pickNum = new Random();;
+	
+	
 	
 	
 	/**
@@ -61,7 +78,7 @@ public class AthleteTest {
 	void getRandomitem() {
 		testMarket = new Market();
 		int num = pickNum.nextInt(0, 8);
-		testItem = (Item) testMarket.purchase(testMarket.getItemProduct(), num);
+		Item testItem = (Item) testMarket.purchase(testMarket.getItemProduct(), num);
 		assertEquals(testItem.toString(), String.format("item: %s%nEffect: %s +%d%nprice: %.2f%n%n", 
 				testItem.getName(), testItem.getIncreaseStat(), testItem.getIncreaseAmount(), testItem.getPrice()));
 	}
@@ -121,6 +138,49 @@ public class AthleteTest {
 		testAthlete.setDefenseStat(40);
 		assertEquals(testDeffStat, testAthlete.getDefenseStat());	
 	}
+	
+	/**
+	 * testing fuction to buy/sell athlete and item and check whether they are in player's roster and inventory or not.
+	 */
+	@AfterEach
+	void testTradingUsingItem() {
+		ge = new GameEnvironment(ui);
+		ge.set("teamTestName", 5, DifficultyOption.EASY);
+		testMarket = new Market();
+		
+		Product[] athleteMarket = testMarket.getAthleteProduct();
+		ge.tradingProcess("buy",athleteMarket , 0);
+		Athlete athlete = ge.getTeam().getRoster()[0];
+		
+		Product[] itemMarket = testMarket.getItemProduct();
+		ge.tradingProcess("buy",itemMarket, 0);
+		Item item = ge.getTeam().getInventory()[0];
+		
+		String statName = item.getIncreaseStat();
+		int increasingAmount = item.getIncreaseAmount();
+		int originalStat;
+		
+		if(statName == "Defense") {originalStat = athlete.getDefenseStat();}
+		else if(statName == "Offense") {originalStat = athlete.getOffenseStat();}
+		else {originalStat = athlete.getStamina();}
+		
+		ge.useItem(0, 0);
+		
+		if(statName == "Defense") {assertEquals(athlete.getDefenseStat(), originalStat + increasingAmount);}
+		else if(statName == "Offense") {assertEquals(athlete.getOffenseStat(), originalStat + increasingAmount);}
+		else {assertEquals(athlete.getStamina(), originalStat);}
+		
+		ge.tradingProcess("sell", ge.getTeam().getRoster() , 0);
+		ge.tradingProcess("buy",itemMarket, 1);
+		ge.tradingProcess("sell", ge.getTeam().getInventory() , 0);
+		assertEquals(null, ge.getTeam().getRoster()[0]);
+		assertEquals(null, ge.getTeam().getInventory()[0]);
+		
+	}
+	
+	
+	
+			
 
 	
 }
