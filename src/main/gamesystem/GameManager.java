@@ -89,10 +89,6 @@ public class GameManager {
         this.difficulty = difficulty;
         this.setNumber = 1;
         this.playerOnStadium();
-        this.buffOffensive = playerAthlete.getOffenseStat() +30;
-        this.nerfOffensive = playerAthlete.getOffenseStat() + 10;
-        this.buffDefensive = playerAthlete.getDefenseStat() + 15;
-        this.nerfDefensive = playerAthlete.getDefenseStat() + 5;
     }
 
 
@@ -148,9 +144,8 @@ public class GameManager {
     public boolean isSet() {
 
         boolean result = false;
-        /**
-         * Define total number of set score of each set
-         */
+
+        //Define total number of set score of each set
         final int SET_SCORE = 3;
 
         if (this.playerSetScore == SET_SCORE || this.opponentSetScore == SET_SCORE) {
@@ -278,6 +273,10 @@ public class GameManager {
 
         this.playerAthlete = this.player.getRoster()[this.setNumber - 1];
         this.opponentAthlete = this.opponent.getRoster()[this.setNumber -1];
+        this.buffOffensive = playerAthlete.getOffenseStat() +30;
+        this.nerfOffensive = playerAthlete.getOffenseStat() + 10;
+        this.buffDefensive = playerAthlete.getDefenseStat() + 15;
+        this.nerfDefensive = playerAthlete.getDefenseStat() + 5;
     }
 
     /**
