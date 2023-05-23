@@ -1,9 +1,7 @@
+package main;
 
 import javax.swing.SwingUtilities;
 
-import main.CmdLineUi;
-import main.GameEnvironment;
-import main.UserInterface;
 import main.gui.SetupWindowGui;
 
 
