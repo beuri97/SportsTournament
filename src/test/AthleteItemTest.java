@@ -6,8 +6,8 @@ import java.util.Random;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.RepeatedTest;
-import org.junit.platform.suite.api.SelectClasses;
-import org.junit.platform.suite.api.Suite;
+// import org.junit.platform.suite.api.SelectClasses;
+// import org.junit.platform.suite.api.Suite;
 
 import main.GameEnvironment;
 import main.UserInterface;
