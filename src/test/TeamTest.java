@@ -17,18 +17,32 @@ import main.gameObject.athletes.Athlete;
 
 
 /**
- * This JUnit class will be run when AthleteTest class runs.
- * JUnit Test for Team class
+ * JUnit Test for Team class, but it partially covers Market class, athlete class and gameEnvironment class
+ * It wouldn't test methods about game match in team class, so coverage is around 57%
  * @author J Kim
  *
  */
 
 class TeamTest {
-	
+	/**
+	 * create temporary UserInterface for JUnit test
+	 */
 	UserInterface ui = null;
+	/**
+	 * the core of this game
+	 */
 	GameEnvironment ge;
+	/**
+	 * create type of Team to test the methods in the team class
+	 */
 	Team testTeam;
+	/**
+	 * create variable of Random type to make random numbers in the test
+	 */
 	Random pickNum = new Random();
+	/**
+	 * create variable of Market type to refresh Market for the test
+	 */
 	Market testMarket;
 	
 	
@@ -160,13 +174,15 @@ class TeamTest {
 	 */
 	@Test
 	void checkSwap() {
-		Team testTeam = new Team();
-		for (int i = 0; i< 7; i++ ) {testTeam.recruitAthletes(getRadomAthlete());}
-		Athlete a1 = testTeam.getRoster()[2];
-		Athlete a2 = testTeam.getRoster()[4];
-		testTeam.swapAthletes(2,4);
-		assertEquals(a1,testTeam.getRoster()[4]);
-		assertEquals(a2,testTeam.getRoster()[2]);
+		
+		ge = new GameEnvironment(ui);
+		ge.set("teamTestName", 5, DifficultyOption.EASY);
+		for (int i = 0; i< 7; i++ ) {ge.getTeam().recruitAthletes(getRadomAthlete());}
+		Athlete a1 = ge.getTeam().getRoster()[2];
+		Athlete a2 = ge.getTeam().getRoster()[4];
+		ge.swap(2, 4);
+		assertEquals(a1,ge.getTeam().getRoster()[4]);
+		assertEquals(a2,ge.getTeam().getRoster()[2]);
 		
 	}
 	
